@@ -1,0 +1,343 @@
+﻿
+/*--- GLOBAL ---*/
+
+html, body, input, select, textarea {
+    font-size: 12pt;
+    font-family: Arial;
+}
+
+body, form, iframe, h1, h2, h3, h4, h5, h6 {
+    margin: 0px;
+    padding: 0px;
+}
+
+header, nav, aside, section, article, footer {
+    display: block;
+}
+
+input, textarea {
+    border: 1px solid #999999;
+    padding: 5px;
+}
+
+select {
+    border: 1px solid #999999;
+    padding: 4px;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+/*--- ID ---*/
+
+#secForm {
+    background-color: #eeeeee;
+    margin: 10px 0px;
+    padding: 0px;
+}
+
+    #secForm .close {
+        background-color: #cccccc;
+        padding: 5px;
+    }
+
+#secTable {
+    margin: 10px 0px;
+}
+
+/*--- GLOBAL CLASSES ---*/
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.block {
+    display: block;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.message {
+    color: green;
+}
+
+.attention {
+    color: red;
+}
+
+.error {
+    color: red;
+}
+
+.no-line {
+    text-decoration: none;
+}
+
+.font-mono {
+    font-family: monospace;
+}
+
+.no-display {
+    display: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.bg-gray {
+    background-color: #eeeeee;
+}
+
+.bg-green {
+    background-color: #66ff00;
+}
+
+.bg-yellow {
+    background-color: lightyellow;
+}
+
+/*--- BODY ---*/
+
+/*.div-wrapper {
+    max-width: 990px;
+    min-width: 330px;
+    margin: 0px auto;
+    padding: 5px;
+}*/
+
+.div-wrapper {
+    max-width: 96%;
+    min-width: 990px;
+    margin: 0px auto;
+    padding: 5px;
+}
+
+
+/*--- NAVIGATION ---*/
+
+.ul-navigation-horisontal {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+    .ul-navigation-horisontal li {
+        float: left;
+        margin: 0px 10px;
+    }
+
+.div-navigation-item {
+    display: inline;
+    padding: 10px;
+}
+
+/*--- FORM / SEARCH / EXCEL ---*/
+
+.section-form, .section-search, .section-excel {
+    background-color: #eeeeee;
+    margin: 10px 0px;
+}
+
+.section-search, .section-excel {
+    display: none;
+}
+
+.section-excel {
+    padding: 15px;
+}
+
+.div-message, .div-form-message {
+    border: 1px solid #999999;
+    background-color: lightyellow;
+    padding: 10px;
+}
+
+.div-form-message {
+    margin: 10px;
+}
+
+.hed-search {
+    background-color: #cccccc;
+    padding: 5px;
+}
+
+.div-search-command {
+    background-color: #cccccc;
+    padding: 5px;
+}
+
+.hed-form {
+    margin: 10px;
+}
+
+.frame-form {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.div-form-item {
+    margin: 10px;
+}
+
+.div-form-item-list {
+    border: 1px solid #cccccc;
+    overflow: auto;
+    padding: 5px;
+    max-height: 120px;
+}
+
+.div-form-field-long {
+    width: 600px;
+    margin: 10px;
+}
+
+.div-form-field, .div-form-field-phone, .div-form-field-range {
+    width: 290px;
+    margin: 10px;
+}
+
+    .div-form-field input, .div-form-field textarea {
+        width: 96%;
+    }
+
+        .div-form-field input[type="checkbox"], .div-form-field input[type="radio"],
+        .div-form-item input[type="checkbox"], .div-form-item input[type="radio"],
+        .div-form-item-border input[type="checkbox"], .div-form-item-border input[type="radio"] {
+            width: 20px;
+        }
+
+    .div-form-field select, .div-form-field img {
+        width: inherit;
+    }
+
+    .div-form-field span[class="read-only"] {
+        border: 1px solid #cccccc;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 4px;
+        height: 20px;
+        width: inherit;
+    }
+
+    .div-form-field-phone input {
+        width: 70%;
+    }
+
+    .div-form-field-phone select {
+        width: 24%;
+    }
+
+    .div-form-field-range input {
+        margin: 2px 0px;
+    }
+
+    .div-form-field-range input[data-type="label"] {
+        border: 0px;
+        background-color: transparent;
+        width: 20%;
+    }
+
+    .div-form-field-range input[data-type="value"] {
+        width: 70%;
+    }
+
+.div-form-command {
+    margin: 10px;
+    white-space: nowrap;
+}
+
+    .div-form-command input[type="submit"] {
+        width: 150px;
+    }
+
+/*--- TABLE ---*/
+
+table {
+    border: 0px none;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+    table td, table th {
+        border: 0px none;
+        padding: 0px;
+    }
+
+.table {
+    width: 100%;
+}
+
+.table, .table-sub, .table-center {
+    border: 1px solid #000000;
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+    .table tr[class="selected"],
+    .table-sub tr[class="selected"] {
+        background-color: #eeeeee;
+    }
+
+    .table tr[class="updated"],
+    .table-sub tr[class="updated"] {
+        background-color: #66ff00;
+    }
+
+    .table td, .table th,
+    .table-sub td, .table-sub th,
+    .table-center td, .table-center th {
+        border: 1px solid #000000;
+        padding: 5px;
+    }
+
+    .table-center td, .table-center th {
+        text-align: center;
+    }
+
+.table-list, .table-list-sub {
+    border: 0px none;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+    .table-list td, .table-list th {
+        border: 0px none;
+        padding: 5px;
+    }
+
+    .table-list-sub td, .table-list-sub th {
+        border: 0px none;
+        padding: 0px;
+    }
+
+
+.table-data {
+    font-size: 10pt;
+    border: 0px none;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+    .table-data td, .table-data th {
+        border-bottom: 1px solid #cccccc;
+        padding: 5px;
+    }

@@ -1,0 +1,2 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InsideFieldData.ascx.cs" Inherits="MatchBox.InsideFieldData" %>
+<asp:GridView ID="gvInside1" runat="server" AutoGenerateColumns="true" ShowHeader="false" CssClass="table-data" />

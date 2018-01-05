@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{55E4003D-ACDA-4F77-A78D-AB875DC945E5}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MatchBox</RootNamespace>
+    <AssemblyName>MatchBox</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.87.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.87.1\lib\net40\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminData.aspx" />
+    <Content Include="AgreementClub.ascx" />
+    <Content Include="AgreementDiscount.ascx" />
+    <Content Include="AgreementForm.ascx" />
+    <Content Include="AgreementHead.ascx" />
+    <Content Include="AgreementItem.ascx" />
+    <Content Include="AgreementPayment.ascx" />
+    <Content Include="AgreementPeriod.ascx" />
+    <Content Include="AgreementView.aspx" />
+    <Content Include="App_CSS\Main.css" />
+    <Content Include="App_JS\jquery.min.js" />
+    <Content Include="App_JS\Main.js" />
+    <Content Include="BranchForm.ascx" />
+    <Content Include="CashBoxForm.ascx" />
+    <Content Include="CashBoxHead.ascx" />
+    <Content Include="CashBoxPeriod.ascx" />
+    <Content Include="CashBoxView.aspx" />
+    <Content Include="CompanyAgreement.ascx" />
+    <Content Include="CompanyCashBox.ascx" />
+    <Content Include="CompanyHead.ascx" />
+    <Content Include="DataFieldPriority.aspx" />
+    <Content Include="DataFileForm.ascx" />
+    <Content Include="DataFileView.aspx" />
+    <Content Include="DataInspector.aspx" />
+    <Content Include="DataSummary.aspx" />
+    <Content Include="Images\FhHRx.gif" />
+    <Content Include="InsideFieldData.ascx" />
+    <Content Include="MatchingDetails.ascx" />
+    <Content Include="MatchingForm.ascx" />
+    <Content Include="MatchingNew.aspx" />
+    <Content Include="MatchingView.aspx" />
+    <Content Include="NetworkForm.ascx" />
+    <Content Include="NetworkView.aspx" />
+    <Content Include="StrategyData.ascx" />
+    <Content Include="StrategyForm.ascx" />
+    <Content Include="StrategyHead.ascx" />
+    <Content Include="StrategyView.aspx" />
+    <Content Include="TemplateForm.ascx" />
+    <Content Include="TemplateView.aspx" />
+    <Content Include="BranchView.aspx" />
+    <Content Include="CompanyForm.ascx" />
+    <Content Include="CompanyView.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="FrameForm.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
+    <Content Include="Registration.aspx" />
+    <Content Include="UserSettings.aspx" />
+    <Content Include="UserDetails.aspx" />
+    <Content Include="UserForm.ascx" />
+    <Content Include="UserView.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminData.aspx.cs">
+      <DependentUpon>AdminData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminData.aspx.designer.cs">
+      <DependentUpon>AdminData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementClub.ascx.cs">
+      <DependentUpon>AgreementClub.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementClub.ascx.designer.cs">
+      <DependentUpon>AgreementClub.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementDiscount.ascx.cs">
+      <DependentUpon>AgreementDiscount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementDiscount.ascx.designer.cs">
+      <DependentUpon>AgreementDiscount.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementForm.ascx.cs">
+      <DependentUpon>AgreementForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementForm.ascx.designer.cs">
+      <DependentUpon>AgreementForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementHead.ascx.cs">
+      <DependentUpon>AgreementHead.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementHead.ascx.designer.cs">
+      <DependentUpon>AgreementHead.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementItem.ascx.cs">
+      <DependentUpon>AgreementItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementItem.ascx.designer.cs">
+      <DependentUpon>AgreementItem.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementPayment.ascx.cs">
+      <DependentUpon>AgreementPayment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementPayment.ascx.designer.cs">
+      <DependentUpon>AgreementPayment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementPeriod.ascx.cs">
+      <DependentUpon>AgreementPeriod.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementPeriod.ascx.designer.cs">
+      <DependentUpon>AgreementPeriod.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="AgreementView.aspx.cs">
+      <DependentUpon>AgreementView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgreementView.aspx.designer.cs">
+      <DependentUpon>AgreementView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\Agreement.cs" />
+    <Compile Include="App_Code\AgreementClub.cs" />
+    <Compile Include="App_Code\AgreementDiscount.cs" />
+    <Compile Include="App_Code\AgreementItem.cs" />
+    <Compile Include="App_Code\AgreementPayment.cs" />
+    <Compile Include="App_Code\AgreementPeriod.cs" />
+    <Compile Include="App_Code\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\BasePageAdmin.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\CashBox.cs" />
+    <Compile Include="App_Code\CashBoxPeriod.cs" />
+    <Compile Include="App_Code\Combination.cs" />
+    <Compile Include="App_Code\Common.cs" />
+    <Compile Include="App_Code\Company.cs" />
+    <Compile Include="App_Code\Branch.cs" />
+    <Compile Include="App_Code\DataFile.cs" />
+    <Compile Include="App_Code\DataInspector.cs" />
+    <Compile Include="App_Code\DB.cs" />
+    <Compile Include="App_Code\Excel.cs" />
+    <Compile Include="App_Code\Mail.cs" />
+    <Compile Include="App_Code\AdminData.cs" />
+    <Compile Include="App_Code\Matching.cs" />
+    <Compile Include="App_Code\Network.cs" />
+    <Compile Include="App_Code\Strategy.cs" />
+    <Compile Include="App_Code\Supplier.cs" />
+    <Compile Include="App_Code\SupplierGroup.cs" />
+    <Compile Include="App_Code\SupplierTerminal.cs" />
+    <Compile Include="App_Code\Template.cs" />
+    <Compile Include="App_Code\Terminal.cs" />
+    <Compile Include="App_Code\User.cs" />
+    <Compile Include="BranchForm.ascx.cs">
+      <DependentUpon>BranchForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchForm.ascx.designer.cs">
+      <DependentUpon>BranchForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CashBoxForm.ascx.cs">
+      <DependentUpon>CashBoxForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CashBoxForm.ascx.designer.cs">
+      <DependentUpon>CashBoxForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CashBoxHead.ascx.cs">
+      <DependentUpon>CashBoxHead.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CashBoxHead.ascx.designer.cs">
+      <DependentUpon>CashBoxHead.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CashBoxPeriod.ascx.cs">
+      <DependentUpon>CashBoxPeriod.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CashBoxPeriod.ascx.designer.cs">
+      <DependentUpon>CashBoxPeriod.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CashBoxView.aspx.cs">
+      <DependentUpon>CashBoxView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CashBoxView.aspx.designer.cs">
+      <DependentUpon>CashBoxView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAgreement.ascx.cs">
+      <DependentUpon>CompanyAgreement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyAgreement.ascx.designer.cs">
+      <DependentUpon>CompanyAgreement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyCashBox.ascx.cs">
+      <DependentUpon>CompanyCashBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyCashBox.ascx.designer.cs">
+      <DependentUpon>CompanyCashBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyHead.ascx.cs">
+      <DependentUpon>CompanyHead.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyHead.ascx.designer.cs">
+      <DependentUpon>CompanyHead.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DataFieldPriority.aspx.cs">
+      <DependentUpon>DataFieldPriority.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataFieldPriority.aspx.designer.cs">
+      <DependentUpon>DataFieldPriority.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataFileForm.ascx.cs">
+      <DependentUpon>DataFileForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataFileForm.ascx.designer.cs">
+      <DependentUpon>DataFileForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DataFileView.aspx.cs">
+      <DependentUpon>DataFileView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataFileView.aspx.designer.cs">
+      <DependentUpon>DataFileView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataInspector.aspx.cs">
+      <DependentUpon>DataInspector.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataInspector.aspx.designer.cs">
+      <DependentUpon>DataInspector.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataSummary.aspx.cs">
+      <DependentUpon>DataSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataSummary.aspx.designer.cs">
+      <DependentUpon>DataSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InsideFieldData.ascx.cs">
+      <DependentUpon>InsideFieldData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InsideFieldData.ascx.designer.cs">
+      <DependentUpon>InsideFieldData.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingDetails.ascx.cs">
+      <DependentUpon>MatchingDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MatchingDetails.ascx.designer.cs">
+      <DependentUpon>MatchingDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingForm.ascx.cs">
+      <DependentUpon>MatchingForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MatchingForm.ascx.designer.cs">
+      <DependentUpon>MatchingForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingNew.aspx.cs">
+      <DependentUpon>MatchingNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MatchingNew.aspx.designer.cs">
+      <DependentUpon>MatchingNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MatchingView.aspx.cs">
+      <DependentUpon>MatchingView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MatchingView.aspx.designer.cs">
+      <DependentUpon>MatchingView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NetworkForm.ascx.cs">
+      <DependentUpon>NetworkForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NetworkForm.ascx.designer.cs">
+      <DependentUpon>NetworkForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="NetworkView.aspx.cs">
+      <DependentUpon>NetworkView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NetworkView.aspx.designer.cs">
+      <DependentUpon>NetworkView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StrategyData.ascx.cs">
+      <DependentUpon>StrategyData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StrategyData.ascx.designer.cs">
+      <DependentUpon>StrategyData.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="StrategyForm.ascx.cs">
+      <DependentUpon>StrategyForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StrategyForm.ascx.designer.cs">
+      <DependentUpon>StrategyForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="StrategyHead.ascx.cs">
+      <DependentUpon>StrategyHead.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StrategyHead.ascx.designer.cs">
+      <DependentUpon>StrategyHead.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="StrategyView.aspx.cs">
+      <DependentUpon>StrategyView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StrategyView.aspx.designer.cs">
+      <DependentUpon>StrategyView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateForm.ascx.cs">
+      <DependentUpon>TemplateForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TemplateForm.ascx.designer.cs">
+      <DependentUpon>TemplateForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateView.aspx.cs">
+      <DependentUpon>TemplateView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TemplateView.aspx.designer.cs">
+      <DependentUpon>TemplateView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BranchView.aspx.cs">
+      <DependentUpon>BranchView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchView.aspx.designer.cs">
+      <DependentUpon>BranchView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyForm.ascx.cs">
+      <DependentUpon>CompanyForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyForm.ascx.designer.cs">
+      <DependentUpon>CompanyForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyView.aspx.cs">
+      <DependentUpon>CompanyView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyView.aspx.designer.cs">
+      <DependentUpon>CompanyView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrameForm.aspx.cs">
+      <DependentUpon>FrameForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrameForm.aspx.designer.cs">
+      <DependentUpon>FrameForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration.aspx.cs">
+      <DependentUpon>Registration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registration.aspx.designer.cs">
+      <DependentUpon>Registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserSettings.aspx.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserSettings.aspx.designer.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserDetails.aspx.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserDetails.aspx.designer.cs">
+      <DependentUpon>UserDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserForm.ascx.cs">
+      <DependentUpon>UserForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserForm.ascx.designer.cs">
+      <DependentUpon>UserForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserView.aspx.cs">
+      <DependentUpon>UserView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserView.aspx.designer.cs">
+      <DependentUpon>UserView.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Main.Master" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Download\Terminal.xlsx" />
+    <Content Include="Download\Supplier.xlsx" />
+    <Content Include="Download\Branch.xlsx" />
+    <Content Include="Download\City.xlsx" />
+    <Content Include="Download\CashBox.xlsx" />
+    <Content Include="Download\SupplierTerminal.xlsx" />
+    <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52736</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:54957/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

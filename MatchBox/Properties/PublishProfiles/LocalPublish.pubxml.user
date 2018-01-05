@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\MatchBox\Desktop\MatchbosPublish</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="1.html">
+      <publishTime>12/04/2017 16:07:47</publishTime>
+    </File>
+    <File Include="AdminData.aspx">
+      <publishTime>09/05/2017 12:50:41</publishTime>
+    </File>
+    <File Include="AgreementClub.ascx">
+      <publishTime>09/05/2017 12:50:41</publishTime>
+    </File>
+    <File Include="AgreementDiscount.ascx">
+      <publishTime>11/27/2017 01:22:45</publishTime>
+    </File>
+    <File Include="AgreementForm.ascx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="AgreementHead.ascx">
+      <publishTime>05/20/2017 23:39:41</publishTime>
+    </File>
+    <File Include="AgreementItem.ascx">
+      <publishTime>11/27/2017 00:32:49</publishTime>
+    </File>
+    <File Include="AgreementPayment.ascx">
+      <publishTime>11/26/2017 19:03:18</publishTime>
+    </File>
+    <File Include="AgreementPeriod.ascx">
+      <publishTime>11/26/2017 18:43:50</publishTime>
+    </File>
+    <File Include="AgreementView.aspx">
+      <publishTime>08/15/2017 18:22:42</publishTime>
+    </File>
+    <File Include="App_CSS/Main.css">
+      <publishTime>12/13/2017 16:08:18</publishTime>
+    </File>
+    <File Include="App_JS/Main.js">
+      <publishTime>09/12/2017 17:21:03</publishTime>
+    </File>
+    <File Include="bin/ClosedXML.dll">
+      <publishTime>04/03/2017 10:10:06</publishTime>
+    </File>
+    <File Include="bin/DocumentFormat.OpenXml.dll">
+      <publishTime>08/04/2013 13:21:24</publishTime>
+    </File>
+    <File Include="bin/MatchBox.dll">
+      <publishTime>12/21/2017 15:04:25</publishTime>
+    </File>
+    <File Include="BranchForm.ascx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="BranchView.aspx">
+      <publishTime>09/05/2017 12:48:01</publishTime>
+    </File>
+    <File Include="CashBoxForm.ascx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="CashBoxHead.ascx">
+      <publishTime>04/04/2017 16:45:48</publishTime>
+    </File>
+    <File Include="CashBoxPeriod.ascx">
+      <publishTime>11/26/2017 18:43:50</publishTime>
+    </File>
+    <File Include="CashBoxView.aspx">
+      <publishTime>09/05/2017 12:48:00</publishTime>
+    </File>
+    <File Include="ChannelForm.ascx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="ChannelView.aspx">
+      <publishTime>07/17/2017 23:09:57</publishTime>
+    </File>
+    <File Include="CompanyAgreement.ascx">
+      <publishTime>04/14/2017 00:23:53</publishTime>
+    </File>
+    <File Include="CompanyCashBox.ascx">
+      <publishTime>04/08/2017 01:59:02</publishTime>
+    </File>
+    <File Include="CompanyForm.ascx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="CompanyHead.ascx">
+      <publishTime>04/08/2017 01:18:46</publishTime>
+    </File>
+    <File Include="CompanyView.aspx">
+      <publishTime>08/15/2017 18:32:44</publishTime>
+    </File>
+    <File Include="DataFieldPriority.aspx">
+      <publishTime>12/14/2017 14:29:59</publishTime>
+    </File>
+    <File Include="DataFileForm.ascx">
+      <publishTime>10/28/2017 23:48:53</publishTime>
+    </File>
+    <File Include="DataFileView.aspx">
+      <publishTime>09/28/2017 23:38:34</publishTime>
+    </File>
+    <File Include="DataInspector.aspx">
+      <publishTime>12/20/2017 13:30:33</publishTime>
+    </File>
+    <File Include="DataSummary.aspx">
+      <publishTime>08/23/2017 12:54:18</publishTime>
+    </File>
+    <File Include="Default.aspx">
+      <publishTime>11/22/2016 17:14:10</publishTime>
+    </File>
+    <File Include="Download/Branch.xlsx">
+      <publishTime>07/17/2017 13:47:35</publishTime>
+    </File>
+    <File Include="Download/CashBox.xlsx">
+      <publishTime>11/28/2017 13:50:05</publishTime>
+    </File>
+    <File Include="Download/City.xlsx">
+      <publishTime>07/17/2017 13:47:52</publishTime>
+    </File>
+    <File Include="Download/Supplier.xlsx">
+      <publishTime>07/17/2017 13:47:58</publishTime>
+    </File>
+    <File Include="Download/SupplierTerminal.xlsx">
+      <publishTime>10/29/2017 17:33:16</publishTime>
+    </File>
+    <File Include="Download/Terminal.xlsx">
+      <publishTime>07/17/2017 13:48:05</publishTime>
+    </File>
+    <File Include="Error.aspx">
+      <publishTime>11/24/2016 17:28:18</publishTime>
+    </File>
+    <File Include="FrameForm.aspx">
+      <publishTime>10/20/2017 12:49:21</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/22/2016 19:07:47</publishTime>
+    </File>
+    <File Include="Login.aspx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="Main.Master">
+      <publishTime>12/07/2017 19:48:15</publishTime>
+    </File>
+    <File Include="MatchingDetails.ascx">
+      <publishTime>09/18/2017 20:55:10</publishTime>
+    </File>
+    <File Include="MatchingForm.ascx">
+      <publishTime>09/19/2017 21:58:42</publishTime>
+    </File>
+    <File Include="MatchingNew.aspx">
+      <publishTime>09/26/2017 12:46:34</publishTime>
+    </File>
+    <File Include="MatchingView.aspx">
+      <publishTime>11/30/2017 20:37:55</publishTime>
+    </File>
+    <File Include="NetworkForm.ascx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="NetworkView.aspx">
+      <publishTime>08/15/2017 18:43:48</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>04/29/2017 16:33:10</publishTime>
+    </File>
+    <File Include="Registration.aspx">
+      <publishTime>09/05/2017 12:50:40</publishTime>
+    </File>
+    <File Include="StrategyData.ascx">
+      <publishTime>10/20/2017 10:11:49</publishTime>
+    </File>
+    <File Include="StrategyForm.ascx">
+      <publishTime>12/18/2017 12:49:56</publishTime>
+    </File>
+    <File Include="StrategyHead.ascx">
+      <publishTime>10/25/2017 15:18:36</publishTime>
+    </File>
+    <File Include="StrategyView.aspx">
+      <publishTime>10/25/2017 13:47:18</publishTime>
+    </File>
+    <File Include="TemplateForm.ascx">
+      <publishTime>12/18/2017 15:29:54</publishTime>
+    </File>
+    <File Include="TemplateView.aspx">
+      <publishTime>12/18/2017 18:11:48</publishTime>
+    </File>
+    <File Include="UserDetails.aspx">
+      <publishTime>11/28/2016 00:13:07</publishTime>
+    </File>
+    <File Include="UserForm.ascx">
+      <publishTime>09/05/2017 12:50:39</publishTime>
+    </File>
+    <File Include="UserSettings.aspx">
+      <publishTime>11/25/2017 19:48:25</publishTime>
+    </File>
+    <File Include="UserView.aspx">
+      <publishTime>08/15/2017 18:49:26</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/21/2017 15:04:43</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

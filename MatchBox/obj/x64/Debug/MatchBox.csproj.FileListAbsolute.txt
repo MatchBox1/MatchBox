@@ -1,0 +1,6 @@
+C:\Users\MatchBox\Google Drive\Projects\MatchBox\MatchBox\bin\MatchBox.dll.config
+C:\Users\MatchBox\Google Drive\Projects\MatchBox\MatchBox\bin\MatchBox.dll
+C:\Users\MatchBox\Google Drive\Projects\MatchBox\MatchBox\bin\MatchBox.pdb
+C:\Users\MatchBox\Google Drive\Projects\MatchBox\MatchBox\obj\x64\Debug\MatchBox.csprojResolveAssemblyReference.cache
+C:\Users\MatchBox\Google Drive\Projects\MatchBox\MatchBox\obj\x64\Debug\MatchBox.dll
+C:\Users\MatchBox\Google Drive\Projects\MatchBox\MatchBox\obj\x64\Debug\MatchBox.pdb
