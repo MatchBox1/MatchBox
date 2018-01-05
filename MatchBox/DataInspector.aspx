@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="DataInspector.aspx.cs" Inherits="MatchBox.DataInspector" %>
-
 <asp:Content ID="cntHead" ContentPlaceHolderID="cphHead" runat="server"></asp:Content>
 
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
