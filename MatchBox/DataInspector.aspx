@@ -32,7 +32,7 @@
         <div class="div-form-command">
             <asp:Button ID="btnSearchTop" runat="server" OnClick="Search_Click" OnClientClick="javascript: show_wait();" Text="Search" />
             &nbsp; &nbsp;
-            Page Size
+           <%-- Page Size
             <asp:DropDownList ID="ddlPageSize" runat="server">
                 <asp:ListItem Value="100" Text="100" />
                 <asp:ListItem Value="250" Text="250" />
@@ -41,7 +41,7 @@
                 <asp:ListItem Value="2500" Text="2500" />
                 <asp:ListItem Value="5000" Text="5000" />
                 <asp:ListItem Value="10000" Text="10000" />
-            </asp:DropDownList>
+            </asp:DropDownList>--%>
             &nbsp; &nbsp;
             <a href="DataInspector.aspx">Reset</a>
             &nbsp;
@@ -1116,7 +1116,7 @@
             left: 0;
             height: 100%;
             width: 100%;
-            background: rgba( 255, 255, 255, .8 ) url(Images/FhHRx.gif) 50% 50% no-repeat;
+            background: rgba( 255, 255, 255, .01 ) url(Images/FhHRx.gif) 50% 50% no-repeat;
         }
 
         body.loading {
@@ -1135,7 +1135,7 @@
             left: 0;
             height: 100%;
             width: 100%;
-            background: rgba( 255, 255, 255, .8 ) url(Images/FhHRx.gif) 50% 50% no-repeat;
+            background: rgba( 255, 255, 255, .01 ) url(Images/FhHRx.gif) 50% 50% no-repeat;
         }
 
         body.loadingOutside {
@@ -1182,7 +1182,6 @@
                 $("body").addClass("loading");
                 var hidUniqueID = $('#hidUniqueID').val();
                 var hidQueryID = $('#hidQueryID').val();
-                
                 var ddlTransactions = $('#ddlTransactions option:selected').val();
                 $.ajax({
                     type: "POST",
@@ -1238,8 +1237,6 @@
                         alert(response.d);
                         $("body").removeClass("loadingOutside");
                     }
-
-
                 });
             }
         }

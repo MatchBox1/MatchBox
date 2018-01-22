@@ -1710,7 +1710,10 @@ namespace MatchBox
 
                 ViewState["OrderInside"] = s_order_inside;
                 ViewState["OrderOutside"] = s_order_outside;
-
+                Session["WhereInside"] = s_where_inside;
+                Session["WhereOutside"] = s_where_outside;
+                Session["OrderInside"] = s_order_inside;
+                Session["OrderOutside"] = s_order_outside;
                 // GET INSIDE & OUTSIDE TABLES
 
                 DataTable dt_inside = new DataTable();
@@ -2443,7 +2446,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100,ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "") { goto Error; }
 
@@ -2509,7 +2512,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "")
             {
@@ -2568,7 +2571,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "")
             {
@@ -2715,7 +2718,7 @@ namespace MatchBox
 
             DataTable dt_inside = null, dt_outside = null, dt_inside_sum = null, dt_outside_sum = null;
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page,100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "") { goto Error; }
 
@@ -2856,7 +2859,7 @@ namespace MatchBox
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "")
             {
@@ -4098,6 +4101,7 @@ namespace MatchBox
             string s_error = "";
             string s_where_inside = Convert.ToString(Session["WhereInside"]);
             // check why session is null
+            if(string.IsNullOrEmpty(s_where_inside))
             s_where_inside = " AND QueryID IS NOT NULL ";
             string s_order_inside = Convert.ToString(Session["OrderInside"]);
             DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -4118,6 +4122,7 @@ namespace MatchBox
             string s_error = "";
             string s_where_outside = Convert.ToString(Session["WhereOutside"]);
             // check why session is null
+            if(string.IsNullOrEmpty(s_where_outside))
             s_where_outside = " AND QueryID IS NOT NULL ";
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
             DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error);
