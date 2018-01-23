@@ -1154,6 +1154,8 @@
         var pageSize = 20;
         var pageIndexOutside = 1;
         var pageCountOutside = 20;
+        var IsSorted = false;
+        var ISOutSorted = false;
         $(document).ready(function () {
             $("#dvGrid").on("scroll", function (e) {
                 var $o = $(e.currentTarget);
@@ -1167,7 +1169,117 @@
                     GetOutsideRecords();
                 }
             });
+            $("#tblInsideHead").on("click", 'td', function (event) {
+
+                var htmldata = '';
+                var index = getIndex(this);
+                $("[id$=gvInside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
+                    try {
+                        if (IsSorted == false) {
+                            if (isvalidDate(a.children[index].innerText)) {
+                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                            }
+                            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',','')) ? 1 : -1;
+                            }
+                            else {
+                                return a.children[index].innerText > b.children[index].innerText.replace(',','') ? 1 : -1;
+                            }
+                        }
+                        else
+                        {
+                            if (isvalidDate(a.children[index].innerText)) {
+                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                            }
+                            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',','')) ? -1 : 1;
+                            }
+                            else {
+                                return a.children[index].innerText > b.children[index].innerText.replace(',','') ? -1 : 1;
+                            }
+                        }
+                    }
+                    catch (err)
+                    {
+                    }
+                });
+                IsSorted=IsSorted ? false:true; 
+            });
+            
+            $("#tblOutsideHead").on("click", 'td', function (event) {
+
+                var htmldata = '';
+                var index = getIndex(this);
+
+                $("[id$=gvOutside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
+                    try {
+                        if (ISOutSorted == false) {
+                            if (isvalidDate(a.children[index].innerText))
+                            {
+                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                            }
+                            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                            }
+                            else {
+                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
+                            }
+                        }
+                        else
+                        {
+                            if (isvalidDate(a.children[index].innerText)) {
+                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                                //return new Date(Date.parse(a.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) > new Date(Date.parse(b.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) ? -1 :1;
+                            }
+                            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                            }
+                            else {
+                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? -1 : 1;
+                            }
+                        }
+                    }
+                    catch (err) {
+                    }
+                });
+                ISOutSorted = ISOutSorted ? false : true; 
+            });
+           
         });
+       //function isvalidDate(dateString)
+       // {
+
+       //    try {
+       //        if (!isNaN(new Date(Date.parse(dateString, "dd-MM-yyyy"))))
+       //            return true;
+       //        else
+       //            return false;
+       //     }
+       //     catch (err) {
+       //         return false;
+       //     }
+            
+       // }
+        function getcorrectDate(dateString)
+        {
+            dataparts = dateString.split('-');            
+            return new Date(dataparts[2], dataparts[1] - 1, dataparts[0]);
+           
+        }
+        function isvalidDate(dateString) {
+            dataparts = dateString.split('-');
+            if (dataparts.length > 1)
+                return true;
+            return false;
+        }
+        function getIndex(elm) {
+            var parent = elm.parentElement;
+            for (var i = 0; i < parent.children.length; i++) {
+                if (parent.children[i].isEqualNode(elm)) {
+                    return i;
+                }
+            }
+        }
         function GetRecords() {
             var rowText = $("[id$=lblInsideRows]").text();
             rowText = rowText.replace(",", "");
@@ -1201,6 +1313,51 @@
             }
         }
 
+        jQuery.fn.sortElements = (function () {
+
+            var sort = [].sort;
+
+            return function (comparator, getSortable) {
+
+                getSortable = getSortable || function () { return this; };
+
+                var placements = this.map(function () {
+
+                    var sortElement = getSortable.call(this),
+                        parentNode = sortElement.parentNode,
+
+                        // Since the element itself will change position, we have
+                        // to have some way of storing its original position in
+                        // the DOM. The easiest way is to have a 'flag' node:
+                        nextSibling = parentNode.insertBefore(
+                            document.createTextNode(''),
+                            sortElement.nextSibling
+                        );
+
+                    return function () {
+
+                        if (parentNode === this) {
+                            throw new Error(
+                                "You can't sort elements if any one is a descendant of another."
+                            );
+                        }
+
+                        // Insert before flag:
+                        parentNode.insertBefore(this, nextSibling);
+                        // Remove flag:
+                        parentNode.removeChild(nextSibling);
+
+                    };
+
+                });
+
+                return sort.call(this, comparator).each(function (i) {
+                    placements[i].call(getSortable.call(this));
+                });
+
+            };
+
+        })();
 
         function OnSuccess(response) {
             $("body").removeClass("loading");
