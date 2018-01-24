@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="DataInspector.aspx.cs" Inherits="MatchBox.DataInspector" %>
+
 <asp:Content ID="cntHead" ContentPlaceHolderID="cphHead" runat="server"></asp:Content>
 
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
@@ -875,8 +876,47 @@
         <div id="divInside" runat="server" class="float-left" style="width: 49%; position: relative;">
             <b>Inside</b> &nbsp; - &nbsp;
             <asp:LinkButton ID="btnDownloadInside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
+            <asp:TextBox ID="txtSearchInside" runat="server" Visible="false"></asp:TextBox>
 
             <style>
+                .table-data td, .table-data th {
+                    padding: 5px 0 5px 15px;
+                }
+
+                .table-data td {
+                    position: relative;
+                }
+
+                .arrowdu {
+                    background: url(./Images/arrowdu.png) no-repeat center center;
+                    width: 12px;
+                    height: 12px;
+                    display: inline-block;
+                    background-size: 10px 10px;
+                    float: left;
+                    position: absolute;
+                    left: 0;
+                    top: 20px;
+                    z-index: 9999;
+                }
+
+                .arrowup {
+                    background: url(./Images/arrowup.png) no-repeat center center;
+                    width: 12px;
+                    height: 12px;
+                    display: inline-block;
+                    background-size: 10px 10px;
+                    float: left;
+                    position: absolute;
+                    left: 0;
+                    top:20px;
+                    z-index: 9999;
+                }
+
+                .bg-gray td:first-child span {
+                    display: none;
+                }
+
                 #loader {
                     border: 16px solid #f3f3f3; /* Light grey */
                     border-top: 16px solid #3498db; /* Blue */
@@ -955,7 +995,7 @@
                             <asp:Label ID="lblInsideAmount" runat="server" /></td>
                         <td>&nbsp; &nbsp;</td>
                         <td>
-                            <asp:DropDownList ID="ddlInsidePage" visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Page_Changed" Width="100px" /></td>
+                            <asp:DropDownList ID="ddlInsidePage" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Page_Changed" Width="100px" /></td>
                     </tr>
                 </table>
             </div>
@@ -995,7 +1035,8 @@
                         <td>&nbsp; &nbsp;</td>
                         <td>Amount</td>
                         <td style="width: 100%;">&nbsp; &nbsp;</td>
-                        <td></td><%--Page--%>
+                        <td></td>
+                        <%--Page--%>
                     </tr>
                     <tr id="trOutsideSelected" runat="server" visible="false" style="height: 25px;">
                         <td class="bold">Selected</td>
@@ -1173,49 +1214,19 @@
 
                 var htmldata = '';
                 var index = getIndex(this);
+                $(this).parent().find('span').css('background-color', '');
+                $(this).parent().find('span').removeClass('arrowup');
+                $(this).parent().find('span').addClass('arrowdu');
+                $(this).find('span').css('background-color', 'red');
+                if (IsSorted == false)
+                    $(this).find('span').addClass('arrowdu');
+                else
+                    $(this).find('span').addClass('arrowup');
+               
                 $("[id$=gvInside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
                     try {
                         if (IsSorted == false) {
                             if (isvalidDate(a.children[index].innerText)) {
-                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
-                            }
-                            else if (!isNaN(parseInt(a.children[index].innerText))) {
-                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',','')) ? 1 : -1;
-                            }
-                            else {
-                                return a.children[index].innerText > b.children[index].innerText.replace(',','') ? 1 : -1;
-                            }
-                        }
-                        else
-                        {
-                            if (isvalidDate(a.children[index].innerText)) {
-                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
-                            }
-                            else if (!isNaN(parseInt(a.children[index].innerText))) {
-                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',','')) ? -1 : 1;
-                            }
-                            else {
-                                return a.children[index].innerText > b.children[index].innerText.replace(',','') ? -1 : 1;
-                            }
-                        }
-                    }
-                    catch (err)
-                    {
-                    }
-                });
-                IsSorted=IsSorted ? false:true; 
-            });
-            
-            $("#tblOutsideHead").on("click", 'td', function (event) {
-
-                var htmldata = '';
-                var index = getIndex(this);
-
-                $("[id$=gvOutside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
-                    try {
-                        if (ISOutSorted == false) {
-                            if (isvalidDate(a.children[index].innerText))
-                            {
                                 return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
                             }
                             else if (!isNaN(parseInt(a.children[index].innerText))) {
@@ -1225,8 +1236,51 @@
                                 return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
                             }
                         }
-                        else
-                        {
+                        else {
+                            if (isvalidDate(a.children[index].innerText)) {
+                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                            }
+                            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                            }
+                            else {
+                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? -1 : 1;
+                            }
+                        }
+                    }
+                    catch (err) {
+                    }
+                });
+                IsSorted = IsSorted ? false : true;
+            });
+
+            $("#tblOutsideHead").on("click", 'td', function (event) {
+
+                var htmldata = '';
+                var index = getIndex(this);
+                $(this).parent().find('span').css('background-color', '');
+                $(this).parent().find('span').removeClass('arrowup');
+                $(this).parent().find('span').addClass('arrowdu');
+                $(this).find('span').css('background-color', 'red');
+                if (ISOutSorted == false)
+                    $(this).find('span').addClass('arrowdu');
+                else
+                    $(this).find('span').addClass('arrowup');
+
+                $("[id$=gvOutside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
+                    try {
+                        if (ISOutSorted == false) {
+                            if (isvalidDate(a.children[index].innerText)) {
+                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                            }
+                            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                            }
+                            else {
+                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
+                            }
+                        }
+                        else {
                             if (isvalidDate(a.children[index].innerText)) {
                                 return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
                                 //return new Date(Date.parse(a.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) > new Date(Date.parse(b.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) ? -1 :1;
@@ -1242,29 +1296,28 @@
                     catch (err) {
                     }
                 });
-                ISOutSorted = ISOutSorted ? false : true; 
+                ISOutSorted = ISOutSorted ? false : true;
             });
-           
-        });
-       //function isvalidDate(dateString)
-       // {
 
-       //    try {
-       //        if (!isNaN(new Date(Date.parse(dateString, "dd-MM-yyyy"))))
-       //            return true;
-       //        else
-       //            return false;
-       //     }
-       //     catch (err) {
-       //         return false;
-       //     }
-            
-       // }
-        function getcorrectDate(dateString)
-        {
-            dataparts = dateString.split('-');            
+        });
+        //function isvalidDate(dateString)
+        // {
+
+        //    try {
+        //        if (!isNaN(new Date(Date.parse(dateString, "dd-MM-yyyy"))))
+        //            return true;
+        //        else
+        //            return false;
+        //     }
+        //     catch (err) {
+        //         return false;
+        //     }
+
+        // }
+        function getcorrectDate(dateString) {
+            dataparts = dateString.split('-');
             return new Date(dataparts[2], dataparts[1] - 1, dataparts[0]);
-           
+
         }
         function isvalidDate(dateString) {
             dataparts = dateString.split('-');
@@ -1290,7 +1343,7 @@
             trs.each(function (idx, ele) {
                 if (ele.attributes["class"] && ele.attributes["class"].value == '') trClass++;
             })
-            if (trClass < lblInsideRows && lblInsideRows >= pageSize && pageIndex <= pageCount ) {
+            if (trClass < lblInsideRows && lblInsideRows >= pageSize && pageIndex <= pageCount) {
                 $("body").addClass("loading");
                 var hidUniqueID = $('#hidUniqueID').val();
                 var hidQueryID = $('#hidQueryID').val();
@@ -1384,7 +1437,7 @@
                     type: "POST",
                     url: "/DataInspector.aspx/GetOutsidedata",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ pageIndex: pageIndexOutside, userId: 1, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions  }),
+                    data: JSON.stringify({ pageIndex: pageIndexOutside, userId: 1, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
                     success: OnOutsideSuccess,
                     failure: function (response) {
                         alert(response.d);
@@ -1441,12 +1494,12 @@
         if (document.getElementById("<%= chk_txtTransmissionNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtVoucherNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtVoucherNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtConfirmationNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtConfirmationNumberOutside.ClientID %>").className = ""; }
-          if (document.getElementById("<%= chk_txtPaymentsCountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentsCountOutside.ClientID %>").className = ""; }
-          if (document.getElementById("<%= chk_txtDutyPaymentNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtPaymentsCountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentsCountOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtDutyPaymentNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtTransactionGrossAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionGrossAmountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtDutyPaymentAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentAmountOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtRemainingPaymentsAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtRemainingPaymentsAmountOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtCompanyNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCompanyNumberOutside.ClientID %>").className = ""; }
+          if (document.getElementById("<%= chk_txtRemainingPaymentsAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtRemainingPaymentsAmountOutside.ClientID %>").className = ""; }
+          if (document.getElementById("<%= chk_txtCompanyNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCompanyNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtNetworkNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtNetworkNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtBranchNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtBranchNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCashBoxNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCashBoxNumberOutside.ClientID %>").className = ""; }
@@ -1475,7 +1528,8 @@
                 var td_source = tr_source.cells[i];
                 var td_destination = tr_destination.insertCell(i);
 
-                td_destination.innerHTML = td_source.innerHTML;
+                td_destination.innerHTML = td_source.innerHTML + " " + "<span class=\"arrowdu\"></span>";
+
                 td_destination.style.fontWeight = "bold";
 
                 if (i == 0) { td_source.innerHTML = ""; }
@@ -1587,7 +1641,7 @@
         function payment_click(s_unique_id, s_table) {
             document.getElementById("<%= hidUniqueID.ClientID %>").value = s_unique_id;
             document.getElementById("<%= hidTable.ClientID %>").value = s_table;
-            document.getElementById("<%= btnPayment.ClientID %>").click();            
+            document.getElementById("<%= btnPayment.ClientID %>").click();
         }
 
         function match_click(s_query_id) {
@@ -1653,7 +1707,7 @@
             return true;
         }
 
-       function status_change() {
+        function status_change() {
             var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
 
