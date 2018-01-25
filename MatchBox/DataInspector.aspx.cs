@@ -34,6 +34,7 @@ namespace MatchBox
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            divMatchingBalanceRow.Visible = true;
             n_user_id = o_user.ID;
             s_cache_inside = String.Format("TableInside_{0}", n_user_id);
             s_cache_outside = String.Format("TableOutside_{0}", n_user_id);
@@ -1754,6 +1755,145 @@ namespace MatchBox
 
                 Bind_Paging(Convert.ToInt32(dt_inside_sum.Rows[0]["PagesCount"]), Convert.ToInt32(dt_outside_sum.Rows[0]["PagesCount"]));
             }
+        }
+
+        //public static void GetCalculatedData()
+        //{
+
+        //}
+
+        //[WebMethod]
+        //[ScriptMethod]
+        //public static string recalculateAjax(string strInside, string strOutside)
+        //{
+
+        //    //return "tests";
+        //}
+
+        protected void btnCheck_Click(object sender, EventArgs e)
+        {
+                string s_error = "";
+                string s_mode = Get_Mode();
+
+                DataTable dt_inside = null, dt_inside_sum = null, dt_outside = null, dt_outside_sum = null, dt_source = null;
+
+                if (Allow_Recalculate() == false) { goto Finish; }
+
+                switch (s_mode)
+                {
+                    case "payment":
+                        dt_inside = (DataTable)ViewState["TablePaymentData"];
+                        dt_source = (DataTable)ViewState["TablePaymentSource"];
+                        break;
+                    case "match":
+                        dt_inside = ((DataTable)Cache[s_cache_inside_match]).Copy();
+                        dt_outside = ((DataTable)Cache[s_cache_outside_match]).Copy();
+                        break;
+                    case "matching":
+                    case "not-matching":
+                        dt_inside = ((DataTable)Cache[s_cache_inside]).Copy();
+                        dt_outside = ((DataTable)Cache[s_cache_outside]).Copy();
+                        dt_inside_sum = ((DataTable)Cache[s_cache_inside + "_Sum"]).Copy();
+                        dt_outside_sum = ((DataTable)Cache[s_cache_outside + "_Sum"]).Copy();
+                        break;
+                }
+
+                string s_select_inside = hidSelectInside.Value;
+                string s_select_outside = hidSelectOutside.Value;
+
+                if (s_select_inside == "" && s_select_outside == "") { goto Finish; }
+
+                if (s_mode == "payment")
+                {
+                    int n_payment_rows = 0;
+                    double n_payment_amount = 0;
+
+                    DataAction.Recalculate_Payment(dt_inside, s_select_inside, ref n_payment_rows, ref n_payment_amount, ref s_error);
+
+                    hidPaymentsAmount_Selected.Value = String.Format("{0}", n_payment_amount);
+
+                    lblInsideRowsSelected.Text = String.Format("{0:n0}", n_payment_rows);
+                    lblInsideAmountSelected.Text = String.Format("{0:n2}", Math.Round(n_payment_amount, 2));
+
+                    trInsideSelected.Visible = true;
+                    pnlPaymentChange.Visible = true;
+                }
+                else
+                {
+                    int n_inside_rows = (s_mode == "match") ? dt_inside.Rows.Count : Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
+                    int n_outside_rows = (s_mode == "match") ? dt_outside.Rows.Count : Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
+
+                    double n_inside_amount = (s_mode == "match") ? dt_inside.AsEnumerable().Sum(dr => dr.Field<double>("DutyPaymentAmount")) : Convert.ToDouble(dt_inside_sum.Rows[0]["AmountSum"]);
+                    double n_outside_amount = (s_mode == "match") ? dt_outside.AsEnumerable().Sum(dr => dr.Field<double>("DutyPaymentAmount")) : Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
+
+                    int n_inside_rows_selected = 0, n_outside_rows_selected = 0;
+                    double n_inside_amount_selected = 0, n_outside_amount_selected = 0;
+
+                    int n_inside_rows_remaining = 0, n_outside_rows_remaining = 0;
+                    double n_inside_amount_remaining = 0, n_outside_amount_remaining = 0;
+
+                    int n_company_id = 0;
+
+                    switch (s_mode)
+                    {
+                        case "match":
+                            DataAction.Recalculate_Match(dt_inside, dt_outside, s_select_inside, s_select_outside, ref n_inside_rows_remaining, ref n_outside_rows_remaining, ref n_inside_amount_remaining, ref n_outside_amount_remaining, ref s_error);
+                            break;
+                        case "matching":
+                            DataAction.Recalculate_Matching(n_user_id, s_select_inside, s_select_outside, ref n_inside_rows_selected, ref n_outside_rows_selected, ref n_inside_amount_selected, ref n_outside_amount_selected, ref s_error);
+                            break;
+                        case "not-matching":
+                            DataAction.Recalculate_Not_Matching(n_user_id, s_select_inside, s_select_outside, ref n_company_id, ref n_inside_rows_selected, ref n_outside_rows_selected, ref n_inside_amount_selected, ref n_outside_amount_selected, ref s_error);
+                            break;
+                    }
+
+                    if (s_mode == "match")
+                    {
+                        n_inside_rows_selected = n_inside_rows - n_inside_rows_remaining;
+                        n_outside_rows_selected = n_outside_rows - n_outside_rows_remaining;
+
+                        n_inside_amount_selected = n_inside_amount - n_inside_amount_remaining;
+                        n_outside_amount_selected = n_outside_amount - n_outside_amount_remaining;
+                    }
+                    else
+                    {
+                        n_inside_rows_remaining = n_inside_rows - n_inside_rows_selected;
+                        n_outside_rows_remaining = n_outside_rows - n_outside_rows_selected;
+
+                        n_inside_amount_remaining = n_inside_amount - n_inside_amount_selected;
+                        n_outside_amount_remaining = n_outside_amount - n_outside_amount_selected;
+                    }
+
+                    Bind_Matching_Balance(n_company_id, n_inside_rows_selected, n_outside_rows_selected, n_inside_amount_selected, n_outside_amount_selected, n_inside_rows_remaining, n_outside_rows_remaining, n_inside_amount_remaining, n_outside_amount_remaining);
+                }
+
+                //ddlInsidePage.Enabled = false;
+                //ddlOutsidePage.Enabled = false;
+
+                //tdRecalculate.Visible = false;
+                //tdPayment.Visible = false;
+                //tdMatchingAuto.Visible = false;
+                //tdStatus.Visible = false;
+                //tdComment.Visible = false;
+
+                btnPaymentChange.Visible = false;
+                btnPaymentRecalculate.Enabled = (s_error == "");
+                btnMatchingBalanceChange.Enabled = (s_error == "");
+
+                Finish:
+
+                lblError.Text = s_error;
+
+                if (s_mode == "payment")
+                {
+                    Bind_Table_Payment(dt_inside, dt_source);
+                }
+                else
+                {
+                    Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
+                }
+            
+
         }
 
         protected void Recalculate_Click(object sender, EventArgs e)
@@ -3501,42 +3641,42 @@ namespace MatchBox
             btnPaymentRestore.Visible = true;
             lblPaymentChange.Visible = false;
 
-            lblInsideRowsSelected.Text = "";
-            lblInsideAmountSelected.Text = "";
+            lblInsideRowsSelected.Text = "0";
+            lblInsideAmountSelected.Text = "0";
 
-            trInsideSelected.Visible = false;
+            trInsideSelected.Visible = true;
 
-            lblInsideRowsRemaining.Text = "";
-            lblInsideAmountRemaining.Text = "";
+            lblInsideRowsRemaining.Text = "0";
+            lblInsideAmountRemaining.Text = "0";
 
-            trInsideRemaining.Visible = false;
+            trInsideRemaining.Visible = true;
 
-            lblOutsideRowsSelected.Text = "";
-            lblOutsideAmountSelected.Text = "";
+            lblOutsideRowsSelected.Text = "0";
+            lblOutsideAmountSelected.Text = "0";
 
-            trOutsideSelected.Visible = false;
+            trOutsideSelected.Visible = true;
 
-            lblOutsideRowsRemaining.Text = "";
-            lblOutsideAmountRemaining.Text = "";
+            lblOutsideRowsRemaining.Text = "0";
+            lblOutsideAmountRemaining.Text = "0";
 
-            trOutsideRemaining.Visible = false;
+            trOutsideRemaining.Visible = true;
 
             if (divMatchingBalanceRow.Visible == true)
             {
                 txtCompanyName.Text = "";
                 hidCompanyID.Value = "";
 
-                txtBalanceAmount.Text = "";
+                txtBalanceAmount.Text = "0";
                 hidBalanceAmount.Value = "";
 
-                divMatchingBalanceRow.Visible = false;
+                //divMatchingBalanceRow.Visible = false;
             }
 
             if (pnlMatchingBalance.Visible == true)
             {
-                txtMatchingComment.Text = "";
+                txtMatchingComment.Text = "0";
 
-                pnlMatchingBalance.Visible = false;
+                //pnlMatchingBalance.Visible = false;
             }
 
             divMatchingAuto.Visible = false;
@@ -4207,6 +4347,11 @@ namespace MatchBox
 
             gvInside.DataSource = dt_inside;
             gvInside.DataBind();
+        }
+
+        private void CheckBox1_CheckedChanged(Object sender, EventArgs e)
+        {
+
         }
 
         [WebMethod]
