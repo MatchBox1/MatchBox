@@ -4156,10 +4156,19 @@ namespace MatchBox
 
             lblInsideRows.Text = String.Format("{0:n0}", n_rows_count_inside);
             lblInsideAmount.Text = String.Format("{0:n2}", Math.Round(n_amount_sum_inside, 2));
-
             lblOutsideRows.Text = String.Format("{0:n0}", n_rows_count_outside);
             lblOutsideAmount.Text = String.Format("{0:n2}", Math.Round(n_amount_sum_outside, 2));
 
+            if (lblInsideRowsRemaining.Text == "0" && lblInsideAmountRemaining.Text == "0")
+            {
+                lblInsideRowsRemaining.Text = String.Format("{0:n0}", n_rows_count_inside);
+                lblInsideAmountRemaining.Text = String.Format("{0:n2}", Math.Round(n_amount_sum_inside, 2));
+            }
+            if (lblOutsideRowsRemaining.Text == "0" && lblOutsideAmountRemaining.Text == "0")
+            {
+                lblOutsideRowsRemaining.Text = String.Format("{0:n0}", n_rows_count_outside);
+                lblOutsideAmountRemaining.Text = String.Format("{0:n2}", Math.Round(n_amount_sum_outside, 2));
+            }
             // KEEP FIELD PRIORITY INTO LIST
 
             if (ViewState["ListInsideFieldPriority"] == null || ViewState["ListOutsideFieldPriority"] == null || ViewState["ListPaymentFieldPriority"] == null)
