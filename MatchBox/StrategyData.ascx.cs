@@ -141,9 +141,9 @@ namespace MatchBox
 
                         TimeSpan t_after_execution = DateTime.Now - d_last_execution_date;
 
-                        if (t_after_execution.Hours < 1)
+                        if (t_after_execution.Minutes < 1)
                         {
-                            s_error = String.Format("Strategy already executed. Next execution will be available after {0}.", d_last_execution_date.AddHours(1));
+                            s_error = String.Format("Strategy already executed. Next execution will be available after {0}.", d_last_execution_date.AddMinutes(1));
                             goto Error;
                         }
                     }

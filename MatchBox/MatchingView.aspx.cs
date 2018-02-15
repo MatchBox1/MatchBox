@@ -251,7 +251,6 @@ namespace MatchBox
             if (o_data_table.Rows.Count > 0)
             {
                 repTable.DataSource = o_data_table;
-
                 lblPagesCount.Text = n_pages_count.ToString();
 
                 btnPreviousPage.Enabled = (txtCurrentPage.Text != "1");
@@ -264,6 +263,17 @@ namespace MatchBox
             }
 
             repTable.DataBind();
+
+            // Code to remove delete button for "In Process" matching
+            foreach (RepeaterItem item in repTable.Items)
+            {
+                var tdStatus = item.FindControl("tdStatus");
+                if (((System.Web.UI.HtmlControls.HtmlContainerControl)tdStatus).InnerText.ToLower().Trim() == "in process")
+                {
+                    var tdDelete = item.FindControl("tdDelete");
+                    tdDelete.Visible = false;
+                }
+            }
         }
 
         private Dictionary<string, string> Get_Query_Dictionary()
