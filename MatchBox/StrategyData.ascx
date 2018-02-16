@@ -7,12 +7,10 @@
         <td class="nowrap" style="padding: 0px 10px;"><b>Queries Percent</b> : <asp:Label ID="lblQueryPercent" runat="server" />%</td>
         <td class="nowrap" style="padding: 0px 10px;">&nbsp;</td>
         <td class="nowrap" style="padding: 0px 10px;"><b>Status</b> : <asp:Label ID="lblStatusName" runat="server" /></td>
-        <td id="tdstopexecution" runat="server" class="nowrap" style="padding: 0px 10px;">
-            <asp:Button ID="btnstopexecution" runat="server" OnClick="Strategy_StopExecution" Text="Stop Strategy" /></td>
         <td class="nowrap" style="padding: 0px 10px; width: 100%;">&nbsp;</td>
         <td id="tdDataFile" runat="server" class="nowrap" style="padding: 0px 10px;"><a href="javascript: void(0);" onclick="javascript: display_by_class('divDataFileAdd');">Add Data Files</a></td>
         <td id="tdPending" runat="server" class="nowrap" style="padding: 0px 10px;"><asp:Button ID="btnPending" runat="server" OnClick="Strategy_Pending" Text="Execute Strategy" /></td>
-        
+        <td id="tdstopexecution" runat="server" class="nowrap" style="padding: 0px 10px;" visible="false"><asp:Button ID="btnstopexecution" runat="server" OnClick="Strategy_StopExecution" Text="Stop Strategy" /></td>
     </tr>
 </table>
 

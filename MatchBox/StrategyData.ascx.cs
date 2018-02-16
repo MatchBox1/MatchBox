@@ -115,6 +115,9 @@ namespace MatchBox
             DataTable dt_strategy = new DataTable();
             string s_error = "";
             StrategyAction.Select_StopExecution(StrategyID, n_user_id, dt_strategy,  ref s_error);
+            btnPending.Visible = true;
+            btnstopexecution.Visible = false;
+            lblMessage.Text = "Execution has been stopped successfully.";
         }
 
         protected void Strategy_Pending(object sender, EventArgs e)
@@ -273,7 +276,9 @@ namespace MatchBox
 
                 if (n_status_id == 1)
                 {
-                    btnPending.Text = "Cancel Execution";
+                    //btnPending.Text = "Cancel Execution";
+                    btnPending.Visible = false;
+                    btnstopexecution.Visible = true;
                 }
             }
             else

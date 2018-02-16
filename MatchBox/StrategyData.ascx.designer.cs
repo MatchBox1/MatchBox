@@ -40,24 +40,6 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Label lblStatusName;
         
         /// <summary>
-        /// tdstopexecution control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdstopexecution;
-        
-        /// <summary>
-        /// btnstopexecution control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnstopexecution;
-        
-        /// <summary>
         /// tdDataFile control.
         /// </summary>
         /// <remarks>
@@ -83,6 +65,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPending;
+        
+        /// <summary>
+        /// tdstopexecution control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdstopexecution;
+        
+        /// <summary>
+        /// btnstopexecution control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnstopexecution;
         
         /// <summary>
         /// hidStatusID control.
