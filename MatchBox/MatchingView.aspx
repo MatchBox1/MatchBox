@@ -113,6 +113,9 @@
                         <td id="tdDelete" runat="server" class="nowrap text-center">
                             <asp:LinkButton ID="btnDelete" runat="server" Text="x" OnClientClick="javascript: return confirm('Delete Item?');" OnCommand="On_Command" CommandName="Delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ID") %>' ToolTip="Delete" ForeColor="Red" CssClass="no-line" />
                         </td>
+                        <td id="tdBlank" runat="server" class="nowrap text-center" visible="false">
+                            <asp:LinkButton ID="btnBlank" runat="server" Text="" OnCommand="On_Command" CommandName="Delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ID") %>' ToolTip="Delete" ForeColor="Red" CssClass="no-line" />
+                        </td>
                     </tr>
                     <tr id="trForm" runat="server" class="no-display">
                         <td colspan="14" class="nowrap">

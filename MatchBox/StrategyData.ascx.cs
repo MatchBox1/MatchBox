@@ -110,6 +110,13 @@ namespace MatchBox
             }
         }
 
+        protected void Strategy_StopExecution(object sender, EventArgs e)
+        {
+            DataTable dt_strategy = new DataTable();
+            string s_error = "";
+            StrategyAction.Select_StopExecution(StrategyID, n_user_id, dt_strategy,  ref s_error);
+        }
+
         protected void Strategy_Pending(object sender, EventArgs e)
         {
             string s_error = "";
@@ -280,6 +287,7 @@ namespace MatchBox
             if (n_status_id == 2 || dt_inside.Rows.Count == 0 || dt_outside.Rows.Count == 0)
             {
                 tdPending.Visible = false;
+                tdstopexecution.Visible = true;
             }
 
             repInsideSum.DataSource = dt_inside;

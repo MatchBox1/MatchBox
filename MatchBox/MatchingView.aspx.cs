@@ -268,10 +268,12 @@ namespace MatchBox
             foreach (RepeaterItem item in repTable.Items)
             {
                 var tdStatus = item.FindControl("tdStatus");
-                if (((System.Web.UI.HtmlControls.HtmlContainerControl)tdStatus).InnerText.ToLower().Trim() == "in process")
+                if (((System.Web.UI.HtmlControls.HtmlContainerControl)tdStatus).InnerText.ToLower().Trim() == "in process" )
                 {
                     var tdDelete = item.FindControl("tdDelete");
                     tdDelete.Visible = false;
+                    var tdBlank = item.FindControl("tdBlank");
+                    tdBlank.Visible = true;
                 }
             }
         }
