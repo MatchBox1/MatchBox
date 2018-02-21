@@ -81,8 +81,40 @@ namespace MatchBox
         }
     }
 
+
+
+
     public class DataAction
     {
+
+        public static void SelectLockedRecords(int n_user_id, ref DataTable dtDataFields, ref string s_error)
+        {
+            SqlCommand o_command = new SqlCommand("sprLockNonMatchedRecords", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+
+            o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
+            SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
+            DataSet o_data_set = new DataSet();
+
+            try
+            {
+                o_data_adapter.Fill(o_data_set);
+                dtDataFields = o_data_set.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                s_error = ex.Message;
+                s_error = "Error on select data (paging).";
+                return;
+            }
+            finally
+            {
+                o_data_set.Dispose();
+                o_data_adapter.Dispose();
+                o_command.Dispose();
+            }
+        }
+
+
         public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error)
         {
             SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy1", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
@@ -90,7 +122,8 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
             o_command.Parameters.Add(new SqlParameter("@PageNumberInside", SqlDbType.Int) { Value = n_page_inside });
             o_command.Parameters.Add(new SqlParameter("@PageNumberOutside", SqlDbType.Int) { Value = n_page_outside });
-            o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = n_page_size });
+            //o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = n_page_size });
+            o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = 200 });
             o_command.Parameters.Add(new SqlParameter("@WhereInside", SqlDbType.NVarChar, -1) { Value = s_where_inside });
             o_command.Parameters.Add(new SqlParameter("@WhereOutside", SqlDbType.NVarChar, -1) { Value = s_where_outside });
             o_command.Parameters.Add(new SqlParameter("@OrderInside", SqlDbType.NVarChar, -1) { Value = s_order_inside });
@@ -122,6 +155,8 @@ namespace MatchBox
                 o_command.Dispose();
             }
         }
+
+
 
         public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside,  int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error)
         {

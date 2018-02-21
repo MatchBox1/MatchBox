@@ -1772,127 +1772,127 @@ namespace MatchBox
 
         protected void btnCheck_Click(object sender, EventArgs e)
         {
-                string s_error = "";
-                string s_mode = Get_Mode();
+            string s_error = "";
+            string s_mode = Get_Mode();
 
-                DataTable dt_inside = null, dt_inside_sum = null, dt_outside = null, dt_outside_sum = null, dt_source = null;
+            DataTable dt_inside = null, dt_inside_sum = null, dt_outside = null, dt_outside_sum = null, dt_source = null;
 
-                if (Allow_Recalculate() == false) { goto Finish; }
+            if (Allow_Recalculate() == false) { goto Finish; }
+
+            switch (s_mode)
+            {
+                case "payment":
+                    dt_inside = (DataTable)ViewState["TablePaymentData"];
+                    dt_source = (DataTable)ViewState["TablePaymentSource"];
+                    break;
+                case "match":
+                    dt_inside = ((DataTable)Cache[s_cache_inside_match]).Copy();
+                    dt_outside = ((DataTable)Cache[s_cache_outside_match]).Copy();
+                    break;
+                case "matching":
+                case "not-matching":
+                    dt_inside = ((DataTable)Cache[s_cache_inside]).Copy();
+                    dt_outside = ((DataTable)Cache[s_cache_outside]).Copy();
+                    dt_inside_sum = ((DataTable)Cache[s_cache_inside + "_Sum"]).Copy();
+                    dt_outside_sum = ((DataTable)Cache[s_cache_outside + "_Sum"]).Copy();
+                    break;
+            }
+
+            string s_select_inside = hidSelectInside.Value;
+            string s_select_outside = hidSelectOutside.Value;
+
+            if (s_select_inside == "" && s_select_outside == "") { goto Finish; }
+
+            if (s_mode == "payment")
+            {
+                int n_payment_rows = 0;
+                double n_payment_amount = 0;
+
+                DataAction.Recalculate_Payment(dt_inside, s_select_inside, ref n_payment_rows, ref n_payment_amount, ref s_error);
+
+                hidPaymentsAmount_Selected.Value = String.Format("{0}", n_payment_amount);
+
+                lblInsideRowsSelected.Text = String.Format("{0:n0}", n_payment_rows);
+                lblInsideAmountSelected.Text = String.Format("{0:n2}", Math.Round(n_payment_amount, 2));
+
+                trInsideSelected.Visible = true;
+                pnlPaymentChange.Visible = true;
+            }
+            else
+            {
+                int n_inside_rows = (s_mode == "match") ? dt_inside.Rows.Count : Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
+                int n_outside_rows = (s_mode == "match") ? dt_outside.Rows.Count : Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
+
+                double n_inside_amount = (s_mode == "match") ? dt_inside.AsEnumerable().Sum(dr => dr.Field<double>("DutyPaymentAmount")) : Convert.ToDouble(dt_inside_sum.Rows[0]["AmountSum"]);
+                double n_outside_amount = (s_mode == "match") ? dt_outside.AsEnumerable().Sum(dr => dr.Field<double>("DutyPaymentAmount")) : Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
+
+                int n_inside_rows_selected = 0, n_outside_rows_selected = 0;
+                double n_inside_amount_selected = 0, n_outside_amount_selected = 0;
+
+                int n_inside_rows_remaining = 0, n_outside_rows_remaining = 0;
+                double n_inside_amount_remaining = 0, n_outside_amount_remaining = 0;
+
+                int n_company_id = 0;
 
                 switch (s_mode)
                 {
-                    case "payment":
-                        dt_inside = (DataTable)ViewState["TablePaymentData"];
-                        dt_source = (DataTable)ViewState["TablePaymentSource"];
-                        break;
                     case "match":
-                        dt_inside = ((DataTable)Cache[s_cache_inside_match]).Copy();
-                        dt_outside = ((DataTable)Cache[s_cache_outside_match]).Copy();
+                        DataAction.Recalculate_Match(dt_inside, dt_outside, s_select_inside, s_select_outside, ref n_inside_rows_remaining, ref n_outside_rows_remaining, ref n_inside_amount_remaining, ref n_outside_amount_remaining, ref s_error);
                         break;
                     case "matching":
+                        DataAction.Recalculate_Matching(n_user_id, s_select_inside, s_select_outside, ref n_inside_rows_selected, ref n_outside_rows_selected, ref n_inside_amount_selected, ref n_outside_amount_selected, ref s_error);
+                        break;
                     case "not-matching":
-                        dt_inside = ((DataTable)Cache[s_cache_inside]).Copy();
-                        dt_outside = ((DataTable)Cache[s_cache_outside]).Copy();
-                        dt_inside_sum = ((DataTable)Cache[s_cache_inside + "_Sum"]).Copy();
-                        dt_outside_sum = ((DataTable)Cache[s_cache_outside + "_Sum"]).Copy();
+                        DataAction.Recalculate_Not_Matching(n_user_id, s_select_inside, s_select_outside, ref n_company_id, ref n_inside_rows_selected, ref n_outside_rows_selected, ref n_inside_amount_selected, ref n_outside_amount_selected, ref s_error);
                         break;
                 }
 
-                string s_select_inside = hidSelectInside.Value;
-                string s_select_outside = hidSelectOutside.Value;
-
-                if (s_select_inside == "" && s_select_outside == "") { goto Finish; }
-
-                if (s_mode == "payment")
+                if (s_mode == "match")
                 {
-                    int n_payment_rows = 0;
-                    double n_payment_amount = 0;
+                    n_inside_rows_selected = n_inside_rows - n_inside_rows_remaining;
+                    n_outside_rows_selected = n_outside_rows - n_outside_rows_remaining;
 
-                    DataAction.Recalculate_Payment(dt_inside, s_select_inside, ref n_payment_rows, ref n_payment_amount, ref s_error);
-
-                    hidPaymentsAmount_Selected.Value = String.Format("{0}", n_payment_amount);
-
-                    lblInsideRowsSelected.Text = String.Format("{0:n0}", n_payment_rows);
-                    lblInsideAmountSelected.Text = String.Format("{0:n2}", Math.Round(n_payment_amount, 2));
-
-                    trInsideSelected.Visible = true;
-                    pnlPaymentChange.Visible = true;
+                    n_inside_amount_selected = n_inside_amount - n_inside_amount_remaining;
+                    n_outside_amount_selected = n_outside_amount - n_outside_amount_remaining;
                 }
                 else
                 {
-                    int n_inside_rows = (s_mode == "match") ? dt_inside.Rows.Count : Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
-                    int n_outside_rows = (s_mode == "match") ? dt_outside.Rows.Count : Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
+                    n_inside_rows_remaining = n_inside_rows - n_inside_rows_selected;
+                    n_outside_rows_remaining = n_outside_rows - n_outside_rows_selected;
 
-                    double n_inside_amount = (s_mode == "match") ? dt_inside.AsEnumerable().Sum(dr => dr.Field<double>("DutyPaymentAmount")) : Convert.ToDouble(dt_inside_sum.Rows[0]["AmountSum"]);
-                    double n_outside_amount = (s_mode == "match") ? dt_outside.AsEnumerable().Sum(dr => dr.Field<double>("DutyPaymentAmount")) : Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
-
-                    int n_inside_rows_selected = 0, n_outside_rows_selected = 0;
-                    double n_inside_amount_selected = 0, n_outside_amount_selected = 0;
-
-                    int n_inside_rows_remaining = 0, n_outside_rows_remaining = 0;
-                    double n_inside_amount_remaining = 0, n_outside_amount_remaining = 0;
-
-                    int n_company_id = 0;
-
-                    switch (s_mode)
-                    {
-                        case "match":
-                            DataAction.Recalculate_Match(dt_inside, dt_outside, s_select_inside, s_select_outside, ref n_inside_rows_remaining, ref n_outside_rows_remaining, ref n_inside_amount_remaining, ref n_outside_amount_remaining, ref s_error);
-                            break;
-                        case "matching":
-                            DataAction.Recalculate_Matching(n_user_id, s_select_inside, s_select_outside, ref n_inside_rows_selected, ref n_outside_rows_selected, ref n_inside_amount_selected, ref n_outside_amount_selected, ref s_error);
-                            break;
-                        case "not-matching":
-                            DataAction.Recalculate_Not_Matching(n_user_id, s_select_inside, s_select_outside, ref n_company_id, ref n_inside_rows_selected, ref n_outside_rows_selected, ref n_inside_amount_selected, ref n_outside_amount_selected, ref s_error);
-                            break;
-                    }
-
-                    if (s_mode == "match")
-                    {
-                        n_inside_rows_selected = n_inside_rows - n_inside_rows_remaining;
-                        n_outside_rows_selected = n_outside_rows - n_outside_rows_remaining;
-
-                        n_inside_amount_selected = n_inside_amount - n_inside_amount_remaining;
-                        n_outside_amount_selected = n_outside_amount - n_outside_amount_remaining;
-                    }
-                    else
-                    {
-                        n_inside_rows_remaining = n_inside_rows - n_inside_rows_selected;
-                        n_outside_rows_remaining = n_outside_rows - n_outside_rows_selected;
-
-                        n_inside_amount_remaining = n_inside_amount - n_inside_amount_selected;
-                        n_outside_amount_remaining = n_outside_amount - n_outside_amount_selected;
-                    }
-
-                    Bind_Matching_Balance(n_company_id, n_inside_rows_selected, n_outside_rows_selected, n_inside_amount_selected, n_outside_amount_selected, n_inside_rows_remaining, n_outside_rows_remaining, n_inside_amount_remaining, n_outside_amount_remaining);
+                    n_inside_amount_remaining = n_inside_amount - n_inside_amount_selected;
+                    n_outside_amount_remaining = n_outside_amount - n_outside_amount_selected;
                 }
 
-                //ddlInsidePage.Enabled = false;
-                //ddlOutsidePage.Enabled = false;
+                Bind_Matching_Balance(n_company_id, n_inside_rows_selected, n_outside_rows_selected, n_inside_amount_selected, n_outside_amount_selected, n_inside_rows_remaining, n_outside_rows_remaining, n_inside_amount_remaining, n_outside_amount_remaining);
+            }
 
-                //tdRecalculate.Visible = false;
-                //tdPayment.Visible = false;
-                //tdMatchingAuto.Visible = false;
-                //tdStatus.Visible = false;
-                //tdComment.Visible = false;
+            //ddlInsidePage.Enabled = false;
+            //ddlOutsidePage.Enabled = false;
 
-                btnPaymentChange.Visible = false;
-                btnPaymentRecalculate.Enabled = (s_error == "");
-                btnMatchingBalanceChange.Enabled = (s_error == "");
+            //tdRecalculate.Visible = false;
+            //tdPayment.Visible = false;
+            //tdMatchingAuto.Visible = false;
+            //tdStatus.Visible = false;
+            //tdComment.Visible = false;
 
-                Finish:
+            btnPaymentChange.Visible = false;
+            btnPaymentRecalculate.Enabled = (s_error == "");
+            btnMatchingBalanceChange.Enabled = (s_error == "");
 
-                lblError.Text = s_error;
+            Finish:
 
-                if (s_mode == "payment")
-                {
-                    Bind_Table_Payment(dt_inside, dt_source);
-                }
-                else
-                {
-                    Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
-                }
-            
+            lblError.Text = s_error;
+
+            if (s_mode == "payment")
+            {
+                Bind_Table_Payment(dt_inside, dt_source);
+            }
+            else
+            {
+                Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
+            }
+
 
         }
 
@@ -2586,7 +2586,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100,ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "") { goto Error; }
 
@@ -2858,7 +2858,7 @@ namespace MatchBox
 
             DataTable dt_inside = null, dt_outside = null, dt_inside_sum = null, dt_outside_sum = null;
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page,100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             if (s_error != "") { goto Error; }
 
@@ -3532,7 +3532,7 @@ namespace MatchBox
         {
             string s_mode = "";
 
-            if (hidUniqueID!=null && hidUniqueID.Value != "")
+            if (hidUniqueID != null && hidUniqueID.Value != "")
             {
                 s_mode = "payment";
             }
@@ -3542,13 +3542,13 @@ namespace MatchBox
             }
             else
             {
-                s_mode = hidQueryID != null? ddlTransactions.SelectedValue : "";
+                s_mode = hidQueryID != null ? ddlTransactions.SelectedValue : "";
             }
 
             return s_mode;
         }
 
-        private string Get_AjaxMode(string hidUniqueIDVal,string hidQueryIDVal,string ddlTransactionsVal)
+        private string Get_AjaxMode(string hidUniqueIDVal, string hidQueryIDVal, string ddlTransactionsVal)
         {
             string s_mode = "";
 
@@ -4197,12 +4197,52 @@ namespace MatchBox
             }
 
             // BIND GridView
-
             gvInside.DataSource = dt_inside;
             gvInside.DataBind();
 
             gvOutside.DataSource = dt_outside;
             gvOutside.DataBind();
+
+            // Disable In Process Records   
+            string strErrors = string.Empty;
+            DataTable dtLockedRecords = new DataTable();
+            DataAction.SelectLockedRecords(n_user_id, ref dtLockedRecords, ref strErrors);
+            if (dtLockedRecords.Rows.Count > 0)
+            {
+                foreach (GridViewRow row in gvInside.Rows)
+                {
+                    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;","");// --41
+                    foreach (DataRow dr in dtLockedRecords.Rows)
+                    {
+                        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
+                        {
+                            var chk = row.Cells[0].Controls[0];//as CheckBox;
+                            if (chk != null)
+                            {
+                                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
+
+                            }
+                        }
+                    }
+                }
+                foreach (GridViewRow row in gvOutside.Rows)
+                {
+                    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", ""); // 58
+                    foreach (DataRow dr in dtLockedRecords.Rows)
+                    {
+                        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
+                        {
+                            var chk = row.Cells[0].Controls[0];//as CheckBox;
+                            if (chk != null)
+                            {
+                                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
+
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         public DataSet GetCustomersPageWise(int pageIndex, int pageSize)
@@ -4250,8 +4290,8 @@ namespace MatchBox
             string s_error = "";
             string s_where_inside = Convert.ToString(Session["WhereInside"]);
             // check why session is null
-            if(string.IsNullOrEmpty(s_where_inside))
-            s_where_inside = " AND QueryID IS NOT NULL ";
+            if (string.IsNullOrEmpty(s_where_inside))
+                s_where_inside = " AND QueryID IS NOT NULL ";
             string s_order_inside = Convert.ToString(Session["OrderInside"]);
             DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error);
             DataSet ds = new DataSet();
@@ -4271,8 +4311,8 @@ namespace MatchBox
             string s_error = "";
             string s_where_outside = Convert.ToString(Session["WhereOutside"]);
             // check why session is null
-            if(string.IsNullOrEmpty(s_where_outside))
-            s_where_outside = " AND QueryID IS NOT NULL ";
+            if (string.IsNullOrEmpty(s_where_outside))
+                s_where_outside = " AND QueryID IS NOT NULL ";
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
             DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error);
             DataSet ds = new DataSet();
@@ -4365,7 +4405,7 @@ namespace MatchBox
 
         [WebMethod]
         [ScriptMethod]
-        public static string GetInsidedata(int pageIndex, int userId,string hidUniqueID,string hidQueryID,string ddlTransactions)
+        public static string GetInsidedata(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
         {
             DataInspector obj = new DataInspector();
             return obj.getInsideHtml(pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions);
@@ -4379,11 +4419,11 @@ namespace MatchBox
             var data = obj.GetOutsideDataAll(pageIndex, 30, userId);
             var tableData = data.Tables[0];
             var otherData = data.Tables[1];
-            string html = obj.getOutsideHtml(tableData,pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions);
+            string html = obj.getOutsideHtml(tableData, pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions);
             return JsonConvert.SerializeObject(new { data = html, description = otherData });
         }
 
-        public string getOutsideHtml(DataTable data,int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
+        public string getOutsideHtml(DataTable data, int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
         {
             DataInspector obj = new DataInspector();
             StringBuilder HTML = new StringBuilder();
@@ -4412,7 +4452,7 @@ namespace MatchBox
 
 
                     string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
-                    DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority,"", "Outside", s_mode);
+                    DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority, "", "Outside", s_mode);
                     row.RenderControl(htmlWriter);
                 }
             }
@@ -4448,7 +4488,7 @@ namespace MatchBox
                         row.Cells.Add(cell);
                     }
 
-                    string s_mode = obj.Get_AjaxMode( hidUniqueID,  hidQueryID,  ddlTransactions);
+                    string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
                     DataAction.Bind_Grid_Data_Row_Inside(row, lst_inside_field_priority, "", "Inside", s_mode);
                     row.RenderControl(htmlWriter);
                 }

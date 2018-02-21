@@ -204,6 +204,32 @@ namespace MatchBox
             }
         }
 
+        public static void Select_StopExecution(int n_strategy_id, int n_user_id, DataTable dt_strategy, ref string s_error)
+        {
+            SqlCommand o_command = new SqlCommand("sprStrategyStopExecution", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+
+            o_command.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int) { Value = n_strategy_id });
+            o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
+
+            SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
+
+            try
+            {
+                o_data_adapter.Fill(dt_strategy);
+            }
+            catch (Exception ex)
+            {
+                s_error = ex.Message;
+                s_error = "Error on select single strategy.";
+                return;
+            }
+            finally
+            {
+                o_data_adapter.Dispose();
+                o_command.Dispose();
+            }
+        }
+
         public static void Select_Single(int n_strategy_id, int n_user_id, ref DataTable dt_strategy, ref string s_error)
         {
             SqlCommand o_command = new SqlCommand("sprStrategySingle", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
