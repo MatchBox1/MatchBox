@@ -386,8 +386,8 @@ namespace MatchBox
             switch (ddlTransactions.SelectedValue)
             {
                 case "matching":
-                    s_where = " AND QueryID IS NOT NULL ";
-
+                    //s_where = " AND QueryID IS NOT NULL ";
+                    s_where = " AND QueryID IS NOT NULL AND MATCHINGID IS NOT NULL AND STRATEGYID IS NOT NULL ";
                     // MatchingAction
 
                     if (divMatchingAction.Visible == true)
@@ -409,6 +409,7 @@ namespace MatchBox
                     break;
                 case "not-matching":
                     s_where = " AND QueryID IS NULL ";
+                    //s_where = " AND QueryID IS NULL AND MATCHINGID IS NULL AND STRATEGYID IS NULL ";
 
                     // Status
 
@@ -4207,11 +4208,12 @@ namespace MatchBox
             string strErrors = string.Empty;
             DataTable dtLockedRecords = new DataTable();
             DataAction.SelectLockedRecords(n_user_id, ref dtLockedRecords, ref strErrors);
-            if (dtLockedRecords.Rows.Count > 0)
+
+            foreach (GridViewRow row in gvInside.Rows)
             {
-                foreach (GridViewRow row in gvInside.Rows)
+                if (dtLockedRecords.Rows.Count > 0)
                 {
-                    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;","");// --41
+                    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");// --41
                     foreach (DataRow dr in dtLockedRecords.Rows)
                     {
                         if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
@@ -4219,13 +4221,37 @@ namespace MatchBox
                             var chk = row.Cells[0].Controls[0];//as CheckBox;
                             if (chk != null)
                             {
+                                row.BackColor = System.Drawing.Color.Gray;
                                 ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
-
                             }
                         }
                     }
                 }
-                foreach (GridViewRow row in gvOutside.Rows)
+                else if (s_mode == "matching")
+                {
+                    row.BackColor = System.Drawing.Color.LightBlue;
+                }
+                else if (s_mode == "not-matching")
+                {
+                    row.BackColor = System.Drawing.Color.White;
+                }
+                else
+                {
+                    var MatchingID = row.Cells[7].Text;
+                    if (!string.IsNullOrEmpty(MatchingID))
+                    {
+                        row.BackColor = System.Drawing.Color.LightBlue;
+                    }
+                    else
+                    {
+                        row.BackColor = System.Drawing.Color.White;
+                    }
+                }
+            }
+
+            foreach (GridViewRow row in gvOutside.Rows)
+            {
+                if (dtLockedRecords.Rows.Count > 0)
                 {
                     var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", ""); // 58
                     foreach (DataRow dr in dtLockedRecords.Rows)
@@ -4235,14 +4261,34 @@ namespace MatchBox
                             var chk = row.Cells[0].Controls[0];//as CheckBox;
                             if (chk != null)
                             {
+                                row.BorderWidth = 3;
+                                row.BorderColor = System.Drawing.Color.Gray;
                                 ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
-
                             }
                         }
                     }
                 }
+                else if (s_mode == "matching")
+                {
+                    row.BackColor = System.Drawing.Color.LightBlue;
+                }
+                else if (s_mode == "not-matching")
+                {
+                    row.BackColor = System.Drawing.Color.White;
+                }
+                else
+                {
+                    var MatchingID = row.Cells[7].Text;
+                    if (!string.IsNullOrEmpty(MatchingID))
+                    {
+                        row.BackColor = System.Drawing.Color.LightBlue;
+                    }
+                    else
+                    {
+                        row.BackColor = System.Drawing.Color.White;
+                    }
+                }
             }
-
         }
 
         public DataSet GetCustomersPageWise(int pageIndex, int pageSize)
