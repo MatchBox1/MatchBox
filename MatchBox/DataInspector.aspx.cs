@@ -4233,7 +4233,19 @@ namespace MatchBox
                 }
                 else if (s_mode == "not-matching")
                 {
-                    row.BackColor = System.Drawing.Color.White;
+                    if (hidSelectInside.Value != "")
+                    {
+                        List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
+                        var chk = row.Cells[0].Controls[0];//as CheckBox;
+                        var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                        var exist = s_select_inside.Find(m => m.Equals(chkValue));
+                        if (!string.IsNullOrEmpty(exist))
+                        {
+                            row.BackColor = System.Drawing.Color.LightYellow;
+                        }
+                    }
+                    else
+                        row.BackColor = System.Drawing.Color.White;
                 }
                 else
                 {
@@ -4274,7 +4286,19 @@ namespace MatchBox
                 }
                 else if (s_mode == "not-matching")
                 {
-                    row.BackColor = System.Drawing.Color.White;
+                    if (hidSelectOutside.Value != "")
+                    {
+                        List<string> s_select_outside = hidSelectOutside.Value.Split(',').ToList();
+                        var chk = row.Cells[0].Controls[0];//as CheckBox;
+                        var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                        var exist = s_select_outside.Find(m => m.Equals(chkValue));
+                        if (!string.IsNullOrEmpty(exist))
+                        {
+                            row.BackColor = System.Drawing.Color.LightYellow;
+                        }
+                    }
+                    else
+                        row.BackColor = System.Drawing.Color.White;
                 }
                 else
                 {
