@@ -799,7 +799,7 @@
                     <td class="text-center">
                         <asp:CheckBox ID="chkPaymentsCount" runat="server" Checked="true" /></td>
                     <td class="text-center">
-                        <asp:CheckBox ID="chkDutyPaymentNumber" runat="server" Checked="true" Enabled="false" /></td>
+                        <asp:CheckBox ID="chkDutyPaymentNumber" runat="server" Checked="true"/></td>
                     <td class="text-center">
                         <asp:CheckBox ID="chkTransmissionNumber" runat="server" Checked="true" /></td>
                     <td class="text-center">
@@ -809,7 +809,7 @@
                     <td class="text-center">
                         <asp:CheckBox ID="chkTransactionDate" runat="server" Checked="true" /></td>
                     <td class="text-center">
-                        <asp:CheckBox ID="chkPaymentDate" runat="server" Checked="true" Enabled="false" /></td>
+                        <asp:CheckBox ID="chkPaymentDate" runat="server" Checked="true"/></td>
                     <td class="text-center">
                         <asp:CheckBox ID="chkVoucherNumber" runat="server" Checked="true" /></td>
                     <td class="text-center">
@@ -843,6 +843,14 @@
 
             <asp:Button ID="btnMatchingAutoSave" runat="server" OnClientClick="javascript: return confirm('Create Auto Matching?');" OnCommand="Matching_Command" CommandArgument="Save" Text="Create Auto Matching" />
             &nbsp; <asp:LinkButton ID="btnMatchingAutoCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
+
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" /> <%--checked="checked"--%>
+                        <label for="chkOne">One to One</label>
+                        <input id="chkMany" type="checkbox" runat="server" value="2" onchange="changeMatchingType(this);" />
+                        <label for="chkMany">Many to Many</label>
+                        <input id="chkZero" type="checkbox" runat="server" value="3" onchange="changeMatchingType(this);" />
+                        <label for="chkZero">Zero Amount</label>
         </div>
 
 
@@ -1816,6 +1824,12 @@
 
             o_hidden.value = s_value;
         }
+
+        /////// Change Matching Type /////
+        //function changeMatchingType(control)
+        //{
+        //    var controlId=
+        //}
     </script>
 
 

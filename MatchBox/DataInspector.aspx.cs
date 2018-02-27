@@ -35,6 +35,23 @@ namespace MatchBox
         protected void Page_Load(object sender, EventArgs e)
         {
             divMatchingBalanceRow.Visible = true;
+
+            string strInsideAmount = lblInsideAmount.Text;
+            string strOutsideAmount = lblOutsideAmount.Text;
+            if (!string.IsNullOrEmpty(strOutsideAmount) && !string.IsNullOrEmpty(strInsideAmount))
+            {
+                decimal val = Convert.ToDecimal(strOutsideAmount) - Convert.ToDecimal(strInsideAmount);
+                try
+                {
+                    if (val == 0)
+                    {
+                        divMatchingBalanceRow.Visible = false;
+                    }
+                }
+                catch (Exception ex)
+                { }
+            }
+
             n_user_id = o_user.ID;
             s_cache_inside = String.Format("TableInside_{0}", n_user_id);
             s_cache_outside = String.Format("TableOutside_{0}", n_user_id);
@@ -2070,6 +2087,10 @@ namespace MatchBox
 
         protected void Matching_Command(object sender, CommandEventArgs e)
         {
+            bool ChkOne = chkOne.Checked;
+            bool ChkMany = chkMany.Checked;
+            bool ChkZero = chkZero.Checked;
+
             string s_error = "";
 
             Enable_Table();
@@ -2147,8 +2168,10 @@ namespace MatchBox
 
                         dr_query[s_field] = (o_checkbox.Checked == true) ? "*" : "";
                     }
-
-                    dt_query.Rows.Add(dr_query);
+                    if (ChkOne)
+                    {
+                        dt_query.Rows.Add(dr_query);
+                    }
 
                     float n_tolerance_transaction_gross_amount = 0, n_tolerance_duty_payment_amount = 0;
 
@@ -2197,7 +2220,10 @@ namespace MatchBox
                         dt_query_many_to_many.Rows[1]["PaymentDate"] = "";
                     }
 
-                    dt_query.Merge(dt_query_many_to_many);
+                    if (ChkMany)
+                    {
+                        dt_query.Merge(dt_query_many_to_many);
+                    }
 
                     string s_where_inside = ViewState["WhereInside"].ToString();
                     string s_where_outside = ViewState["WhereOutside"].ToString();
@@ -2831,10 +2857,18 @@ namespace MatchBox
 
                     if (divMatchingBalanceRow.Visible == true)
                     {
-                        o_matching_balance = new MatchingBalanceModel();
-                        o_matching_balance.CompanyID = Convert.ToInt32(hidCompanyID.Value);
-                        o_matching_balance.OperationTypeID = Convert.ToInt32(ddlOperationType_Balance.SelectedValue);
-                        o_matching_balance.DutyPaymentAmount = Convert.ToDouble(hidBalanceAmount.Value);
+                        try
+                        {
+                            o_matching_balance = new MatchingBalanceModel();
+                            if (!string.IsNullOrEmpty(hidCompanyID.Value))
+                                o_matching_balance.CompanyID = Convert.ToInt32(hidCompanyID.Value);
+                            if (!string.IsNullOrEmpty(ddlOperationType_Balance.SelectedValue))
+                                o_matching_balance.OperationTypeID = Convert.ToInt32(ddlOperationType_Balance.SelectedValue);
+                            if (!string.IsNullOrEmpty(hidBalanceAmount.Value))
+                                o_matching_balance.DutyPaymentAmount = Convert.ToDouble(hidBalanceAmount.Value);
+                        }
+                        catch (Exception ex)
+                        { }
                     }
 
                     n_rows_affected = DataAction.Update_Matching(n_user_id, txtMatchingComment.Text.Trim(), s_inside_id_array, s_outside_id_array, o_matching_balance, ref s_error);
