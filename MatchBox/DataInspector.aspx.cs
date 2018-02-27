@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -4255,7 +4256,9 @@ namespace MatchBox
                             var chk = row.Cells[0].Controls[0];//as CheckBox;
                             if (chk != null)
                             {
-                                row.BackColor = System.Drawing.Color.Gray;
+                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                                row.BackColor = lightGrayColor;
+                                //row.BackColor = System.Drawing.Color.Gray;
                                 ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
                             }
                         }
@@ -4263,7 +4266,9 @@ namespace MatchBox
                 }
                 else if (s_mode == "matching")
                 {
-                    row.BackColor = System.Drawing.Color.LightBlue;
+                    Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                    row.BackColor = lightBlueColor;
+                    //row.BackColor = System.Drawing.Color.LightBlue;
                 }
                 else if (s_mode == "not-matching")
                 {
@@ -4286,7 +4291,9 @@ namespace MatchBox
                     var MatchingID = row.Cells[7].Text;
                     if (!string.IsNullOrEmpty(MatchingID))
                     {
-                        row.BackColor = System.Drawing.Color.LightBlue;
+                        //row.BackColor = System.Drawing.Color.LightBlue;
+                        Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                        row.BackColor = lightBlueColor;
                     }
                     else
                     {
@@ -4307,8 +4314,10 @@ namespace MatchBox
                             var chk = row.Cells[0].Controls[0];//as CheckBox;
                             if (chk != null)
                             {
-                                row.BorderWidth = 3;
-                                row.BorderColor = System.Drawing.Color.Gray;
+                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                                row.BackColor = lightGrayColor;
+                                //row.BorderWidth = 3;
+                                //row.BorderColor = System.Drawing.Color.Gray;
                                 ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
                             }
                         }
@@ -4316,7 +4325,9 @@ namespace MatchBox
                 }
                 else if (s_mode == "matching")
                 {
-                    row.BackColor = System.Drawing.Color.LightBlue;
+                    //row.BackColor = System.Drawing.Color.LightBlue;
+                    Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                    row.BackColor = lightBlueColor;
                 }
                 else if (s_mode == "not-matching")
                 {
@@ -4339,7 +4350,9 @@ namespace MatchBox
                     var MatchingID = row.Cells[7].Text;
                     if (!string.IsNullOrEmpty(MatchingID))
                     {
-                        row.BackColor = System.Drawing.Color.LightBlue;
+                        //row.BackColor = System.Drawing.Color.LightBlue;
+                        Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                        row.BackColor = lightBlueColor;
                     }
                     else
                     {
