@@ -52,8 +52,8 @@ namespace MatchBox
                 catch (Exception ex)
                 { }
             }
-
             n_user_id = o_user.ID;
+            hdnUserId.Value = Convert.ToString(n_user_id);
             s_cache_inside = String.Format("TableInside_{0}", n_user_id);
             s_cache_outside = String.Format("TableOutside_{0}", n_user_id);
 
@@ -2169,10 +2169,10 @@ namespace MatchBox
 
                         dr_query[s_field] = (o_checkbox.Checked == true) ? "*" : "";
                     }
-                    if (ChkOne)
-                    {
+                    //if (ChkOne)
+                    //{
                         dt_query.Rows.Add(dr_query);
-                    }
+                    //}
 
                     float n_tolerance_transaction_gross_amount = 0, n_tolerance_duty_payment_amount = 0;
 
@@ -2221,10 +2221,10 @@ namespace MatchBox
                         dt_query_many_to_many.Rows[1]["PaymentDate"] = "";
                     }
 
-                    if (ChkMany)
-                    {
+                    //if (ChkMany)
+                    //{
                         dt_query.Merge(dt_query_many_to_many);
-                    }
+                    //}
 
                     string s_where_inside = ViewState["WhereInside"].ToString();
                     string s_where_outside = ViewState["WhereOutside"].ToString();
@@ -4399,16 +4399,25 @@ namespace MatchBox
         }
 
 
-        public DataSet GetInsideDataAll(int pageIndex, int pageSize, int UserId)
+        public DataSet GetInsideDataAll(int pageIndex, int pageSize, int UserId, string ddlTransactions)
         {
             var Skip = pageIndex == 1 ? 0 : (pageIndex - 1) * pageSize;
             DataTable dt_inside = new DataTable();
             DataTable dt_inside_sum = new DataTable();
             string s_error = "";
-            string s_where_inside = Convert.ToString(Session["WhereInside"]);
+            string s_where_inside = "";
+            //string s_where_inside = Convert.ToString(Session["WhereInside"]);
             // check why session is null
-            if (string.IsNullOrEmpty(s_where_inside))
-                s_where_inside = " AND QueryID IS NOT NULL ";
+            //if (string.IsNullOrEmpty(s_where_inside))
+            //s_where_inside = " AND QueryID IS NOT NULL ";
+            if (ddlTransactions.ToString().ToLower().Trim().Equals("not-matching"))
+            {
+                s_where_inside = "AND QueryID IS NULL";
+            }
+            if (ddlTransactions.ToString().ToLower().Trim().Equals("matching"))
+            {
+                s_where_inside = "AND QueryID IS NOT NULL";
+            }
             string s_order_inside = Convert.ToString(Session["OrderInside"]);
             DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error);
             DataSet ds = new DataSet();
@@ -4420,16 +4429,24 @@ namespace MatchBox
             return ds;
         }
 
-        public DataSet GetOutsideDataAll(int pageIndex, int pageSize, int UserId)
+        public DataSet GetOutsideDataAll(int pageIndex, int pageSize, int UserId, string ddlTransactions)
         {
             var Skip = pageIndex == 1 ? 0 : (pageIndex - 1) * pageSize;
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
             string s_error = "";
-            string s_where_outside = Convert.ToString(Session["WhereOutside"]);
+            string s_where_outside = ""; // Convert.ToString(Session["WhereOutside"]);
             // check why session is null
-            if (string.IsNullOrEmpty(s_where_outside))
-                s_where_outside = " AND QueryID IS NOT NULL ";
+            //if (string.IsNullOrEmpty(s_where_outside))
+            //s_where_outside = " AND QueryID IS NOT NULL ";
+            if (ddlTransactions.ToString().ToLower().Trim().Equals("not-matching"))
+            {
+                s_where_outside = "AND QueryID IS NULL";
+            }
+            if (ddlTransactions.ToString().ToLower().Trim().Equals("matching"))
+            {
+                s_where_outside = "AND QueryID IS NOT NULL";
+            }
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
             DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error);
             DataSet ds = new DataSet();
@@ -4533,7 +4550,7 @@ namespace MatchBox
         public static string GetOutsidedata(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
         {
             DataInspector obj = new DataInspector();
-            var data = obj.GetOutsideDataAll(pageIndex, 30, userId);
+            var data = obj.GetOutsideDataAll(pageIndex, 30, userId, ddlTransactions);
             var tableData = data.Tables[0];
             var otherData = data.Tables[1];
             string html = obj.getOutsideHtml(tableData, pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions);
@@ -4580,7 +4597,7 @@ namespace MatchBox
         public string getInsideHtml(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
         {
             DataInspector obj = new DataInspector();
-            var data = obj.GetInsideDataAll(pageIndex, 30, userId);
+            var data = obj.GetInsideDataAll(pageIndex, 30, userId, ddlTransactions);
             var tableData = data.Tables[0];
             var otherData = data.Tables[1];
             StringBuilder HTML = new StringBuilder();

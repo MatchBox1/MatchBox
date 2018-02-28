@@ -122,8 +122,8 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
             o_command.Parameters.Add(new SqlParameter("@PageNumberInside", SqlDbType.Int) { Value = n_page_inside });
             o_command.Parameters.Add(new SqlParameter("@PageNumberOutside", SqlDbType.Int) { Value = n_page_outside });
-            //o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = n_page_size });
-            o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = 200 });
+            o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = n_page_size });
+            //o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = 200 });
             o_command.Parameters.Add(new SqlParameter("@WhereInside", SqlDbType.NVarChar, -1) { Value = s_where_inside });
             o_command.Parameters.Add(new SqlParameter("@WhereOutside", SqlDbType.NVarChar, -1) { Value = s_where_outside });
             o_command.Parameters.Add(new SqlParameter("@OrderInside", SqlDbType.NVarChar, -1) { Value = s_order_inside });

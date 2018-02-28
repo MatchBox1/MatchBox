@@ -1063,6 +1063,7 @@
 
         <%--Testing code--%>
        <asp:Button ID="btnCheck" runat="server" OnClick="btnCheck_Click" style="display:none" />
+        <asp:HiddenField ID="hdnUserId" runat="server" />
 
     </asp:Panel>
 
@@ -1273,7 +1274,7 @@
                     type: "POST",
                     url: "/DataInspector.aspx/GetInsidedata",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ pageIndex: pageIndex, userId: 1, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
+                    data: JSON.stringify({ pageIndex: pageIndex, userId: $('#ctl00_cphMain_hdnUserId')[0].value, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
                     success: OnSuccess,
                     failure: function (response) {
                         alert(response.d);
@@ -1358,7 +1359,7 @@
                     type: "POST",
                     url: "/DataInspector.aspx/GetOutsidedata",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ pageIndex: pageIndexOutside, userId: 1, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
+                    data: JSON.stringify({ pageIndex: pageIndexOutside, userId: $('#ctl00_cphMain_hdnUserId')[0].value, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
                     success: OnOutsideSuccess,
                     failure: function (response) {
                         alert(response.d);
