@@ -4636,6 +4636,7 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+                        //  Modified the code for color change.
                         if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
