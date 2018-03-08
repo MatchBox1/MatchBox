@@ -2308,33 +2308,6 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.LinkButton btnMatchingAutoCancel;
         
         /// <summary>
-        /// chkOne control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkOne;
-        
-        /// <summary>
-        /// chkMany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkMany;
-        
-        /// <summary>
-        /// chkZero control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkZero;
-        
-        /// <summary>
         /// divInside control.
         /// </summary>
         /// <remarks>
@@ -2810,5 +2783,23 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnUserId;
+        
+        /// <summary>
+        /// hdnAllSelectedType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAllSelectedType;
+        
+        /// <summary>
+        /// hdnAllSelectedChkBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAllSelectedChkBox;
     }
 }

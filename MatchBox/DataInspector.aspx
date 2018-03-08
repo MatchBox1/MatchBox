@@ -845,12 +845,12 @@
             &nbsp; <asp:LinkButton ID="btnMatchingAutoCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
 
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" /> <%--checked="checked"--%>
+                       <%-- <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" /> <%--checked="checked"
                         <label for="chkOne">One to One</label>
-                        <input id="chkMany" type="checkbox" runat="server" value="2" onchange="changeMatchingType(this);" />
+                        <input id="chkMany" type="checkbox" runat="server" value="2" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" />
                         <label for="chkMany">Many to Many</label>
-                        <input id="chkZero" type="checkbox" runat="server" value="3" onchange="changeMatchingType(this);" />
-                        <label for="chkZero">Zero Amount</label>
+                        <input id="chkZero" type="checkbox" runat="server" value="3" checked="checked" onchange="changeMatchingType(this);" disabled="disabled" />
+                        <label for="chkZero">Zero Amount</label>--%>
         </div>
 
 
@@ -1065,6 +1065,9 @@
        <asp:Button ID="btnCheck" runat="server" OnClick="btnCheck_Click" style="display:none" />
         <asp:HiddenField ID="hdnUserId" runat="server" />
 
+        <asp:HiddenField ID="hdnAllSelectedType" runat="server" />
+        <asp:HiddenField ID="hdnAllSelectedChkBox" runat="server" />
+
     </asp:Panel>
 
     <style>
@@ -1116,7 +1119,27 @@
         var pageCountOutside = 20;
         var IsSorted = false;
         var ISOutSorted = false;
+
+        //var datatest = '';
         $(document).ready(function () {
+
+            if ($('#ctl00_cphMain_hdnAllSelectedType').val() == 'checkbox-inside') {
+                if ($('#ctl00_cphMain_hdnAllSelectedChkBox').val() == 'true') {
+                    document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked = true;
+                } else {
+                    document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked = false;
+                }
+            }
+
+            if ($('#ctl00_cphMain_hdnAllSelectedType').val() == 'checkbox-outside') {
+                if ($('#ctl00_cphMain_hdnAllSelectedChkBox').val() == 'true') {
+                    document.getElementsByName("ctl00$cphMain$gvOutside$ctl01$ctl00")[0].checked = true;
+                } else {
+                    document.getElementsByName("ctl00$cphMain$gvOutside$ctl01$ctl00")[0].checked = false;
+                }
+            }
+            
+
             $("#dvGrid").on("scroll", function (e) {
                 var $o = $(e.currentTarget);
                 if ($o[0].scrollHeight - $o.scrollTop() <= $o.outerHeight()) {
@@ -1674,8 +1697,18 @@
             document.getElementById("<%= btnSearchTop.ClientID %>").style.visibility = "hidden";
             document.getElementById("<%= btnSearchBottom.ClientID %>").style.visibility = "hidden";
         }
-
+        
         function select_data_item_all(s_class, b_checked) {
+            alert('rr');
+            //document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked = false;
+            //alert('yes');
+            //datatest = 'yes';
+            //ctl00_cphMain_hdnAllSelectedType
+            //ctl00_cphMain_hdnAllSelectedChkBox
+
+            $('#ctl00_cphMain_hdnAllSelectedType').val(s_class);
+            $('#ctl00_cphMain_hdnAllSelectedChkBox').val(b_checked.checked);
+
             var chkSelectItemArray = document.getElementsByClassName(s_class);
 
             var s_mode = get_mode();
@@ -1683,7 +1716,12 @@
 
             disable_buttons(s_mode);
 
-            checkbox_check_all(chkSelectItemArray, b_checked, b_return_checked);
+            if (document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked == true || document.getElementsByName("ctl00$cphMain$gvOutside$ctl01$ctl00")[0].checked == true) {
+                checkbox_check_all(chkSelectItemArray, b_checked, b_return_checked);
+            }
+            else {
+                checkbox_check_all(chkSelectItemArray, false, b_return_checked);
+            }
 
             // main checkbox not included
 
@@ -1694,9 +1732,15 @@
 
                 highlight_data_item(o_checkbox, b_return_checked);
             }
+            if (s_mode == "not-matching")
+            { document.getElementById('<%= btnCheck.ClientID %>').click(); }
         }
 
         function select_data_item(s_class, o_checkbox) {
+            ////
+            $('#ctl00_cphMain_hdnAllSelectedType').val('');
+            $('#ctl00_cphMain_hdnAllSelectedChkBox').val('');
+            ////
 
             var chkSelectItemArray = document.getElementsByClassName(s_class);
 

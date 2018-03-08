@@ -735,8 +735,8 @@ namespace MatchBox
 
             //s_where_inside = s_where_inside.Replace("AND QueryID IS NULL", "");
             //s_where_outside = s_where_inside.Replace("AND QueryID IS NULL", "");
-
-            SqlCommand o_command = new SqlCommand("sprMatchingInsertQuick", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+             //sprMatchingInsertQuick
+            SqlCommand o_command = new SqlCommand("sprMatchingInsertQuick_test", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
             o_command.Parameters.Add(new SqlParameter("@WhereInside", SqlDbType.NVarChar, -1) { Value = s_where_inside });

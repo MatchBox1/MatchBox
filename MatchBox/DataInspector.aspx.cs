@@ -69,6 +69,7 @@ namespace MatchBox
             }
             Bind_Search();
             Bind_Status_Change();
+
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -1820,7 +1821,16 @@ namespace MatchBox
             string s_select_inside = hidSelectInside.Value;
             string s_select_outside = hidSelectOutside.Value;
 
-            if (s_select_inside == "" && s_select_outside == "") { goto Finish; }
+            if (s_select_inside == "" && s_select_outside == "") {
+                lblInsideRowsSelected.Text = "0";
+                lblInsideAmountSelected.Text = "0.00";
+                lblInsideRowsRemaining.Text = lblInsideRows.Text;
+                lblInsideAmountRemaining.Text = lblInsideAmount.Text;
+                lblOutsideRowsSelected.Text = "0";
+                lblOutsideAmountSelected.Text = "0.00";
+                lblOutsideRowsRemaining.Text = lblOutsideRows.Text;
+                lblOutsideAmountRemaining.Text = lblOutsideAmount.Text;
+                goto Finish; }
 
             if (s_mode == "payment")
             {
@@ -2088,9 +2098,9 @@ namespace MatchBox
 
         protected void Matching_Command(object sender, CommandEventArgs e)
         {
-            bool ChkOne = chkOne.Checked;
-            bool ChkMany = chkMany.Checked;
-            bool ChkZero = chkZero.Checked;
+            //bool ChkOne = chkOne.Checked;
+            //bool ChkMany = chkMany.Checked;
+            //bool ChkZero = chkZero.Checked;
 
             string s_error = "";
 
@@ -3073,7 +3083,6 @@ namespace MatchBox
 
                 bool b_checked = (s_mode == "match" && hidSelectInside.Value == "") || (s_mode == "matching" && hidSelectInside.Value == "" && hidSelectOutside.Value == "");
                 bool b_disabled = (s_mode == "all");
-
                 DataAction.Bind_Grid_Data_Header(gv_row, dt_data_field, "Inside", b_checked, b_disabled);
             }
 
@@ -3095,6 +3104,9 @@ namespace MatchBox
 
             if (gv_row.RowType == DataControlRowType.Header)
             {
+                //var headerCheck = gv_row.Controls[0];     
+                //((System.Web.UI.HtmlControls.HtmlControl)headerCheck).
+
                 DataTable dt_data_field = (DataTable)ViewState["TableDataField"];
 
                 bool b_checked = (s_mode == "match" && hidSelectOutside.Value == "") || (s_mode == "matching" && hidSelectInside.Value == "" && hidSelectOutside.Value == "");
@@ -4572,6 +4584,7 @@ namespace MatchBox
             }
             TableRow row = null;
             var sWriter = new StringWriter();
+            string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
                 foreach (DataRow dtRow in data.Rows)
@@ -4582,10 +4595,12 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        {
+                            Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                            row.BackColor = lightBlueColor;
+                        }
                     }
-
-
-                    string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
                     DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority, "", "Outside", s_mode);
                     row.RenderControl(htmlWriter);
                 }
@@ -4610,6 +4625,7 @@ namespace MatchBox
             }
             TableRow row = null;
             var sWriter = new StringWriter();
+            string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
                 foreach (DataRow dtRow in tableData.Rows)
@@ -4620,9 +4636,14 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        {
+                            Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                            row.BackColor = lightBlueColor;
+                        }
                     }
 
-                    string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
+                    
                     DataAction.Bind_Grid_Data_Row_Inside(row, lst_inside_field_priority, "", "Inside", s_mode);
                     row.RenderControl(htmlWriter);
                 }
