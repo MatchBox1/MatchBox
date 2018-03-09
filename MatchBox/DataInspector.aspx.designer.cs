@@ -2650,6 +2650,15 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.TextBox txtMatchingComment;
         
         /// <summary>
+        /// chkAllCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAllCheckBox;
+        
+        /// <summary>
         /// btnMatchingBalanceChange control.
         /// </summary>
         /// <remarks>
@@ -2801,5 +2810,59 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAllSelectedChkBox;
+        
+        /// <summary>
+        /// btnCheckSort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCheckSort;
+        
+        /// <summary>
+        /// hdnColumnName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnColumnName;
+        
+        /// <summary>
+        /// hdnOrderSort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderSort;
+        
+        /// <summary>
+        /// btnCheckSort1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCheckSort1;
+        
+        /// <summary>
+        /// hdnColumnName1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnColumnName1;
+        
+        /// <summary>
+        /// hdnOrderSort1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderSort1;
     }
 }

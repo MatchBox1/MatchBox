@@ -114,9 +114,16 @@ namespace MatchBox
             }
         }
 
-
-        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error)
+        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out)
         {
+            string strDBColumnName = string.Empty;
+            if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+                strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+
+            string strDBColumnName_Out = string.Empty;
+            if (!string.IsNullOrEmpty(sortColumnName_Out.Trim()))
+                strDBColumnName_Out = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName_Out.Trim());
+
             SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy1", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
@@ -128,6 +135,11 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@WhereOutside", SqlDbType.NVarChar, -1) { Value = s_where_outside });
             o_command.Parameters.Add(new SqlParameter("@OrderInside", SqlDbType.NVarChar, -1) { Value = s_order_inside });
             o_command.Parameters.Add(new SqlParameter("@OrderOutside", SqlDbType.NVarChar, -1) { Value = s_order_outside });
+
+            o_command.Parameters.Add(new SqlParameter("@sortColumnName", SqlDbType.NVarChar, -1) { Value = strDBColumnName });
+            o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
+            o_command.Parameters.Add(new SqlParameter("@sortColumnName_Out", SqlDbType.NVarChar, -1) { Value = strDBColumnName_Out });
+            o_command.Parameters.Add(new SqlParameter("@sortType_Out", SqlDbType.NVarChar, -1) { Value = sortType_Out });
 
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
@@ -156,10 +168,12 @@ namespace MatchBox
             }
         }
 
-
-
-        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside,  int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error)
+        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside,  int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType)
         {
+            string strDBColumnName = string.Empty;
+            if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+                strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+
             SqlCommand o_command = new SqlCommand("sprDataSelectInsidePagingLazy", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
@@ -167,6 +181,10 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = n_page_size });
             o_command.Parameters.Add(new SqlParameter("@WhereInside", SqlDbType.NVarChar, -1) { Value = s_where_inside });
             o_command.Parameters.Add(new SqlParameter("@OrderInside", SqlDbType.NVarChar, -1) { Value = s_order_inside });
+
+            o_command.Parameters.Add(new SqlParameter("@sortColumnName", SqlDbType.NVarChar, -1) { Value = strDBColumnName });
+            o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
+
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
             try
@@ -189,8 +207,12 @@ namespace MatchBox
             }
         }
 
-        public static void SelectOutside(int n_user_id, string s_where_outside, string s_order_outside, int n_page_outside, int n_page_size, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error)
+        public static void SelectOutside(int n_user_id, string s_where_outside, string s_order_outside, int n_page_outside, int n_page_size, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType)
         {
+            string strDBColumnName = string.Empty;
+            if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+                strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+
             SqlCommand o_command = new SqlCommand("sprDataSelectOutsidePagingLazy", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
@@ -198,6 +220,10 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@PageSize", SqlDbType.Int) { Value = n_page_size });
             o_command.Parameters.Add(new SqlParameter("@WhereOutside", SqlDbType.NVarChar, -1) { Value = s_where_outside });
             o_command.Parameters.Add(new SqlParameter("@OrderOutside", SqlDbType.NVarChar, -1) { Value = s_order_outside });
+
+            o_command.Parameters.Add(new SqlParameter("@sortColumnName", SqlDbType.NVarChar, -1) { Value = strDBColumnName });
+            o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
+
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
             try
@@ -2201,11 +2227,13 @@ namespace MatchBox
 
             if (b_select_all == true)
             {
-                o_checkbox.Attributes.Add("onclick", "javascript: select_data_item_all('" + s_class + "', this.checked);");
+                o_checkbox.Attributes.Add("onclick", "javascript: select_data_item_all('" + s_class + "', this);");
+                //o_checkbox.Checked = true;
             }
             else
             {
                 o_checkbox.Attributes.Add("onclick", "javascript: select_data_item('" + s_class + "', this);");
+                //o_checkbox.Checked = b_checked;
             }
 
             o_checkbox.Checked = b_checked;

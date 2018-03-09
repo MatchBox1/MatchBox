@@ -1038,6 +1038,7 @@
                 Operation Type <asp:DropDownList ID="ddlOperationType_Balance" runat="server" />
                 <asp:RequiredFieldValidator ID="rfvOperationType_Balance" runat="server" ValidationGroup="MatchingBalance" ControlToValidate="ddlOperationType_Balance" InitialValue="0" ErrorMessage="Select 'Operation Type'." Display="Dynamic" SetFocusOnError="true" CssClass="error" />
                 &nbsp; </div>Comment <asp:TextBox ID="txtMatchingComment" runat="server" MaxLength="50" />
+                <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" /> <%--onchange="changeMatchingType(this);" --%>
             &nbsp; <asp:Button ID="btnMatchingBalanceChange" runat="server" ValidationGroup="MatchingBalance" OnClientClick="javascript: return matching_change();" OnClick="Save_Changes" Text="Save Changes" />
             &nbsp; <asp:LinkButton ID="btnMatchingBalanceCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
         </asp:Panel>
@@ -1067,6 +1068,17 @@
 
         <asp:HiddenField ID="hdnAllSelectedType" runat="server" />
         <asp:HiddenField ID="hdnAllSelectedChkBox" runat="server" />
+
+        <asp:Button ID="btnCheckSort" runat="server" OnClick="btnCheckSort_Click" style="display:none" />
+        <asp:HiddenField ID="hdnColumnName" runat="server" />
+        <asp:HiddenField ID="hdnOrderSort" runat="server" />
+        <%--<asp:HiddenField ID="hdnTableType" runat="server" />--%>
+
+        <asp:Button ID="btnCheckSort1" runat="server" OnClick="btnCheckSort_Click1" style="display:none" />
+        <asp:HiddenField ID="hdnColumnName1" runat="server" />
+        <asp:HiddenField ID="hdnOrderSort1" runat="server" />
+        <%--<asp:HiddenField ID="hdnTableType1" runat="server" />--%>
+
 
     </asp:Panel>
 
@@ -1123,6 +1135,22 @@
         //var datatest = '';
         $(document).ready(function () {
 
+            ///////
+            if ($('#ctl00_cphMain_hdnOrderSort').val() != '') {
+                if ($('#ctl00_cphMain_hdnOrderSort').val() == 'false')
+                    IsSorted = true;
+                else
+                    IsSorted = false;
+            }
+
+            if ($('#ctl00_cphMain_hdnOrderSort1').val() != '') {
+                if ($('#ctl00_cphMain_hdnOrderSort1').val() == 'false')
+                    ISOutSorted = true;
+                else
+                    ISOutSorted = false;
+            }
+            ///////
+
             if ($('#ctl00_cphMain_hdnAllSelectedType').val() == 'checkbox-inside') {
                 if ($('#ctl00_cphMain_hdnAllSelectedChkBox').val() == 'true') {
                     document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked = true;
@@ -1153,7 +1181,7 @@
                 }
             });
             $("#tblInsideHead").on("click", 'td', function (event) {
-
+                //alert('sort');
                 var htmldata = '';
                 var index = getIndex(this);
                 $(this).parent().find('span').css('background-color', '');
@@ -1165,35 +1193,43 @@
                 else
                     $(this).find('span').addClass('arrowup');
 
-                $("[id$=gvInside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
-                    try {
-                        if (IsSorted == false) {
-                            if (isvalidDate(a.children[index].innerText)) {
-                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
-                            }
-                            else if (!isNaN(parseInt(a.children[index].innerText))) {
-                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? 1 : -1;
-                            }
-                            else {
-                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
-                            }
-                        }
-                        else {
-                            if (isvalidDate(a.children[index].innerText)) {
-                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
-                            }
-                            else if (!isNaN(parseInt(a.children[index].innerText))) {
-                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? -1 : 1;
-                            }
-                            else {
-                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? -1 : 1;
-                            }
-                        }
-                    }
-                    catch (err) {
-                    }
-                });
-                IsSorted = IsSorted ? false : true;
+                //////
+
+                $('#ctl00_cphMain_hdnColumnName').val(this.textContent);
+                $('#ctl00_cphMain_hdnOrderSort').val(IsSorted);
+                //$('#ctl00_cphMain_hdnTableType').val("inside");
+                document.getElementById('<%= btnCheckSort.ClientID %>').click();
+                //////
+
+                //$("[id$=gvInside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
+                //    try {
+                //        if (IsSorted == false) {
+                //            if (isvalidDate(a.children[index].innerText)) {
+                //                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                //            }
+                //            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                //                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                //            }
+                //            else {
+                //                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
+                //            }
+                //        }
+                //        else {
+                //            if (isvalidDate(a.children[index].innerText)) {
+                //                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                //            }
+                //            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                //                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                //            }
+                //            else {
+                //                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? -1 : 1;
+                //            }
+                //        }
+                //    }
+                //    catch (err) {
+                //    }
+                //});
+                //IsSorted = IsSorted ? false : true;
             });
 
             $("#tblOutsideHead").on("click", 'td', function (event) {
@@ -1209,36 +1245,41 @@
                 else
                     $(this).find('span').addClass('arrowup');
 
-                $("[id$=gvOutside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
-                    try {
-                        if (ISOutSorted == false) {
-                            if (isvalidDate(a.children[index].innerText)) {
-                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
-                            }
-                            else if (!isNaN(parseInt(a.children[index].innerText))) {
-                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? 1 : -1;
-                            }
-                            else {
-                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
-                            }
-                        }
-                        else {
-                            if (isvalidDate(a.children[index].innerText)) {
-                                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
-                                //return new Date(Date.parse(a.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) > new Date(Date.parse(b.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) ? -1 :1;
-                            }
-                            else if (!isNaN(parseInt(a.children[index].innerText))) {
-                                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? -1 : 1;
-                            }
-                            else {
-                                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? -1 : 1;
-                            }
-                        }
-                    }
-                    catch (err) {
-                    }
-                });
-                ISOutSorted = ISOutSorted ? false : true;
+                $('#ctl00_cphMain_hdnColumnName1').val(this.textContent);
+                $('#ctl00_cphMain_hdnOrderSort1').val(ISOutSorted);
+                //$('#ctl00_cphMain_hdnTableType1').val("outside");
+                document.getElementById('<%= btnCheckSort1.ClientID %>').click();
+
+                ////$("[id$=gvOutside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
+                ////    try {
+                ////        if (ISOutSorted == false) {
+                ////            if (isvalidDate(a.children[index].innerText)) {
+                ////                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                ////            }
+                ////            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                ////                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? 1 : -1;
+                ////            }
+                ////            else {
+                ////                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? 1 : -1;
+                ////            }
+                ////        }
+                ////        else {
+                ////            if (isvalidDate(a.children[index].innerText)) {
+                ////                return getcorrectDate(a.children[index].innerText.replace(',', '')) > getcorrectDate(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                ////                //return new Date(Date.parse(a.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) > new Date(Date.parse(b.children[index].innerText.replace(',', ''), "dd-MM-yyyy")) ? -1 :1;
+                ////            }
+                ////            else if (!isNaN(parseInt(a.children[index].innerText))) {
+                ////                return parseInt(a.children[index].innerText.replace(',', '')) > parseInt(b.children[index].innerText.replace(',', '')) ? -1 : 1;
+                ////            }
+                ////            else {
+                ////                return a.children[index].innerText > b.children[index].innerText.replace(',', '') ? -1 : 1;
+                ////            }
+                ////        }
+                ////    }
+                ////    catch (err) {
+                ////    }
+                ////});
+                //ISOutSorted = ISOutSorted ? false : true;
             });
 
         });
@@ -1282,6 +1323,7 @@
             var rowText = $("[id$=lblInsideRows]").text();
             rowText = rowText.replace(",", "");
             var lblInsideRows = parseInt(rowText);
+            pageCount = Math.ceil(lblInsideRows / pageSize);
             pageIndex++;
             var trs = $('#dvGrid .table-data[rules="all"] tr');
             var trClass = 0;
@@ -1367,6 +1409,7 @@
             var rowText = $("[id$=lblOutsideRows]").text();
             rowText = rowText.replace(",", "");
             var lblOutsideRows = parseInt(rowText);
+            pageCountOutside = Math.ceil(lblOutsideRows / pageSize);
             pageIndexOutside++;
             var trs = $('#dvGridOutside .table-data[rules="all"] tr');
             var trClassCount = 0;
@@ -1699,7 +1742,7 @@
         }
         
         function select_data_item_all(s_class, b_checked) {
-            alert('rr');
+            //alert('rr');
             //document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked = false;
             //alert('yes');
             //datatest = 'yes';

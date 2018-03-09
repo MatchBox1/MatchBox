@@ -65,6 +65,12 @@ namespace MatchBox
             if (Page.IsPostBack) { return; }
             if (!Page.IsPostBack)
             {
+                Session["sortColumnName_Inside"] = "";
+                Session["hdnOrderSort_Inside"] = "";
+                //Session["hdnTableType_Inside"] = "";
+                Session["sortColumnName_Outside"] = "";
+                Session["hdnOrderSort_Outside"] = "";
+                //Session["hdnTableType_Outside"] = "";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "localStorage", "<script type=\"text/javascript\"  language=\"javascript\">localStorage.isLoading=\"false\";</script>");
             }
             Bind_Search();
@@ -1743,7 +1749,7 @@ namespace MatchBox
                 DataTable dt_inside_sum = new DataTable();
                 DataTable dt_outside_sum = new DataTable();
 
-                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "","","");
                 //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
                 ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -1777,18 +1783,117 @@ namespace MatchBox
             }
         }
 
-        //public static void GetCalculatedData()
-        //{
+        protected void btnCheckSort_Click(object sender, EventArgs e)
+        {
+            Session["sortColumnName_Inside"] = hdnColumnName.Value;
+            Session["hdnOrderSort_Inside"] = Convert.ToBoolean(hdnOrderSort.Value) == true ? "asc" : "desc";
+            //Session["hdnTableType_Inside"] = hdnTableType.Value;
+            string sortColumnName = hdnColumnName.Value;
+            string sortType = Convert.ToBoolean(hdnOrderSort.Value)==true?"asc":"desc";
+            //string sortTableType = hdnTableType.Value;
+            ///
+            //Session["sortColumnName_Outside"] = hdnColumnName1.Value;
+            //Session["hdnOrderSort_Outside"] = Convert.ToBoolean(hdnOrderSort1.Value) == true ? "asc" : "desc";
+            //Session["hdnTableType_Outside"] = hdnTableType1.Value;
+            string sortColumnName_Out = Session["sortColumnName_Outside"] != null ? Session["sortColumnName_Outside"].ToString() : "";
+            string sortType_Out = Session["hdnOrderSort_Outside"] != null ? Session["hdnOrderSort_Outside"].ToString() : "";
+            //string sortTableType = hdnTableType1.Value;
 
-        //}
+            // GET INSIDE & OUTSIDE TABLES
 
-        //[WebMethod]
-        //[ScriptMethod]
-        //public static string recalculateAjax(string strInside, string strOutside)
-        //{
+            DataTable dt_inside = new DataTable();
+            DataTable dt_outside = new DataTable();
 
-        //    //return "tests";
-        //}
+            DataTable dt_inside_sum = new DataTable();
+            DataTable dt_outside_sum = new DataTable();
+
+            string s_error = string.Empty;
+            string s_where_inside=string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out);
+            //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+
+            ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
+
+            if (s_error != "")
+
+            {
+                lblError.Text = s_error;
+                return;
+            }
+
+            // USE Cache CLASS TO STORE A LARGE DATA
+
+            Cache.Insert(s_cache_inside, dt_inside, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+            Cache.Insert(s_cache_outside, dt_outside, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+
+            Cache.Insert(s_cache_inside + "_Sum", dt_inside_sum, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+            Cache.Insert(s_cache_outside + "_Sum", dt_outside_sum, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+
+            // SHOW RESULT / HIDE SEARCH FORM
+
+            secSearch.Style.Remove("display");
+            pnlSearchResult.Visible = true;
+            Enable_Table();
+            Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
+            Bind_Paging(Convert.ToInt32(dt_inside_sum.Rows[0]["PagesCount"]), Convert.ToInt32(dt_outside_sum.Rows[0]["PagesCount"]));
+
+        }
+
+        protected void btnCheckSort_Click1(object sender, EventArgs e)
+        {
+            //Session["sortColumnName_Inside"] = hdnColumnName.Value;
+            //Session["hdnOrderSort_Inside"] = Convert.ToBoolean(hdnOrderSort.Value) == true ? "asc" : "desc";
+            //Session["hdnTableType_Inside"] = hdnTableType.Value;
+            string sortColumnName = Session["sortColumnName_Inside"] != null ? Session["sortColumnName_Inside"].ToString() : "";
+            string sortType = Session["hdnOrderSort_Inside"] != null ? Session["hdnOrderSort_Inside"].ToString() : "";
+            //string sortTableType = hdnTableType.Value;
+            //////
+            Session["sortColumnName_Outside"] = hdnColumnName1.Value;
+            Session["hdnOrderSort_Outside"] = Convert.ToBoolean(hdnOrderSort1.Value) == true ? "asc" : "desc";
+            //Session["hdnTableType_Outside"] = hdnTableType1.Value;
+            string sortColumnName_Out = hdnColumnName1.Value;
+            string sortType_Out = Convert.ToBoolean(hdnOrderSort1.Value) == true ? "asc" : "desc";
+            //string sortTableType = hdnTableType1.Value;
+
+            // GET INSIDE & OUTSIDE TABLES
+
+            DataTable dt_inside = new DataTable();
+            DataTable dt_outside = new DataTable();
+
+            DataTable dt_inside_sum = new DataTable();
+            DataTable dt_outside_sum = new DataTable();
+
+            string s_error = string.Empty;
+            string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out);
+            //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+
+            ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
+
+            if (s_error != "")
+
+            {
+                lblError.Text = s_error;
+                return;
+            }
+
+            // USE Cache CLASS TO STORE A LARGE DATA
+
+            Cache.Insert(s_cache_inside, dt_inside, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+            Cache.Insert(s_cache_outside, dt_outside, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+
+            Cache.Insert(s_cache_inside + "_Sum", dt_inside_sum, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+            Cache.Insert(s_cache_outside + "_Sum", dt_outside_sum, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+
+            // SHOW RESULT / HIDE SEARCH FORM
+
+            secSearch.Style.Remove("display");
+            pnlSearchResult.Visible = true;
+            Enable_Table();
+            Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
+            Bind_Paging(Convert.ToInt32(dt_inside_sum.Rows[0]["PagesCount"]), Convert.ToInt32(dt_outside_sum.Rows[0]["PagesCount"]));
+
+        }
 
         protected void btnCheck_Click(object sender, EventArgs e)
         {
@@ -1821,7 +1926,8 @@ namespace MatchBox
             string s_select_inside = hidSelectInside.Value;
             string s_select_outside = hidSelectOutside.Value;
 
-            if (s_select_inside == "" && s_select_outside == "") {
+            if (s_select_inside == "" && s_select_outside == "")
+            {
                 lblInsideRowsSelected.Text = "0";
                 lblInsideAmountSelected.Text = "0.00";
                 lblInsideRowsRemaining.Text = lblInsideRows.Text;
@@ -1830,7 +1936,8 @@ namespace MatchBox
                 lblOutsideAmountSelected.Text = "0.00";
                 lblOutsideRowsRemaining.Text = lblOutsideRows.Text;
                 lblOutsideAmountRemaining.Text = lblOutsideAmount.Text;
-                goto Finish; }
+                goto Finish;
+            }
 
             if (s_mode == "payment")
             {
@@ -2181,7 +2288,7 @@ namespace MatchBox
                     }
                     //if (ChkOne)
                     //{
-                        dt_query.Rows.Add(dr_query);
+                    dt_query.Rows.Add(dr_query);
                     //}
 
                     float n_tolerance_transaction_gross_amount = 0, n_tolerance_duty_payment_amount = 0;
@@ -2233,7 +2340,7 @@ namespace MatchBox
 
                     //if (ChkMany)
                     //{
-                        dt_query.Merge(dt_query_many_to_many);
+                    dt_query.Merge(dt_query_many_to_many);
                     //}
 
                     string s_where_inside = ViewState["WhereInside"].ToString();
@@ -2624,7 +2731,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "");
 
             if (s_error != "") { goto Error; }
 
@@ -2690,7 +2797,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "");
 
             if (s_error != "")
             {
@@ -2749,7 +2856,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "");
 
             if (s_error != "")
             {
@@ -2904,7 +3011,7 @@ namespace MatchBox
 
             DataTable dt_inside = null, dt_outside = null, dt_inside_sum = null, dt_outside_sum = null;
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "");
 
             if (s_error != "") { goto Error; }
 
@@ -3045,7 +3152,7 @@ namespace MatchBox
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "");
 
             if (s_error != "")
             {
@@ -4376,8 +4483,11 @@ namespace MatchBox
 
         public DataSet GetCustomersPageWise(int pageIndex, int pageSize)
         {
-            var Skip = pageIndex == 1 ? 0 : (pageIndex - 1) * pageSize;
+            string sortColumnName = Session["sortColumnName_Inside"] != null ? Session["sortColumnName_Inside"].ToString() : "";
+            string sortType = Session["hdnOrderSort_Inside"] != null ? Session["hdnOrderSort_Inside"].ToString() : "";
+            //string sortTableType = Session["hdnTableType_Inside"] != null ? Session["hdnTableType_Inside"].ToString() : "";
 
+            var Skip = pageIndex == 1 ? 0 : (pageIndex - 1) * pageSize;
 
             DataTable dt_inside = new DataTable();
             DataTable dt_inside_sum = new DataTable();
@@ -4393,8 +4503,7 @@ namespace MatchBox
 
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, pageIndex, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
-
-            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error);
+            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType);
 
             DataSet ds = new DataSet();
 
@@ -4410,9 +4519,12 @@ namespace MatchBox
             return ds;
         }
 
-
         public DataSet GetInsideDataAll(int pageIndex, int pageSize, int UserId, string ddlTransactions)
         {
+            string sortColumnName = Session["sortColumnName_Inside"] != null ? Session["sortColumnName_Inside"].ToString() : "";
+            string sortType = Session["hdnOrderSort_Inside"] != null ? Session["hdnOrderSort_Inside"].ToString() : "";
+            //string sortTableType = Session["hdnTableType_Inside"] != null ? Session["hdnTableType_Inside"].ToString() : "";
+
             var Skip = pageIndex == 1 ? 0 : (pageIndex - 1) * pageSize;
             DataTable dt_inside = new DataTable();
             DataTable dt_inside_sum = new DataTable();
@@ -4431,7 +4543,7 @@ namespace MatchBox
                 s_where_inside = "AND QueryID IS NOT NULL";
             }
             string s_order_inside = Convert.ToString(Session["OrderInside"]);
-            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error);
+            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType);
             DataSet ds = new DataSet();
             var dt_inside_Copy = dt_inside.Copy();
             var dt_inside_sum_Copy = dt_inside_sum.Copy();
@@ -4443,6 +4555,10 @@ namespace MatchBox
 
         public DataSet GetOutsideDataAll(int pageIndex, int pageSize, int UserId, string ddlTransactions)
         {
+            string sortColumnName = Session["sortColumnName_Outside"] != null ? Session["sortColumnName_Outside"].ToString() : "";
+            string sortType = Session["hdnOrderSort_Outside"] != null ? Session["hdnOrderSort_Outside"].ToString() : "";
+            //string sortTableType = Session["hdnTableType_Outside"] != null ? Session["hdnTableType_Outside"].ToString() : "";
+
             var Skip = pageIndex == 1 ? 0 : (pageIndex - 1) * pageSize;
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
@@ -4460,7 +4576,7 @@ namespace MatchBox
                 s_where_outside = "AND QueryID IS NOT NULL";
             }
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
-            DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error);
+            DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType);
             DataSet ds = new DataSet();
             var dt_outside_Copy = dt_outside.Copy();
             var dt_outside_sum_Copy = dt_outside_sum.Copy();
@@ -4585,6 +4701,11 @@ namespace MatchBox
             TableRow row = null;
             var sWriter = new StringWriter();
             string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
+            /// CHECK ANY Transcation is In Process
+            string strErrors = string.Empty;
+            DataTable dtLockedRecords = new DataTable();
+            DataAction.SelectLockedRecords(userId, ref dtLockedRecords, ref strErrors);
+            ///
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
                 foreach (DataRow dtRow in data.Rows)
@@ -4595,11 +4716,57 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
-                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+
+                        //  Modified the code for color change.
+                        row.BackColor = System.Drawing.Color.LightYellow;
+                        if (dtLockedRecords.Rows.Count > 0)
+                        {
+                            //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                            var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                            if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                            {
+                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                                row.BackColor = lightGrayColor;
+                            }
+                        }
+                        else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
                             row.BackColor = lightBlueColor;
                         }
+                        else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
+                        {
+                            //if (hidSelectInside.Value != "")
+                            //{
+                            //    List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
+                            //    var chk = row.Cells[0].Controls[0];//as CheckBox;
+                            //    var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                            //    var exist = s_select_inside.Find(m => m.Equals(chkValue));
+                            //    if (!string.IsNullOrEmpty(exist))
+                            //    {
+                            //        row.BackColor = System.Drawing.Color.LightYellow;
+                            //    }
+                            //}
+                            //else
+                                row.BackColor = System.Drawing.Color.White;
+                        }
+                        else
+                        {
+                            //var MatchingID = row.Cells[7].Text;
+                            var MatchingID = dtRow.ItemArray[7].ToString();
+                            if (!string.IsNullOrEmpty(MatchingID))
+                            {
+                                //row.BackColor = System.Drawing.Color.LightBlue;
+                                Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                                row.BackColor = lightBlueColor;
+                            }
+                            else
+                            {
+                                row.BackColor = System.Drawing.Color.White;
+                            }
+                        }
+                        // Modified the code for color change.
+
                     }
                     DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority, "", "Outside", s_mode);
                     row.RenderControl(htmlWriter);
@@ -4626,6 +4793,11 @@ namespace MatchBox
             TableRow row = null;
             var sWriter = new StringWriter();
             string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
+            /////// CHECK ANY Transcation is In Process
+            string strErrors = string.Empty;
+            DataTable dtLockedRecords = new DataTable();
+            DataAction.SelectLockedRecords(userId, ref dtLockedRecords, ref strErrors);
+            ////
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
                 foreach (DataRow dtRow in tableData.Rows)
@@ -4636,15 +4808,57 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+
                         //  Modified the code for color change.
-                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        row.BackColor = System.Drawing.Color.LightYellow;
+                        if (dtLockedRecords.Rows.Count > 0)
+                        {
+                            //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                            var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                            if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                            {
+                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                                row.BackColor = lightGrayColor;
+                            }
+                        }
+                        else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
                             row.BackColor = lightBlueColor;
                         }
+                        else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
+                        {
+                        //    if (hidSelectInside.Value != "")
+                        //    {
+                        //        List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
+                        //        var chk = row.Cells[0].Controls[0];//as CheckBox;
+                        //        var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                        //        var exist = s_select_inside.Find(m => m.Equals(chkValue));
+                        //        if (!string.IsNullOrEmpty(exist))
+                        //        {
+                        //            row.BackColor = System.Drawing.Color.LightYellow;
+                        //        }
+                        //    }
+                        //    else
+                                row.BackColor = System.Drawing.Color.White;
+                        }
+                        else
+                        {
+                            //var MatchingID = row.Cells[7].Text;
+                            var MatchingID = dtRow.ItemArray[7].ToString();
+                            if (!string.IsNullOrEmpty(MatchingID))
+                            {
+                                //row.BackColor = System.Drawing.Color.LightBlue;
+                                Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                                row.BackColor = lightBlueColor;
+                            }
+                            else
+                            {
+                                row.BackColor = System.Drawing.Color.White;
+                            }
+                        }
+                        // Modified the code for color change.
                     }
-
-                    
                     DataAction.Bind_Grid_Data_Row_Inside(row, lst_inside_field_priority, "", "Inside", s_mode);
                     row.RenderControl(htmlWriter);
                 }
