@@ -844,17 +844,12 @@
             <asp:Button ID="btnMatchingAutoSave" runat="server" OnClientClick="javascript: return confirm('Create Auto Matching?');" OnCommand="Matching_Command" CommandArgument="Save" Text="Create Auto Matching" />
             &nbsp; <asp:LinkButton ID="btnMatchingAutoCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
 
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <%-- <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" /> <%--checked="checked"
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%-- <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" /> <%--checked="checked"
                         <label for="chkOne">One to One</label>
                         <input id="chkMany" type="checkbox" runat="server" value="2" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" />
                         <label for="chkMany">Many to Many</label>
                         <input id="chkZero" type="checkbox" runat="server" value="3" checked="checked" onchange="changeMatchingType(this);" disabled="disabled" />
-                        <label for="chkZero">Zero Amount</label>--%>
-        </div>
-
-
-        <div id="divInside" runat="server" class="float-left" style="width: 49%; position: relative;">
+                        <label for="chkZero">Zero Amount</label>--%></div><div id="divInside" runat="server" class="float-left" style="width: 49%; position: relative;">
             <b>Inside</b> &nbsp; - &nbsp; <asp:LinkButton ID="btnDownloadInside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
             <asp:TextBox ID="txtSearchInside" runat="server" Visible="false"></asp:TextBox><style>
                 .table-data td, .table-data th {
@@ -1038,7 +1033,7 @@
                 Operation Type <asp:DropDownList ID="ddlOperationType_Balance" runat="server" />
                 <asp:RequiredFieldValidator ID="rfvOperationType_Balance" runat="server" ValidationGroup="MatchingBalance" ControlToValidate="ddlOperationType_Balance" InitialValue="0" ErrorMessage="Select 'Operation Type'." Display="Dynamic" SetFocusOnError="true" CssClass="error" />
                 &nbsp; </div>Comment <asp:TextBox ID="txtMatchingComment" runat="server" MaxLength="50" />
-                <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" /> <%--onchange="changeMatchingType(this);" --%>
+                <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" OnCheckedChanged="chkAllCheckBox_click"/> <%--onchange="changeMatchingType(this);" --%>
             &nbsp; <asp:Button ID="btnMatchingBalanceChange" runat="server" ValidationGroup="MatchingBalance" OnClientClick="javascript: return matching_change();" OnClick="Save_Changes" Text="Save Changes" />
             &nbsp; <asp:LinkButton ID="btnMatchingBalanceCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
         </asp:Panel>

@@ -676,11 +676,12 @@ namespace MatchBox
             }
         }
 
-        public static int Update_Matching(int n_user_id, string s_comment, string s_inside_id_array, string s_outside_id_array, MatchingBalanceModel o_matching_balance, ref string s_error)
+        public static int Update_Matching(int n_user_id, string s_comment, string s_inside_id_array, string s_outside_id_array, MatchingBalanceModel o_matching_balance, ref string s_error, string allCheckBoxChecked)
         {
             int n_rows_affected = 0;
 
-            if (n_user_id <= 0 || (s_inside_id_array == "" && s_outside_id_array == "")) { goto Finish; }
+            //if (n_user_id <= 0 || (s_inside_id_array == "" && s_outside_id_array == "")) { goto Finish; }
+            if (n_user_id <= 0) { goto Finish; }
 
             // CREATE dt_inside_id & dt_outside_id - TYPE OF typSingleColumnInt
 
@@ -718,6 +719,9 @@ namespace MatchBox
 
             o_command.Parameters.AddWithValue("@TableOutsideID", dt_outside_id);
             o_command.Parameters["@TableOutsideID"].SqlDbType = SqlDbType.Structured;
+            ////
+            o_command.Parameters.Add("@allCheckBoxChecked", SqlDbType.NVarChar, 10);
+            o_command.Parameters["@allCheckBoxChecked"].Value = allCheckBoxChecked;
 
             try
             {

@@ -430,7 +430,7 @@ namespace MatchBox
 
                         if (s_matching_type != "") { s_where += " AND MatchingTypeID IN ( " + s_matching_type + " ) "; }
                     }
-
+                    divMatchingBalanceRow.Visible = false;
                     break;
                 case "not-matching":
                     s_where = " AND QueryID IS NULL ";
@@ -446,8 +446,15 @@ namespace MatchBox
                     }
 
                     break;
+                //case "all":
+                //    pnlMatchingBalance.Visible = false;
+                //    break;
             }
 
+            if(ddlTransactions.SelectedValue=="all")
+                pnlMatchingBalance.Visible = false;
+            else
+                pnlMatchingBalance.Visible = true;
             // OperationType
 
             string s_operation_type = Parameter_CheckBoxList(cblOperationType);
@@ -1809,6 +1816,16 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_where_inside=string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
+            ///////
+            s_where_inside = ViewState["WhereInside"].ToString();
+            s_where_outside= ViewState["WhereOutside"].ToString();
+            s_order_inside= ViewState["OrderInside"].ToString();
+            s_order_outside = ViewState["OrderOutside"].ToString();
+            s_where_inside = Session["WhereInside"] != null ? Session["WhereInside"].ToString() : "";
+            s_where_outside = Session["WhereOutside"] != null ? Session["WhereOutside"].ToString() : "";
+            s_order_inside = Session["OrderInside"] != null ? Session["OrderInside"].ToString() : "";
+            s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
+            ///////
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
@@ -1865,6 +1882,18 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
+
+            ///////
+            s_where_inside = ViewState["WhereInside"].ToString();
+            s_where_outside = ViewState["WhereOutside"].ToString();
+            s_order_inside = ViewState["OrderInside"].ToString();
+            s_order_outside = ViewState["OrderOutside"].ToString();
+            s_where_inside = Session["WhereInside"] != null ? Session["WhereInside"].ToString() : "";
+            s_where_outside = Session["WhereOutside"] != null ? Session["WhereOutside"].ToString() : "";
+            s_order_inside = Session["OrderInside"] != null ? Session["OrderInside"].ToString() : "";
+            s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
+            ///////
+
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
@@ -1936,6 +1965,8 @@ namespace MatchBox
                 lblOutsideAmountSelected.Text = "0.00";
                 lblOutsideRowsRemaining.Text = lblOutsideRows.Text;
                 lblOutsideAmountRemaining.Text = lblOutsideAmount.Text;
+                /// Banance amont blank
+                txtBalanceAmount.Text = "0";
                 goto Finish;
             }
 
@@ -2936,15 +2967,30 @@ namespace MatchBox
                 }
             }
         }
-
+        protected void chkAllCheckBox_click(object sender, EventArgs e)
+        {
+            string strChkboxes = hdnAllSelectedType.Value;
+        }
         protected void Save_Changes(object sender, EventArgs e)
         {
             if (Allow_Recalculate() == false) { return; }
 
+            string allCheckBoxChecked = string.Empty;
+            if (chkAllCheckBox.Checked)
+                allCheckBoxChecked = "all";
+            else
+                allCheckBoxChecked = "";
+
             string s_inside_id_array = hidSelectInside.Value;
             string s_outside_id_array = hidSelectOutside.Value;
 
-            if (s_inside_id_array == "" && s_outside_id_array == "") { return; }
+            if (allCheckBoxChecked == "")
+            {
+                if (s_inside_id_array == "" && s_outside_id_array == "")
+                {
+                    return;
+                }
+            }
 
             string s_mode = Get_Mode();
 
@@ -2989,7 +3035,7 @@ namespace MatchBox
                         { }
                     }
 
-                    n_rows_affected = DataAction.Update_Matching(n_user_id, txtMatchingComment.Text.Trim(), s_inside_id_array, s_outside_id_array, o_matching_balance, ref s_error);
+                    n_rows_affected = DataAction.Update_Matching(n_user_id, txtMatchingComment.Text.Trim(), s_inside_id_array, s_outside_id_array, o_matching_balance, ref s_error, allCheckBoxChecked);
 
                     if (s_error != "") { goto Error; }
 
@@ -4285,6 +4331,31 @@ namespace MatchBox
             }
 
             lblModeInfo.Text = s_mode_info;
+
+            // BIND Company name and Operation type for Non - Matching 
+            if(s_mode== "not-matching")
+            {
+                if (dt_inside.Rows.Count > 0)
+                {
+                    string companyNumber = dt_inside.Rows[0]["CompanyNumber"].ToString();
+                    // Company
+                    DataTable dt_company = (DataTable)ViewState["TableCompany"];
+                    //DataRow dr_company = dt_company.Select(" ID = " + n_company_id).FirstOrDefault();
+                    DataRow dr_company = dt_company.Select(" CompanyNumber = " + companyNumber).FirstOrDefault();
+
+                    txtCompanyName.Text = dr_company["CompanyName"].ToString();
+                    hidCompanyID.Value = dr_company["ID"].ToString();
+
+                    // OperationType
+                    DataTable dt_operation_type = (DataTable)ViewState["TableOperationType"];
+                    dt_operation_type = dt_operation_type.Select(" ID IN ( 6, 7 ) ").CopyToDataTable();     // 'ביטול יתרה' / 'רישום הפרש'
+                    ddlOperationType_Balance.DataSource = dt_operation_type;
+                    ddlOperationType_Balance.DataValueField = "ID";
+                    ddlOperationType_Balance.DataTextField = "OperationTypeName";
+                    ddlOperationType_Balance.DataBind();
+                    ddlOperationType_Balance.Items.Insert(0, new ListItem("", "0"));
+                }
+            }
 
             // BIND SUM LABELS & PAGING DDL-S
 
