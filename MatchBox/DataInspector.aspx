@@ -1033,7 +1033,7 @@
                 Operation Type <asp:DropDownList ID="ddlOperationType_Balance" runat="server" />
                 <asp:RequiredFieldValidator ID="rfvOperationType_Balance" runat="server" ValidationGroup="MatchingBalance" ControlToValidate="ddlOperationType_Balance" InitialValue="0" ErrorMessage="Select 'Operation Type'." Display="Dynamic" SetFocusOnError="true" CssClass="error" />
                 &nbsp; </div>Comment <asp:TextBox ID="txtMatchingComment" runat="server" MaxLength="50" />
-                <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" OnCheckedChanged="chkAllCheckBox_click"/> <%--onchange="changeMatchingType(this);" --%>
+                <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" onchange="chkAllCheckBoxBelow(this);" /> <%--OnCheckedChanged="chkAllCheckBoxBelow" onchange="changeMatchingType(this);" --%>
             &nbsp; <asp:Button ID="btnMatchingBalanceChange" runat="server" ValidationGroup="MatchingBalance" OnClientClick="javascript: return matching_change();" OnClick="Save_Changes" Text="Save Changes" />
             &nbsp; <asp:LinkButton ID="btnMatchingBalanceCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
         </asp:Panel>
@@ -1074,6 +1074,7 @@
         <asp:HiddenField ID="hdnOrderSort1" runat="server" />
         <%--<asp:HiddenField ID="hdnTableType1" runat="server" />--%>
 
+        <%--<asp:Button ID="btnChkAllCheckBoxBelow" runat="server" OnClick="btnChkAllCheckBoxBelow_Click" style="display:none" />--%>
 
     </asp:Panel>
 
@@ -1161,8 +1162,41 @@
                     document.getElementsByName("ctl00$cphMain$gvOutside$ctl01$ctl00")[0].checked = false;
                 }
             }
-            
+            //// Non matching Record check disable if chkAllCheckBox Below
 
+            //$('#ddlTransactions').
+            var selectedTxt = $("#ddlTransactions").find("option:selected").val();
+            //var selectedTxt = $('#dropDownId :selected').text();
+            //alert(selectedTxt);
+            //not-matching
+            if (selectedTxt == 'not-matching')
+            {
+                //$('#ctl00_cphMain_chkAllCheckBox')
+                var isChecked = $("#ctl00_cphMain_chkAllCheckBox").is(":checked");
+                //alert(isChecked);
+                if (isChecked) {
+                    var totalOutsideAmount = parseFloat($('#ctl00_cphMain_lblOutsideAmount')[0].innerText.replace(',', ''));
+                    var totalInsideAmount = parseFloat($('#ctl00_cphMain_lblInsideAmount')[0].innerText.replace(',', ''))
+                    $('#ctl00_cphMain_txtBalanceAmount')[0].value = totalOutsideAmount - totalInsideAmount;
+                    // for store procedure 
+                    $('#ctl00_cphMain_hidBalanceAmount').val(totalOutsideAmount - totalInsideAmount);
+
+                    $("#tblInsideHead").find("input").attr("disabled", "disabled");
+                    $("#ctl00_cphMain_gvInside").find("input").attr("disabled", "disabled");
+                    $("#tblOutsideHead").find("input").attr("disabled", "disabled");
+                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", "disabled");
+                    //$('#tblOutsideHead').attr("disabled", "disabled");
+                }
+                //else {
+                //    $('#ctl00_cphMain_txtBalanceAmount')[0].value = 0;
+                //    $("#tblInsideHead").find("input").attr("disabled", false);
+                //    $("#ctl00_cphMain_gvInside").find("input").attr("disabled", false);
+                //    $("#tblOutsideHead").find("input").attr("disabled", false);
+                //    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", false);
+                //}
+            }
+
+            /////
             $("#dvGrid").on("scroll", function (e) {
                 var $o = $(e.currentTarget);
                 if ($o[0].scrollHeight - $o.scrollTop() <= $o.outerHeight()) {
@@ -1908,11 +1942,31 @@
             o_hidden.value = s_value;
         }
 
-        /////// Change Matching Type /////
-        //function changeMatchingType(control)
-        //{
-        //    var controlId=
-        //}
+        ///// Check All Check Box Below /////
+        function chkAllCheckBoxBelow(control)
+        {
+            //document.getElementById('%= btnChkAllCheckBoxBelow.ClientID %>').click();
+            if (control.checked) {
+                var totalOutsideAmount = parseFloat($('#ctl00_cphMain_lblOutsideAmount')[0].innerText.replace(',', ''));
+                var totalInsideAmount = parseFloat($('#ctl00_cphMain_lblInsideAmount')[0].innerText.replace(',', ''))
+                $('#ctl00_cphMain_txtBalanceAmount')[0].value = totalOutsideAmount - totalInsideAmount;
+                // for store procedure 
+                $('#ctl00_cphMain_hidBalanceAmount').val(totalOutsideAmount - totalInsideAmount);
+
+                $("#tblInsideHead").find("input").attr("disabled", "disabled");
+                $("#ctl00_cphMain_gvInside").find("input").attr("disabled", "disabled");
+                $("#tblOutsideHead").find("input").attr("disabled", "disabled");
+                $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", "disabled");
+                //$('#tblOutsideHead').attr("disabled", "disabled");
+            }
+            else {
+                $('#ctl00_cphMain_txtBalanceAmount')[0].value = 0;
+                $("#tblInsideHead").find("input").attr("disabled", false);
+                $("#ctl00_cphMain_gvInside").find("input").attr("disabled", false);
+                $("#tblOutsideHead").find("input").attr("disabled", false);
+                $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", false);
+            }
+        }
     </script>
 
 

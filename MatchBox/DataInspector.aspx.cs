@@ -2967,10 +2967,10 @@ namespace MatchBox
                 }
             }
         }
-        protected void chkAllCheckBox_click(object sender, EventArgs e)
-        {
-            string strChkboxes = hdnAllSelectedType.Value;
-        }
+        //protected void btnChkAllCheckBoxBelow_Click (object sender, EventArgs e)
+        //{
+        //    string strChkboxes = hdnAllSelectedType.Value;
+        //}
         protected void Save_Changes(object sender, EventArgs e)
         {
             if (Allow_Recalculate() == false) { return; }
@@ -2999,6 +2999,10 @@ namespace MatchBox
             int n_rows_affected = 0;
 
             bool b_rebind = (s_mode == "match") ? false : true;
+
+            // SELECT INSIDE & OTSIDE TABLES FROM DB
+            string s_where_inside = ViewState["WhereInside"].ToString();
+            string s_where_outside = ViewState["WhereOutside"].ToString();
 
             switch (s_mode)
             {
@@ -3035,7 +3039,7 @@ namespace MatchBox
                         { }
                     }
 
-                    n_rows_affected = DataAction.Update_Matching(n_user_id, txtMatchingComment.Text.Trim(), s_inside_id_array, s_outside_id_array, o_matching_balance, ref s_error, allCheckBoxChecked);
+                    n_rows_affected = DataAction.Update_Matching(n_user_id, txtMatchingComment.Text.Trim(), s_inside_id_array, s_outside_id_array, o_matching_balance, ref s_error, allCheckBoxChecked, s_where_inside, s_where_outside);
 
                     if (s_error != "") { goto Error; }
 
@@ -3046,8 +3050,8 @@ namespace MatchBox
 
             // SELECT INSIDE & OTSIDE TABLES FROM DB
 
-            string s_where_inside = ViewState["WhereInside"].ToString();
-            string s_where_outside = ViewState["WhereOutside"].ToString();
+            //string s_where_inside = ViewState["WhereInside"].ToString();
+            //string s_where_outside = ViewState["WhereOutside"].ToString();
 
             string s_order_inside = ViewState["OrderInside"].ToString();
             string s_order_outside = ViewState["OrderOutside"].ToString();
@@ -4354,6 +4358,26 @@ namespace MatchBox
                     ddlOperationType_Balance.DataTextField = "OperationTypeName";
                     ddlOperationType_Balance.DataBind();
                     ddlOperationType_Balance.Items.Insert(0, new ListItem("", "0"));
+                }
+                else if(dt_outside.Rows.Count>0)
+                {                   
+                        string companyNumber = dt_outside.Rows[0]["CompanyNumber"].ToString();
+                        // Company
+                        DataTable dt_company = (DataTable)ViewState["TableCompany"];
+                        //DataRow dr_company = dt_company.Select(" ID = " + n_company_id).FirstOrDefault();
+                        DataRow dr_company = dt_company.Select(" CompanyNumber = " + companyNumber).FirstOrDefault();
+
+                        txtCompanyName.Text = dr_company["CompanyName"].ToString();
+                        hidCompanyID.Value = dr_company["ID"].ToString();
+
+                        // OperationType
+                        DataTable dt_operation_type = (DataTable)ViewState["TableOperationType"];
+                        dt_operation_type = dt_operation_type.Select(" ID IN ( 6, 7 ) ").CopyToDataTable();     // 'ביטול יתרה' / 'רישום הפרש'
+                        ddlOperationType_Balance.DataSource = dt_operation_type;
+                        ddlOperationType_Balance.DataValueField = "ID";
+                        ddlOperationType_Balance.DataTextField = "OperationTypeName";
+                        ddlOperationType_Balance.DataBind();
+                        ddlOperationType_Balance.Items.Insert(0, new ListItem("", "0"));                   
                 }
             }
 
