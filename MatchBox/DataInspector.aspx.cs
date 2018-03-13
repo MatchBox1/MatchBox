@@ -431,6 +431,7 @@ namespace MatchBox
                         if (s_matching_type != "") { s_where += " AND MatchingTypeID IN ( " + s_matching_type + " ) "; }
                     }
                     divMatchingBalanceRow.Visible = false;
+                    
                     break;
                 case "not-matching":
                     s_where = " AND QueryID IS NULL ";
@@ -456,6 +457,10 @@ namespace MatchBox
             else
                 pnlMatchingBalance.Visible = true;
             // OperationType
+            if(ddlTransactions.SelectedValue == "matching")
+                btnMatchingBalanceChange.Enabled = false;
+            else
+                btnMatchingBalanceChange.Enabled = true;
 
             string s_operation_type = Parameter_CheckBoxList(cblOperationType);
 
@@ -2088,6 +2093,10 @@ namespace MatchBox
                     dt_outside = ((DataTable)Cache[s_cache_outside]).Copy();
                     dt_inside_sum = ((DataTable)Cache[s_cache_inside + "_Sum"]).Copy();
                     dt_outside_sum = ((DataTable)Cache[s_cache_outside + "_Sum"]).Copy();
+                    // Enable Save changes button on recalculate for matching 
+                    btnMatchingBalanceChange.Enabled = true;
+                    chkAllCheckBox.Disabled = true;
+                    chkAllCheckBox.Checked = false;
                     break;
             }
 

@@ -1843,6 +1843,20 @@
             //        alert(response.d);
             //    }
             //});
+
+            if (!o_checkbox.checked) {
+                //var x = document.getElementById("ctl00_cphMain_gvInside").getElementsByTagName("tr");
+                $(o_checkbox).closest("tr").removeAttr("style");
+                $(o_checkbox).closest("tr").attr("style", "background-color: #FFFFE0;");
+                //x[0].style.backgroundColor = "yellow";
+            }
+            else
+            {
+                $(o_checkbox).closest("tr").removeAttr("style");
+                $(o_checkbox).closest("tr").attr("style", "background-color: #DDEBF7;");//background-color:#DDEBF7;
+            }
+            
+            ///////
             if (s_mode == "not-matching")
             { document.getElementById('<%= btnCheck.ClientID %>').click(); }
         }
@@ -1945,26 +1959,71 @@
         ///// Check All Check Box Below /////
         function chkAllCheckBoxBelow(control)
         {
-            //document.getElementById('%= btnChkAllCheckBoxBelow.ClientID %>').click();
-            if (control.checked) {
-                var totalOutsideAmount = parseFloat($('#ctl00_cphMain_lblOutsideAmount')[0].innerText.replace(',', ''));
-                var totalInsideAmount = parseFloat($('#ctl00_cphMain_lblInsideAmount')[0].innerText.replace(',', ''))
-                $('#ctl00_cphMain_txtBalanceAmount')[0].value = totalOutsideAmount - totalInsideAmount;
-                // for store procedure 
-                $('#ctl00_cphMain_hidBalanceAmount').val(totalOutsideAmount - totalInsideAmount);
+            var s_mode = get_mode();
+            if (s_mode == 'non-matching') {
+                //document.getElementById('%= btnChkAllCheckBoxBelow.ClientID %>').click();
+                if (control.checked) {
+                    var totalOutsideAmount = parseFloat($('#ctl00_cphMain_lblOutsideAmount')[0].innerText.replace(',', ''));
+                    var totalInsideAmount = parseFloat($('#ctl00_cphMain_lblInsideAmount')[0].innerText.replace(',', ''))
+                    $('#ctl00_cphMain_txtBalanceAmount')[0].value = totalOutsideAmount - totalInsideAmount;
+                    // for store procedure 
+                    $('#ctl00_cphMain_hidBalanceAmount').val(totalOutsideAmount - totalInsideAmount);
 
-                $("#tblInsideHead").find("input").attr("disabled", "disabled");
-                $("#ctl00_cphMain_gvInside").find("input").attr("disabled", "disabled");
-                $("#tblOutsideHead").find("input").attr("disabled", "disabled");
-                $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", "disabled");
-                //$('#tblOutsideHead').attr("disabled", "disabled");
+                    $("#tblInsideHead").find("input").attr("disabled", "disabled");
+                    $("#ctl00_cphMain_gvInside").find("input").attr("disabled", "disabled");
+                    $("#tblOutsideHead").find("input").attr("disabled", "disabled");
+                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", "disabled");
+                    //$('#tblOutsideHead').attr("disabled", "disabled");
+                }
+                else {
+                    $('#ctl00_cphMain_txtBalanceAmount')[0].value = 0;
+                    $("#tblInsideHead").find("input").attr("disabled", false);
+                    $("#ctl00_cphMain_gvInside").find("input").attr("disabled", false);
+                    $("#tblOutsideHead").find("input").attr("disabled", false);
+                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", false);
+                }
             }
-            else {
-                $('#ctl00_cphMain_txtBalanceAmount')[0].value = 0;
-                $("#tblInsideHead").find("input").attr("disabled", false);
-                $("#ctl00_cphMain_gvInside").find("input").attr("disabled", false);
-                $("#tblOutsideHead").find("input").attr("disabled", false);
-                $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", false);
+            if (s_mode == 'matching')
+            {
+                if (control.checked) {
+                    //For inside
+                    $("#tblInsideHead").find(":checkbox").prop('checked', false);
+                    $("#tblInsideHead").find("input").attr("disabled", "disabled");
+                    $("#ctl00_cphMain_gvInside").find(":checkbox").prop('checked', false);
+                    $("#ctl00_cphMain_gvInside").find("input").attr("disabled", "disabled");
+
+                    //For Outside
+                    $("#tblOutsideHead").find(":checkbox").prop('checked', false);
+                    $("#tblOutsideHead").find("input").attr("disabled", "disabled");
+                    $("#ctl00_cphMain_gvOutside").find(":checkbox").prop('checked', false);
+                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", "disabled");
+
+                    //////// set all checkbox value in hidden field
+                    s_class = 'checkbox-inside';
+                    var chkSelectItemArray = document.getElementsByClassName(s_class);
+                    var s_inside = checkbox_check(chkSelectItemArray, false);
+                    /////
+                    s_class = 'checkbox-outside';
+                    var chkSelectItemArray = document.getElementsByClassName(s_class);
+                    var s_outside = checkbox_check(chkSelectItemArray, false);
+
+                    document.getElementById("<%= hidSelectInside.ClientID %>").value = s_inside;
+                    document.getElementById("<%= hidSelectOutside.ClientID %>").value = s_outside
+                    //var s_source = document.getElementById("%= hidSelectSource.ClientID %>").value;
+                }
+                else {
+                    //For inside
+                    $("#tblInsideHead").find(":checkbox").prop('checked', true);
+                    $("#tblInsideHead").find("input").attr("disabled", false);
+                    $("#ctl00_cphMain_gvInside").find(":checkbox").prop('checked', true);
+                    $("#ctl00_cphMain_gvInside").find("input").attr("disabled", false);
+
+                    //For Outside
+                    $("#tblOutsideHead").find(":checkbox").prop('checked', true);
+                    $("#tblOutsideHead").find("input").attr("disabled", false);
+                    $("#ctl00_cphMain_gvOutside").find(":checkbox").prop('checked', true);
+                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled",false);
+                }
             }
         }
     </script>
