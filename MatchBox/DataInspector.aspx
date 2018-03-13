@@ -2010,6 +2010,23 @@
                     document.getElementById("<%= hidSelectInside.ClientID %>").value = s_inside;
                     document.getElementById("<%= hidSelectOutside.ClientID %>").value = s_outside
                     //var s_source = document.getElementById("%= hidSelectSource.ClientID %>").value;
+
+                    ///////////////
+                    s_class = 'checkbox-inside';
+                    var chkSelectItemArray = document.getElementsByClassName(s_class);
+                    for (var i = 1; i < chkSelectItemArray.length; i++) {
+                        var o_checkbox = chkSelectItemArray[i];
+                        $(o_checkbox).closest("tr").removeAttr("style");
+                        $(o_checkbox).closest("tr").attr("style", "background-color: #FFFFE0;");
+                    }
+                    s_class = 'checkbox-outside';
+                    var chkSelectItemArray = document.getElementsByClassName(s_class);
+                    for (var i = 1; i < chkSelectItemArray.length; i++) {
+                        var o_checkbox = chkSelectItemArray[i];
+                        $(o_checkbox).closest("tr").removeAttr("style");
+                        $(o_checkbox).closest("tr").attr("style", "background-color: #FFFFE0;");
+                    }
+                    ///////////////
                 }
                 else {
                     //For inside
@@ -2022,7 +2039,27 @@
                     $("#tblOutsideHead").find(":checkbox").prop('checked', true);
                     $("#tblOutsideHead").find("input").attr("disabled", false);
                     $("#ctl00_cphMain_gvOutside").find(":checkbox").prop('checked', true);
-                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled",false);
+                    $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", false);
+                    ///////////////
+                    document.getElementById("<%= hidSelectInside.ClientID %>").value = "";
+                    document.getElementById("<%= hidSelectOutside.ClientID %>").value = "";
+
+                    ///////////////
+                    s_class = 'checkbox-inside';
+                    var chkSelectItemArray = document.getElementsByClassName(s_class);
+                    for (var i = 1; i < chkSelectItemArray.length; i++) {
+                        var o_checkbox = chkSelectItemArray[i];
+                        $(o_checkbox).closest("tr").removeAttr("style");
+                        $(o_checkbox).closest("tr").attr("style", "background-color: #DDEBF7;");
+                    }
+                    s_class = 'checkbox-outside';
+                    var chkSelectItemArray = document.getElementsByClassName(s_class);
+                    for (var i = 1; i < chkSelectItemArray.length; i++) {
+                        var o_checkbox = chkSelectItemArray[i];
+                        $(o_checkbox).closest("tr").removeAttr("style");
+                        $(o_checkbox).closest("tr").attr("style", "background-color: #DDEBF7;");
+                    }
+                    ///////////////
                 }
             }
         }
