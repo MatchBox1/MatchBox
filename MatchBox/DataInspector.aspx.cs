@@ -3022,9 +3022,9 @@ namespace MatchBox
 
                     break;
                 case "matching":
+                    string comment = txtMatchingComment.Text;
                     string s_query_id_array = Common.Get_Distinct_Values(s_inside_id_array, s_outside_id_array);
-
-                    n_rows_affected = DataAction.Delete_Match(n_user_id, null, s_query_id_array, ref s_error);
+                    n_rows_affected = DataAction.Delete_Match(n_user_id, null, s_query_id_array, ref s_error, comment);
 
                     if (s_error != "") { goto Error; }
 
@@ -4771,25 +4771,25 @@ namespace MatchBox
 
         [WebMethod]
         [ScriptMethod]
-        public static string GetInsidedata(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
+        public static string GetInsidedata(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions, bool IsChkAllCheckBox)
         {
             DataInspector obj = new DataInspector();
-            return obj.getInsideHtml(pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions);
+            return obj.getInsideHtml(pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions, IsChkAllCheckBox);
         }
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static string GetOutsidedata(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
+        public static string GetOutsidedata(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions, bool IsChkAllCheckBox)
         {
             DataInspector obj = new DataInspector();
             var data = obj.GetOutsideDataAll(pageIndex, 30, userId, ddlTransactions);
             var tableData = data.Tables[0];
             var otherData = data.Tables[1];
-            string html = obj.getOutsideHtml(tableData, pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions);
+            string html = obj.getOutsideHtml(tableData, pageIndex, userId, hidUniqueID, hidQueryID, ddlTransactions, IsChkAllCheckBox);
             return JsonConvert.SerializeObject(new { data = html, description = otherData });
         }
 
-        public string getOutsideHtml(DataTable data, int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
+        public string getOutsideHtml(DataTable data, int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions, bool IsChkAllCheckBox)
         {
             DataInspector obj = new DataInspector();
             StringBuilder HTML = new StringBuilder();
@@ -4837,6 +4837,11 @@ namespace MatchBox
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
                             row.BackColor = lightBlueColor;
+                            if (IsChkAllCheckBox == true)
+                            {
+                                row.BackColor = System.Drawing.Color.LightYellow;
+
+                            }
                         }
                         else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
                         {
@@ -4872,7 +4877,7 @@ namespace MatchBox
                         // Modified the code for color change.
 
                     }
-                    DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority, "", "Outside", s_mode);
+                    DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority, "", "Outside", s_mode, IsChkAllCheckBox);
                     row.RenderControl(htmlWriter);
                 }
             }
@@ -4880,7 +4885,7 @@ namespace MatchBox
             return HTML.ToString();
         }
 
-        public string getInsideHtml(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions)
+        public string getInsideHtml(int pageIndex, int userId, string hidUniqueID, string hidQueryID, string ddlTransactions, bool IsChkAllCheckBox)
         {
             DataInspector obj = new DataInspector();
             var data = obj.GetInsideDataAll(pageIndex, 30, userId, ddlTransactions);
@@ -4929,6 +4934,10 @@ namespace MatchBox
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
                             row.BackColor = lightBlueColor;
+                            if (IsChkAllCheckBox == true)
+                            {
+                                row.BackColor = System.Drawing.Color.LightYellow;
+                            }
                         }
                         else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
                         {
@@ -4963,7 +4972,7 @@ namespace MatchBox
                         }
                         // Modified the code for color change.
                     }
-                    DataAction.Bind_Grid_Data_Row_Inside(row, lst_inside_field_priority, "", "Inside", s_mode);
+                    DataAction.Bind_Grid_Data_Row_Inside(row, lst_inside_field_priority, "", "Inside", s_mode, IsChkAllCheckBox);
                     row.RenderControl(htmlWriter);
                 }
             }

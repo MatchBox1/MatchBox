@@ -983,7 +983,7 @@ namespace MatchBox
             return n_rows_affected;
         }
 
-        public static int Delete_Match(int n_user_id, int? n_matching_id, string s_query_id_array, ref string s_error)
+        public static int Delete_Match(int n_user_id, int? n_matching_id, string s_query_id_array, ref string s_error, string comment)
         {
             int n_rows_affected = 0;
 
@@ -1009,6 +1009,8 @@ namespace MatchBox
 
             o_command.Parameters.AddWithValue("@TableQueryID", dt_query_id);
             o_command.Parameters["@TableQueryID"].SqlDbType = SqlDbType.Structured;
+
+            o_command.Parameters.Add(new SqlParameter("@Comment", SqlDbType.NVarChar, 50) { Value = comment });
 
             try
             {
@@ -1615,7 +1617,7 @@ namespace MatchBox
 
         // BIND ROW - INSIDE TABLE
 
-        public static void Bind_Grid_Data_Row_Inside(TableRow gv_row, List<string> lst_field_priority, string s_select_inside, string s_table, string s_mode, string s_query_id_href = "")
+        public static void Bind_Grid_Data_Row_Inside(TableRow gv_row, List<string> lst_field_priority, string s_select_inside, string s_table, string s_mode, bool IsChkAllCheckBox, string s_query_id_href = "")
         {
 
                 // CREATE LISTS FOR SELECTED ITEMS
@@ -1646,7 +1648,10 @@ namespace MatchBox
             int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
             int i_transmission_date = lst_field_priority.IndexOf("TransmissionDate");
             int i_paymen_date = lst_field_priority.IndexOf("PaymentDate");
-
+            ///
+            int i_IsSplitted = lst_field_priority.IndexOf("IsSplitted");
+            int i_IsBalance = lst_field_priority.IndexOf("IsBalance");
+            ///
             TableCell tc_select = gv_row.Cells[i_select];
 
             tc_select.CssClass = "bg-gray";
@@ -1664,13 +1669,22 @@ namespace MatchBox
             TableCell tc_transaction_date = gv_row.Cells[i_transaction_date];
             TableCell tc_transmission_date = gv_row.Cells[i_transmission_date];
             TableCell tc_paymen_date = gv_row.Cells[i_paymen_date];
+            ///
+            TableCell tc_IsSplitted = gv_row.Cells[i_IsSplitted];
+            TableCell tc_IsBalance = gv_row.Cells[i_IsBalance];
+            ///
 
             decimal n_id = 0;
             decimal.TryParse(tc_id.Text, out n_id);
 
             bool b_select = false;
             bool.TryParse(tc_select.Text, out b_select);
-
+            //////
+            bool b_IsSplitted = false;
+            bool.TryParse(tc_IsSplitted.Text, out b_IsSplitted);
+            bool b_IsBalance = false;
+            bool.TryParse(tc_IsBalance.Text, out b_IsBalance);
+            //////
             string s_unique_id = Get_Cell_Text(ref tc_unique_id);
             string s_query_id = Get_Cell_Text(ref tc_query_id);
 
@@ -1786,17 +1800,29 @@ namespace MatchBox
                     List<string> lst_query_id = lst_select_inside.Union(lst_select_outside).ToList();   // GET DISTINCT VALUES OF lst_inside_query_id & lst_outside_query_id
                     b_checked = (lst_query_id.Contains(s_checkbox_value) == false);
                     //b_disabled = (lst_query_id.Count > 0);
+                    if (IsChkAllCheckBox == true)
+                    {
+                        b_disabled = true;
+                        b_checked = false;
+                    }
                     break;
                 case "not-matching":
                     b_checked = (lst_select_inside.Contains(s_checkbox_value) == true);
                     //b_disabled = (lst_select_inside.Count > 0 || lst_select_outside.Count > 0);
-                    break;
+                    if (IsChkAllCheckBox == true)
+                        b_disabled = true;
+                        break;
             }
-
+          
             HtmlInputCheckBox chk_select = Get_CheckBox_Select(s_checkbox_value, s_table, false, b_checked, b_disabled);
-
             tc_select.Controls.Add(chk_select);
 
+            /////
+            HtmlInputCheckBox chk_IsSplitted = Get_CheckBox_Select("", s_table, false, b_IsSplitted, true);
+            tc_IsSplitted.Controls.Add(chk_IsSplitted);
+            HtmlInputCheckBox chk_IsBalance = Get_CheckBox_Select("", s_table, false, b_IsBalance, true);
+            tc_IsBalance.Controls.Add(chk_IsBalance);
+            /////
             // DataFileID
 
             int n_data_file_id = 0;
@@ -1871,7 +1897,7 @@ namespace MatchBox
 
         // BIND ROW - OUTSIDE TABLE
 
-        public static void Bind_Grid_Data_Row_Outside(TableRow gv_row, List<string> lst_field_priority, string s_select_outside, string s_table, string s_mode, string s_query_id_href = "")
+        public static void Bind_Grid_Data_Row_Outside(TableRow gv_row, List<string> lst_field_priority, string s_select_outside, string s_table, string s_mode, bool IsChkAllCheckBox, string s_query_id_href = "")
         {
             // CREATE LISTS FOR SELECTED ITEMS
             
@@ -1901,9 +1927,10 @@ namespace MatchBox
             int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
             int i_transmission_date = lst_field_priority.IndexOf("TransmissionDate");
             int i_paymen_date = lst_field_priority.IndexOf("PaymentDate");
-
+            ///
+            int i_IsAbroad = lst_field_priority.IndexOf("IsAbroad");
+            ///
             TableCell tc_select = gv_row.Cells[i_select];
-
             tc_select.CssClass = "bg-gray";
 
             TableCell tc_id = gv_row.Cells[i_id];
@@ -1919,6 +1946,9 @@ namespace MatchBox
             TableCell tc_transaction_date = gv_row.Cells[i_transaction_date];
             TableCell tc_transmission_date = gv_row.Cells[i_transmission_date];
             TableCell tc_paymen_date = gv_row.Cells[i_paymen_date];
+            ///
+            TableCell tc_IsAbroad = gv_row.Cells[i_IsAbroad];
+            ///
 
             decimal n_id = 0;
             decimal.TryParse(tc_id.Text, out n_id);
@@ -1931,6 +1961,11 @@ namespace MatchBox
 
             int n_duty_payment_number = 0;
             int.TryParse(tr_duty_payment_number.Text, out n_duty_payment_number);
+
+            ////
+            bool b_IsAbroad = false;
+            bool.TryParse(tc_IsAbroad.Text, out b_IsAbroad);
+            ////
 
             // ID
 
@@ -2041,17 +2076,26 @@ namespace MatchBox
                     List<string> lst_query_id = lst_select_outside.ToList();   // GET DISTINCT VALUES OF lst_inside_query_id & lst_outside_query_id
                     b_checked = (lst_query_id.Contains(s_checkbox_value) == false);
                     b_disabled = (lst_query_id.Count > 0);
+                    if (IsChkAllCheckBox == true)
+                    {
+                        b_disabled = true;
+                        b_checked = false;
+                    }
                     break;
                 case "not-matching":
                     b_checked = (lst_select_outside.Contains(s_checkbox_value) == true);
                     b_disabled = (lst_select_outside.Count > 0);
+                    if (IsChkAllCheckBox == true)
+                        b_disabled = true;
                     break;
             }
 
             HtmlInputCheckBox chk_select = Get_CheckBox_Select(s_checkbox_value, s_table, false, b_checked, b_disabled);
-
             tc_select.Controls.Add(chk_select);
-
+            ///// IsAbroad
+            HtmlInputCheckBox chk_IsAbroad = Get_CheckBox_Select("", s_table, false, b_IsAbroad, true);
+            tc_IsAbroad.Controls.Add(chk_IsAbroad);
+            ////
             // DataFileID
 
             int n_data_file_id = 0;

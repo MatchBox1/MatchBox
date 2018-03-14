@@ -1349,6 +1349,7 @@
             }
         }
         function GetRecords() {
+
             var rowText = $("[id$=lblInsideRows]").text();
             rowText = rowText.replace(",", "");
             var lblInsideRows = parseInt(rowText);
@@ -1368,7 +1369,7 @@
                     type: "POST",
                     url: "/DataInspector.aspx/GetInsidedata",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ pageIndex: pageIndex, userId: $('#ctl00_cphMain_hdnUserId')[0].value, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
+                    data: JSON.stringify({ pageIndex: pageIndex, userId: $('#ctl00_cphMain_hdnUserId')[0].value, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions, IsChkAllCheckBox: $("#ctl00_cphMain_chkAllCheckBox").is(":checked") }),
                     success: OnSuccess,
                     failure: function (response) {
                         alert(response.d);
@@ -1454,7 +1455,7 @@
                     type: "POST",
                     url: "/DataInspector.aspx/GetOutsidedata",
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify({ pageIndex: pageIndexOutside, userId: $('#ctl00_cphMain_hdnUserId')[0].value, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions }),
+                    data: JSON.stringify({ pageIndex: pageIndexOutside, userId: $('#ctl00_cphMain_hdnUserId')[0].value, hidUniqueID: hidUniqueID, hidQueryID: hidQueryID, ddlTransactions: ddlTransactions, IsChkAllCheckBox: $("#ctl00_cphMain_chkAllCheckBox").is(":checked") }),
                     success: OnOutsideSuccess,
                     failure: function (response) {
                         alert(response.d);
@@ -1960,7 +1961,7 @@
         function chkAllCheckBoxBelow(control)
         {
             var s_mode = get_mode();
-            if (s_mode == 'non-matching') {
+            if (s_mode == 'not-matching') {
                 //document.getElementById('%= btnChkAllCheckBoxBelow.ClientID %>').click();
                 if (control.checked) {
                     var totalOutsideAmount = parseFloat($('#ctl00_cphMain_lblOutsideAmount')[0].innerText.replace(',', ''));
@@ -2001,11 +2002,15 @@
                     //////// set all checkbox value in hidden field
                     s_class = 'checkbox-inside';
                     var chkSelectItemArray = document.getElementsByClassName(s_class);
-                    var s_inside = checkbox_check(chkSelectItemArray, false);
+                    if (chkSelectItemArray.length > 0) {
+                        var s_inside = checkbox_check(chkSelectItemArray, false);
+                    }
                     /////
                     s_class = 'checkbox-outside';
                     var chkSelectItemArray = document.getElementsByClassName(s_class);
-                    var s_outside = checkbox_check(chkSelectItemArray, false);
+                    if (chkSelectItemArray.length > 0) {
+                        var s_outside = checkbox_check(chkSelectItemArray, false);
+                    }
 
                     document.getElementById("<%= hidSelectInside.ClientID %>").value = s_inside;
                     document.getElementById("<%= hidSelectOutside.ClientID %>").value = s_outside
