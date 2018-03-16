@@ -969,7 +969,8 @@ namespace MatchBox
 
             DataTable dt_excel = new DataTable();
 
-            ExcelAction.Bind_Data_Table(s_path, ref dt_excel, ref s_error, "", "NO");
+            //ExcelAction.Bind_Data_Table(s_path, ref dt_excel, ref s_error, "", "NO");
+            ExcelAction.Bind_Data_Table_New(s_path, ref dt_excel, ref s_error, "", "NO");
 
             if (s_error != "") { goto Finish; }
 
@@ -1011,16 +1012,19 @@ namespace MatchBox
                 goto Finish;
             }
 
-            // CHECK Duplicate Row/s In dt_excel
+            ////CHECK Duplicate Row / s In dt_excel
 
-            List<string> lst_columns = new List<string>();
+            //List<string> lst_columns = new List<string>();
 
-            foreach (DataColumn o_column in dt_excel.Columns)
-            {
-                lst_columns.Add(o_column.ColumnName);
-            }
+            //foreach (DataColumn o_column in dt_excel.Columns)
+            //{
+            //    lst_columns.Add(o_column.ColumnName);
+            //}
 
-            DataTable dt_excel_without_duplicate = new DataView(dt_excel).ToTable(true, lst_columns.ToArray());
+            // new
+            DataTable dt_excel_without_duplicate = dt_excel.AsEnumerable().GroupBy(row => row).Where(group => group.Count() == 1).Select(g => g.Key).CopyToDataTable();
+            // old
+            //DataTable dt_excel_without_duplicate = new DataView(dt_excel).ToTable(true, lst_columns.ToArray());
 
             if (chkRemoveDuplicateRows.Checked == true)
             {
@@ -2901,8 +2905,13 @@ namespace MatchBox
             for (int i = dt_excel.Columns.Count; i < ExcelAction.MaxFieldsCount; i++)
             {
                 string s_column = "FIELD_" + (i + 1);
-
-                dt_excel.Columns.Add(s_column);
+                //try
+                //{
+                    dt_excel.Columns.Add(s_column);
+                //}
+                //catch (Exception ex)
+                //{
+                //}
             }
 
             // SET o_data_file TABLES
