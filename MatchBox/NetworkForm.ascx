@@ -30,6 +30,14 @@
     <asp:RequiredFieldValidator ID="rfvCompany" runat="server" ControlToValidate="ddlCompany" InitialValue="0" ErrorMessage="Select 'Company'." Display="Dynamic" SetFocusOnError="true" CssClass="error block" />
 </div>
 
+<%--<div id="div1" runat="server" class="float-left div-form-field">
+    <label for="<%= ddlCompany.ClientID %>" class="block">Company</label>
+    <asp:DropDownList ID="DropDownList1" runat="server">
+        <asp:ListItem Text="" Value="0" />
+    </asp:DropDownList>
+    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlCompany" InitialValue="0" ErrorMessage="Select 'Company'." Display="Dynamic" SetFocusOnError="true" CssClass="error block" />
+</div>--%>
+
 <div class="clear-both"></div>
 
 <div class="div-form-command">

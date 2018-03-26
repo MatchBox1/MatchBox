@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 
 namespace MatchBox
@@ -76,6 +77,7 @@ namespace MatchBox
         public DateTime? PaymentDateFrom { get; set; }
         public DateTime? PaymentDateTo { get; set; }
 
+        public bool IsEmptyTransactionDate { get; set; }
         public bool IsEmptyPaymentDate { get; set; }
 
         public DataTable TableCompany { get; set; }
@@ -91,6 +93,14 @@ namespace MatchBox
         public DataTable TableCard { get; set; }
 
         // OUTPUT TABLES
+
+        public DateTime? TransactionDateFromOut { get; set; }
+        public DateTime? TransactionDateToOut { get; set; }
+        public DateTime? PaymentDateFromOut { get; set; }
+        public DateTime? PaymentDateToOut { get; set; }
+
+        public bool IsEmptyTransactionDateOut { get; set; }
+        public bool IsEmptyPaymentDateOut { get; set; }
 
         public DataTable TableInsideSum { get; set; }
         public DataTable TableOutsideSum { get; set; }
@@ -141,6 +151,33 @@ namespace MatchBox
 
             ErrorMessage = "";
         }
+    }
+
+    [Serializable]
+    public class DateFilterDataModel
+    {
+        public int UserID { get; set; }
+
+        // INPUT TABLES
+
+        public DateTime? TransactionDateFrom { get; set; }
+        public DateTime? TransactionDateTo { get; set; }
+        public DateTime? PaymentDateFrom { get; set; }
+        public DateTime? PaymentDateTo { get; set; }
+
+        public bool IsEmptyTransactionDate { get; set; }
+        public bool IsEmptyPaymentDate { get; set; }
+
+        // OUTPUT TABLES
+
+        public DateTime? TransactionDateFromOut { get; set; }
+        public DateTime? TransactionDateToOut { get; set; }
+        public DateTime? PaymentDateFromOut { get; set; }
+        public DateTime? PaymentDateToOut { get; set; }
+
+        public bool IsEmptyTransactionDateOut { get; set; }
+        public bool IsEmptyPaymentDateOut { get; set; }
+
     }
 
     public class MatchingBalanceModel
@@ -280,12 +317,14 @@ namespace MatchBox
 
         public static void Select_Search(ref MatchingSearchModel o_matching_search)
         {
-            SqlCommand o_command = new SqlCommand("sprMatchingSearch", DB.Get_Connection());
+            //SqlCommand o_command = new SqlCommand("sprMatchingSearch", DB.Get_Connection());
+            SqlCommand o_command = new SqlCommand("sprMatchingSearchInOut", DB.Get_Connection());
             o_command.CommandType = CommandType.StoredProcedure;
 
             o_command.Parameters.Add("@UserID", SqlDbType.Int);
             o_command.Parameters["@UserID"].Value = o_matching_search.UserID;
 
+            // inside
             if (o_matching_search.TransactionDateFrom != null)
             {
                 o_command.Parameters.Add("@TransactionDateFrom", SqlDbType.Date);
@@ -310,36 +349,45 @@ namespace MatchBox
                 o_command.Parameters["@PaymentDateTo"].Value = o_matching_search.PaymentDateTo;
             }
 
+            o_command.Parameters.Add("@IsEmptyTransactionDate", SqlDbType.Bit);
+            o_command.Parameters["@IsEmptyTransactionDate"].Value = o_matching_search.IsEmptyTransactionDate;
+
             o_command.Parameters.Add("@IsEmptyPaymentDate", SqlDbType.Bit);
             o_command.Parameters["@IsEmptyPaymentDate"].Value = o_matching_search.IsEmptyPaymentDate;
 
-            o_command.Parameters.AddWithValue("@TableCompany", o_matching_search.TableCompany);
-            o_command.Parameters["@TableCompany"].SqlDbType = SqlDbType.Structured;
+            // outside
 
-            o_command.Parameters.AddWithValue("@TableNetwork", o_matching_search.TableNetwork);
-            o_command.Parameters["@TableNetwork"].SqlDbType = SqlDbType.Structured;
+            if (o_matching_search.TransactionDateFromOut != null)
+            {
+                o_command.Parameters.Add("@TransactionDateFromOutside", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateFromOutside"].Value = o_matching_search.TransactionDateFromOut;
+            }
 
-            o_command.Parameters.AddWithValue("@TableBranch", o_matching_search.TableBranch);
-            o_command.Parameters["@TableBranch"].SqlDbType = SqlDbType.Structured;
+            if (o_matching_search.TransactionDateToOut != null)
+            {
+                o_command.Parameters.Add("@TransactionDateToOutside", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateToOutside"].Value = o_matching_search.TransactionDateToOut;
+            }
 
-            o_command.Parameters.AddWithValue("@TableCashbox", o_matching_search.TableCashbox);
-            o_command.Parameters["@TableCashbox"].SqlDbType = SqlDbType.Structured;
+            if (o_matching_search.PaymentDateFromOut != null)
+            {
+                o_command.Parameters.Add("@PaymentDateFromOutside", SqlDbType.Date);
+                o_command.Parameters["@PaymentDateFromOutside"].Value = o_matching_search.PaymentDateFromOut;
+            }
 
-            o_command.Parameters.AddWithValue("@TableSupplierGroup", o_matching_search.TableSupplierGroup);
-            o_command.Parameters["@TableSupplierGroup"].SqlDbType = SqlDbType.Structured;
+            if (o_matching_search.PaymentDateToOut != null)
+            {
+                o_command.Parameters.Add("@PaymentDateToOutside", SqlDbType.Date);
+                o_command.Parameters["@PaymentDateToOutside"].Value = o_matching_search.PaymentDateToOut;
+            }
 
-            o_command.Parameters.AddWithValue("@TableSupplier", o_matching_search.TableSupplier);
-            o_command.Parameters["@TableSupplier"].SqlDbType = SqlDbType.Structured;
+            o_command.Parameters.Add("@IsEmptyTransactionDateOutside", SqlDbType.Bit);
+            o_command.Parameters["@IsEmptyTransactionDateOutside"].Value = o_matching_search.IsEmptyTransactionDateOut;
 
-            o_command.Parameters.AddWithValue("@TableTerminal", o_matching_search.TableTerminal);
-            o_command.Parameters["@TableTerminal"].SqlDbType = SqlDbType.Structured;
+            o_command.Parameters.Add("@IsEmptyPaymentDateOutside", SqlDbType.Bit);
+            o_command.Parameters["@IsEmptyPaymentDateOutside"].Value = o_matching_search.IsEmptyPaymentDateOut;
 
-            o_command.Parameters.AddWithValue("@TableCredit", o_matching_search.TableCredit);
-            o_command.Parameters["@TableCredit"].SqlDbType = SqlDbType.Structured;
-
-            o_command.Parameters.AddWithValue("@TableCard", o_matching_search.TableCard);
-            o_command.Parameters["@TableCard"].SqlDbType = SqlDbType.Structured;
-
+            ////
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
 
@@ -412,6 +460,138 @@ namespace MatchBox
             if (dt_inside.Rows.Count == 0 || dt_outside.Rows.Count == 0)
             {
                 s_error = "Can't create matching without data in both sides (inside & outside).";
+            }
+        }
+
+        public static void CheckStrategy_DataFile(int n_user_id, int strategyId, ref int CountDataFile, ref string s_error)
+        {
+            SqlCommand o_command = new SqlCommand("sprCheckStrategyDataFile", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+            o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
+            o_command.Parameters.Add(new SqlParameter("@StrategyID", SqlDbType.Int) { Value = strategyId });
+            o_command.Parameters.Add(new SqlParameter("@CountDataFile", SqlDbType.Int) { Value = CountDataFile });
+            o_command.Parameters["@CountDataFile"].Direction = ParameterDirection.Output;
+            try
+            {
+                o_command.Connection.Open();
+                o_command.ExecuteNonQuery();
+                CountDataFile = (Int32)o_command.Parameters["@CountDataFile"].Value;
+            }
+            catch (Exception ex)
+            {
+                s_error = "Error on select matching data.";
+                return;
+            }
+            finally
+            {
+                o_command.Connection.Close();
+                o_command.Dispose();
+            }
+        }
+
+        public static void SaveStrategy_DateFilter(DateFilterDataModel o_matching_search, int strategyId, ref int CountDataFile, ref string s_error)
+        {
+            //,DateTime TransactionDateFromInside,DateTime TransactionDateToInside, DateTime @PaymentDateFromInside,DateTime @PaymentDateToInside, DateTime @TransactionDateFromOutside,DateTime @TransactionDateToOutside
+            //    , DateTime @PaymentDateFromOutside,DateTime @PaymentDateToOutside, bool @AllowEmptyPaymentInside,bool @AllowEmptyPaymentOutside,
+
+            SqlCommand o_command = new SqlCommand("sprSaveStrategyDateFilter", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+            
+            o_command.Parameters.Add(new SqlParameter("@StrategyID", SqlDbType.Int) { Value = strategyId });
+
+            //o_command.Parameters.Add(new SqlParameter("@TransactionDateFromInside", SqlDbType.DateTime) { Value = o_matching_search.TransactionDateFrom });
+            SqlParameter TransactionDateFrom;
+            if (o_matching_search.TransactionDateFrom != null)
+                TransactionDateFrom = new SqlParameter("@TransactionDateFromInside", o_matching_search.TransactionDateFrom);
+            else
+                TransactionDateFrom = new SqlParameter("@TransactionDateFromInside", DBNull.Value);
+            TransactionDateFrom.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(TransactionDateFrom);
+
+            //o_command.Parameters.Add(new SqlParameter("@TransactionDateToInside", SqlDbType.DateTime) { Value = o_matching_search.TransactionDateTo });
+            SqlParameter TransactionDateTo;
+            if (o_matching_search.TransactionDateTo != null)
+                TransactionDateTo = new SqlParameter("@TransactionDateToInside", o_matching_search.TransactionDateTo);
+            else
+                TransactionDateTo = new SqlParameter("@TransactionDateToInside", DBNull.Value);
+            TransactionDateTo.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(TransactionDateTo);
+
+            //o_command.Parameters.Add(new SqlParameter("@PaymentDateFromInside", SqlDbType.DateTime) { Value = (o_matching_search.PaymentDateFrom == null ? DBNull.Value : o_matching_search.PaymentDateFrom) });
+            SqlParameter PaymentDateFrom;
+            if (o_matching_search.PaymentDateFrom != null)
+                PaymentDateFrom = new SqlParameter("@PaymentDateFromInside", o_matching_search.PaymentDateFrom);
+            else
+                PaymentDateFrom = new SqlParameter("@PaymentDateFromInside", DBNull.Value);
+            PaymentDateFrom.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(PaymentDateFrom);
+
+            //o_command.Parameters.Add(new SqlParameter("@PaymentDateToInside", SqlDbType.DateTime) { Value = o_matching_search.PaymentDateTo });
+            SqlParameter PaymentDateTo;
+            if (o_matching_search.PaymentDateTo != null)
+                PaymentDateTo = new SqlParameter("@PaymentDateToInside", o_matching_search.PaymentDateTo);
+            else
+                PaymentDateTo = new SqlParameter("@PaymentDateToInside", DBNull.Value);
+            PaymentDateTo.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(PaymentDateTo);
+
+
+            //o_command.Parameters.Add(new SqlParameter("@TransactionDateFromOutside", SqlDbType.DateTime) { Value = o_matching_search.TransactionDateFromOut });
+            SqlParameter TransactionDateFromOut;
+            if (o_matching_search.TransactionDateFromOut != null)
+                TransactionDateFromOut = new SqlParameter("@TransactionDateFromOutside", o_matching_search.TransactionDateFromOut);
+            else
+                TransactionDateFromOut = new SqlParameter("@TransactionDateFromOutside", DBNull.Value);
+            TransactionDateFromOut.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(TransactionDateFromOut);
+
+            //o_command.Parameters.Add(new SqlParameter("@TransactionDateToOutside", SqlDbType.DateTime) { Value = o_matching_search.TransactionDateToOut });
+            SqlParameter TransactionDateToOut;
+            if (o_matching_search.TransactionDateToOut != null)
+                TransactionDateToOut = new SqlParameter("@TransactionDateToOutside", o_matching_search.TransactionDateToOut);
+            else
+                TransactionDateToOut = new SqlParameter("@TransactionDateToOutside", DBNull.Value);
+            TransactionDateToOut.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(TransactionDateToOut);
+
+            //o_command.Parameters.Add(new SqlParameter("@PaymentDateFromOutside", SqlDbType.DateTime) { Value = o_matching_search.PaymentDateFromOut });
+            SqlParameter PaymentDateFromOut;
+            if (o_matching_search.PaymentDateFromOut != null)
+                PaymentDateFromOut = new SqlParameter("@PaymentDateFromOutside", o_matching_search.PaymentDateFromOut);
+            else
+                PaymentDateFromOut = new SqlParameter("@PaymentDateFromOutside", DBNull.Value);
+            PaymentDateFromOut.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(PaymentDateFromOut);
+
+            //o_command.Parameters.Add(new SqlParameter("@PaymentDateToOutside", SqlDbType.DateTime) { Value = o_matching_search.PaymentDateToOut });
+            SqlParameter PaymentDateToOut;
+            if (o_matching_search.PaymentDateToOut != null)
+                PaymentDateToOut = new SqlParameter("@PaymentDateToOutside", o_matching_search.PaymentDateToOut);
+            else
+                PaymentDateToOut = new SqlParameter("@PaymentDateToOutside", DBNull.Value);
+            PaymentDateToOut.SqlDbType = SqlDbType.DateTime;
+            o_command.Parameters.Add(PaymentDateToOut);
+
+            o_command.Parameters.Add(new SqlParameter("@AllowEmptyTransactionInside", SqlDbType.Bit) { Value = o_matching_search.IsEmptyTransactionDate });
+            o_command.Parameters.Add(new SqlParameter("@AllowEmptyTransactionOutside", SqlDbType.Bit) { Value = o_matching_search.IsEmptyTransactionDateOut });
+            o_command.Parameters.Add(new SqlParameter("@AllowEmptyPaymentInside", SqlDbType.Bit) { Value = o_matching_search.IsEmptyPaymentDate });
+            o_command.Parameters.Add(new SqlParameter("@AllowEmptyPaymentOutside", SqlDbType.Bit) { Value = o_matching_search.IsEmptyPaymentDateOut });
+
+            o_command.Parameters.Add(new SqlParameter("@IsSuccess", SqlDbType.Int) { Value = CountDataFile });
+            o_command.Parameters["@IsSuccess"].Direction = ParameterDirection.Output;
+            try
+            {
+                o_command.Connection.Open();
+                o_command.ExecuteNonQuery();
+                CountDataFile = (Int32)o_command.Parameters["@IsSuccess"].Value;
+            }
+            catch (Exception ex)
+            {
+                s_error = "Error on insert Filter date data.";
+                return;
+            }
+            finally
+            {
+                o_command.Connection.Close();
+                o_command.Dispose();
             }
         }
 

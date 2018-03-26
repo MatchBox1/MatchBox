@@ -4462,32 +4462,33 @@ namespace MatchBox
             gvOutside.DataSource = dt_outside;
             gvOutside.DataBind();
 
-            // Disable In Process Records   
-            string strErrors = string.Empty;
-            DataTable dtLockedRecords = new DataTable();
-            DataAction.SelectLockedRecords(n_user_id, ref dtLockedRecords, ref strErrors);
+            //// Disable In Process Records   
+            //string strErrors = string.Empty;
+            //DataTable dtLockedRecords = new DataTable();
+            //DataAction.SelectLockedRecords(n_user_id, ref dtLockedRecords, ref strErrors);
 
             foreach (GridViewRow row in gvInside.Rows)
             {
-                if (dtLockedRecords.Rows.Count > 0)
-                {
-                    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");// --41
-                    foreach (DataRow dr in dtLockedRecords.Rows)
-                    {
-                        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
-                        {
-                            var chk = row.Cells[0].Controls[0];//as CheckBox;
-                            if (chk != null)
-                            {
-                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                                row.BackColor = lightGrayColor;
-                                //row.BackColor = System.Drawing.Color.Gray;
-                                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
-                            }
-                        }
-                    }
-                }
-                else if (s_mode == "matching")
+                //if (dtLockedRecords.Rows.Count > 0)
+                //{
+                //    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");// --41
+                //    foreach (DataRow dr in dtLockedRecords.Rows)
+                //    {
+                //        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
+                //        {
+                //            var chk = row.Cells[0].Controls[0];//as CheckBox;
+                //            if (chk != null)
+                //            {
+                //                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                //                row.BackColor = lightGrayColor;
+                //                //row.BackColor = System.Drawing.Color.Gray;
+                //                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
+                //            }
+                //        }
+                //    }
+                //}
+                //else if (s_mode == "matching")
+                if (s_mode == "matching")
                 {
                     Color lightBlueColor = Color.FromArgb(221, 235, 247);
                     row.BackColor = lightBlueColor;
@@ -4527,26 +4528,27 @@ namespace MatchBox
 
             foreach (GridViewRow row in gvOutside.Rows)
             {
-                if (dtLockedRecords.Rows.Count > 0)
-                {
-                    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", ""); // 58
-                    foreach (DataRow dr in dtLockedRecords.Rows)
-                    {
-                        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
-                        {
-                            var chk = row.Cells[0].Controls[0];//as CheckBox;
-                            if (chk != null)
-                            {
-                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                                row.BackColor = lightGrayColor;
-                                //row.BorderWidth = 3;
-                                //row.BorderColor = System.Drawing.Color.Gray;
-                                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
-                            }
-                        }
-                    }
-                }
-                else if (s_mode == "matching")
+                //if (dtLockedRecords.Rows.Count > 0)
+                //{
+                //    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", ""); // 58
+                //    foreach (DataRow dr in dtLockedRecords.Rows)
+                //    {
+                //        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
+                //        {
+                //            var chk = row.Cells[0].Controls[0];//as CheckBox;
+                //            if (chk != null)
+                //            {
+                //                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                //                row.BackColor = lightGrayColor;
+                //                //row.BorderWidth = 3;
+                //                //row.BorderColor = System.Drawing.Color.Gray;
+                //                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
+                //            }
+                //        }
+                //    }
+                //}
+                //else if (s_mode == "matching")
+                if (s_mode == "matching")
                 {
                     //row.BackColor = System.Drawing.Color.LightBlue;
                     Color lightBlueColor = Color.FromArgb(221, 235, 247);
@@ -4806,9 +4808,9 @@ namespace MatchBox
             var sWriter = new StringWriter();
             string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
             /// CHECK ANY Transcation is In Process
-            string strErrors = string.Empty;
-            DataTable dtLockedRecords = new DataTable();
-            DataAction.SelectLockedRecords(userId, ref dtLockedRecords, ref strErrors);
+            //string strErrors = string.Empty;
+            //DataTable dtLockedRecords = new DataTable();
+            //DataAction.SelectLockedRecords(userId, ref dtLockedRecords, ref strErrors);
             ///
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
@@ -4822,18 +4824,20 @@ namespace MatchBox
                         row.Cells.Add(cell);
 
                         //  Modified the code for color change.
-                        row.BackColor = System.Drawing.Color.LightYellow;
-                        if (dtLockedRecords.Rows.Count > 0)
-                        {
-                            //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
-                            var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
-                            if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
-                            {
-                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                                row.BackColor = lightGrayColor;
-                            }
-                        }
-                        else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        row.BackColor = System.Drawing.Color.White;
+
+                        //if (dtLockedRecords.Rows.Count > 0)
+                        //{
+                        //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                        //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                        //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                        //    {
+                        //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                        //        row.BackColor = lightGrayColor;
+                        //    }
+                        //}
+                        //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
                             row.BackColor = lightBlueColor;
@@ -4903,9 +4907,9 @@ namespace MatchBox
             var sWriter = new StringWriter();
             string s_mode = obj.Get_AjaxMode(hidUniqueID, hidQueryID, ddlTransactions);
             /////// CHECK ANY Transcation is In Process
-            string strErrors = string.Empty;
-            DataTable dtLockedRecords = new DataTable();
-            DataAction.SelectLockedRecords(userId, ref dtLockedRecords, ref strErrors);
+            //string strErrors = string.Empty;
+            //DataTable dtLockedRecords = new DataTable();
+            //DataAction.SelectLockedRecords(userId, ref dtLockedRecords, ref strErrors);
             ////
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
@@ -4919,18 +4923,20 @@ namespace MatchBox
                         row.Cells.Add(cell);
 
                         //  Modified the code for color change.
-                        row.BackColor = System.Drawing.Color.LightYellow;
-                        if (dtLockedRecords.Rows.Count > 0)
-                        {
-                            //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
-                            var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
-                            if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
-                            {
-                                Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                                row.BackColor = lightGrayColor;
-                            }
-                        }
-                        else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        row.BackColor = System.Drawing.Color.White;
+
+                        //if (dtLockedRecords.Rows.Count > 0)
+                        //{
+                        //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                        //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                        //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                        //    {
+                        //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                        //        row.BackColor = lightGrayColor;
+                        //    }
+                        //}
+                        //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                         {
                             Color lightBlueColor = Color.FromArgb(221, 235, 247);
                             row.BackColor = lightBlueColor;

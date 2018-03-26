@@ -764,7 +764,7 @@
                             &nbsp;
                             <asp:LinkButton ID="btnPaymentRestoreCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
                         </asp:Label></td><td id="tdMatchingAuto" runat="server" visible="false" style="padding: 0px 15px;">
-                        <asp:LinkButton ID="btnMatchingAuto" runat="server" OnCommand="Matching_Command" CommandArgument="Confirm" Text="Auto Matching" />
+                        <asp:LinkButton ID="btnMatchingAuto" runat="server" OnCommand="Matching_Command" CommandArgument="Confirm" Text="Quick Matching" />
                     </td>
                     <td id="tdReturn" runat="server" visible="false" style="padding: 0px 15px;">
                         <asp:LinkButton ID="btnReturn" runat="server" OnClick="Return_Click" Text="Return" />

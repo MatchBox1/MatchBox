@@ -126,7 +126,7 @@ namespace MatchBox
 
             DataTable dt_strategy = new DataTable();
 
-            StrategyAction.Select_Single(StrategyID, n_user_id, ref dt_strategy, ref s_error);
+            StrategyAction.Select_Single(StrategyID, n_user_id,"fromDataFile", ref dt_strategy, ref s_error);
 
             if (s_error != "") { goto Error; }
 

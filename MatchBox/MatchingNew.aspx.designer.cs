@@ -58,67 +58,67 @@ namespace MatchBox {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTransactionDateFrom;
         
         /// <summary>
-        /// ddlTransactionDayFrom control.
+        /// txtTransactionDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionDayFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtTransactionDate;
         
         /// <summary>
-        /// ddlTransactionMonthFrom control.
+        /// lblTransactionDateError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionMonthFrom;
+        protected global::System.Web.UI.WebControls.Label lblTransactionDateError;
         
         /// <summary>
-        /// ddlTransactionYearFrom control.
+        /// chkEmptyTransactionDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionYearFrom;
+        protected global::System.Web.UI.WebControls.CheckBox chkEmptyTransactionDate;
         
         /// <summary>
-        /// divDateToInside control.
+        /// divTransactionDateFromOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDateToInside;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTransactionDateFromOutside;
         
         /// <summary>
-        /// ddlTransactionDayTo control.
+        /// txtTransactionDateOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionDayTo;
+        protected global::System.Web.UI.WebControls.TextBox txtTransactionDateOutside;
         
         /// <summary>
-        /// ddlTransactionMonthTo control.
+        /// lblTransactionDateErrorOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionMonthTo;
+        protected global::System.Web.UI.WebControls.Label lblTransactionDateErrorOutside;
         
         /// <summary>
-        /// ddlTransactionYearTo control.
+        /// chkEmptyTransactionDateOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTransactionYearTo;
+        protected global::System.Web.UI.WebControls.CheckBox chkEmptyTransactionDateOutside;
         
         /// <summary>
         /// divPaymentDateFrom control.
@@ -130,67 +130,22 @@ namespace MatchBox {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPaymentDateFrom;
         
         /// <summary>
-        /// ddlPaymentDayFrom control.
+        /// txtPaymentDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentDayFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtPaymentDate;
         
         /// <summary>
-        /// ddlPaymentMonthFrom control.
+        /// lblPaymentDateError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMonthFrom;
-        
-        /// <summary>
-        /// ddlPaymentYearFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentYearFrom;
-        
-        /// <summary>
-        /// divPaymentDateTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPaymentDateTo;
-        
-        /// <summary>
-        /// ddlPaymentDayTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentDayTo;
-        
-        /// <summary>
-        /// ddlPaymentMonthTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMonthTo;
-        
-        /// <summary>
-        /// ddlPaymentYearTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentYearTo;
+        protected global::System.Web.UI.WebControls.Label lblPaymentDateError;
         
         /// <summary>
         /// chkEmptyPaymentDate control.
@@ -202,76 +157,49 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkEmptyPaymentDate;
         
         /// <summary>
-        /// divCompany control.
+        /// divPaymentDateFromOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCompany;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPaymentDateFromOutside;
         
         /// <summary>
-        /// upSelectBy control.
+        /// txtPaymentDateOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upSelectBy;
+        protected global::System.Web.UI.WebControls.TextBox txtPaymentDateOutside;
         
         /// <summary>
-        /// rblSelectBy control.
+        /// lblPaymentDateErrorOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rblSelectBy;
+        protected global::System.Web.UI.WebControls.Label lblPaymentDateErrorOutside;
         
         /// <summary>
-        /// repCompany control.
+        /// chkEmptyPaymentDateOutside control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater repCompany;
+        protected global::System.Web.UI.WebControls.CheckBox chkEmptyPaymentDateOutside;
         
         /// <summary>
-        /// divCredit control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCredit;
-        
-        /// <summary>
-        /// lstCredit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList lstCredit;
-        
-        /// <summary>
-        /// divCard control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCard;
-        
-        /// <summary>
-        /// lstCard control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList lstCard;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// btnSearch control.
@@ -353,6 +281,15 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAutoMatching;
+        
+        /// <summary>
+        /// lblErrorBelow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorBelow;
         
         /// <summary>
         /// lblQueryInfo control.

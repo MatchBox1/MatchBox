@@ -130,7 +130,7 @@ namespace MatchBox
             string s_error = "";
             string s_query_id_array = Common.Get_Distinct_Values(hidSelectInside.Value, hidSelectOutside.Value);
 
-            DataAction.Delete_Match(n_user_id, MatchingID, s_query_id_array, ref s_error);
+            DataAction.Delete_Match(n_user_id, MatchingID, s_query_id_array, ref s_error,"");
 
             if (s_error != "")
             {

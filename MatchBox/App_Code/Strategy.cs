@@ -230,12 +230,13 @@ namespace MatchBox
             }
         }
 
-        public static void Select_Single(int n_strategy_id, int n_user_id, ref DataTable dt_strategy, ref string s_error)
+        public static void Select_Single(int n_strategy_id, int n_user_id, string Type, ref DataTable dt_strategy, ref string s_error)
         {
             SqlCommand o_command = new SqlCommand("sprStrategySingle", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int) { Value = n_strategy_id });
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
+            o_command.Parameters.Add(new SqlParameter("@Type", SqlDbType.VarChar) { Value = Type });
 
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
 

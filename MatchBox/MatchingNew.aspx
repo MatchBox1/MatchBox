@@ -11,7 +11,7 @@
         <div class="clear-both"></div>
     </div>
 
-    <div id="divMessage" runat="server" EnableViewState="false" Visible="false" class="div-message">
+    <div id="divMessage" runat="server" enableviewstate="false" visible="false" class="div-message">
         <asp:Label ID="lblMessage" runat="server" EnableViewState="false" CssClass="message block" />
         <asp:Label ID="lblError" runat="server" EnableViewState="false" CssClass="error block" />
     </div>
@@ -19,288 +19,67 @@
     <hr />
 
     <div class="clear-both"></div>
-    
-    <%--TransactionDateFrom--%>
+
+    <%--TransactionDateFrom Inside--%>
     <div id="divTransactionDateFrom" runat="server" class="float-left div-form-field">
-        <label for="<%= ddlTransactionDayFrom.ClientID %>" class="block">Transaction Date From</label>
-        <asp:DropDownList ID="ddlTransactionDayFrom" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Day" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlTransactionMonthFrom" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Month" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlTransactionYearFrom" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Year" Value="0" />
-        </asp:DropDownList>
+        <b>Transaction Date</b>
+        <br />
+        <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
+        <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
     </div>
 
-    <%--TransactionDateTo--%>
-    <div id="divDateToInside" runat="server" class="float-left div-form-field">
-        <label for="<%= ddlTransactionDayTo.ClientID %>" class="block">Transaction Date To</label>
-        <asp:DropDownList ID="ddlTransactionDayTo" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Day" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlTransactionMonthTo" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Month" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlTransactionYearTo" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Year" Value="0" />
-        </asp:DropDownList>
+    <div class="float-left div-form-field">
+        <br />
+        <asp:CheckBox ID="chkEmptyTransactionDate" runat="server" Text="Include Empty Transaction Date" />
     </div>
-    
+
+    <%--TransactionDateFrom Outside--%>
+    <div id="divTransactionDateFromOutside" runat="server" class="float-right div-form-field">
+        <b>Transaction Date Outside</b>
+        <br />
+        <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" />
+        <asp:Label ID="lblTransactionDateErrorOutside" runat="server" EnableViewState="false" CssClass="error block" />
+    </div>
+
+    <div class="float-left div-form-field">
+        <br />
+        <asp:CheckBox ID="chkEmptyTransactionDateOutside" runat="server" Text="Include Empty Transaction Date Outside" />
+    </div>
+
     <div class="clear-both"></div>
 
-    <%--PaymentDateFrom--%>
+    <%--PaymentDateFrom Inside--%>
     <div id="divPaymentDateFrom" runat="server" class="float-left div-form-field">
-        <label for="<%= ddlPaymentDayFrom.ClientID %>" class="block">Payment Date From</label>
-        <asp:DropDownList ID="ddlPaymentDayFrom" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Day" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlPaymentMonthFrom" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Month" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlPaymentYearFrom" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Year" Value="0" />
-        </asp:DropDownList>
-    </div>
-    
-    <%--PaymentDateTo--%>
-    <div id="divPaymentDateTo" runat="server" class="float-left div-form-field">
-        <label for="<%= ddlPaymentDayTo.ClientID %>" class="block">Payment Date To</label>
-        <asp:DropDownList ID="ddlPaymentDayTo" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Day" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlPaymentMonthTo" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Month" Value="0" />
-        </asp:DropDownList>
-        <asp:DropDownList ID="ddlPaymentYearTo" runat="server" style="width: 32%;">
-            <asp:ListItem Text="Year" Value="0" />
-        </asp:DropDownList>
+        <b>Payment Date</b>
+        <br />
+        <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
+        <asp:Label ID="lblPaymentDateError" runat="server" EnableViewState="false" CssClass="error block" />
     </div>
 
     <div class="float-left div-form-field">
         <br />
         <asp:CheckBox ID="chkEmptyPaymentDate" runat="server" Text="Include Empty Payment Date" />
     </div>
-
-    <div class="clear-both"></div>
-
-    <%--Company--%>
-    <div id="divCompany" runat="server" class="float-left div-form-field">
-        Company
+    
+    <%--PaymentDateFrom Outside--%>
+    <div id="divPaymentDateFromOutside" runat="server" class="float-right div-form-field">
+        <b>Payment Date Outside</b>
         <br />
-        <asp:UpdatePanel ID="upSelectBy" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-            <ContentTemplate>
-                Select by :
-                <asp:RadioButtonList ID="rblSelectBy" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rblSelectBy_SelectedIndexChanged" RepeatDirection="Horizontal" RepeatLayout="Flow">
-                    <asp:ListItem Value="cashbox" Text="CashBox" Selected="True" />
-                    <asp:ListItem Value="terminal" Text="Terminal" />
-                </asp:RadioButtonList>
-
-                <asp:Repeater ID="repCompany" runat="server">
-                    <HeaderTemplate>
-                        <table>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                            <tr>
-                                <td style="vertical-align: top">
-                                    <asp:CheckBox ID="chkCompany" runat="server" AutoPostBack="true" OnCheckedChanged="chkCompany_CheckedChanged" />
-                                    <asp:HiddenField ID="hidCompanyID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                </td>
-                                <td style="vertical-align: top">
-                                    <asp:Label ID="lblCompany" runat="server" AssociatedControlID="chkCompany" Text='<%# DataBinder.Eval(Container.DataItem, "CompanyName") %>' />
-
-                                    <asp:UpdatePanel ID="upNetwork" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                        <ContentTemplate>
-                                            <asp:Repeater ID="repNetwork" runat="server">
-                                                <HeaderTemplate>
-                                                    <table>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                        <tr>
-                                                            <td style="vertical-align: top">
-                                                                <asp:CheckBox ID="chkNetwork" runat="server" AutoPostBack="true" OnCheckedChanged="chkNetwork_CheckedChanged" />
-                                                                <asp:HiddenField ID="hidNetworkID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                            </td>
-                                                            <td style="vertical-align: top">
-                                                                <asp:Label ID="lblNetwork" runat="server" AssociatedControlID="chkNetwork" Text='<%# DataBinder.Eval(Container.DataItem, "NetworkName") %>' />
-
-                                                                <asp:UpdatePanel ID="upBranch" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                    <ContentTemplate>
-                                                                        <asp:Repeater ID="repBranch" runat="server">
-                                                                            <HeaderTemplate>
-                                                                                <table>
-                                                                            </HeaderTemplate>
-                                                                            <ItemTemplate>
-                                                                                    <tr>
-                                                                                        <td style="vertical-align: top">
-                                                                                            <asp:CheckBox ID="chkBranch" runat="server" AutoPostBack="true" OnCheckedChanged="chkBranch_CheckedChanged" />
-                                                                                            <asp:HiddenField ID="hidBranchID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                        </td>
-                                                                                        <td style="vertical-align: top">
-                                                                                            <asp:Label ID="lblBranch" runat="server" AssociatedControlID="chkBranch" Text='<%# DataBinder.Eval(Container.DataItem, "BranchName") %>' />
-
-                                                                                            <asp:UpdatePanel ID="upCashBox" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                                                <ContentTemplate>
-                                                                                                    <asp:Repeater ID="repCashBox" runat="server">
-                                                                                                        <HeaderTemplate>
-                                                                                                            <table>
-                                                                                                        </HeaderTemplate>
-                                                                                                        <ItemTemplate>
-                                                                                                                <tr>
-                                                                                                                    <td style="vertical-align: top">
-                                                                                                                        <asp:CheckBox ID="chkCashBox" runat="server" />
-                                                                                                                        <asp:HiddenField ID="hidCashBoxID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                                                    </td>
-                                                                                                                    <td style="vertical-align: top">
-                                                                                                                        <asp:Label ID="lblCashBox" runat="server" AssociatedControlID="chkCashBox" Text='<%# DataBinder.Eval(Container.DataItem, "CashBoxName") %>' />
-                                                                                                                    </td>
-                                                                                                                </tr>
-                                                                                                        </ItemTemplate>
-                                                                                                        <FooterTemplate>
-                                                                                                            </table>
-                                                                                                        </FooterTemplate>
-                                                                                                    </asp:Repeater>
-                                                                                                </ContentTemplate>
-                                                                                                <Triggers>
-                                                                                                    <asp:AsyncPostBackTrigger ControlID="chkBranch" EventName="CheckedChanged" />
-                                                                                                </Triggers>
-                                                                                            </asp:UpdatePanel>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                            </ItemTemplate>
-                                                                            <FooterTemplate>
-                                                                                </table>
-                                                                            </FooterTemplate>
-                                                                        </asp:Repeater>
-                                                                    </ContentTemplate>
-                                                                    <Triggers>
-                                                                        <asp:AsyncPostBackTrigger ControlID="chkNetwork" EventName="CheckedChanged" />
-                                                                    </Triggers>
-                                                                </asp:UpdatePanel>
-                                                            </td>
-                                                        </tr>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    </table>
-                                                </FooterTemplate>
-                                            </asp:Repeater>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="chkCompany" EventName="CheckedChanged" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-
-                                    <asp:UpdatePanel ID="upSupplierGroup" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                        <ContentTemplate>
-                                            <asp:Repeater ID="repSupplierGroup" runat="server" Visible="false">
-                                                <HeaderTemplate>
-                                                    <table>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                        <tr>
-                                                            <td style="vertical-align: top">
-                                                                <asp:CheckBox ID="chkSupplierGroup" runat="server" AutoPostBack="true" OnCheckedChanged="chkSupplierGroup_CheckedChanged" />
-                                                                <asp:HiddenField ID="hidSupplierGroupID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                            </td>
-                                                            <td style="vertical-align: top">
-                                                                <asp:Label ID="lblSupplierGroup" runat="server" AssociatedControlID="chkSupplierGroup" Text='<%# DataBinder.Eval(Container.DataItem, "SupplierGroup") %>' />
-
-                                                                <asp:UpdatePanel ID="upSupplier" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                    <ContentTemplate>
-                                                                        <asp:Repeater ID="repSupplier" runat="server">
-                                                                            <HeaderTemplate>
-                                                                                <table>
-                                                                            </HeaderTemplate>
-                                                                            <ItemTemplate>
-                                                                                    <tr>
-                                                                                        <td style="vertical-align: top">
-                                                                                            <asp:CheckBox ID="chkSupplier" runat="server" AutoPostBack="true" OnCheckedChanged="chkSupplier_CheckedChanged" />
-                                                                                            <asp:HiddenField ID="hidSupplierID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                        </td>
-                                                                                        <td style="vertical-align: top">
-                                                                                            <asp:Label ID="lblSupplier" runat="server" AssociatedControlID="chkSupplier" Text='<%# DataBinder.Eval(Container.DataItem, "Supplier") %>' />
-
-                                                                                            <asp:UpdatePanel ID="upTerminal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                                                <ContentTemplate>
-                                                                                                    <asp:Repeater ID="repTerminal" runat="server">
-                                                                                                        <HeaderTemplate>
-                                                                                                            <table>
-                                                                                                        </HeaderTemplate>
-                                                                                                        <ItemTemplate>
-                                                                                                                <tr>
-                                                                                                                    <td style="vertical-align: top">
-                                                                                                                        <asp:CheckBox ID="chkTerminal" runat="server" />
-                                                                                                                        <asp:HiddenField ID="hidTerminalID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                                                    </td>
-                                                                                                                    <td style="vertical-align: top">
-                                                                                                                        <asp:Label ID="lblTerminal" runat="server" AssociatedControlID="chkTerminal" Text='<%# DataBinder.Eval(Container.DataItem, "Terminal") %>' />
-                                                                                                                    </td>
-                                                                                                                </tr>
-                                                                                                        </ItemTemplate>
-                                                                                                        <FooterTemplate>
-                                                                                                            </table>
-                                                                                                        </FooterTemplate>
-                                                                                                    </asp:Repeater>
-                                                                                                </ContentTemplate>
-                                                                                                <Triggers>
-                                                                                                    <asp:AsyncPostBackTrigger ControlID="chkSupplier" EventName="CheckedChanged" />
-                                                                                                </Triggers>
-                                                                                            </asp:UpdatePanel>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                            </ItemTemplate>
-                                                                            <FooterTemplate>
-                                                                                </table>
-                                                                            </FooterTemplate>
-                                                                        </asp:Repeater>
-                                                                    </ContentTemplate>
-                                                                    <Triggers>
-                                                                        <asp:AsyncPostBackTrigger ControlID="chkSupplierGroup" EventName="CheckedChanged" />
-                                                                    </Triggers>
-                                                                </asp:UpdatePanel>
-                                                            </td>
-                                                        </tr>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    </table>
-                                                </FooterTemplate>
-                                            </asp:Repeater>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="chkCompany" EventName="CheckedChanged" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-                                </td>
-                            </tr>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        </table>
-                    </FooterTemplate>
-                </asp:Repeater>
-            </ContentTemplate>
-            <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="rblSelectBy" EventName="SelectedIndexChanged" />
-            </Triggers>
-        </asp:UpdatePanel>
+        <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" />
+        <asp:Label ID="lblPaymentDateErrorOutside" runat="server" EnableViewState="false" CssClass="error block" />
     </div>
 
-    <%--Credit--%>
-    <div id="divCredit" runat="server" class="float-left div-form-field">
-        <label for="<%= lstCredit.ClientID %>" class="block">Credit</label>
-        <asp:CheckBoxList ID="lstCredit" runat="server" />
+    <div class="float-right div-form-field">
+        <br />
+        <asp:CheckBox ID="chkEmptyPaymentDateOutside" runat="server" Text="Include Empty Payment Date Outside" />
     </div>
 
-    <%--Card--%>
-    <div id="divCard" runat="server" class="float-left div-form-field">
-        <label for="<%= lstCard.ClientID %>" class="block">Card</label>
-        <asp:CheckBoxList ID="lstCard" runat="server" />
-    </div>
 
     <div class="clear-both"></div>
 
     <div class="div-form-command">
-        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" />
+        <asp:Button ID="Button1" runat="server" OnClick="btnSearch_Click_New" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" Visible="false" />
+        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click_New" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" />
         <span id="spnSearch" class="message" style="display: none;">Please wait..</span>
         &nbsp;
         <a href="MatchingNew.aspx">Reset</a>
@@ -325,20 +104,22 @@
                                 </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
-                                <tr>
-                                    <td><%# DataBinder.Eval(Container.DataItem, "CompanyID") %></td>
-                                    <td><%# DataBinder.Eval(Container.DataItem, "TransactionYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "TransactionMonth")) %></td>
-                                    <td><%# DataBinder.Eval(Container.DataItem, "PaymentYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "PaymentMonth")) %></td>
-                                    <td><%# String.Format("{0:n0}", DataBinder.Eval(Container.DataItem, "TransactionCount")) %></td>
-                                    <td><%# String.Format("{0:n2}", DataBinder.Eval(Container.DataItem, "AmountSum")) %></td>
-                                </tr>
+                            <tr>
+                                <td><%# DataBinder.Eval(Container.DataItem, "CompanyID") %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "TransactionYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "TransactionMonth")) %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "PaymentYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "PaymentMonth")) %></td>
+                                <td><%# String.Format("{0:n0}", DataBinder.Eval(Container.DataItem, "TransactionCount")) %></td>
+                                <td><%# String.Format("{0:n2}", DataBinder.Eval(Container.DataItem, "AmountSum")) %></td>
+                            </tr>
                         </ItemTemplate>
                         <FooterTemplate>
-                                <tr class="bold">
-                                    <td colspan="3">Total:</td>
-                                    <td><asp:Label ID="lblTransactionCountTotal" runat="server" /></td>
-                                    <td><asp:Label ID="lblAmountSumTotal" runat="server" /></td>
-                                </tr>
+                            <tr class="bold">
+                                <td colspan="3">Total:</td>
+                                <td>
+                                    <asp:Label ID="lblTransactionCountTotal" runat="server" /></td>
+                                <td>
+                                    <asp:Label ID="lblAmountSumTotal" runat="server" /></td>
+                            </tr>
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
@@ -358,20 +139,22 @@
                                 </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
-                                <tr>
-                                    <td><%# DataBinder.Eval(Container.DataItem, "CompanyID") %></td>
-                                    <td><%# DataBinder.Eval(Container.DataItem, "TransactionYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "TransactionMonth")) %></td>
-                                    <td><%# DataBinder.Eval(Container.DataItem, "PaymentYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "PaymentMonth")) %></td>
-                                    <td><%# String.Format("{0:n0}", DataBinder.Eval(Container.DataItem, "TransactionCount")) %></td>
-                                    <td><%# String.Format("{0:n2}", DataBinder.Eval(Container.DataItem, "AmountSum")) %></td>
-                                </tr>
+                            <tr>
+                                <td><%# DataBinder.Eval(Container.DataItem, "CompanyID") %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "TransactionYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "TransactionMonth")) %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "PaymentYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "PaymentMonth")) %></td>
+                                <td><%# String.Format("{0:n0}", DataBinder.Eval(Container.DataItem, "TransactionCount")) %></td>
+                                <td><%# String.Format("{0:n2}", DataBinder.Eval(Container.DataItem, "AmountSum")) %></td>
+                            </tr>
                         </ItemTemplate>
                         <FooterTemplate>
-                                <tr class="bold">
-                                    <td colspan="3">Total:</td>
-                                    <td><asp:Label ID="lblTransactionCountTotal" runat="server" /></td>
-                                    <td><asp:Label ID="lblAmountSumTotal" runat="server" /></td>
-                                </tr>
+                            <tr class="bold">
+                                <td colspan="3">Total:</td>
+                                <td>
+                                    <asp:Label ID="lblTransactionCountTotal" runat="server" /></td>
+                                <td>
+                                    <asp:Label ID="lblAmountSumTotal" runat="server" /></td>
+                            </tr>
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
@@ -392,6 +175,7 @@
             <br />
             <asp:Button ID="btnAutoMatching" runat="server" ValidationGroup="Matching" OnClick="btnAutoMatching_Click" OnClientClick="javascript: show_wait(this.id, 'spnAutoMatching', true);" Text="Auto Matching" />
             <span id="spnAutoMatching" class="message" style="display: none;">Please wait..</span>
+            <asp:Label ID="lblErrorBelow" runat="server" EnableViewState="false" CssClass="error block" />
         </div>
 
         <div class="float-left div-form-field">
@@ -424,11 +208,11 @@
     </asp:Panel>
 
     <script>
-        function show_wait(s_button_id, s_span_id, b_validate) {
-            if (b_validate == true && Page_ClientValidate() == false) { return; }
+            function show_wait(s_button_id, s_span_id, b_validate) {
+                if (b_validate == true && Page_ClientValidate() == false) { return; }
 
-            document.getElementById(s_button_id).style.display = "none";
-            document.getElementById(s_span_id).style.display = "";
-        }
+                document.getElementById(s_button_id).style.display = "none";
+                document.getElementById(s_span_id).style.display = "";
+            }
     </script>
 </asp:Content>
