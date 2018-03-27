@@ -1131,7 +1131,9 @@
         //var datatest = '';
         $(document).ready(function () {
 
-            ///////
+            
+
+            /////// Set Sorting value //////
             if ($('#ctl00_cphMain_hdnOrderSort').val() != '') {
                 if ($('#ctl00_cphMain_hdnOrderSort').val() == 'false')
                     IsSorted = true;
@@ -1144,6 +1146,61 @@
                     ISOutSorted = true;
                 else
                     ISOutSorted = false;
+            }
+
+            /////// Set Arrow up and Arrow down for Sort column Inside ///////
+            
+            var columnNameSortedInside = $('#ctl00_cphMain_hdnColumnName').val().trim();
+            if (columnNameSortedInside != undefined && columnNameSortedInside != "") {
+                var objLength = $('#tblInsideHead td').find('div:contains("' + columnNameSortedInside + '")').next("span").length;
+                if (objLength == 1) {
+                    $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").removeClass();
+                    $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").css('background-color', 'red');
+                    if (IsSorted == false) {
+                        $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").addClass('arrowdu');
+                    }
+                    else {
+                        $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").addClass('arrowup');
+                    }
+                }
+                else if (objLength > 1) {
+                    $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").removeClass();
+                    $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").css('background-color', 'red');
+                    if (IsSorted == false) {
+                        $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").addClass('arrowdu');
+                    }
+                    else {
+                        $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").addClass('arrowup');
+                    }
+                }
+            }
+            ///////
+
+            /////// Set Arrow up and Arrow down for Sort column Outside ///////
+
+            var columnNameSortedOutside = $('#ctl00_cphMain_hdnColumnName1').val().trim();
+            if (columnNameSortedOutside != undefined && columnNameSortedOutside != "") {
+                var objLength = $('#tblOutsideHead td').find('div:contains("' + columnNameSortedOutside + '")').next("span").length;
+                if (objLength == 1) {
+                    $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").removeClass();
+                    $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").css('background-color', 'red');
+                    if (IsSorted == false) {
+                        $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").addClass('arrowdu');
+                    }
+                    else {
+                        $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").addClass('arrowup');
+                    }
+                }
+                else if (objLength > 1) {
+                    $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").removeClass();
+                    $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").css('background-color', 'red');
+                    if (IsSorted == false) {
+                        $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").addClass('arrowdu');
+                    }
+                    else {
+                        $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").addClass('arrowup');
+                    }
+                }
             }
             ///////
 
@@ -1213,14 +1270,14 @@
                 //alert('sort');
                 var htmldata = '';
                 var index = getIndex(this);
-                $(this).parent().find('span').css('background-color', '');
-                $(this).parent().find('span').removeClass('arrowup');
-                $(this).parent().find('span').addClass('arrowdu');
-                $(this).find('span').css('background-color', 'red');
-                if (IsSorted == false)
-                    $(this).find('span').addClass('arrowdu');
-                else
-                    $(this).find('span').addClass('arrowup');
+                //$(this).parent().find('span').css('background-color', '');
+                //$(this).parent().find('span').removeClass('arrowup');
+                //$(this).parent().find('span').addClass('arrowdu');
+                //$(this).find('span').css('background-color', 'red');
+                //if (IsSorted == false)
+                //    $(this).find('span').addClass('arrowdu');
+                //else
+                //    $(this).find('span').addClass('arrowup');
 
                 //////
 
@@ -1265,14 +1322,14 @@
 
                 var htmldata = '';
                 var index = getIndex(this);
-                $(this).parent().find('span').css('background-color', '');
-                $(this).parent().find('span').removeClass('arrowup');
-                $(this).parent().find('span').addClass('arrowdu');
-                $(this).find('span').css('background-color', 'red');
-                if (ISOutSorted == false)
-                    $(this).find('span').addClass('arrowdu');
-                else
-                    $(this).find('span').addClass('arrowup');
+                //$(this).parent().find('span').css('background-color', '');
+                //$(this).parent().find('span').removeClass('arrowup');
+                //$(this).parent().find('span').addClass('arrowdu');
+                //$(this).find('span').css('background-color', 'red');
+                //if (ISOutSorted == false)sssssss
+                //    $(this).find('span').addClass('arrowdu');
+                //else
+                //    $(this).find('span').addClass('arrowup');
 
                 $('#ctl00_cphMain_hdnColumnName1').val(this.textContent);
                 $('#ctl00_cphMain_hdnOrderSort1').val(ISOutSorted);
@@ -1326,8 +1383,6 @@
         //     }
 
         // }
-
-
 
         function getcorrectDate(dateString) {
             dataparts = dateString.split('-');
