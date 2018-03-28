@@ -1131,8 +1131,6 @@
         //var datatest = '';
         $(document).ready(function () {
 
-            
-
             /////// Set Sorting value //////
             if ($('#ctl00_cphMain_hdnOrderSort').val() != '') {
                 if ($('#ctl00_cphMain_hdnOrderSort').val() == 'false')
@@ -1156,7 +1154,7 @@
                 if (objLength == 1) {
                     $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").removeClass();
                     $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").css('background-color', 'red');
-                    if (IsSorted == false) {
+                    if (IsSorted == true) {
                         $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").next("span").addClass('arrowdu');
                     }
                     else {
@@ -1166,7 +1164,7 @@
                 else if (objLength > 1) {
                     $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").removeClass();
                     $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").css('background-color', 'red');
-                    if (IsSorted == false) {
+                    if (IsSorted == true) {
                         $('#tblInsideHead td').find("div:contains('" + columnNameSortedInside + "')").first().next("span").addClass('arrowdu');
                     }
                     else {
@@ -1184,7 +1182,7 @@
                 if (objLength == 1) {
                     $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").removeClass();
                     $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").css('background-color', 'red');
-                    if (IsSorted == false) {
+                    if (ISOutSorted == true) {
                         $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").next("span").addClass('arrowdu');
                     }
                     else {
@@ -1194,7 +1192,7 @@
                 else if (objLength > 1) {
                     $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").removeClass();
                     $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").css('background-color', 'red');
-                    if (IsSorted == false) {
+                    if (ISOutSorted == true) {
                         $('#tblOutsideHead td').find("div:contains('" + columnNameSortedOutside + "')").first().next("span").addClass('arrowdu');
                     }
                     else {
