@@ -4669,19 +4669,26 @@ namespace MatchBox
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
             string s_error = "";
-            string s_where_outside = ""; // Convert.ToString(Session["WhereOutside"]);
+           // string s_where_outside = ""; // Convert.ToString(Session["WhereOutside"]);
             // check why session is null
             //if (string.IsNullOrEmpty(s_where_outside))
             //s_where_outside = " AND QueryID IS NOT NULL ";
-            if (ddlTransactions.ToString().ToLower().Trim().Equals("not-matching"))
-            {
-                s_where_outside = "AND QueryID IS NULL";
-            }
-            if (ddlTransactions.ToString().ToLower().Trim().Equals("matching"))
-            {
-                s_where_outside = "AND QueryID IS NOT NULL";
-            }
+            //if (ddlTransactions.ToString().ToLower().Trim().Equals("not-matching"))
+            //{
+            //    s_where_outside = "AND QueryID IS NULL";
+            //}
+            //if (ddlTransactions.ToString().ToLower().Trim().Equals("matching"))
+            //{
+            //    s_where_outside = "AND QueryID IS NOT NULL";
+            //}
+            //string s_order_outside = Convert.ToString(Session["OrderOutside"]);
+
+            //string s_where_inside = Convert.ToString(Session["WhereInside"]);
+            string s_where_outside = Convert.ToString(Session["WhereOutside"]);
+
+            //string s_order_inside = Convert.ToString(Session["OrderInside"]);
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
+
             DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType);
             DataSet ds = new DataSet();
             var dt_outside_Copy = dt_outside.Copy();
