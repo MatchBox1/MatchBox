@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web.Caching;
 using System.Web.UI;
@@ -242,24 +243,33 @@ namespace MatchBox
                         string[] transactionDateSplit = transactionDate.Split('+');
                         if (transactionDateSplit[0] != "" && transactionDateSplit[1] != "")
                         {
-                            strDateFrom = Convert.ToDateTime(transactionDateSplit[0]);
-                            strDateTo = Convert.ToDateTime(transactionDateSplit[1]);
+                            //strDateFrom = Convert.ToDateTime(transactionDateSplit[0]);
+                            //strDateTo = Convert.ToDateTime(transactionDateSplit[1]);
+                            strDateFrom = DateTime.ParseExact(transactionDateSplit[0], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            strDateTo = DateTime.ParseExact(transactionDateSplit[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         }
                         else if (transactionDateSplit[0] == "")
                         {
-                            strDateFrom = Convert.ToDateTime("01/01/1900"); // null; //Convert.ToDateTime("01/01/1900");
-                            strDateTo = Convert.ToDateTime(transactionDateSplit[1]);
+                            //strDateFrom = Convert.ToDateTime("01/01/1900");
+                            //strDateTo = Convert.ToDateTime(transactionDateSplit[1]);
+                            strDateFrom = DateTime.ParseExact("01/01/1900", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            strDateTo = DateTime.ParseExact(transactionDateSplit[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         }
                         else
                         {
-                            strDateFrom = Convert.ToDateTime(transactionDateSplit[0]);
-                            strDateTo = DateTime.Now; //null; //Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                            //strDateFrom = Convert.ToDateTime(transactionDateSplit[0]);
+                            //strDateTo = DateTime.Now;
+                            strDateFrom = DateTime.ParseExact(transactionDateSplit[0], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            //strDateTo = DateTime.ParseExact(DateTime.Now.ToShortDateString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            strDateTo = DateTime.Now;
                         }
                     }
                     else
                     {
-                        strDateFrom = Convert.ToDateTime(transactionDate);
-                        strDateTo = Convert.ToDateTime(transactionDate);
+                        //strDateFrom = Convert.ToDateTime(transactionDate);
+                        //strDateTo = Convert.ToDateTime(transactionDate);
+                        strDateFrom = DateTime.ParseExact(transactionDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        strDateTo = DateTime.ParseExact(transactionDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     }
                 }
                 else
