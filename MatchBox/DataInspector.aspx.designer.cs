@@ -472,6 +472,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkEmptyTransactionDate;
         
         /// <summary>
+        /// txtGroupByTransactionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByTransactionDate;
+        
+        /// <summary>
+        /// lblGroupByTransactionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByTransactionDate;
+        
+        /// <summary>
         /// txtTransactionDate control.
         /// </summary>
         /// <remarks>
@@ -535,6 +553,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkEmptyTransmissionDate;
         
         /// <summary>
+        /// txtGroupByTransmissionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByTransmissionDate;
+        
+        /// <summary>
+        /// lblGroupByTransmissionDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByTransmissionDate;
+        
+        /// <summary>
         /// txtTransmissionDate control.
         /// </summary>
         /// <remarks>
@@ -596,6 +632,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkEmptyPaymentDate;
+        
+        /// <summary>
+        /// txtGroupByPaymentDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByPaymentDate;
+        
+        /// <summary>
+        /// lblGroupByPaymentDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByPaymentDate;
         
         /// <summary>
         /// txtPaymentDate control.
@@ -715,6 +769,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeCardPrefix;
         
         /// <summary>
+        /// txtGroupByCardPrefix control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCardPrefix;
+        
+        /// <summary>
+        /// lblGroupByCardPrefix control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCardPrefix;
+        
+        /// <summary>
         /// txtCardPrefix control.
         /// </summary>
         /// <remarks>
@@ -767,6 +839,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeCardNumber;
+        
+        /// <summary>
+        /// txtGroupByCardNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCardNumber;
+        
+        /// <summary>
+        /// lblGroupByCardNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCardNumber;
         
         /// <summary>
         /// txtCardNumber control.
@@ -823,6 +913,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeTransmissionNumber;
         
         /// <summary>
+        /// txtGroupByTransmissionNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByTransmissionNumber;
+        
+        /// <summary>
+        /// lblGroupByTransmissionNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByTransmissionNumber;
+        
+        /// <summary>
         /// txtTransmissionNumber control.
         /// </summary>
         /// <remarks>
@@ -875,6 +983,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeVoucherNumber;
+        
+        /// <summary>
+        /// txtGroupByVoucherNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByVoucherNumber;
+        
+        /// <summary>
+        /// lblGroupByVoucherNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByVoucherNumber;
         
         /// <summary>
         /// txtVoucherNumber control.
@@ -931,6 +1057,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeConfirmationNumber;
         
         /// <summary>
+        /// txtGroupByConfirmationNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByConfirmationNumber;
+        
+        /// <summary>
+        /// lblGroupByConfirmationNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByConfirmationNumber;
+        
+        /// <summary>
         /// txtConfirmationNumber control.
         /// </summary>
         /// <remarks>
@@ -985,6 +1129,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludePaymentsCount;
         
         /// <summary>
+        /// txtGroupByPaymentsCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByPaymentsCount;
+        
+        /// <summary>
+        /// lblGroupByPaymentsCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByPaymentsCount;
+        
+        /// <summary>
         /// txtPaymentsCount control.
         /// </summary>
         /// <remarks>
@@ -1037,6 +1199,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeDutyPaymentNumber;
+        
+        /// <summary>
+        /// txtGroupByDutyPaymentNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByDutyPaymentNumber;
+        
+        /// <summary>
+        /// lblGroupByDutyPaymentNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByDutyPaymentNumber;
         
         /// <summary>
         /// txtDutyPaymentNumber control.
@@ -1255,6 +1435,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeCompanyNumber;
         
         /// <summary>
+        /// txtGroupByCompanyNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCompanyNumber;
+        
+        /// <summary>
+        /// lblGroupByCompanyNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCompanyNumber;
+        
+        /// <summary>
         /// txtCompanyNumber control.
         /// </summary>
         /// <remarks>
@@ -1307,6 +1505,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeNetworkNumber;
+        
+        /// <summary>
+        /// txtGroupByNetworkNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByNetworkNumber;
+        
+        /// <summary>
+        /// lblGroupByNetworkNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByNetworkNumber;
         
         /// <summary>
         /// txtNetworkNumber control.
@@ -1363,6 +1579,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeBranchNumber;
         
         /// <summary>
+        /// txtGroupByBranchNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByBranchNumber;
+        
+        /// <summary>
+        /// lblGroupByBranchNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByBranchNumber;
+        
+        /// <summary>
         /// txtBranchNumber control.
         /// </summary>
         /// <remarks>
@@ -1415,6 +1649,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeCashBoxNumber;
+        
+        /// <summary>
+        /// txtGroupByCashBoxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCashBoxNumber;
+        
+        /// <summary>
+        /// lblGroupByCashBoxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCashBoxNumber;
         
         /// <summary>
         /// txtCashBoxNumber control.
@@ -1471,6 +1723,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeSupplierGroupNumber;
         
         /// <summary>
+        /// txtGroupBySupplierGroupNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupBySupplierGroupNumber;
+        
+        /// <summary>
+        /// lblGroupBySupplierGroupNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupBySupplierGroupNumber;
+        
+        /// <summary>
         /// txtSupplierGroupNumber control.
         /// </summary>
         /// <remarks>
@@ -1523,6 +1793,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeSupplierNumber;
+        
+        /// <summary>
+        /// txtGroupBySupplierNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupBySupplierNumber;
+        
+        /// <summary>
+        /// lblGroupBySupplierNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupBySupplierNumber;
         
         /// <summary>
         /// txtSupplierNumber control.
@@ -1579,6 +1867,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeTerminalNumber;
         
         /// <summary>
+        /// txtGroupByTerminalNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByTerminalNumber;
+        
+        /// <summary>
+        /// lblGroupByTerminalNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByTerminalNumber;
+        
+        /// <summary>
         /// txtTerminalNumber control.
         /// </summary>
         /// <remarks>
@@ -1633,6 +1939,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeComment;
         
         /// <summary>
+        /// txtGroupByComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByComment;
+        
+        /// <summary>
+        /// lblGroupByComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByComment;
+        
+        /// <summary>
         /// txtComment control.
         /// </summary>
         /// <remarks>
@@ -1676,6 +2000,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeID;
+        
+        /// <summary>
+        /// txtGroupByID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByID;
+        
+        /// <summary>
+        /// lblGroupByIDsss control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByIDsss;
         
         /// <summary>
         /// txtIDInside control.
@@ -2344,6 +2686,15 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.GridView gvInside;
         
         /// <summary>
+        /// divCalculationFooter_Inside control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculationFooter_Inside;
+        
+        /// <summary>
         /// trInsideSelected control.
         /// </summary>
         /// <remarks>
@@ -2459,6 +2810,15 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvOutside;
+        
+        /// <summary>
+        /// divCalculationFooter_Outside control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculationFooter_Outside;
         
         /// <summary>
         /// trOutsideSelected control.

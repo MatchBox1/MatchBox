@@ -235,10 +235,17 @@
             <asp:CheckBox ID="chkExcludeTransactionDate" runat="server" Text="Exclude" />
             &nbsp;
             <asp:CheckBox ID="chkEmptyTransactionDate" runat="server" Text="Include Empty Dates" />
+            &nbsp;
+            <asp:TextBox ID="txtGroupByTransactionDate" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:Label ID="lblGroupByTransactionDate" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
             <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" CssClass="no-display" />
             <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
+
+            <%-- For mplementing Group By functionality --%>
+
+
         </div>
 
         <%--TransmissionDate--%>
@@ -250,6 +257,9 @@
             <asp:CheckBox ID="chkExcludeTransmissionDate" runat="server" Text="Exclude" />
             &nbsp;
             <asp:CheckBox ID="chkEmptyTransmissionDate" runat="server" Text="Include Empty Dates" />
+            &nbsp;
+            <asp:TextBox ID="txtGroupByTransmissionDate" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:Label ID="lblGroupByTransmissionDate" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtTransmissionDate" runat="server" Width="98%" />
             <asp:TextBox ID="txtTransmissionDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -265,6 +275,9 @@
             <asp:CheckBox ID="chkExcludePaymentDate" runat="server" Text="Exclude" />
             &nbsp;
             <asp:CheckBox ID="chkEmptyPaymentDate" runat="server" Text="Include Empty Dates" />
+            &nbsp;
+            <asp:TextBox ID="txtGroupByPaymentDate" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:Label ID="lblGroupByPaymentDate" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
             <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -298,6 +311,9 @@
             <label for="<%= txtCardPrefix.ClientID %>" class="bold">Card Prefix</label>
             <asp:CheckBox ID="chk_txtCardPrefixOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCardPrefix" runat="server" Text="Exclude" />
+            &nbsp;
+            <asp:TextBox ID="txtGroupByCardPrefix" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:Label ID="lblGroupByCardPrefix" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCardPrefix" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCardPrefixOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCardPrefixError" runat="server" EnableViewState="false" CssClass="error" />
@@ -308,6 +324,9 @@
             <label for="<%= txtCardNumber.ClientID %>" class="bold">Card Number</label>
             <asp:CheckBox ID="chk_txtCardNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCardNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByCardNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByCardNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCardNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCardNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCardNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -318,6 +337,9 @@
             <label for="<%= txtTransmissionNumber.ClientID %>" class="bold">Transmission <u>N</u></label>
             <asp:CheckBox ID="chk_txtTransmissionNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeTransmissionNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByTransmissionNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByTransmissionNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtTransmissionNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtTransmissionNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblTransmissionNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -328,6 +350,9 @@
             <label for="<%= txtVoucherNumber.ClientID %>" class="bold">Voucher <u>N</u></label>
             <asp:CheckBox ID="chk_txtVoucherNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeVoucherNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByVoucherNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByVoucherNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtVoucherNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtVoucherNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblVoucherNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -338,6 +363,9 @@
             <label for="<%= txtConfirmationNumber.ClientID %>" class="bold">Confirmation <u>N</u></label>
             <asp:CheckBox ID="chk_txtConfirmationNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeConfirmationNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByConfirmationNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByConfirmationNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtConfirmationNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtConfirmationNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblConfirmationNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -350,6 +378,9 @@
             <label for="<%= txtPaymentsCount.ClientID %>" class="bold">Payments Count</label>
             <asp:CheckBox ID="chk_txtPaymentsCountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludePaymentsCount" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByPaymentsCount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByPaymentsCount" runat="server" Text="Group By" />
             <asp:TextBox ID="txtPaymentsCount" runat="server" CssClass="block" />
             <asp:TextBox ID="txtPaymentsCountOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblPaymentsCountError" runat="server" EnableViewState="false" CssClass="error" />
@@ -360,6 +391,9 @@
             <label for="<%= txtDutyPaymentNumber.ClientID %>" class="bold">Duty Payment <u>N</u></label>
             <asp:CheckBox ID="chk_txtDutyPaymentNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeDutyPaymentNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByDutyPaymentNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByDutyPaymentNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtDutyPaymentNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtDutyPaymentNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblDutyPaymentNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -370,6 +404,9 @@
             <label for="<%= txtTransactionGrossAmount.ClientID %>" class="bold" title="Transaction Gross Amount">Gross Amount</label>
             <asp:CheckBox ID="chk_txtTransactionGrossAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeTransactionGrossAmount" runat="server" Text="Exclude" />
+<%--            &nbsp;
+<asp:TextBox ID="txtGroupByTransactionGrossAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByTransactionGrossAmount" runat="server" Text="Group By" />--%>
             <asp:TextBox ID="txtTransactionGrossAmount" runat="server" CssClass="block" />
             <asp:TextBox ID="txtTransactionGrossAmountOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblTransactionGrossAmountError" runat="server" EnableViewState="false" CssClass="error" />
@@ -380,6 +417,9 @@
             <label for="<%= txtDutyPaymentAmount.ClientID %>" class="bold">Duty Amount</label>
             <asp:CheckBox ID="chk_txtDutyPaymentAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeDutyPaymentAmount" runat="server" Text="Exclude" />
+<%--            &nbsp;
+<asp:TextBox ID="txtGroupByDutyPaymentAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByDutyPaymentAmount" runat="server" Text="Group By" />--%>
             <asp:TextBox ID="txtDutyPaymentAmount" runat="server" CssClass="block" />
             <asp:TextBox ID="txtDutyPaymentAmountOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblDutyPaymentAmountError" runat="server" EnableViewState="false" CssClass="error" />
@@ -390,6 +430,9 @@
             <label for="<%= txtRemainingPaymentsAmount.ClientID %>" class="bold" title="Remaining Payments Amount">Remaining <u>Am</u></label>
             <asp:CheckBox ID="chk_txtRemainingPaymentsAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeRemainingPaymentsAmount" runat="server" Text="Exclude" />
+<%--            &nbsp;
+<asp:TextBox ID="txtGroupByRemainingPaymentsAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByRemainingPaymentsAmount" runat="server" Text="Group By" />--%>
             <asp:TextBox ID="txtRemainingPaymentsAmount" runat="server" CssClass="block" />
             <asp:TextBox ID="txtRemainingPaymentsAmountOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblRemainingPaymentsAmountError" runat="server" EnableViewState="false" CssClass="error" />
@@ -402,6 +445,9 @@
             <label for="<%= txtCompanyNumber.ClientID %>" class="bold">Company <u>N</u></label>
             <asp:CheckBox ID="chk_txtCompanyNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCompanyNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByCompanyNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByCompanyNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCompanyNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCompanyNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCompanyNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -412,6 +458,9 @@
             <label for="<%= txtNetworkNumber.ClientID %>" class="bold">Network <u>N</u></label>
             <asp:CheckBox ID="chk_txtNetworkNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeNetworkNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByNetworkNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByNetworkNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtNetworkNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtNetworkNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblNetworkNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -422,6 +471,9 @@
             <label for="<%= txtBranchNumber.ClientID %>" class="bold">Branch <u>N</u></label>
             <asp:CheckBox ID="chk_txtBranchNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeBranchNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByBranchNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByBranchNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtBranchNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtBranchNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblBranchNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -432,6 +484,9 @@
             <label for="<%= txtCashBoxNumber.ClientID %>" class="bold">Cashbox <u>N</u></label>
             <asp:CheckBox ID="chk_txtCashBoxNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCashBoxNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByCashBoxNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByCashBoxNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCashBoxNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCashBoxNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCashBoxNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -442,6 +497,9 @@
             <label for="<%= txtSupplierGroupNumber.ClientID %>" class="bold">Group <u>N</u></label>
             <asp:CheckBox ID="chk_txtSupplierGroupNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeSupplierGroupNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupBySupplierGroupNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupBySupplierGroupNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtSupplierGroupNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtSupplierGroupNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblSupplierGroupNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -452,6 +510,9 @@
             <label for="<%= txtSupplierNumber.ClientID %>" class="bold">Supplier <u>N</u></label>
             <asp:CheckBox ID="chk_txtSupplierNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeSupplierNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupBySupplierNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupBySupplierNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtSupplierNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtSupplierNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblSupplierNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -462,6 +523,9 @@
             <label for="<%= txtTerminalNumber.ClientID %>" class="bold">Terminal <u>N</u></label>
             <asp:CheckBox ID="chk_txtTerminalNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeTerminalNumber" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByTerminalNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByTerminalNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtTerminalNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtTerminalNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblTerminalNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -472,6 +536,9 @@
             <label for="<%= txtComment.ClientID %>" class="bold">Comment</label>
             <asp:CheckBox ID="chk_txtCommentOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeComment" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByComment" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByComment" runat="server" Text="Group By" />
             <asp:TextBox ID="txtComment" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCommentOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCommentError" runat="server" EnableViewState="false" CssClass="error" />
@@ -481,6 +548,9 @@
         <div id="divID" runat="server" class="float-left div-form-field">
             <label for="<%= txtIDInside.ClientID %>" class="bold">ID</label>
             <asp:CheckBox ID="chkExcludeID" runat="server" Text="Exclude" />
+            &nbsp;
+<asp:TextBox ID="txtGroupByID" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+<asp:Label ID="lblGroupByIDsss" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtIDInside" runat="server" MaxLength="36" Width="45%" placeholder="Inside" />
             <asp:TextBox ID="txtIDOutside" runat="server" MaxLength="36" Width="45%" placeholder="Outside" />
@@ -908,7 +978,9 @@
                         transform: rotate(360deg);
                     }
                 }
-            </style><div id="dvGrid" style="width: 100%; overflow: scroll; position: relative; height: 500px;">
+            </style>
+            
+            <div id="dvGrid" style="width: 100%; overflow: scroll; position: relative; height: 500px;">
                 <div style="position: sticky; top: 0; z-index: 9; height: 57px;">
                     <table id="tblInsideHead" class="table-data"></table>
                 </div>
@@ -923,7 +995,7 @@
             <div style="height: 500px; overflow-x: hidden; overflow-y: auto;">
                 <asp:GridView ID="gvInside" runat="server" AutoGenerateColumns="true" OnRowDataBound="Inside_RowDataBound" CssClass="table-data" />
             </div>--%>
-            <div class="div-form-message" style="margin: 5px 0px;">
+            <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Inside" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
                         <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>Rows</td><td>&nbsp; &nbsp;</td><td>Amount</td><td style="width: 100%;">&nbsp; &nbsp;</td><td></td>
@@ -974,7 +1046,7 @@
                 <asp:GridView ID="gvOutside" runat="server" AutoGenerateColumns="true" OnRowDataBound="Outside_RowDataBound" CssClass="table-data" />
             </div>--%>
 
-            <div class="div-form-message" style="margin: 5px 0px;">
+            <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Outside" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
                         <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>Rows</td><td>&nbsp; &nbsp;</td><td>Amount</td><td style="width: 100%;">&nbsp; &nbsp;</td><td></td>

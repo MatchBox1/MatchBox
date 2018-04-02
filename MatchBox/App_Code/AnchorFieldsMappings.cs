@@ -32,8 +32,8 @@ namespace MatchBox
             ObjDic.Add("branch number", "BranchNumber");
             ObjDic.Add("מספר סניף", "BranchNumber");
 
-            ObjDic.Add("POSITION NUMBER", "CashBoxNumbe");
-            ObjDic.Add("מספר קופה", "CashBoxNumbe");
+            ObjDic.Add("POSITION NUMBER", "CashBoxNumber");
+            ObjDic.Add("מספר קופה", "CashBoxNumber");
 
             ObjDic.Add("terminal number", "TerminalNumber");
             ObjDic.Add("מספר מסוף", "TerminalNumber");
