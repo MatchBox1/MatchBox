@@ -71,6 +71,7 @@ namespace MatchBox
                 Session["sortColumnName_Outside"] = "";
                 Session["hdnOrderSort_Outside"] = "";
                 //Session["hdnTableType_Outside"] = "";
+                Session["GroupBy"] = "";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "localStorage", "<script type=\"text/javascript\"  language=\"javascript\">localStorage.isLoading=\"false\";</script>");
             }
             Bind_Search();
@@ -431,7 +432,7 @@ namespace MatchBox
                         if (s_matching_type != "") { s_where += " AND MatchingTypeID IN ( " + s_matching_type + " ) "; }
                     }
                     divMatchingBalanceRow.Visible = false;
-                    
+
                     break;
                 case "not-matching":
                     s_where = " AND QueryID IS NULL ";
@@ -447,17 +448,17 @@ namespace MatchBox
                     }
 
                     break;
-                //case "all":
-                //    pnlMatchingBalance.Visible = false;
-                //    break;
+                    //case "all":
+                    //    pnlMatchingBalance.Visible = false;
+                    //    break;
             }
 
-            if(ddlTransactions.SelectedValue=="all")
+            if (ddlTransactions.SelectedValue == "all")
                 pnlMatchingBalance.Visible = false;
             else
                 pnlMatchingBalance.Visible = true;
             // OperationType
-            if(ddlTransactions.SelectedValue == "matching")
+            if (ddlTransactions.SelectedValue == "matching")
                 btnMatchingBalanceChange.Enabled = false;
             else
                 btnMatchingBalanceChange.Enabled = true;
@@ -1747,7 +1748,7 @@ namespace MatchBox
                 // Group By 
                 string s_group_by = string.Empty, sortColumnName = string.Empty, sortType = string.Empty;
                 var listGroupBy = new List<KeyValuePair<int, string>>();
-                if (txtGroupByTransactionDate.Text !="")
+                if (txtGroupByTransactionDate.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
                 }
@@ -1844,8 +1845,10 @@ namespace MatchBox
                         s_group_by = String.Join(",", listGroupBy.Select(l => l.Value));
                         sortColumnName = listGroupBy.FirstOrDefault().Value;
                         sortType = "asc";
+                        Session["sortColumnName_Inside"] = sortColumnName;
+                        Session["hdnOrderSort_Inside"] = "asc";
 
-                        divCalculationFooter_Inside.Visible = false;
+                        //divCalculationFooter_Inside.Visible = false;
                         divCalculationFooter_Outside.Visible = false;
                     }
                     catch (Exception ex)
@@ -1866,7 +1869,8 @@ namespace MatchBox
                 Session["OrderInside"] = s_order_inside;
                 Session["OrderOutside"] = s_order_outside;
 
-                ViewState["GroupBy"] = s_group_by;
+                //ViewState["GroupBy"] = s_group_by;
+                Session["GroupBy"] = s_group_by;
                 // GET INSIDE & OUTSIDE TABLES
 
                 DataTable dt_inside = new DataTable();
@@ -1875,7 +1879,7 @@ namespace MatchBox
                 DataTable dt_inside_sum = new DataTable();
                 DataTable dt_outside_sum = new DataTable();
 
-                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, "","", s_group_by);
+                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, "", "", s_group_by);
                 //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
                 ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
 
@@ -1914,7 +1918,7 @@ namespace MatchBox
             Session["hdnOrderSort_Inside"] = Convert.ToBoolean(hdnOrderSort.Value) == true ? "asc" : "desc";
             //Session["hdnTableType_Inside"] = hdnTableType.Value;
             string sortColumnName = hdnColumnName.Value;
-            string sortType = Convert.ToBoolean(hdnOrderSort.Value)==true?"asc":"desc";
+            string sortType = Convert.ToBoolean(hdnOrderSort.Value) == true ? "asc" : "desc";
             //string sortTableType = hdnTableType.Value;
             ///
             //Session["sortColumnName_Outside"] = hdnColumnName1.Value;
@@ -1934,17 +1938,18 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_group_by = string.Empty;
-            string s_where_inside=string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
+            string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
             ///////
             s_where_inside = ViewState["WhereInside"].ToString();
-            s_where_outside= ViewState["WhereOutside"].ToString();
-            s_order_inside= ViewState["OrderInside"].ToString();
+            s_where_outside = ViewState["WhereOutside"].ToString();
+            s_order_inside = ViewState["OrderInside"].ToString();
             s_order_outside = ViewState["OrderOutside"].ToString();
             s_where_inside = Session["WhereInside"] != null ? Session["WhereInside"].ToString() : "";
             s_where_outside = Session["WhereOutside"] != null ? Session["WhereOutside"].ToString() : "";
             s_order_inside = Session["OrderInside"] != null ? Session["OrderInside"].ToString() : "";
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
-            s_group_by = ViewState["GroupBy"].ToString();
+
+            s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             ///////
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
@@ -2013,7 +2018,7 @@ namespace MatchBox
             s_where_outside = Session["WhereOutside"] != null ? Session["WhereOutside"].ToString() : "";
             s_order_inside = Session["OrderInside"] != null ? Session["OrderInside"].ToString() : "";
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
-            s_group_by = ViewState["GroupBy"].ToString();
+            s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             ///////
 
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by);
@@ -2884,11 +2889,11 @@ namespace MatchBox
 
             string s_order_inside = ViewState["OrderInside"].ToString();
             string s_order_outside = ViewState["OrderOutside"].ToString();
-           
+
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            string s_group_by = ViewState["GroupBy"].ToString();
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
 
             if (s_error != "") { goto Error; }
@@ -2955,7 +2960,7 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
-            string s_group_by = ViewState["GroupBy"].ToString();
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
 
             if (s_error != "")
@@ -3014,7 +3019,7 @@ namespace MatchBox
 
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
-            string s_group_by = ViewState["GroupBy"].ToString();
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
 
             if (s_error != "")
@@ -3189,7 +3194,7 @@ namespace MatchBox
 
             DataTable dt_inside = null, dt_outside = null, dt_inside_sum = null, dt_outside_sum = null;
 
-            string s_group_by = ViewState["GroupBy"].ToString();
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
 
             if (s_error != "") { goto Error; }
@@ -3331,7 +3336,7 @@ namespace MatchBox
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
 
-            string s_group_by = ViewState["GroupBy"].ToString();
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
 
             if (s_error != "")
@@ -3385,7 +3390,7 @@ namespace MatchBox
                 DataAction.Bind_Grid_Data_Header(gv_row, dt_data_field, "Inside", b_checked, b_disabled);
             }
 
-            string S_Group_By = ViewState["GroupBy"].ToString();
+            string S_Group_By = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             if (gv_row.RowType == DataControlRowType.DataRow)
             {
                 gv_row.CssClass = "nowrap";
@@ -3415,7 +3420,7 @@ namespace MatchBox
                 DataAction.Bind_Grid_Data_Header(gv_row, dt_data_field, "Outside", b_checked, b_disabled);
             }
 
-            string S_Group_By = ViewState["GroupBy"].ToString();
+            string S_Group_By = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             if (gv_row.RowType == DataControlRowType.DataRow)
             {
                 gv_row.CssClass = "nowrap";
@@ -4481,7 +4486,7 @@ namespace MatchBox
             lblModeInfo.Text = s_mode_info;
 
             // BIND Company name and Operation type for Non - Matching 
-            if(s_mode== "not-matching")
+            if (s_mode == "not-matching")
             {
                 if (dt_inside.Rows.Count > 0)
                 {
@@ -4507,25 +4512,25 @@ namespace MatchBox
                     ddlOperationType_Balance.DataBind();
                     ddlOperationType_Balance.Items.Insert(0, new ListItem("", "0"));
                 }
-                else if(dt_outside.Rows.Count>0)
-                {                   
-                        string companyNumber = dt_outside.Rows[0]["CompanyNumber"].ToString();
-                        // Company
-                        DataTable dt_company = (DataTable)ViewState["TableCompany"];
-                        //DataRow dr_company = dt_company.Select(" ID = " + n_company_id).FirstOrDefault();
-                        DataRow dr_company = dt_company.Select(" CompanyNumber = " + companyNumber).FirstOrDefault();
+                else if (dt_outside.Rows.Count > 0)
+                {
+                    string companyNumber = dt_outside.Rows[0]["CompanyNumber"].ToString();
+                    // Company
+                    DataTable dt_company = (DataTable)ViewState["TableCompany"];
+                    //DataRow dr_company = dt_company.Select(" ID = " + n_company_id).FirstOrDefault();
+                    DataRow dr_company = dt_company.Select(" CompanyNumber = " + companyNumber).FirstOrDefault();
 
-                        txtCompanyName.Text = dr_company["CompanyName"].ToString();
-                        hidCompanyID.Value = dr_company["ID"].ToString();
+                    txtCompanyName.Text = dr_company["CompanyName"].ToString();
+                    hidCompanyID.Value = dr_company["ID"].ToString();
 
-                        // OperationType
-                        DataTable dt_operation_type = (DataTable)ViewState["TableOperationType"];
-                        dt_operation_type = dt_operation_type.Select(" ID IN ( 6, 7 ) ").CopyToDataTable();     // 'ביטול יתרה' / 'רישום הפרש'
-                        ddlOperationType_Balance.DataSource = dt_operation_type;
-                        ddlOperationType_Balance.DataValueField = "ID";
-                        ddlOperationType_Balance.DataTextField = "OperationTypeName";
-                        ddlOperationType_Balance.DataBind();
-                        ddlOperationType_Balance.Items.Insert(0, new ListItem("", "0"));                   
+                    // OperationType
+                    DataTable dt_operation_type = (DataTable)ViewState["TableOperationType"];
+                    dt_operation_type = dt_operation_type.Select(" ID IN ( 6, 7 ) ").CopyToDataTable();     // 'ביטול יתרה' / 'רישום הפרש'
+                    ddlOperationType_Balance.DataSource = dt_operation_type;
+                    ddlOperationType_Balance.DataValueField = "ID";
+                    ddlOperationType_Balance.DataTextField = "OperationTypeName";
+                    ddlOperationType_Balance.DataBind();
+                    ddlOperationType_Balance.Items.Insert(0, new ListItem("", "0"));
                 }
             }
 
@@ -4606,7 +4611,7 @@ namespace MatchBox
             //DataTable dtLockedRecords = new DataTable();
             //DataAction.SelectLockedRecords(n_user_id, ref dtLockedRecords, ref strErrors);
 
-            string S_Group_By = ViewState["GroupBy"].ToString();
+            string S_Group_By = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             if (string.IsNullOrEmpty(S_Group_By))
             {
                 foreach (GridViewRow row in gvInside.Rows)
@@ -4752,7 +4757,8 @@ namespace MatchBox
 
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, pageIndex, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
-            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType);
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by);
 
             DataSet ds = new DataSet();
 
@@ -4799,7 +4805,8 @@ namespace MatchBox
             string s_order_inside = Convert.ToString(Session["OrderInside"]);
             //string s_order_outside = Convert.ToString(Session["OrderOutside"]);
 
-            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType);
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by);
             DataSet ds = new DataSet();
             var dt_inside_Copy = dt_inside.Copy();
             var dt_inside_sum_Copy = dt_inside_sum.Copy();
@@ -4819,7 +4826,7 @@ namespace MatchBox
             DataTable dt_outside = new DataTable();
             DataTable dt_outside_sum = new DataTable();
             string s_error = "";
-           // string s_where_outside = ""; // Convert.ToString(Session["WhereOutside"]);
+            // string s_where_outside = ""; // Convert.ToString(Session["WhereOutside"]);
             // check why session is null
             //if (string.IsNullOrEmpty(s_where_outside))
             //s_where_outside = " AND QueryID IS NOT NULL ";
@@ -5018,7 +5025,7 @@ namespace MatchBox
                             //    }
                             //}
                             //else
-                                row.BackColor = System.Drawing.Color.White;
+                            row.BackColor = System.Drawing.Color.White;
                         }
                         else
                         {
@@ -5070,73 +5077,79 @@ namespace MatchBox
             ////
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
+                string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : "";
+
                 foreach (DataRow dtRow in tableData.Rows)
                 {
+
                     row = new TableRow();
                     for (int j = 0; j < dtRow.ItemArray.Count(); j++)
                     {
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+                        if (string.IsNullOrEmpty(s_group_by))
+                        {
+                            //  Modified the code for color change.
+                            row.BackColor = System.Drawing.Color.White;
 
-                        //  Modified the code for color change.
-                        row.BackColor = System.Drawing.Color.White;
-
-                        //if (dtLockedRecords.Rows.Count > 0)
-                        //{
-                        //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
-                        //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
-                        //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
-                        //    {
-                        //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                        //        row.BackColor = lightGrayColor;
-                        //    }
-                        //}
-                        //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
-                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
-                        {
-                            Color lightBlueColor = Color.FromArgb(221, 235, 247);
-                            row.BackColor = lightBlueColor;
-                            if (IsChkAllCheckBox == true)
+                            //if (dtLockedRecords.Rows.Count > 0)
+                            //{
+                            //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                            //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                            //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                            //    {
+                            //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                            //        row.BackColor = lightGrayColor;
+                            //    }
+                            //}
+                            //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                            if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                             {
-                                row.BackColor = System.Drawing.Color.LightYellow;
-                            }
-                        }
-                        else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
-                        {
-                        //    if (hidSelectInside.Value != "")
-                        //    {
-                        //        List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
-                        //        var chk = row.Cells[0].Controls[0];//as CheckBox;
-                        //        var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
-                        //        var exist = s_select_inside.Find(m => m.Equals(chkValue));
-                        //        if (!string.IsNullOrEmpty(exist))
-                        //        {
-                        //            row.BackColor = System.Drawing.Color.LightYellow;
-                        //        }
-                        //    }
-                        //    else
-                                row.BackColor = System.Drawing.Color.White;
-                        }
-                        else
-                        {
-                            //var MatchingID = row.Cells[7].Text;
-                            var MatchingID = dtRow.ItemArray[7].ToString();
-                            if (!string.IsNullOrEmpty(MatchingID))
-                            {
-                                //row.BackColor = System.Drawing.Color.LightBlue;
                                 Color lightBlueColor = Color.FromArgb(221, 235, 247);
                                 row.BackColor = lightBlueColor;
+                                if (IsChkAllCheckBox == true)
+                                {
+                                    row.BackColor = System.Drawing.Color.LightYellow;
+                                }
+                            }
+                            else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
+                            {
+                                //    if (hidSelectInside.Value != "")
+                                //    {
+                                //        List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
+                                //        var chk = row.Cells[0].Controls[0];//as CheckBox;
+                                //        var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                                //        var exist = s_select_inside.Find(m => m.Equals(chkValue));
+                                //        if (!string.IsNullOrEmpty(exist))
+                                //        {
+                                //            row.BackColor = System.Drawing.Color.LightYellow;
+                                //        }
+                                //    }
+                                //    else
+                                row.BackColor = System.Drawing.Color.White;
                             }
                             else
                             {
-                                row.BackColor = System.Drawing.Color.White;
+                                //var MatchingID = row.Cells[7].Text;
+                                var MatchingID = dtRow.ItemArray[7].ToString();
+                                if (!string.IsNullOrEmpty(MatchingID))
+                                {
+                                    //row.BackColor = System.Drawing.Color.LightBlue;
+                                    Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                                    row.BackColor = lightBlueColor;
+                                }
+                                else
+                                {
+                                    row.BackColor = System.Drawing.Color.White;
+                                }
                             }
+                            // Modified the code for color change.
                         }
-                        // Modified the code for color change.
                     }
                     DataAction.Bind_Grid_Data_Row_Inside(row, lst_inside_field_priority, "", "Inside", s_mode, IsChkAllCheckBox);
                     row.RenderControl(htmlWriter);
+
                 }
             }
             HTML.Append(sWriter.ToString());
