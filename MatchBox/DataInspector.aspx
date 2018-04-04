@@ -236,7 +236,7 @@
             &nbsp;
             <asp:CheckBox ID="chkEmptyTransactionDate" runat="server" Text="Include Empty Dates" />
             &nbsp;
-            <asp:TextBox ID="txtGroupByTransactionDate" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:TextBox ID="txtGroupByTransactionDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByTransactionDate" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
@@ -244,8 +244,6 @@
             <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
 
             <%-- For mplementing Group By functionality --%>
-
-
         </div>
 
         <%--TransmissionDate--%>
@@ -258,7 +256,7 @@
             &nbsp;
             <asp:CheckBox ID="chkEmptyTransmissionDate" runat="server" Text="Include Empty Dates" />
             &nbsp;
-            <asp:TextBox ID="txtGroupByTransmissionDate" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:TextBox ID="txtGroupByTransmissionDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByTransmissionDate" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtTransmissionDate" runat="server" Width="98%" />
@@ -276,7 +274,7 @@
             &nbsp;
             <asp:CheckBox ID="chkEmptyPaymentDate" runat="server" Text="Include Empty Dates" />
             &nbsp;
-            <asp:TextBox ID="txtGroupByPaymentDate" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:TextBox ID="txtGroupByPaymentDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByPaymentDate" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
@@ -312,7 +310,7 @@
             <asp:CheckBox ID="chk_txtCardPrefixOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCardPrefix" runat="server" Text="Exclude" />
             &nbsp;
-            <asp:TextBox ID="txtGroupByCardPrefix" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
+            <asp:TextBox ID="txtGroupByCardPrefix" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByCardPrefix" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCardPrefix" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCardPrefixOutside" runat="server" CssClass="no-display" />
@@ -325,8 +323,8 @@
             <asp:CheckBox ID="chk_txtCardNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCardNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByCardNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByCardNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByCardNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByCardNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCardNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCardNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCardNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -338,8 +336,8 @@
             <asp:CheckBox ID="chk_txtTransmissionNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeTransmissionNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByTransmissionNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByTransmissionNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByTransmissionNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByTransmissionNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtTransmissionNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtTransmissionNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblTransmissionNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -351,8 +349,8 @@
             <asp:CheckBox ID="chk_txtVoucherNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeVoucherNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByVoucherNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByVoucherNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByVoucherNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByVoucherNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtVoucherNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtVoucherNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblVoucherNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -364,8 +362,8 @@
             <asp:CheckBox ID="chk_txtConfirmationNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeConfirmationNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByConfirmationNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByConfirmationNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByConfirmationNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByConfirmationNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtConfirmationNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtConfirmationNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblConfirmationNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -379,8 +377,8 @@
             <asp:CheckBox ID="chk_txtPaymentsCountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludePaymentsCount" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByPaymentsCount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByPaymentsCount" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByPaymentsCount" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByPaymentsCount" runat="server" Text="Group By" />
             <asp:TextBox ID="txtPaymentsCount" runat="server" CssClass="block" />
             <asp:TextBox ID="txtPaymentsCountOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblPaymentsCountError" runat="server" EnableViewState="false" CssClass="error" />
@@ -392,8 +390,8 @@
             <asp:CheckBox ID="chk_txtDutyPaymentNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeDutyPaymentNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByDutyPaymentNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByDutyPaymentNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByDutyPaymentNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByDutyPaymentNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtDutyPaymentNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtDutyPaymentNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblDutyPaymentNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -404,7 +402,7 @@
             <label for="<%= txtTransactionGrossAmount.ClientID %>" class="bold" title="Transaction Gross Amount">Gross Amount</label>
             <asp:CheckBox ID="chk_txtTransactionGrossAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeTransactionGrossAmount" runat="server" Text="Exclude" />
-<%--            &nbsp;
+            <%--            &nbsp;
 <asp:TextBox ID="txtGroupByTransactionGrossAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
 <asp:Label ID="lblGroupByTransactionGrossAmount" runat="server" Text="Group By" />--%>
             <asp:TextBox ID="txtTransactionGrossAmount" runat="server" CssClass="block" />
@@ -417,7 +415,7 @@
             <label for="<%= txtDutyPaymentAmount.ClientID %>" class="bold">Duty Amount</label>
             <asp:CheckBox ID="chk_txtDutyPaymentAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeDutyPaymentAmount" runat="server" Text="Exclude" />
-<%--            &nbsp;
+            <%--            &nbsp;
 <asp:TextBox ID="txtGroupByDutyPaymentAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
 <asp:Label ID="lblGroupByDutyPaymentAmount" runat="server" Text="Group By" />--%>
             <asp:TextBox ID="txtDutyPaymentAmount" runat="server" CssClass="block" />
@@ -430,7 +428,7 @@
             <label for="<%= txtRemainingPaymentsAmount.ClientID %>" class="bold" title="Remaining Payments Amount">Remaining <u>Am</u></label>
             <asp:CheckBox ID="chk_txtRemainingPaymentsAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeRemainingPaymentsAmount" runat="server" Text="Exclude" />
-<%--            &nbsp;
+            <%--            &nbsp;
 <asp:TextBox ID="txtGroupByRemainingPaymentsAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
 <asp:Label ID="lblGroupByRemainingPaymentsAmount" runat="server" Text="Group By" />--%>
             <asp:TextBox ID="txtRemainingPaymentsAmount" runat="server" CssClass="block" />
@@ -446,8 +444,8 @@
             <asp:CheckBox ID="chk_txtCompanyNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCompanyNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByCompanyNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByCompanyNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByCompanyNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByCompanyNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCompanyNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCompanyNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCompanyNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -459,8 +457,8 @@
             <asp:CheckBox ID="chk_txtNetworkNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeNetworkNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByNetworkNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByNetworkNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByNetworkNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByNetworkNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtNetworkNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtNetworkNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblNetworkNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -472,8 +470,8 @@
             <asp:CheckBox ID="chk_txtBranchNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeBranchNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByBranchNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByBranchNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByBranchNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByBranchNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtBranchNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtBranchNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblBranchNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -485,8 +483,8 @@
             <asp:CheckBox ID="chk_txtCashBoxNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeCashBoxNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByCashBoxNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByCashBoxNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByCashBoxNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByCashBoxNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtCashBoxNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCashBoxNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCashBoxNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -498,8 +496,8 @@
             <asp:CheckBox ID="chk_txtSupplierGroupNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeSupplierGroupNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupBySupplierGroupNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupBySupplierGroupNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupBySupplierGroupNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupBySupplierGroupNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtSupplierGroupNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtSupplierGroupNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblSupplierGroupNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -511,8 +509,8 @@
             <asp:CheckBox ID="chk_txtSupplierNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeSupplierNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupBySupplierNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupBySupplierNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupBySupplierNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupBySupplierNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtSupplierNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtSupplierNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblSupplierNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -524,8 +522,8 @@
             <asp:CheckBox ID="chk_txtTerminalNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeTerminalNumber" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByTerminalNumber" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByTerminalNumber" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByTerminalNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByTerminalNumber" runat="server" Text="Group By" />
             <asp:TextBox ID="txtTerminalNumber" runat="server" CssClass="block" />
             <asp:TextBox ID="txtTerminalNumberOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblTerminalNumberError" runat="server" EnableViewState="false" CssClass="error" />
@@ -537,8 +535,8 @@
             <asp:CheckBox ID="chk_txtCommentOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
             <asp:CheckBox ID="chkExcludeComment" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByComment" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByComment" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByComment" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByComment" runat="server" Text="Group By" />
             <asp:TextBox ID="txtComment" runat="server" CssClass="block" />
             <asp:TextBox ID="txtCommentOutside" runat="server" CssClass="no-display" />
             <asp:Label ID="lblCommentError" runat="server" EnableViewState="false" CssClass="error" />
@@ -549,8 +547,8 @@
             <label for="<%= txtIDInside.ClientID %>" class="bold">ID</label>
             <asp:CheckBox ID="chkExcludeID" runat="server" Text="Exclude" />
             &nbsp;
-<asp:TextBox ID="txtGroupByID" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
-<asp:Label ID="lblGroupByIDsss" runat="server" Text="Group By" />
+            <asp:TextBox ID="txtGroupByID" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+            <asp:Label ID="lblGroupByIDsss" runat="server" Text="Group By" />
             <br />
             <asp:TextBox ID="txtIDInside" runat="server" MaxLength="36" Width="45%" placeholder="Inside" />
             <asp:TextBox ID="txtIDOutside" runat="server" MaxLength="36" Width="45%" placeholder="Outside" />
@@ -833,7 +831,8 @@
                             <asp:Button ID="btnPaymentRestoreExecute" runat="server" OnClick="Payment_Change" Text="Restore Payment" />
                             &nbsp;
                             <asp:LinkButton ID="btnPaymentRestoreCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
-                        </asp:Label></td><td id="tdMatchingAuto" runat="server" visible="false" style="padding: 0px 15px;">
+                        </asp:Label></td>
+                    <td id="tdMatchingAuto" runat="server" visible="false" style="padding: 0px 15px;">
                         <asp:LinkButton ID="btnMatchingAuto" runat="server" OnCommand="Matching_Command" CommandArgument="Confirm" Text="Quick Matching" />
                     </td>
                     <td id="tdReturn" runat="server" visible="false" style="padding: 0px 15px;">
@@ -848,11 +847,36 @@
                         <asp:Button ID="btnCommentChange" runat="server" ValidationGroup="CommentChange" OnClientClick="return comment_change();" OnClick="Comment_Change" Text="Change" />
                     </td>
                     <td style="padding: 0px 15px;">
-                        <a href="DataInspector.aspx">Reset</a> </td><td style="width: 100%;">&nbsp;</td></tr></table></section><div id="divMatchingAuto" runat="server" visible="false" class="section-form" style="padding: 10px;">
-            <b>Create Auto Matching</b> <table id="tblMatchingField" runat="server" class="table-sub" style="margin: 10px 0px;">
+                        <a href="DataInspector.aspx">Reset</a> </td>
+                    <td style="width: 100%;">&nbsp;</td>
+                </tr>
+            </table>
+        </section>
+        <div id="divMatchingAuto" runat="server" visible="false" class="section-form" style="padding: 10px;">
+            <b>Create Auto Matching</b>
+            <table id="tblMatchingField" runat="server" class="table-sub" style="margin: 10px 0px;">
                 <tr id="trMatchingFieldName" runat="server">
-                    <td class="bg-gray nowrap bold">Field Name:</td><th>TerminalNumber</th><th>SupplierNumber</th><th>CreditBrand</th><th>CardBrand</th><th>TransactionCurrency</th><th>CardNumber</th><th>CardPrefix</th><th>PaymentsCount</th><th>DutyPaymentNumber</th><th>TransmissionNumber</th><th>TransactionGrossAmount</th><th>DutyPaymentAmount</th><th>TransactionDate</th><th>PaymentDate</th><th>VoucherNumber</th><th>ConfirmationNumber</th></tr><tr>
-                    <td class="bg-gray nowrap bold">Included:</td><td class="text-center">
+                    <td class="bg-gray nowrap bold">Field Name:</td>
+                    <th>TerminalNumber</th>
+                    <th>SupplierNumber</th>
+                    <th>CreditBrand</th>
+                    <th>CardBrand</th>
+                    <th>TransactionCurrency</th>
+                    <th>CardNumber</th>
+                    <th>CardPrefix</th>
+                    <th>PaymentsCount</th>
+                    <th>DutyPaymentNumber</th>
+                    <th>TransmissionNumber</th>
+                    <th>TransactionGrossAmount</th>
+                    <th>DutyPaymentAmount</th>
+                    <th>TransactionDate</th>
+                    <th>PaymentDate</th>
+                    <th>VoucherNumber</th>
+                    <th>ConfirmationNumber</th>
+                </tr>
+                <tr>
+                    <td class="bg-gray nowrap bold">Included:</td>
+                    <td class="text-center">
                         <asp:CheckBox ID="chkTerminalNumber" runat="server" Checked="true" /></td>
                     <td class="text-center">
                         <asp:CheckBox ID="chkSupplierNumber" runat="server" Checked="true" /></td>
@@ -869,7 +893,7 @@
                     <td class="text-center">
                         <asp:CheckBox ID="chkPaymentsCount" runat="server" Checked="true" /></td>
                     <td class="text-center">
-                        <asp:CheckBox ID="chkDutyPaymentNumber" runat="server" Checked="true"/></td>
+                        <asp:CheckBox ID="chkDutyPaymentNumber" runat="server" Checked="true" /></td>
                     <td class="text-center">
                         <asp:CheckBox ID="chkTransmissionNumber" runat="server" Checked="true" /></td>
                     <td class="text-center">
@@ -879,14 +903,15 @@
                     <td class="text-center">
                         <asp:CheckBox ID="chkTransactionDate" runat="server" Checked="true" /></td>
                     <td class="text-center">
-                        <asp:CheckBox ID="chkPaymentDate" runat="server" Checked="true"/></td>
+                        <asp:CheckBox ID="chkPaymentDate" runat="server" Checked="true" /></td>
                     <td class="text-center">
                         <asp:CheckBox ID="chkVoucherNumber" runat="server" Checked="true" /></td>
                     <td class="text-center">
                         <asp:CheckBox ID="chkConfirmationNumber" runat="server" Checked="true" /></td>
                 </tr>
                 <tr>
-                    <td class="bg-gray nowrap bold">Tolerance:</td><td class="text-center"></td>
+                    <td class="bg-gray nowrap bold">Tolerance:</td>
+                    <td class="text-center"></td>
                     <td class="text-center"></td>
                     <td class="text-center"></td>
                     <td class="text-center"></td>
@@ -912,74 +937,78 @@
             </table>
 
             <asp:Button ID="btnMatchingAutoSave" runat="server" OnClientClick="javascript: return confirm('Create Auto Matching?');" OnCommand="Matching_Command" CommandArgument="Save" Text="Create Auto Matching" />
-            &nbsp; <asp:LinkButton ID="btnMatchingAutoCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
+            &nbsp;
+            <asp:LinkButton ID="btnMatchingAutoCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
 
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%-- <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" /> <%--checked="checked"
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%-- <input id="chkOne" type="checkbox" runat="server" value="1" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" /> <%--checked="checked"
                         <label for="chkOne">One to One</label>
                         <input id="chkMany" type="checkbox" runat="server" value="2" onchange="changeMatchingType(this);" disabled="disabled" checked="checked" />
                         <label for="chkMany">Many to Many</label>
                         <input id="chkZero" type="checkbox" runat="server" value="3" checked="checked" onchange="changeMatchingType(this);" disabled="disabled" />
-                        <label for="chkZero">Zero Amount</label>--%></div><div id="divInside" runat="server" class="float-left" style="width: 49%; position: relative;">
-            <b>Inside</b> &nbsp; - &nbsp; <asp:LinkButton ID="btnDownloadInside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
+                        <label for="chkZero">Zero Amount</label>--%>
+        </div>
+        <div id="divInside" runat="server" class="float-left" style="width: 49%; position: relative;">
+            <b>Inside</b> &nbsp; - &nbsp;
+            <asp:LinkButton ID="btnDownloadInside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
             <asp:TextBox ID="txtSearchInside" runat="server" Visible="false"></asp:TextBox><style>
-                .table-data td, .table-data th {
-                    padding: 5px 0 5px 15px;
-                }
+                                                                                               .table-data td, .table-data th {
+                                                                                                   padding: 5px 0 5px 15px;
+                                                                                               }
 
-                .table-data td {
-                    position: relative;
-                }
+                                                                                               .table-data td {
+                                                                                                   position: relative;
+                                                                                               }
 
-                .arrowdu {
-                    background: url(./Images/arrowdu.png) no-repeat center center;
-                    width: 12px;
-                    height: 12px;
-                    display: inline-block;
-                    background-size: 10px 10px;
-                    float: left;
-                    position: absolute;
-                    left: 0;
-                    top: 20px;
-                    z-index: 9999;
-                }
+                                                                                               .arrowdu {
+                                                                                                   background: url(./Images/arrowdu.png) no-repeat center center;
+                                                                                                   width: 12px;
+                                                                                                   height: 12px;
+                                                                                                   display: inline-block;
+                                                                                                   background-size: 10px 10px;
+                                                                                                   float: left;
+                                                                                                   position: absolute;
+                                                                                                   left: 0;
+                                                                                                   top: 20px;
+                                                                                                   z-index: 9999;
+                                                                                               }
 
-                .arrowup {
-                    background: url(./Images/arrowup.png) no-repeat center center;
-                    width: 12px;
-                    height: 12px;
-                    display: inline-block;
-                    background-size: 10px 10px;
-                    float: left;
-                    position: absolute;
-                    left: 0;
-                    top: 20px;
-                    z-index: 9999;
-                }
+                                                                                               .arrowup {
+                                                                                                   background: url(./Images/arrowup.png) no-repeat center center;
+                                                                                                   width: 12px;
+                                                                                                   height: 12px;
+                                                                                                   display: inline-block;
+                                                                                                   background-size: 10px 10px;
+                                                                                                   float: left;
+                                                                                                   position: absolute;
+                                                                                                   left: 0;
+                                                                                                   top: 20px;
+                                                                                                   z-index: 9999;
+                                                                                               }
 
-                .bg-gray td:first-child span {
+                                                                                               /*.bg-gray td:first-child span {
                     display: none;
-                }
+                }*/
 
-                #loader {
-                    border: 16px solid #f3f3f3; /* Light grey */
-                    border-top: 16px solid #3498db; /* Blue */
-                    border-radius: 50%;
-                    width: 120px;
-                    height: 120px;
-                    animation: spin 2s linear infinite;
-                }
+                                                                                               #loader {
+                                                                                                   border: 16px solid #f3f3f3; /* Light grey */
+                                                                                                   border-top: 16px solid #3498db; /* Blue */
+                                                                                                   border-radius: 50%;
+                                                                                                   width: 120px;
+                                                                                                   height: 120px;
+                                                                                                   animation: spin 2s linear infinite;
+                                                                                               }
 
-                @keyframes spin {
-                    0% {
-                        transform: rotate(0deg);
-                    }
+                                                                                               @keyframes spin {
+                                                                                                   0% {
+                                                                                                       transform: rotate(0deg);
+                                                                                                   }
 
-                    100% {
-                        transform: rotate(360deg);
-                    }
-                }
-            </style>
-            
+                                                                                                   100% {
+                                                                                                       transform: rotate(360deg);
+                                                                                                   }
+                                                                                               }
+                                                                                           </style>
+
             <div id="dvGrid" style="width: 100%; overflow: scroll; position: relative; height: 500px;">
                 <div style="position: sticky; top: 0; z-index: 9; height: 57px;">
                     <table id="tblInsideHead" class="table-data"></table>
@@ -998,36 +1027,114 @@
             <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Inside" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
-                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>Rows</td><td>&nbsp; &nbsp;</td><td>Amount</td><td style="width: 100%;">&nbsp; &nbsp;</td><td></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>Rows</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>Amount</td>
+                        <td style="width: 100%;">&nbsp; &nbsp;</td>
+                        <td></td>
                         <%--Page--%>
                     </tr>
                     <tr id="trInsideSelected" runat="server" visible="false" style="height: 25px;">
-                        <td class="bold">Selected</td><td>&nbsp; &nbsp;</td><td>
+                        <td class="bold">Selected</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblInsideRowsSelected" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblInsideAmountSelected" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr><tr id="trInsideRemaining" runat="server" visible="false" style="height: 25px;">
-                        <td class="bold">Remaining</td><td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                    </tr>
+                    <tr id="trInsideRemaining" runat="server" visible="false" style="height: 25px;">
+                        <td class="bold">Remaining</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblInsideRowsRemaining" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblInsideAmountRemaining" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr><tr>
-                        <td class="bold">Total</td><td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Total</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblInsideRows" ClientIDMode="Static" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblInsideAmount" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:DropDownList ID="ddlInsidePage" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Page_Changed" Width="100px" /></td>
                     </tr>
                 </table>
             </div>
+            <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Inside_GroupBy" runat="server">
+                <table class="nowrap" style="width: 100%; font-size: 11pt;">
+                    <tr class="bold">
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>GrossCountSum</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>GrossSum</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>FirstPaymentSum</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>DutyPaymentSum</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>RemainPaymentSum</td>
+                        <td style="width: 100%;">&nbsp; &nbsp;</td>
+                        <td></td>
+                        <%--Page--%>
+                    </tr>
+                    <%--                    <tr id="trInsideSelected_GroupBy" runat="server" visible="false" style="height: 25px;">
+                        <td class="bold">Selected</td><td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideRowsSelected_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideAmountSelected_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr>
+                    <tr id="trInsideRemaining_GroupBy" runat="server" visible="false" style="height: 25px;">
+                        <td class="bold">Remaining</td><td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideRowsRemaining_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideAmountRemaining_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr>--%>
+                    <tr>
+                        <td class="bold">Total</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <%--<td><asp:Label ID="lblInsideRows_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>--%>
+                        <td>
+                            <asp:Label ID="lblInsideGrossAmountCountSum_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
+                            <asp:Label ID="lblInsideTransactionGrossAmountSum" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
+                            <asp:Label ID="lblInsideFirstPaymentAmountSum" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
+                            <asp:Label ID="lblInsideDutyPaymentAmountSum" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
+                            <asp:Label ID="lblInsideRemainingPaymentsAmountSum" runat="server" /></td>
+
+                    </tr>
+                </table>
+            </div>
+
             <div class="modal">
                 <!-- Place at bottom of page -->
             </div>
         </div>
 
-        <div id="divDataSeparator" runat="server" class="float-left nowrap" style="width: 2%;">&nbsp;</div><div id="divOutside" runat="server" class="float-left" style="width: 49%; position: relative;">
-            <b>Outside</b> &nbsp; - &nbsp; <asp:LinkButton ID="btnDownloadOutside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
+        <div id="divDataSeparator" runat="server" class="float-left nowrap" style="width: 2%;">&nbsp;</div>
+        <div id="divOutside" runat="server" class="float-left" style="width: 49%; position: relative;">
+            <b>Outside</b> &nbsp; - &nbsp;
+            <asp:LinkButton ID="btnDownloadOutside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
 
 
             <div id="dvGridOutside" style="width: 100%; overflow: scroll; position: relative; height: 500px;">
@@ -1049,25 +1156,47 @@
             <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Outside" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
-                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td><td>Rows</td><td>&nbsp; &nbsp;</td><td>Amount</td><td style="width: 100%;">&nbsp; &nbsp;</td><td></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>Rows</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>Amount</td>
+                        <td style="width: 100%;">&nbsp; &nbsp;</td>
+                        <td></td>
                         <%--Page--%>
                     </tr>
                     <tr id="trOutsideSelected" runat="server" visible="false" style="height: 25px;">
-                        <td class="bold">Selected</td><td>&nbsp; &nbsp;</td><td>
+                        <td class="bold">Selected</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblOutsideRowsSelected" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblOutsideAmountSelected" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr><tr id="trOutsideRemaining" runat="server" visible="false" style="height: 25px;">
-                        <td class="bold">Remaining</td><td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                    </tr>
+                    <tr id="trOutsideRemaining" runat="server" visible="false" style="height: 25px;">
+                        <td class="bold">Remaining</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblOutsideRowsRemaining" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblOutsideAmountRemaining" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr><tr>
-                        <td class="bold">Total</td><td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Total</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblOutsideRows" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:Label ID="lblOutsideAmount" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td><td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
                             <asp:DropDownList ID="ddlOutsidePage" Visible="false" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Page_Changed" Width="100px" /></td>
                     </tr>
                 </table>
@@ -1077,8 +1206,10 @@
             </div>
         </div>
 
-        <div id="divSourceSeparator" runat="server" visible="false" class="float-left nowrap" style="width: 2%;">&nbsp;</div><div id="divSource" runat="server" visible="false" class="float-left nowrap" style="width: 49%;">
-            <b>Source</b> <div style="max-height: 500px; overflow: auto;">
+        <div id="divSourceSeparator" runat="server" visible="false" class="float-left nowrap" style="width: 2%;">&nbsp;</div>
+        <div id="divSource" runat="server" visible="false" class="float-left nowrap" style="width: 49%;">
+            <b>Source</b>
+            <div style="max-height: 500px; overflow: auto;">
                 <asp:GridView ID="gvSource" runat="server" AutoGenerateColumns="true" OnRowDataBound="Source_RowDataBound" CssClass="table-data" />
             </div>
             <%--
@@ -1095,59 +1226,75 @@
         <div class="clear-both"></div>
 
         <asp:Panel ID="pnlMatchingBalance" runat="server" Visible="true" DefaultButton="btnMatchingBalanceChange" CssClass="section-form nowrap" Style="padding: 10px;">
-            <b>Change Matching</b> &nbsp; : &nbsp; <div id="divMatchingBalanceRow" runat="server" visible="true" style="display: inline;">
-                Company <asp:TextBox ID="txtCompanyName" runat="server" ReadOnly="true" Width="120px" />
+            <b>Change Matching</b> &nbsp; : &nbsp;
+            <div id="divMatchingBalanceRow" runat="server" visible="true" style="display: inline;">
+                Company
+                <asp:TextBox ID="txtCompanyName" runat="server" ReadOnly="true" Width="120px" />
                 <asp:HiddenField ID="hidCompanyID" runat="server" />
                 &nbsp;
-                Balance Amount <asp:TextBox ID="txtBalanceAmount" runat="server" ReadOnly="true" Width="120px" />
+                Balance Amount
+                <asp:TextBox ID="txtBalanceAmount" runat="server" ReadOnly="true" Width="120px" />
                 <asp:HiddenField ID="hidBalanceAmount" runat="server" />
                 &nbsp;
-                Operation Type <asp:DropDownList ID="ddlOperationType_Balance" runat="server" />
+                Operation Type
+                <asp:DropDownList ID="ddlOperationType_Balance" runat="server" />
                 <asp:RequiredFieldValidator ID="rfvOperationType_Balance" runat="server" ValidationGroup="MatchingBalance" ControlToValidate="ddlOperationType_Balance" InitialValue="0" ErrorMessage="Select 'Operation Type'." Display="Dynamic" SetFocusOnError="true" CssClass="error" />
-                &nbsp; </div>Comment <asp:TextBox ID="txtMatchingComment" runat="server" MaxLength="50" />
-                <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" onchange="chkAllCheckBoxBelow(this);" /> <%--OnCheckedChanged="chkAllCheckBoxBelow" onchange="changeMatchingType(this);" --%>
-            &nbsp; <asp:Button ID="btnMatchingBalanceChange" runat="server" ValidationGroup="MatchingBalance" OnClientClick="javascript: return matching_change();" OnClick="Save_Changes" Text="Save Changes" />
-            &nbsp; <asp:LinkButton ID="btnMatchingBalanceCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
+                &nbsp;
+            </div>
+            Comment
+            <asp:TextBox ID="txtMatchingComment" runat="server" MaxLength="50" />
+            <input id="chkAllCheckBox" type="checkbox" runat="server" value="all" onchange="chkAllCheckBoxBelow(this);" />
+            <%--OnCheckedChanged="chkAllCheckBoxBelow" onchange="changeMatchingType(this);" --%>
+            &nbsp;
+            <asp:Button ID="btnMatchingBalanceChange" runat="server" ValidationGroup="MatchingBalance" OnClientClick="javascript: return matching_change();" OnClick="Save_Changes" Text="Save Changes" />
+            &nbsp;
+            <asp:LinkButton ID="btnMatchingBalanceCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" />
         </asp:Panel>
 
         <asp:Panel ID="pnlPaymentChange" runat="server" Visible="true" DefaultButton="btnPaymentRecalculate" class="section-form nowrap" Style="padding: 10px;">
-            <b>Change Payments Count</b> &nbsp; : &nbsp; <asp:HiddenField ID="hidPaymentsAmount_Selected" runat="server" />
+            <b>Change Payments Count</b> &nbsp; : &nbsp;
+            <asp:HiddenField ID="hidPaymentsAmount_Selected" runat="server" />
 
-            New Payments Count : <asp:TextBox ID="txtPaymentsCount_Split" runat="server" MaxLength="2" Width="50px" onchange="javascript: disable_payment_change();" />
+            New Payments Count :
+            <asp:TextBox ID="txtPaymentsCount_Split" runat="server" MaxLength="2" Width="50px" onchange="javascript: disable_payment_change();" />
             &nbsp;
-            First Payment Amount : <asp:TextBox ID="txtFirstPaymentAmount_Split" runat="server" onchange="javascript: disable_payment_change();" />
-            &nbsp; <asp:Button ID="btnPaymentRecalculate" runat="server" ValidationGroup="PaymentChange" OnClientClick="return payment_recalculate();" OnClick="Payment_Recalculate" Text="Recalculate" Style="margin: 0px 5px;" />
+            First Payment Amount :
+            <asp:TextBox ID="txtFirstPaymentAmount_Split" runat="server" onchange="javascript: disable_payment_change();" />
+            &nbsp;
+            <asp:Button ID="btnPaymentRecalculate" runat="server" ValidationGroup="PaymentChange" OnClientClick="return payment_recalculate();" OnClick="Payment_Recalculate" Text="Recalculate" Style="margin: 0px 5px;" />
             <asp:Button ID="btnPaymentChange" runat="server" Visible="false" ValidationGroup="PaymentChange" OnClientClick="javascript: return confirm('Save Changes?');" OnClick="Payment_Change" Text="Save Changes" Style="margin: 0px 5px;" />
             <asp:LinkButton ID="btnPaymentCancel" runat="server" OnClick="Cancel_Changes" Text="Cancel" Style="margin: 0px 5px;" />
 
             <div id="divBalance" runat="server" visible="true" style="overflow: auto; margin-top: 15px;">
-                <b>Balance</b> <asp:GridView ID="gvBalance" runat="server" AutoGenerateColumns="true" OnRowDataBound="Payment_RowDataBound" CssClass="table-sub" />
+                <b>Balance</b>
+                <asp:GridView ID="gvBalance" runat="server" AutoGenerateColumns="true" OnRowDataBound="Payment_RowDataBound" CssClass="table-sub" />
             </div>
 
             <div id="divSplit" runat="server" visible="true" style="overflow: auto; margin-top: 15px;">
-                <b>Split</b> <asp:GridView ID="gvSplit" runat="server" AutoGenerateColumns="true" OnRowDataBound="Payment_RowDataBound" CssClass="table-sub" />
+                <b>Split</b>
+                <asp:GridView ID="gvSplit" runat="server" AutoGenerateColumns="true" OnRowDataBound="Payment_RowDataBound" CssClass="table-sub" />
             </div>
         </asp:Panel>
 
         <%--Testing code--%>
-       <asp:Button ID="btnCheck" runat="server" OnClick="btnCheck_Click" style="display:none" />
+        <asp:Button ID="btnCheck" runat="server" OnClick="btnCheck_Click" Style="display: none" />
         <asp:HiddenField ID="hdnUserId" runat="server" />
 
         <asp:HiddenField ID="hdnAllSelectedType" runat="server" />
         <asp:HiddenField ID="hdnAllSelectedChkBox" runat="server" />
 
-        <asp:Button ID="btnCheckSort" runat="server" OnClick="btnCheckSort_Click" style="display:none" />
+        <asp:Button ID="btnCheckSort" runat="server" OnClick="btnCheckSort_Click" Style="display: none" />
         <asp:HiddenField ID="hdnColumnName" runat="server" />
         <asp:HiddenField ID="hdnOrderSort" runat="server" />
         <%--<asp:HiddenField ID="hdnTableType" runat="server" />--%>
 
-        <asp:Button ID="btnCheckSort1" runat="server" OnClick="btnCheckSort_Click1" style="display:none" />
+        <asp:Button ID="btnCheckSort1" runat="server" OnClick="btnCheckSort_Click1" Style="display: none" />
         <asp:HiddenField ID="hdnColumnName1" runat="server" />
         <asp:HiddenField ID="hdnOrderSort1" runat="server" />
+        <asp:HiddenField ID="hdnGroupBy" runat="server" />
         <%--<asp:HiddenField ID="hdnTableType1" runat="server" />--%>
 
         <%--<asp:Button ID="btnChkAllCheckBoxBelow" runat="server" OnClick="btnChkAllCheckBoxBelow_Click" style="display:none" />--%>
-
     </asp:Panel>
 
     <style>
@@ -1203,6 +1350,12 @@
         //var datatest = '';
         $(document).ready(function () {
 
+            if ($('#ctl00_cphMain_hdnGroupBy').val() == '') {
+                //$('.bg-gray td:first-child span').attr('display', 'none');
+                //$('.bg-gray td:first-child span').prop('display', 'none');
+                $('.bg-gray td:first-child span').attr('style', 'display: none');
+            }
+
             /////// Set Sorting value //////
             if ($('#ctl00_cphMain_hdnOrderSort').val() != '') {
                 if ($('#ctl00_cphMain_hdnOrderSort').val() == 'false')
@@ -1219,7 +1372,7 @@
             }
 
             /////// Set Arrow up and Arrow down for Sort column Inside ///////
-            
+
             var columnNameSortedInside = $('#ctl00_cphMain_hdnColumnName').val().trim();
             if (columnNameSortedInside != undefined && columnNameSortedInside != "") {
                 var objLength = $('#tblInsideHead td').find('div:contains("' + columnNameSortedInside + '")').next("span").length;
@@ -1296,8 +1449,7 @@
             //var selectedTxt = $('#dropDownId :selected').text();
             //alert(selectedTxt);
             //not-matching
-            if (selectedTxt == 'not-matching')
-            {
+            if (selectedTxt == 'not-matching') {
                 //$('#ctl00_cphMain_chkAllCheckBox')
                 var isChecked = $("#ctl00_cphMain_chkAllCheckBox").is(":checked");
                 //alert(isChecked);
@@ -1604,29 +1756,29 @@
 
 
     <script>
-            // TABLES
+        // TABLES
 
-            try {
-                document.getElementById("<%= gvInside.ClientID %>").attributes.removeNamedItem("style");
-            copy_table_head("<%= gvInside.ClientID %>", "tblInsideHead");
-            highlight_data_item_all("checkbox-inside");
-            } catch (ex) { }
-
-            try {
-                document.getElementById("<%= gvOutside.ClientID %>").attributes.removeNamedItem("style");
-            copy_table_head("<%= gvOutside.ClientID %>", "tblOutsideHead");
-            highlight_data_item_all("checkbox-outside");
+        try {
+            document.getElementById("<%= gvInside.ClientID %>").attributes.removeNamedItem("style");
+                copy_table_head("<%= gvInside.ClientID %>", "tblInsideHead");
+                highlight_data_item_all("checkbox-inside");
         } catch (ex) { }
 
-        try { document.getElementById("<%= gvSource.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
-        try { document.getElementById("<%= gvBalance.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
+        try {
+            document.getElementById("<%= gvOutside.ClientID %>").attributes.removeNamedItem("style");
+                copy_table_head("<%= gvOutside.ClientID %>", "tblOutsideHead");
+                highlight_data_item_all("checkbox-outside");
+            } catch (ex) { }
+
+            try { document.getElementById("<%= gvSource.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
+            try { document.getElementById("<%= gvBalance.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
         try { document.getElementById("<%= gvSplit.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
 
         // SEARCH
 
         if (document.getElementById("<%= chk_txtTransactionDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionDateOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtTransmissionDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionDateOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtPaymentDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentDateOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtTransmissionDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionDateOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtPaymentDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentDateOutside.ClientID %>").className = ""; }
 
         try {
             if (document.getElementById("<%= chk_txtMatchingDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtMatchingDateOutside.ClientID %>").className = ""; }
@@ -1647,8 +1799,8 @@
         if (document.getElementById("<%= chk_txtBranchNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtBranchNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCashBoxNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCashBoxNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtSupplierGroupNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtSupplierGroupNumberOutside.ClientID %>").className = ""; }
-          if (document.getElementById("<%= chk_txtSupplierNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtSupplierNumberOutside.ClientID %>").className = ""; }
-          if (document.getElementById("<%= chk_txtTerminalNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTerminalNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtSupplierNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtSupplierNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtTerminalNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTerminalNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCommentOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCommentOutside.ClientID %>").className = ""; }
 
         // FUNCTIONS
@@ -1701,15 +1853,15 @@
                 if (chk_inside != null) {
                     chk_first = chk_inside;
                     div_first = document.getElementById("<%= divInside.ClientID %>");
-                }
-                else {
-                    chk_first = chk_outside;
-                    div_first = document.getElementById("<%= divOutside.ClientID %>");
+                  }
+                  else {
+                      chk_first = chk_outside;
+                      div_first = document.getElementById("<%= divOutside.ClientID %>");
                 }
 
                 chk_second = chk_source;
                 div_second = document.getElementById("<%= divSource.ClientID %>");
-                div_separator = document.getElementById("<%= divSourceSeparator.ClientID %>");
+                  div_separator = document.getElementById("<%= divSourceSeparator.ClientID %>");
             }
 
             if (chk_first.checked == chk_second.checked) {
@@ -1751,20 +1903,20 @@
             var s_mode = "";
 
             if (document.getElementById("<%= hidUniqueID.ClientID %>").value != "") {
-                s_mode = "payment";
-            }
-            else if (document.getElementById("<%= hidQueryID.ClientID %>").value != "") {
-                s_mode = "match";
-            }
-            else {
-                s_mode = document.getElementById("<%= ddlTransactions.ClientID %>").value
-            }
+                  s_mode = "payment";
+              }
+              else if (document.getElementById("<%= hidQueryID.ClientID %>").value != "") {
+                  s_mode = "match";
+              }
+              else {
+                  s_mode = document.getElementById("<%= ddlTransactions.ClientID %>").value
+              }
 
-            return s_mode;
-        }
+              return s_mode;
+          }
 
-        function recalculate_click() {
-            var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
+          function recalculate_click() {
+              var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
             var s_source = document.getElementById("<%= hidSelectSource.ClientID %>").value;
 
@@ -1779,10 +1931,10 @@
             }
 
             return b_valid;
-        }
+          }
 
-        function payment_click(s_unique_id, s_table) {
-            document.getElementById("<%= hidUniqueID.ClientID %>").value = s_unique_id;
+          function payment_click(s_unique_id, s_table) {
+              document.getElementById("<%= hidUniqueID.ClientID %>").value = s_unique_id;
             document.getElementById("<%= hidTable.ClientID %>").value = s_table;
             document.getElementById("<%= btnPayment.ClientID %>").click();
         }
@@ -1895,7 +2047,7 @@
             document.getElementById("<%= btnSearchTop.ClientID %>").style.visibility = "hidden";
             document.getElementById("<%= btnSearchBottom.ClientID %>").style.visibility = "hidden";
         }
-        
+
         function select_data_item_all(s_class, b_checked) {
             //alert('rr');
             //document.getElementsByName("ctl00$cphMain$gvInside$ctl01$ctl00")[0].checked = false;
@@ -1976,12 +2128,11 @@
                 $(o_checkbox).closest("tr").attr("style", "background-color: #FFFFE0;");
                 //x[0].style.backgroundColor = "yellow";
             }
-            else
-            {
+            else {
                 $(o_checkbox).closest("tr").removeAttr("style");
                 $(o_checkbox).closest("tr").attr("style", "background-color: #DDEBF7;");//background-color:#DDEBF7;
             }
-            
+
             ///////
             if (s_mode == "not-matching")
             { document.getElementById('<%= btnCheck.ClientID %>').click(); }
@@ -2083,8 +2234,7 @@
         }
 
         ///// Check All Check Box Below /////
-        function chkAllCheckBoxBelow(control)
-        {
+        function chkAllCheckBoxBelow(control) {
             var s_mode = get_mode();
             if (s_mode == 'not-matching') {
                 //document.getElementById('%= btnChkAllCheckBoxBelow.ClientID %>').click();
@@ -2109,8 +2259,7 @@
                     $("#ctl00_cphMain_gvOutside").find("input").attr("disabled", false);
                 }
             }
-            if (s_mode == 'matching')
-            {
+            if (s_mode == 'matching') {
                 if (control.checked) {
                     //For inside
                     $("#tblInsideHead").find(":checkbox").prop('checked', false);

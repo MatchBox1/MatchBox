@@ -2776,6 +2776,60 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.DropDownList ddlInsidePage;
         
         /// <summary>
+        /// divCalculationFooter_Inside_GroupBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculationFooter_Inside_GroupBy;
+        
+        /// <summary>
+        /// lblInsideGrossAmountCountSum_GroupBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsideGrossAmountCountSum_GroupBy;
+        
+        /// <summary>
+        /// lblInsideTransactionGrossAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsideTransactionGrossAmountSum;
+        
+        /// <summary>
+        /// lblInsideFirstPaymentAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsideFirstPaymentAmountSum;
+        
+        /// <summary>
+        /// lblInsideDutyPaymentAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsideDutyPaymentAmountSum;
+        
+        /// <summary>
+        /// lblInsideRemainingPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsideRemainingPaymentsAmountSum;
+        
+        /// <summary>
         /// divDataSeparator control.
         /// </summary>
         /// <remarks>
@@ -3224,5 +3278,14 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnOrderSort1;
+        
+        /// <summary>
+        /// hdnGroupBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnGroupBy;
     }
 }

@@ -1847,9 +1847,11 @@ namespace MatchBox
                         sortType = "asc";
                         Session["sortColumnName_Inside"] = sortColumnName;
                         Session["hdnOrderSort_Inside"] = "asc";
-
+                        hdnGroupBy.Value = "GroupBy";
                         //divCalculationFooter_Inside.Visible = false;
-                        divCalculationFooter_Outside.Visible = false;
+                        //divCalculationFooter_Outside.Visible = false;
+                        divCalculationFooter_Inside.Attributes.Add("style", "display:none");
+                        divCalculationFooter_Inside_GroupBy.Visible = true;
                     }
                     catch (Exception ex)
                     {
@@ -4540,13 +4542,39 @@ namespace MatchBox
 
             double n_amount_sum_inside = 0, n_amount_sum_outside = 0;
 
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : "";
             if (dt_inside_sum != null && dt_outside_sum != null)
             {
-                n_rows_count_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
-                n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
+                if (string.IsNullOrEmpty(s_group_by))
+                {
+                    n_rows_count_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
+                    n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
 
-                n_amount_sum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["AmountSum"]);
-                n_amount_sum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
+                    n_amount_sum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["AmountSum"]);
+                    n_amount_sum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
+                }
+                else
+                { // Group by
+                    if (dt_inside_sum.Rows.Count > 0)
+                    {
+                        n_rows_count_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
+
+                        int n_rows_GrossAmountCountSum_inside = 0;
+                        double n_TransactionGrossAmountSum_inside = 0, n_FirstPaymentAmountSum_inside = 0, n_DutyPaymentAmountSum_inside = 0, n_RemainingPaymentsAmountSum_inside = 0;
+
+                        n_rows_GrossAmountCountSum_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["GrossAmountCountSum"]);
+                        n_TransactionGrossAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["TransactionGrossAmountSum"]);
+                        n_FirstPaymentAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["FirstPaymentAmountSum"]);
+                        n_DutyPaymentAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["DutyPaymentAmountSum"]);
+                        n_RemainingPaymentsAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["RemainingPaymentsAmountSum"]);
+
+                        lblInsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n0}", n_rows_GrossAmountCountSum_inside);
+                        lblInsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_inside, 2));
+                        lblInsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_inside, 2));
+                        lblInsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_inside, 2));
+                        lblInsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_inside, 2));
+                    }
+                }
             }
             else
             {
@@ -4611,8 +4639,8 @@ namespace MatchBox
             //DataTable dtLockedRecords = new DataTable();
             //DataAction.SelectLockedRecords(n_user_id, ref dtLockedRecords, ref strErrors);
 
-            string S_Group_By = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            if (string.IsNullOrEmpty(S_Group_By))
+            //string S_Group_By = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            if (string.IsNullOrEmpty(s_group_by))
             {
                 foreach (GridViewRow row in gvInside.Rows)
                 {
