@@ -118,11 +118,19 @@ namespace MatchBox
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+            {
                 strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+                if (strDBColumnName == "")
+                    strDBColumnName = sortColumnName.Trim();
+            }
 
             string strDBColumnName_Out = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName_Out.Trim()))
+            {
                 strDBColumnName_Out = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName_Out.Trim());
+                if (strDBColumnName_Out == "")
+                    strDBColumnName_Out = sortColumnName_Out.Trim();
+            }
 
             SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy1", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
@@ -172,7 +180,11 @@ namespace MatchBox
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+            {
                 strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+                if (strDBColumnName == "")
+                    strDBColumnName = sortColumnName.Trim();
+            }
 
             SqlCommand o_command = new SqlCommand("sprDataSelectInsidePagingLazy", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
@@ -1657,7 +1669,7 @@ namespace MatchBox
 
                 bool b_select = false;
                 TableCell tc_select = null;
-                if (i_select != -1)
+                if (i_select != -1 && i_select < gv_row.Cells.Count)
                 {
                     tc_select = gv_row.Cells[i_select];
                     tc_select.CssClass = "bg-gray";
@@ -1665,7 +1677,7 @@ namespace MatchBox
                 }
 
                 decimal n_id = 0;
-                if (i_id != -1)
+                if (i_id != -1 && i_id < gv_row.Cells.Count)
                 {
                     TableCell tc_id = gv_row.Cells[i_id];
                     decimal.TryParse(tc_id.Text, out n_id);
@@ -1676,7 +1688,7 @@ namespace MatchBox
                 }
                 string s_unique_id = string.Empty;
                 TableCell tc_unique_id = null;
-                if (i_unique_id != -1)
+                if (i_unique_id != -1 && i_unique_id < gv_row.Cells.Count)
                 {
                     tc_unique_id = gv_row.Cells[i_unique_id];
                     s_unique_id = Get_Cell_Text(ref tc_unique_id);
@@ -1684,7 +1696,7 @@ namespace MatchBox
 
                 string s_query_id = string.Empty;
                 TableCell tc_query_id = null;
-                if (i_query_id != -1)
+                if (i_query_id != -1 && i_query_id < gv_row.Cells.Count)
                 {
                     tc_query_id = gv_row.Cells[i_query_id];
                     s_query_id = Get_Cell_Text(ref tc_query_id);
@@ -1695,49 +1707,49 @@ namespace MatchBox
                     tc_matching_id = gv_row.Cells[i_matching_id];
                 }
                 TableCell tc_matching_action = null;
-                if (i_matching_action != -1)
+                if (i_matching_action != -1 && i_matching_action < gv_row.Cells.Count)
                 {
                     tc_matching_action = gv_row.Cells[i_matching_action];
                 }
                 TableCell tc_data_file_id = null;
-                if (i_data_file_id != -1)
+                if (i_data_file_id != -1 && i_data_file_id < gv_row.Cells.Count)
                 {
                     tc_data_file_id = gv_row.Cells[i_data_file_id];
                 }
                 int n_duty_payment_number = 0;
                 TableCell tr_duty_payment_number = null;
-                if (i_duty_payment_number != -1)
+                if (i_duty_payment_number != -1 && i_duty_payment_number < gv_row.Cells.Count)
                 {
                     tr_duty_payment_number = gv_row.Cells[i_duty_payment_number];
                     int.TryParse(tr_duty_payment_number.Text, out n_duty_payment_number);
                 }
                 TableCell tc_transaction_gross_amount = null;
-                if (i_transaction_gross_amount != -1)
+                if (i_transaction_gross_amount != -1 && i_transaction_gross_amount < gv_row.Cells.Count)
                 {
                     tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
                 }
                 TableCell tc_duty_payment_amount = null;
-                if (i_duty_payment_amount != -1)
+                if (i_duty_payment_amount != -1 && i_duty_payment_amount < gv_row.Cells.Count)
                 {
                     tc_duty_payment_amount = gv_row.Cells[i_duty_payment_amount];
                 }
                 TableCell tc_remaining_payments_amount = null;
-                if (i_remaining_payments_amount != -1)
+                if (i_remaining_payments_amount != -1 && i_remaining_payments_amount < gv_row.Cells.Count)
                 {
                     tc_remaining_payments_amount = gv_row.Cells[i_remaining_payments_amount];
                 }
                 TableCell tc_transaction_date = null;
-                if (i_transaction_date != -1)
+                if (i_transaction_date != -1 && i_transaction_date < gv_row.Cells.Count)
                 {
                     tc_transaction_date = gv_row.Cells[i_transaction_date];
                 }
                 TableCell tc_transmission_date = null;
-                if (i_transmission_date != -1)
+                if (i_transmission_date != -1 && i_transmission_date < gv_row.Cells.Count)
                 {
                     tc_transmission_date = gv_row.Cells[i_transmission_date];
                 }
                 TableCell tc_paymen_date = null;
-                if (i_paymen_date != -1)
+                if (i_paymen_date != -1 && i_paymen_date < gv_row.Cells.Count)
                 {
                     tc_paymen_date = gv_row.Cells[i_paymen_date];
                 }
