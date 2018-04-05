@@ -365,6 +365,7 @@ namespace MatchBox
             string s_order_inside = "", s_order_outside = "";
             string s_where = "", s_operator = "", s_error = "";
 
+            List<string> lstOperationType = new List<string>();
             // Sort Inside
 
             if (ddlInsideSort_1.SelectedValue != "")
@@ -408,7 +409,8 @@ namespace MatchBox
             }
 
             // Transactions
-
+            string s_matching_action = string.Empty;
+            string s_matching_type = string.Empty;
             switch (ddlTransactions.SelectedValue)
             {
                 case "matching":
@@ -418,7 +420,7 @@ namespace MatchBox
 
                     if (divMatchingAction.Visible == true)
                     {
-                        string s_matching_action = Parameter_CheckBoxList(cblMatchingAction);
+                         s_matching_action = Parameter_CheckBoxList(cblMatchingAction);
 
                         if (s_matching_action != "") { s_where += " AND MatchingActionID IN ( " + s_matching_action + " ) "; }
                     }
@@ -427,7 +429,7 @@ namespace MatchBox
 
                     if (divMatchingType.Visible == true)
                     {
-                        string s_matching_type = Parameter_CheckBoxList(cblMatchingType);
+                        s_matching_type = Parameter_CheckBoxList(cblMatchingType);
 
                         if (s_matching_type != "") { s_where += " AND MatchingTypeID IN ( " + s_matching_type + " ) "; }
                     }
@@ -1836,7 +1838,6 @@ namespace MatchBox
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
                 }
-
                 if (listGroupBy.Count > 0)
                 {
                     try
@@ -1858,6 +1859,59 @@ namespace MatchBox
                         s_group_by = "";
                     }
                 }
+
+                string strChkFilters = string.Empty;
+                if (s_operation_type != "")
+                {
+                    strChkFilters += "operationType";
+                }
+                if (chkIsBalance.Checked == true)
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "Isbalance";
+                    }
+                    else
+                    { strChkFilters += "Isbalance"; }
+                }
+                if (chkIsSplitted.Checked == true)
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "IsSplitted";
+                    }
+                    else
+                    { strChkFilters += "IsSplitted"; }
+                }
+
+                if (s_transaction_currency != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "TransactionCurrency";
+                    }
+                    else
+                    { strChkFilters += "TransactionCurrency"; }
+                }
+                if (s_matching_type != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "MatchingTypeName";
+                    }
+                    else
+                    { strChkFilters += "MatchingTypeName"; }
+                }
+                if (s_matching_action != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "MatchingActionname";
+                    }
+                    else
+                    { strChkFilters += "MatchingActionname"; }
+                }
+                Session["ChkFilters"] = strChkFilters;
 
                 // Group BY End
 
@@ -1881,7 +1935,7 @@ namespace MatchBox
                 DataTable dt_inside_sum = new DataTable();
                 DataTable dt_outside_sum = new DataTable();
 
-                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, "", "", s_group_by);
+                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, "", "", s_group_by, strChkFilters);
                 //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
                 ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
 
@@ -1940,6 +1994,7 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_group_by = string.Empty;
+            string strChkFilters = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
             ///////
             s_where_inside = ViewState["WhereInside"].ToString();
@@ -1952,8 +2007,9 @@ namespace MatchBox
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
 
             s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             ///////
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -2009,6 +2065,7 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_group_by = string.Empty;
+            string strChkFilters = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
 
             ///////
@@ -2021,9 +2078,10 @@ namespace MatchBox
             s_order_inside = Session["OrderInside"] != null ? Session["OrderInside"].ToString() : "";
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
             s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             ///////
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -2896,7 +2954,8 @@ namespace MatchBox
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
 
             if (s_error != "") { goto Error; }
 
@@ -2963,7 +3022,8 @@ namespace MatchBox
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
 
             if (s_error != "")
             {
@@ -3022,7 +3082,8 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
+            string strChkFilters = Session["strChkFilters"] != null ? Session["strChkFilters"].ToString() : "";
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
 
             if (s_error != "")
             {
@@ -3197,7 +3258,8 @@ namespace MatchBox
             DataTable dt_inside = null, dt_outside = null, dt_inside_sum = null, dt_outside_sum = null;
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
 
             if (s_error != "") { goto Error; }
 
@@ -3339,7 +3401,8 @@ namespace MatchBox
             DataTable dt_outside_sum = new DataTable();
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by);
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
 
             if (s_error != "")
             {
@@ -3499,7 +3562,7 @@ namespace MatchBox
 
                 try
                 {
-                    tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(tc_paymen_date.Text));
+                    tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Convert.ToDateTime(tc_paymen_date.Text).ToShortDateString()));
                 }
                 catch (Exception ex)
                 {

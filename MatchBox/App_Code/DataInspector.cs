@@ -114,7 +114,7 @@ namespace MatchBox
             }
         }
 
-        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out, string s_group_by)
+        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out, string s_group_by, string strChkFilters)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
@@ -149,6 +149,7 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@sortColumnName_Out", SqlDbType.NVarChar, -1) { Value = strDBColumnName_Out });
             o_command.Parameters.Add(new SqlParameter("@sortType_Out", SqlDbType.NVarChar, -1) { Value = sortType_Out });
             o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
+            o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
 
@@ -176,7 +177,7 @@ namespace MatchBox
             }
         }
 
-        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside,  int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by)
+        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside, int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
@@ -760,7 +761,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -837,7 +838,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -885,7 +886,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -940,7 +941,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -991,7 +992,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -1043,7 +1044,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -1094,7 +1095,7 @@ namespace MatchBox
                 o_command.Dispose();
             }
 
-        Finish:
+            Finish:
 
             return n_rows_affected;
         }
@@ -1936,9 +1937,11 @@ namespace MatchBox
 
                 try
                 {
-                    DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
-
-                    tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                    if (tc_transaction_date != null)
+                    {
+                        DateTime d_transaction_date = Convert.ToDateTime(Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date)).ToShortDateString());
+                        tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                    }
                 }
                 catch (Exception ex) { }
 
@@ -1946,9 +1949,11 @@ namespace MatchBox
 
                 try
                 {
-                    DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
-
-                    tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                    if (tc_transmission_date != null)
+                    {
+                        DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
+                        tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                    }
                 }
                 catch (Exception ex) { if (tc_transmission_date != null) tc_transmission_date.Text = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; }
 
@@ -1956,9 +1961,11 @@ namespace MatchBox
 
                 try
                 {
-                    DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
-
-                    tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                    if (tc_paymen_date != null)
+                    {
+                        DateTime d_paymen_date = Convert.ToDateTime(Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date)).ToShortDateString());
+                        tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                    }
                 }
                 catch (Exception ex) { }
 
@@ -2030,9 +2037,9 @@ namespace MatchBox
             }
         }
 
-            // BIND ROW - INSIDE TABLE
+        // BIND ROW - INSIDE TABLE
 
-            public static void Bind_Grid_Data_Row_Inside(TableRow gv_row, List<string> lst_field_priority, string s_select_inside, string s_table, string s_mode, bool IsChkAllCheckBox, string s_query_id_href = "")
+        public static void Bind_Grid_Data_Row_Inside(TableRow gv_row, List<string> lst_field_priority, string s_select_inside, string s_table, string s_mode, bool IsChkAllCheckBox, string s_query_id_href = "")
         {
             string s_group_by = System.Web.HttpContext.Current.Session["GroupBy"] != null ? System.Web.HttpContext.Current.Session["GroupBy"].ToString() : "";
             if (string.IsNullOrEmpty(s_group_by))  //// Without Group By ---
@@ -2717,7 +2724,7 @@ namespace MatchBox
         public static void Bind_Grid_Data_Row_Outside(TableRow gv_row, List<string> lst_field_priority, string s_select_outside, string s_table, string s_mode, bool IsChkAllCheckBox, string s_query_id_href = "")
         {
             // CREATE LISTS FOR SELECTED ITEMS
-            
+
             List<string> lst_select_outside = new List<string>();
 
             if (s_select_outside != "")
