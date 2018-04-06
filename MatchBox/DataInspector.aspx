@@ -291,6 +291,9 @@
                     <asp:CheckBox ID="chk_txtMatchingDateOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
                     &nbsp;
                     <asp:CheckBox ID="chkExcludeMatchingDate" runat="server" Text="Exclude" />
+                    &nbsp;
+                    <asp:TextBox ID="txtGroupByMatchDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                    <asp:Label ID="lblGroupByMatchDate" runat="server" Text="Group By" />
                     <br />
                     <asp:TextBox ID="txtMatchingDate" runat="server" Width="98%" />
                     <asp:TextBox ID="txtMatchingDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -1201,6 +1204,60 @@
                     </tr>
                 </table>
             </div>
+            <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Outside_GroupBy" runat="server">
+                <table class="nowrap" style="width: 100%; font-size: 11pt;">
+                    <tr class="bold">
+                        <td>&nbsp; &nbsp;</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>GrossCountSum</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>GrossSum</td>
+                        <%--<td>&nbsp; &nbsp;</td>
+                        <td>NetPaymentSum</td>--%>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>DutyPaymentSum</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>RemainPaymentSum</td>
+                        <td style="width: 100%;">&nbsp; &nbsp;</td>
+                        <td></td>
+                        <%--Page--%>
+                    </tr>
+                    <%--                    <tr id="trInsideSelected_GroupBy" runat="server" visible="false" style="height: 25px;">
+                        <td class="bold">Selected</td><td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideRowsSelected_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideAmountSelected_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr>
+                    <tr id="trInsideRemaining_GroupBy" runat="server" visible="false" style="height: 25px;">
+                        <td class="bold">Remaining</td><td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideRowsRemaining_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>
+                            <asp:Label ID="lblInsideAmountRemaining_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr>--%>
+                    <tr>
+                        <td class="bold">Total</td>
+                        <td>&nbsp; &nbsp;</td>
+                        <%--<td><asp:Label ID="lblInsideRows_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>--%>
+                        <td>
+                            <asp:Label ID="lblOutsideGrossAmountCountSum_GroupBy" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
+                            <asp:Label ID="lblOutsideTransactionGrossAmountSum" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <%--<td>
+                            <asp:Label ID="lblOutsideFirstPaymentAmountSum" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>--%>
+                        <td>
+                            <asp:Label ID="lblOutsideDutyPaymentAmountSum" runat="server" /></td>
+                        <td>&nbsp; &nbsp;</td>
+                        <td>
+                            <asp:Label ID="lblOutsideRemainingPaymentsAmountSum" runat="server" /></td>
+
+                    </tr>
+                </table>
+            </div>
+
             <div class="modalOutside">
                 <!-- Place at bottom of page -->
             </div>
@@ -1760,18 +1817,18 @@
 
         try {
             document.getElementById("<%= gvInside.ClientID %>").attributes.removeNamedItem("style");
-                copy_table_head("<%= gvInside.ClientID %>", "tblInsideHead");
-                highlight_data_item_all("checkbox-inside");
+            copy_table_head("<%= gvInside.ClientID %>", "tblInsideHead");
+            highlight_data_item_all("checkbox-inside");
         } catch (ex) { }
 
         try {
             document.getElementById("<%= gvOutside.ClientID %>").attributes.removeNamedItem("style");
-                copy_table_head("<%= gvOutside.ClientID %>", "tblOutsideHead");
-                highlight_data_item_all("checkbox-outside");
-            } catch (ex) { }
+            copy_table_head("<%= gvOutside.ClientID %>", "tblOutsideHead");
+            highlight_data_item_all("checkbox-outside");
+        } catch (ex) { }
 
-            try { document.getElementById("<%= gvSource.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
-            try { document.getElementById("<%= gvBalance.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
+        try { document.getElementById("<%= gvSource.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
+        try { document.getElementById("<%= gvBalance.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
         try { document.getElementById("<%= gvSplit.ClientID %>").attributes.removeNamedItem("style"); } catch (ex) { }
 
         // SEARCH
@@ -1785,8 +1842,8 @@
         } catch (ex) { }
 
         if (document.getElementById("<%= chk_txtCardPrefixOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardPrefixOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtCardNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtTransmissionNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtCardNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtTransmissionNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtVoucherNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtVoucherNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtConfirmationNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtConfirmationNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtPaymentsCountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentsCountOutside.ClientID %>").className = ""; }
@@ -1853,15 +1910,15 @@
                 if (chk_inside != null) {
                     chk_first = chk_inside;
                     div_first = document.getElementById("<%= divInside.ClientID %>");
-                  }
-                  else {
-                      chk_first = chk_outside;
-                      div_first = document.getElementById("<%= divOutside.ClientID %>");
+                }
+                else {
+                    chk_first = chk_outside;
+                    div_first = document.getElementById("<%= divOutside.ClientID %>");
                 }
 
                 chk_second = chk_source;
                 div_second = document.getElementById("<%= divSource.ClientID %>");
-                  div_separator = document.getElementById("<%= divSourceSeparator.ClientID %>");
+                div_separator = document.getElementById("<%= divSourceSeparator.ClientID %>");
             }
 
             if (chk_first.checked == chk_second.checked) {
@@ -1903,45 +1960,45 @@
             var s_mode = "";
 
             if (document.getElementById("<%= hidUniqueID.ClientID %>").value != "") {
-                  s_mode = "payment";
-              }
-              else if (document.getElementById("<%= hidQueryID.ClientID %>").value != "") {
-                  s_mode = "match";
-              }
-              else {
-                  s_mode = document.getElementById("<%= ddlTransactions.ClientID %>").value
-              }
+                s_mode = "payment";
+            }
+            else if (document.getElementById("<%= hidQueryID.ClientID %>").value != "") {
+                s_mode = "match";
+            }
+            else {
+                s_mode = document.getElementById("<%= ddlTransactions.ClientID %>").value
+            }
 
-              return s_mode;
-          }
+            return s_mode;
+        }
 
-          function recalculate_click() {
-              var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
+        function recalculate_click() {
+            var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
             var s_source = document.getElementById("<%= hidSelectSource.ClientID %>").value;
 
-            var b_valid = (s_inside != "" || s_outside != "" || s_source != "");
+              var b_valid = (s_inside != "" || s_outside != "" || s_source != "");
 
-            if (b_valid == false) {
-                var s_mode = get_mode();
-                var s_action = (s_mode == "match" || s_mode == "matching") ? "Unselect" : "Select";
-                var s_alert = s_action + " item/s to recalculate.";
+              if (b_valid == false) {
+                  var s_mode = get_mode();
+                  var s_action = (s_mode == "match" || s_mode == "matching") ? "Unselect" : "Select";
+                  var s_alert = s_action + " item/s to recalculate.";
 
-                alert(s_alert);
-            }
+                  alert(s_alert);
+              }
 
-            return b_valid;
-          }
+              return b_valid;
+        }
 
-          function payment_click(s_unique_id, s_table) {
-              document.getElementById("<%= hidUniqueID.ClientID %>").value = s_unique_id;
+        function payment_click(s_unique_id, s_table) {
+            document.getElementById("<%= hidUniqueID.ClientID %>").value = s_unique_id;
             document.getElementById("<%= hidTable.ClientID %>").value = s_table;
             document.getElementById("<%= btnPayment.ClientID %>").click();
         }
 
         function match_click(s_query_id) {
             document.getElementById("<%= hidQueryID.ClientID %>").value = s_query_id;
-            document.getElementById("<%= btnMatch.ClientID %>").click();
+              document.getElementById("<%= btnMatch.ClientID %>").click();
         }
 
         function matching_change() {
@@ -1954,56 +2011,56 @@
 
         function payment_recalculate() {
             var txt_payments_count = document.getElementById("<%= txtPaymentsCount_Split.ClientID %>");
-            var txt_first_payment_amount = document.getElementById("<%= txtFirstPaymentAmount_Split.ClientID %>");
+              var txt_first_payment_amount = document.getElementById("<%= txtFirstPaymentAmount_Split.ClientID %>");
 
-            var s_payments_count = trim_string(txt_payments_count.value);
-            var s_first_payment_amount = trim_string(txt_first_payment_amount.value);
+              var s_payments_count = trim_string(txt_payments_count.value);
+              var s_first_payment_amount = trim_string(txt_first_payment_amount.value);
 
-            var s_payments_count_error = "";
+              var s_payments_count_error = "";
 
-            if (s_payments_count == "") {
-                s_payments_count_error = "Enter 'New Payments Count'.";
-            }
-            else {
-                var n_payments_count = parseInt(s_payments_count);
+              if (s_payments_count == "") {
+                  s_payments_count_error = "Enter 'New Payments Count'.";
+              }
+              else {
+                  var n_payments_count = parseInt(s_payments_count);
 
-                if (isNaN(n_payments_count) || n_payments_count <= 0) {
-                    s_payments_count_error = "'New Payments Count' must be a whole number greater than zero.";
-                }
-            }
+                  if (isNaN(n_payments_count) || n_payments_count <= 0) {
+                      s_payments_count_error = "'New Payments Count' must be a whole number greater than zero.";
+                  }
+              }
 
-            if (s_payments_count_error != "") {
-                alert(s_payments_count_error);
-                txt_payments_count.focus();
-                txt_payments_count.select();
-                return false;
-            }
+              if (s_payments_count_error != "") {
+                  alert(s_payments_count_error);
+                  txt_payments_count.focus();
+                  txt_payments_count.select();
+                  return false;
+              }
 
-            var s_first_payment_amount_error = "";
+              var s_first_payment_amount_error = "";
 
-            if (s_first_payment_amount == "") {
-                s_first_payment_amount_error = "Enter 'First Payment Amount'.";
-            }
-            else {
-                var n_first_payment_amount = parseFloat(s_first_payment_amount);
+              if (s_first_payment_amount == "") {
+                  s_first_payment_amount_error = "Enter 'First Payment Amount'.";
+              }
+              else {
+                  var n_first_payment_amount = parseFloat(s_first_payment_amount);
 
-                if (isNaN(n_first_payment_amount) || n_first_payment_amount == 0) {
-                    s_first_payment_amount_error = "'First Payment Amount' must be a number not equal to zero.";
-                }
-            }
+                  if (isNaN(n_first_payment_amount) || n_first_payment_amount == 0) {
+                      s_first_payment_amount_error = "'First Payment Amount' must be a number not equal to zero.";
+                  }
+              }
 
-            if (s_first_payment_amount_error != "") {
-                alert(s_first_payment_amount_error);
-                txt_first_payment_amount.focus();
-                txt_first_payment_amount.select();
-                return false;
-            }
+              if (s_first_payment_amount_error != "") {
+                  alert(s_first_payment_amount_error);
+                  txt_first_payment_amount.focus();
+                  txt_first_payment_amount.select();
+                  return false;
+              }
 
-            return true;
-        }
+              return true;
+          }
 
-        function status_change() {
-            var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
+          function status_change() {
+              var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
 
             if (s_inside == "" && s_outside == "") {
@@ -2020,10 +2077,10 @@
             }
 
             return confirm("Change selected item/s status?");
-        }
+          }
 
-        function comment_change() {
-            var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
+          function comment_change() {
+              var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
 
             if (s_inside == "" && s_outside == "") {

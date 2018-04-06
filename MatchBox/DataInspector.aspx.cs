@@ -411,6 +411,7 @@ namespace MatchBox
             // Transactions
             string s_matching_action = string.Empty;
             string s_matching_type = string.Empty;
+            string s_status = string.Empty;
             switch (ddlTransactions.SelectedValue)
             {
                 case "matching":
@@ -420,7 +421,7 @@ namespace MatchBox
 
                     if (divMatchingAction.Visible == true)
                     {
-                         s_matching_action = Parameter_CheckBoxList(cblMatchingAction);
+                        s_matching_action = Parameter_CheckBoxList(cblMatchingAction);
 
                         if (s_matching_action != "") { s_where += " AND MatchingActionID IN ( " + s_matching_action + " ) "; }
                     }
@@ -444,7 +445,7 @@ namespace MatchBox
 
                     if (divStatus.Visible == true)
                     {
-                        string s_status = Parameter_CheckBoxList(cblStatus);
+                        s_status = Parameter_CheckBoxList(cblStatus);
 
                         if (s_status != "") { s_where += " AND StatusID IN ( " + s_status + " ) "; }
                     }
@@ -1748,7 +1749,7 @@ namespace MatchBox
             else
             {
                 // Group By 
-                string s_group_by = string.Empty, sortColumnName = string.Empty, sortType = string.Empty;
+                string s_group_by = string.Empty, sortColumnName = string.Empty, sortType = string.Empty, sortColumnName_Out = string.Empty, sortType_Out = string.Empty;
                 var listGroupBy = new List<KeyValuePair<int, string>>();
                 if (txtGroupByTransactionDate.Text != "")
                 {
@@ -1838,6 +1839,14 @@ namespace MatchBox
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
                 }
+                try
+                {
+                    if (txtGroupByMatchDate.Text != "")
+                    {
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
+                    }
+                }
+                catch (Exception ex) { }
                 if (listGroupBy.Count > 0)
                 {
                     try
@@ -1848,11 +1857,17 @@ namespace MatchBox
                         sortType = "asc";
                         Session["sortColumnName_Inside"] = sortColumnName;
                         Session["hdnOrderSort_Inside"] = "asc";
+                        sortColumnName_Out = listGroupBy.FirstOrDefault().Value;
+                        sortType_Out = "asc";
+                        Session["sortColumnName_Outside"] = sortColumnName_Out;
+                        Session["hdnOrderSort_Outside"] = "asc";
                         hdnGroupBy.Value = "GroupBy";
                         //divCalculationFooter_Inside.Visible = false;
                         //divCalculationFooter_Outside.Visible = false;
                         divCalculationFooter_Inside.Attributes.Add("style", "display:none");
                         divCalculationFooter_Inside_GroupBy.Visible = true;
+                        divCalculationFooter_Outside.Attributes.Add("style", "display:none");
+                        divCalculationFooter_Outside_GroupBy.Visible = true;
                     }
                     catch (Exception ex)
                     {
@@ -1911,6 +1926,51 @@ namespace MatchBox
                     else
                     { strChkFilters += "MatchingActionname"; }
                 }
+                if (s_card != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "cardname";
+                    }
+                    else
+                    { strChkFilters += "cardname"; }
+                }
+                if (s_status != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "statusname";
+                    }
+                    else
+                    { strChkFilters += "statusname"; }
+                }
+                if (s_strategy != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "strategyid";
+                    }
+                    else
+                    { strChkFilters += "strategyid"; }
+                }
+                if (s_matching != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "matchingId";
+                    }
+                    else
+                    { strChkFilters += "matchingId"; }
+                }
+                if (s_credit != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "CreditName";
+                    }
+                    else
+                    { strChkFilters += "CreditName"; }
+                }
                 Session["ChkFilters"] = strChkFilters;
 
                 // Group BY End
@@ -1935,7 +1995,7 @@ namespace MatchBox
                 DataTable dt_inside_sum = new DataTable();
                 DataTable dt_outside_sum = new DataTable();
 
-                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, "", "", s_group_by, strChkFilters);
+                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters);
                 //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
                 ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
 
@@ -4637,6 +4697,25 @@ namespace MatchBox
                         lblInsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_inside, 2));
                         lblInsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_inside, 2));
                     }
+                    if (dt_outside_sum.Rows.Count > 0)
+                    {
+                        n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
+
+                        int n_rows_GrossAmountCountSum_outside = 0;
+                        double n_TransactionGrossAmountSum_outside = 0, n_FirstPaymentAmountSum_outside = 0, n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
+
+                        n_rows_GrossAmountCountSum_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["GrossAmountCountSum"]);
+                        n_TransactionGrossAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["TransactionGrossAmountSum"]);
+                        //n_FirstPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["FirstPaymentAmountSum"]);
+                        n_DutyPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DutyPaymentAmountSum"]);
+                        n_RemainingPaymentsAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["RemainingPaymentsAmountSum"]);
+
+                        lblOutsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n0}", n_rows_GrossAmountCountSum_outside);
+                        lblOutsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_outside, 2));
+                        //lblOutsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_outside, 2));
+                        lblOutsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_outside, 2));
+                        lblOutsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_outside, 2));
+                    }
                 }
             }
             else
@@ -4764,63 +4843,65 @@ namespace MatchBox
                     }
                 }
             }
-
-            foreach (GridViewRow row in gvOutside.Rows)
+            if (string.IsNullOrEmpty(s_group_by))
             {
-                //if (dtLockedRecords.Rows.Count > 0)
-                //{
-                //    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", ""); // 58
-                //    foreach (DataRow dr in dtLockedRecords.Rows)
-                //    {
-                //        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
-                //        {
-                //            var chk = row.Cells[0].Controls[0];//as CheckBox;
-                //            if (chk != null)
-                //            {
-                //                Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                //                row.BackColor = lightGrayColor;
-                //                //row.BorderWidth = 3;
-                //                //row.BorderColor = System.Drawing.Color.Gray;
-                //                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
-                //            }
-                //        }
-                //    }
-                //}
-                //else if (s_mode == "matching")
-                if (s_mode == "matching")
+                foreach (GridViewRow row in gvOutside.Rows)
                 {
-                    //row.BackColor = System.Drawing.Color.LightBlue;
-                    Color lightBlueColor = Color.FromArgb(221, 235, 247);
-                    row.BackColor = lightBlueColor;
-                }
-                else if (s_mode == "not-matching")
-                {
-                    if (hidSelectOutside.Value != "")
-                    {
-                        List<string> s_select_outside = hidSelectOutside.Value.Split(',').ToList();
-                        var chk = row.Cells[0].Controls[0];//as CheckBox;
-                        var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
-                        var exist = s_select_outside.Find(m => m.Equals(chkValue));
-                        if (!string.IsNullOrEmpty(exist))
-                        {
-                            row.BackColor = System.Drawing.Color.LightYellow;
-                        }
-                    }
-                    else
-                        row.BackColor = System.Drawing.Color.White;
-                }
-                else
-                {
-                    var MatchingID = row.Cells[7].Text;
-                    if (!string.IsNullOrEmpty(MatchingID))
+                    //if (dtLockedRecords.Rows.Count > 0)
+                    //{
+                    //    var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", ""); // 58
+                    //    foreach (DataRow dr in dtLockedRecords.Rows)
+                    //    {
+                    //        if (DataFileStrategyID.ToLower().Trim().Equals(dr["DataFileID"].ToString().ToLower().Trim()))
+                    //        {
+                    //            var chk = row.Cells[0].Controls[0];//as CheckBox;
+                    //            if (chk != null)
+                    //            {
+                    //                Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                    //                row.BackColor = lightGrayColor;
+                    //                //row.BorderWidth = 3;
+                    //                //row.BorderColor = System.Drawing.Color.Gray;
+                    //                ((System.Web.UI.HtmlControls.HtmlControl)chk).Disabled = true;
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else if (s_mode == "matching")
+                    if (s_mode == "matching")
                     {
                         //row.BackColor = System.Drawing.Color.LightBlue;
                         Color lightBlueColor = Color.FromArgb(221, 235, 247);
                         row.BackColor = lightBlueColor;
                     }
+                    else if (s_mode == "not-matching")
+                    {
+                        if (hidSelectOutside.Value != "")
+                        {
+                            List<string> s_select_outside = hidSelectOutside.Value.Split(',').ToList();
+                            var chk = row.Cells[0].Controls[0];//as CheckBox;
+                            var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                            var exist = s_select_outside.Find(m => m.Equals(chkValue));
+                            if (!string.IsNullOrEmpty(exist))
+                            {
+                                row.BackColor = System.Drawing.Color.LightYellow;
+                            }
+                        }
+                        else
+                            row.BackColor = System.Drawing.Color.White;
+                    }
                     else
                     {
-                        row.BackColor = System.Drawing.Color.White;
+                        var MatchingID = row.Cells[7].Text;
+                        if (!string.IsNullOrEmpty(MatchingID))
+                        {
+                            //row.BackColor = System.Drawing.Color.LightBlue;
+                            Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                            row.BackColor = lightBlueColor;
+                        }
+                        else
+                        {
+                            row.BackColor = System.Drawing.Color.White;
+                        }
                     }
                 }
             }
@@ -4847,9 +4928,9 @@ namespace MatchBox
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
 
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, pageIndex, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
-
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by);
+            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters);
 
             DataSet ds = new DataSet();
 
@@ -4895,9 +4976,9 @@ namespace MatchBox
 
             string s_order_inside = Convert.ToString(Session["OrderInside"]);
             //string s_order_outside = Convert.ToString(Session["OrderOutside"]);
-
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by);
+            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters);
             DataSet ds = new DataSet();
             var dt_inside_Copy = dt_inside.Copy();
             var dt_inside_sum_Copy = dt_inside_sum.Copy();
@@ -4936,8 +5017,9 @@ namespace MatchBox
 
             //string s_order_inside = Convert.ToString(Session["OrderInside"]);
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
-
-            DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType);
+            string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters);
             DataSet ds = new DataSet();
             var dt_outside_Copy = dt_outside.Copy();
             var dt_outside_sum_Copy = dt_outside_sum.Copy();
@@ -5069,6 +5151,7 @@ namespace MatchBox
             ///
             using (var htmlWriter = new HtmlTextWriter(sWriter))
             {
+                string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : "";
                 foreach (DataRow dtRow in data.Rows)
                 {
                     row = new TableRow();
@@ -5077,64 +5160,65 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
-
-                        //  Modified the code for color change.
-                        row.BackColor = System.Drawing.Color.White;
-
-                        //if (dtLockedRecords.Rows.Count > 0)
-                        //{
-                        //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
-                        //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
-                        //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
-                        //    {
-                        //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                        //        row.BackColor = lightGrayColor;
-                        //    }
-                        //}
-                        //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
-                        if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                        if (string.IsNullOrEmpty(s_group_by))
                         {
-                            Color lightBlueColor = Color.FromArgb(221, 235, 247);
-                            row.BackColor = lightBlueColor;
-                            if (IsChkAllCheckBox == true)
-                            {
-                                row.BackColor = System.Drawing.Color.LightYellow;
+                            //  Modified the code for color change.
+                            row.BackColor = System.Drawing.Color.White;
 
-                            }
-                        }
-                        else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
-                        {
-                            //if (hidSelectInside.Value != "")
+                            //if (dtLockedRecords.Rows.Count > 0)
                             //{
-                            //    List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
-                            //    var chk = row.Cells[0].Controls[0];//as CheckBox;
-                            //    var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
-                            //    var exist = s_select_inside.Find(m => m.Equals(chkValue));
-                            //    if (!string.IsNullOrEmpty(exist))
+                            //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                            //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                            //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
                             //    {
-                            //        row.BackColor = System.Drawing.Color.LightYellow;
+                            //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                            //        row.BackColor = lightGrayColor;
                             //    }
                             //}
-                            //else
-                            row.BackColor = System.Drawing.Color.White;
-                        }
-                        else
-                        {
-                            //var MatchingID = row.Cells[7].Text;
-                            var MatchingID = dtRow.ItemArray[7].ToString();
-                            if (!string.IsNullOrEmpty(MatchingID))
+                            //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                            if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                             {
-                                //row.BackColor = System.Drawing.Color.LightBlue;
                                 Color lightBlueColor = Color.FromArgb(221, 235, 247);
                                 row.BackColor = lightBlueColor;
+                                if (IsChkAllCheckBox == true)
+                                {
+                                    row.BackColor = System.Drawing.Color.LightYellow;
+
+                                }
+                            }
+                            else if (s_mode.ToString().ToLower().Trim().Equals("not-matching"))
+                            {
+                                //if (hidSelectInside.Value != "")
+                                //{
+                                //    List<string> s_select_inside = hidSelectInside.Value.Split(',').ToList();
+                                //    var chk = row.Cells[0].Controls[0];//as CheckBox;
+                                //    var chkValue = ((System.Web.UI.HtmlControls.HtmlInputControl)chk).Value;
+                                //    var exist = s_select_inside.Find(m => m.Equals(chkValue));
+                                //    if (!string.IsNullOrEmpty(exist))
+                                //    {
+                                //        row.BackColor = System.Drawing.Color.LightYellow;
+                                //    }
+                                //}
+                                //else
+                                row.BackColor = System.Drawing.Color.White;
                             }
                             else
                             {
-                                row.BackColor = System.Drawing.Color.White;
+                                //var MatchingID = row.Cells[7].Text;
+                                var MatchingID = dtRow.ItemArray[7].ToString();
+                                if (!string.IsNullOrEmpty(MatchingID))
+                                {
+                                    //row.BackColor = System.Drawing.Color.LightBlue;
+                                    Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                                    row.BackColor = lightBlueColor;
+                                }
+                                else
+                                {
+                                    row.BackColor = System.Drawing.Color.White;
+                                }
                             }
+                            // Modified the code for color change.
                         }
-                        // Modified the code for color change.
-
                     }
                     DataAction.Bind_Grid_Data_Row_Outside(row, lst_outside_field_priority, "", "Outside", s_mode, IsChkAllCheckBox);
                     row.RenderControl(htmlWriter);

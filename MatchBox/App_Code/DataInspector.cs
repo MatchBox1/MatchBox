@@ -152,9 +152,9 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
-
             try
             {
+                o_command.CommandTimeout = 120;
                 o_data_adapter.Fill(o_data_set);
 
                 dt_inside = o_data_set.Tables[0];
@@ -177,7 +177,7 @@ namespace MatchBox
             }
         }
 
-        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside, int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by)
+        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside, int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by, string strChkFilters)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
@@ -198,7 +198,7 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@sortColumnName", SqlDbType.NVarChar, -1) { Value = strDBColumnName });
             o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
             o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
-
+            o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
             try
@@ -221,11 +221,13 @@ namespace MatchBox
             }
         }
 
-        public static void SelectOutside(int n_user_id, string s_where_outside, string s_order_outside, int n_page_outside, int n_page_size, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType)
+        public static void SelectOutside(int n_user_id, string s_where_outside, string s_order_outside, int n_page_outside, int n_page_size, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by, string strChkFilters)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
                 strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+            if (strDBColumnName == "")
+                strDBColumnName = sortColumnName.Trim();
 
             SqlCommand o_command = new SqlCommand("sprDataSelectOutsidePagingLazy", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
@@ -237,6 +239,8 @@ namespace MatchBox
 
             o_command.Parameters.Add(new SqlParameter("@sortColumnName", SqlDbType.NVarChar, -1) { Value = strDBColumnName });
             o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
+            o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
+            o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
 
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
@@ -1991,47 +1995,64 @@ namespace MatchBox
                     int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
                     int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
 
-                    TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
-                    TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
-                    TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
-                    TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
+                    if (i_net_payment_amount != -1)
+                    {
+                        TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
+                        double n_net_payment_amount = 0;
+                        double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
+                        tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
+                    }
+                    if (i_absorption_date != -1)
+                    {
+                        TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
+
+                        try
+                        {
+                            DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
+
+                            tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
+                        }
+                        catch (Exception ex) { }
+                    }
+                    if (i_paymen_date_actual != -1)
+                    {
+                        TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
+                        try
+                        {
+                            DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
+
+                            tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
+                        }
+                        catch (Exception ex) { }
+                    }
+                    if (i_invoice_date != -1)
+                    {
+                        TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
+                        try
+                        {
+                            DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
+
+                            tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
+                        }
+                        catch (Exception ex) { }
+                    }
 
                     // NetPaymentAmount
 
-                    double n_net_payment_amount = 0;
-                    double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
 
-                    tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
+
 
                     // AbsorptionDate
 
-                    try
-                    {
-                        DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
 
-                        tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
-                    }
-                    catch (Exception ex) { }
 
                     // PaymentDateActual
 
-                    try
-                    {
-                        DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
 
-                        tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
-                    }
-                    catch (Exception ex) { }
 
                     // InvoiceDate
 
-                    try
-                    {
-                        DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
 
-                        tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
-                    }
-                    catch (Exception ex) { }
                 }
 
             }
@@ -2724,306 +2745,676 @@ namespace MatchBox
         public static void Bind_Grid_Data_Row_Outside(TableRow gv_row, List<string> lst_field_priority, string s_select_outside, string s_table, string s_mode, bool IsChkAllCheckBox, string s_query_id_href = "")
         {
             // CREATE LISTS FOR SELECTED ITEMS
-
-            List<string> lst_select_outside = new List<string>();
-
-            if (s_select_outside != "")
+            string s_group_by = System.Web.HttpContext.Current.Session["GroupBy"] != null ? System.Web.HttpContext.Current.Session["GroupBy"].ToString() : "";
+            if (string.IsNullOrEmpty(s_group_by))  //// Without Group By ---
             {
-                lst_select_outside = s_select_outside.Split(',').ToList();
-            }
+                List<string> lst_select_outside = new List<string>();
 
-            // bool b_inside = (s_table == "Inside");
-
-            // == COMMON TableCell VARIABLES ==
-
-            int i_select = lst_field_priority.IndexOf("IsSelected");
-
-            int i_id = lst_field_priority.IndexOf("ID");
-            int i_unique_id = lst_field_priority.IndexOf("UniqueID");
-            int i_query_id = lst_field_priority.IndexOf("QueryID");
-            int i_matching_id = lst_field_priority.IndexOf("MatchingID");
-            int i_matching_action = lst_field_priority.IndexOf("MatchingActionName");
-            int i_data_file_id = lst_field_priority.IndexOf("DataFileID");
-            int i_duty_payment_number = lst_field_priority.IndexOf("DutyPaymentNumber");
-            int i_transaction_gross_amount = lst_field_priority.IndexOf("TransactionGrossAmount");
-            int i_duty_payment_amount = lst_field_priority.IndexOf("DutyPaymentAmount");
-            int i_remaining_payments_amount = lst_field_priority.IndexOf("RemainingPaymentsAmount");
-            int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
-            int i_transmission_date = lst_field_priority.IndexOf("TransmissionDate");
-            int i_paymen_date = lst_field_priority.IndexOf("PaymentDate");
-            ///
-            int i_IsAbroad = lst_field_priority.IndexOf("IsAbroad");
-            ///
-            TableCell tc_select = gv_row.Cells[i_select];
-            tc_select.CssClass = "bg-gray";
-
-            TableCell tc_id = gv_row.Cells[i_id];
-            TableCell tc_unique_id = gv_row.Cells[i_unique_id];
-            TableCell tc_query_id = gv_row.Cells[i_query_id];
-            TableCell tc_matching_id = gv_row.Cells[i_matching_id];
-            TableCell tc_matching_action = gv_row.Cells[i_matching_action];
-            TableCell tc_data_file_id = gv_row.Cells[i_data_file_id];
-            TableCell tr_duty_payment_number = gv_row.Cells[i_duty_payment_number];
-            TableCell tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
-            TableCell tc_duty_payment_amount = gv_row.Cells[i_duty_payment_amount];
-            TableCell tc_remaining_payments_amount = gv_row.Cells[i_remaining_payments_amount];
-            TableCell tc_transaction_date = gv_row.Cells[i_transaction_date];
-            TableCell tc_transmission_date = gv_row.Cells[i_transmission_date];
-            TableCell tc_paymen_date = gv_row.Cells[i_paymen_date];
-            ///
-            TableCell tc_IsAbroad = gv_row.Cells[i_IsAbroad];
-            ///
-
-            decimal n_id = 0;
-            decimal.TryParse(tc_id.Text, out n_id);
-
-            bool b_select = false;
-            bool.TryParse(tc_select.Text, out b_select);
-
-            string s_unique_id = Get_Cell_Text(ref tc_unique_id);
-            string s_query_id = Get_Cell_Text(ref tc_query_id);
-
-            int n_duty_payment_number = 0;
-            int.TryParse(tr_duty_payment_number.Text, out n_duty_payment_number);
-
-            ////
-            bool b_IsAbroad = false;
-            bool.TryParse(tc_IsAbroad.Text, out b_IsAbroad);
-            ////
-
-            // ID
-
-            if (n_id <= 0)
-            {
-                tc_id.Controls.Add(Get_Anchor_Error("ID not exists."));
-            }
-
-            // UniqueID
-
-            if (Is_Guid(s_unique_id) == false) { s_unique_id = ""; }
-
-            if (s_unique_id != "")
-            {
-                HtmlAnchor lnk_unique_id = new HtmlAnchor();
-
-                lnk_unique_id.InnerHtml = "Source";
-                lnk_unique_id.HRef = "javascript: void(0);";
-                lnk_unique_id.Attributes.Add("onclick", "javascript: payment_click('" + s_unique_id + "', '" + s_table + "');");
-
-                tc_unique_id.Controls.Add(lnk_unique_id);
-            }
-
-            // QueryID
-
-            if (Is_Guid(s_query_id) == false) { s_query_id = ""; }
-
-            if (s_query_id != "")
-            {
-                HtmlAnchor lnk_query_id = new HtmlAnchor();
-
-                lnk_query_id.InnerHtml = "Match";
-
-                if (s_query_id_href != "")
+                if (s_select_outside != "")
                 {
-                    lnk_query_id.HRef = String.Format("{0}&qid={1}", s_query_id_href, s_query_id);
-                }
-                else
-                {
-                    lnk_query_id.HRef = "javascript: void(0);";
-                    lnk_query_id.Attributes.Add("onclick", "javascript: match_click('" + s_query_id + "');");
+                    lst_select_outside = s_select_outside.Split(',').ToList();
                 }
 
-                tc_query_id.Controls.Add(lnk_query_id);
-            }
-            else if (b_select == true)
-            {
-                tc_query_id.Controls.Add(Get_Anchor_Error("QueryID not exists."));
-            }
+                // bool b_inside = (s_table == "Inside");
 
-            // MatchingID
+                // == COMMON TableCell VARIABLES ==
 
-            int n_matching_id = 0;
-            int.TryParse(tc_matching_id.Text, out n_matching_id);
+                int i_select = lst_field_priority.IndexOf("IsSelected");
 
-            tc_matching_id.Text = (n_matching_id > 0) ? String.Format("#{0}", n_matching_id) : "";
+                int i_id = lst_field_priority.IndexOf("ID");
+                int i_unique_id = lst_field_priority.IndexOf("UniqueID");
+                int i_query_id = lst_field_priority.IndexOf("QueryID");
+                int i_matching_id = lst_field_priority.IndexOf("MatchingID");
+                int i_matching_action = lst_field_priority.IndexOf("MatchingActionName");
+                int i_data_file_id = lst_field_priority.IndexOf("DataFileID");
+                int i_duty_payment_number = lst_field_priority.IndexOf("DutyPaymentNumber");
+                int i_transaction_gross_amount = lst_field_priority.IndexOf("TransactionGrossAmount");
+                int i_duty_payment_amount = lst_field_priority.IndexOf("DutyPaymentAmount");
+                int i_remaining_payments_amount = lst_field_priority.IndexOf("RemainingPaymentsAmount");
+                int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
+                int i_transmission_date = lst_field_priority.IndexOf("TransmissionDate");
+                int i_paymen_date = lst_field_priority.IndexOf("PaymentDate");
+                ///
+                int i_IsAbroad = lst_field_priority.IndexOf("IsAbroad");
+                ///
+                TableCell tc_select = gv_row.Cells[i_select];
+                tc_select.CssClass = "bg-gray";
 
-            // MatchingAction
+                TableCell tc_id = gv_row.Cells[i_id];
+                TableCell tc_unique_id = gv_row.Cells[i_unique_id];
+                TableCell tc_query_id = gv_row.Cells[i_query_id];
+                TableCell tc_matching_id = gv_row.Cells[i_matching_id];
+                TableCell tc_matching_action = gv_row.Cells[i_matching_action];
+                TableCell tc_data_file_id = gv_row.Cells[i_data_file_id];
+                TableCell tr_duty_payment_number = gv_row.Cells[i_duty_payment_number];
+                TableCell tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
+                TableCell tc_duty_payment_amount = gv_row.Cells[i_duty_payment_amount];
+                TableCell tc_remaining_payments_amount = gv_row.Cells[i_remaining_payments_amount];
+                TableCell tc_transaction_date = gv_row.Cells[i_transaction_date];
+                TableCell tc_transmission_date = gv_row.Cells[i_transmission_date];
+                TableCell tc_paymen_date = gv_row.Cells[i_paymen_date];
+                ///
+                TableCell tc_IsAbroad = gv_row.Cells[i_IsAbroad];
+                ///
 
-            if (tc_matching_action.Text.Trim() == "Resplit")
-            {
-                gv_row.CssClass = "bg-gray";
-                gv_row.Attributes.Add("data-class", gv_row.CssClass);
-            }
+                decimal n_id = 0;
+                decimal.TryParse(tc_id.Text, out n_id);
 
-            // DutyPaymentNumber
+                bool b_select = false;
+                bool.TryParse(tc_select.Text, out b_select);
 
-            if (n_duty_payment_number <= 0)
-            {
-                tr_duty_payment_number.Controls.Add(Get_Anchor_Error("DutyPaymentNumber not exists."));
-            }
+                string s_unique_id = Get_Cell_Text(ref tc_unique_id);
+                string s_query_id = Get_Cell_Text(ref tc_query_id);
 
-            // CHECK-BOX 
+                int n_duty_payment_number = 0;
+                int.TryParse(tr_duty_payment_number.Text, out n_duty_payment_number);
 
-            string s_checkbox_value = "";
+                ////
+                bool b_IsAbroad = false;
+                bool.TryParse(tc_IsAbroad.Text, out b_IsAbroad);
+                ////
 
-            switch (s_mode)
-            {
-                case "payment":
-                    s_checkbox_value = n_duty_payment_number.ToString();
-                    break;
-                case "matching":
-                    s_checkbox_value = s_query_id;
-                    break;
-                default:
-                    s_checkbox_value = n_id.ToString();
-                    break;
-            }
+                // ID
 
-            bool b_checked = false, b_disabled = false;
+                if (n_id <= 0)
+                {
+                    tc_id.Controls.Add(Get_Anchor_Error("ID not exists."));
+                }
 
-            switch (s_mode)
-            {
-                case "all":
-                    b_checked = b_select;
-                    b_disabled = true;
-                    break;
-                case "payment":
-                    b_checked = false;
-                    b_disabled = false;
-                    //b_disabled = (b_inside == false || lst_select_inside.Count > 0);
-                    break;
-                case "match":
-                    b_checked = (lst_select_outside.Contains(s_checkbox_value) == false);
-                    b_disabled = lst_select_outside.Count > 0;
-                    break;
-                case "matching":
-                    List<string> lst_query_id = lst_select_outside.ToList();   // GET DISTINCT VALUES OF lst_inside_query_id & lst_outside_query_id
-                    b_checked = (lst_query_id.Contains(s_checkbox_value) == false);
-                    b_disabled = (lst_query_id.Count > 0);
-                    if (IsChkAllCheckBox == true)
+                // UniqueID
+
+                if (Is_Guid(s_unique_id) == false) { s_unique_id = ""; }
+
+                if (s_unique_id != "")
+                {
+                    HtmlAnchor lnk_unique_id = new HtmlAnchor();
+
+                    lnk_unique_id.InnerHtml = "Source";
+                    lnk_unique_id.HRef = "javascript: void(0);";
+                    lnk_unique_id.Attributes.Add("onclick", "javascript: payment_click('" + s_unique_id + "', '" + s_table + "');");
+
+                    tc_unique_id.Controls.Add(lnk_unique_id);
+                }
+
+                // QueryID
+
+                if (Is_Guid(s_query_id) == false) { s_query_id = ""; }
+
+                if (s_query_id != "")
+                {
+                    HtmlAnchor lnk_query_id = new HtmlAnchor();
+
+                    lnk_query_id.InnerHtml = "Match";
+
+                    if (s_query_id_href != "")
                     {
-                        b_disabled = true;
-                        b_checked = false;
+                        lnk_query_id.HRef = String.Format("{0}&qid={1}", s_query_id_href, s_query_id);
                     }
-                    break;
-                case "not-matching":
-                    b_checked = (lst_select_outside.Contains(s_checkbox_value) == true);
-                    b_disabled = (lst_select_outside.Count > 0);
-                    if (IsChkAllCheckBox == true)
+                    else
+                    {
+                        lnk_query_id.HRef = "javascript: void(0);";
+                        lnk_query_id.Attributes.Add("onclick", "javascript: match_click('" + s_query_id + "');");
+                    }
+
+                    tc_query_id.Controls.Add(lnk_query_id);
+                }
+                else if (b_select == true)
+                {
+                    tc_query_id.Controls.Add(Get_Anchor_Error("QueryID not exists."));
+                }
+
+                // MatchingID
+
+                int n_matching_id = 0;
+                int.TryParse(tc_matching_id.Text, out n_matching_id);
+
+                tc_matching_id.Text = (n_matching_id > 0) ? String.Format("#{0}", n_matching_id) : "";
+
+                // MatchingAction
+
+                if (tc_matching_action.Text.Trim() == "Resplit")
+                {
+                    gv_row.CssClass = "bg-gray";
+                    gv_row.Attributes.Add("data-class", gv_row.CssClass);
+                }
+
+                // DutyPaymentNumber
+
+                if (n_duty_payment_number <= 0)
+                {
+                    tr_duty_payment_number.Controls.Add(Get_Anchor_Error("DutyPaymentNumber not exists."));
+                }
+
+                // CHECK-BOX 
+
+                string s_checkbox_value = "";
+
+                switch (s_mode)
+                {
+                    case "payment":
+                        s_checkbox_value = n_duty_payment_number.ToString();
+                        break;
+                    case "matching":
+                        s_checkbox_value = s_query_id;
+                        break;
+                    default:
+                        s_checkbox_value = n_id.ToString();
+                        break;
+                }
+
+                bool b_checked = false, b_disabled = false;
+
+                switch (s_mode)
+                {
+                    case "all":
+                        b_checked = b_select;
                         b_disabled = true;
-                    break;
+                        break;
+                    case "payment":
+                        b_checked = false;
+                        b_disabled = false;
+                        //b_disabled = (b_inside == false || lst_select_inside.Count > 0);
+                        break;
+                    case "match":
+                        b_checked = (lst_select_outside.Contains(s_checkbox_value) == false);
+                        b_disabled = lst_select_outside.Count > 0;
+                        break;
+                    case "matching":
+                        List<string> lst_query_id = lst_select_outside.ToList();   // GET DISTINCT VALUES OF lst_inside_query_id & lst_outside_query_id
+                        b_checked = (lst_query_id.Contains(s_checkbox_value) == false);
+                        b_disabled = (lst_query_id.Count > 0);
+                        if (IsChkAllCheckBox == true)
+                        {
+                            b_disabled = true;
+                            b_checked = false;
+                        }
+                        break;
+                    case "not-matching":
+                        b_checked = (lst_select_outside.Contains(s_checkbox_value) == true);
+                        b_disabled = (lst_select_outside.Count > 0);
+                        if (IsChkAllCheckBox == true)
+                            b_disabled = true;
+                        break;
+                }
+
+                HtmlInputCheckBox chk_select = Get_CheckBox_Select(s_checkbox_value, s_table, false, b_checked, b_disabled);
+                tc_select.Controls.Add(chk_select);
+                ///// IsAbroad
+                HtmlInputCheckBox chk_IsAbroad = Get_CheckBox_Select("", s_table, false, b_IsAbroad, true);
+                tc_IsAbroad.Controls.Add(chk_IsAbroad);
+                ////
+                // DataFileID
+
+                int n_data_file_id = 0;
+                int.TryParse(tc_data_file_id.Text, out n_data_file_id);
+
+                tc_data_file_id.Text = (n_data_file_id > 0) ? String.Format("#{0}", n_data_file_id) : "";
+
+                // TransactionGrossAmount
+
+                double n_transaction_gross_amount = 0;
+                double.TryParse(tc_transaction_gross_amount.Text, out n_transaction_gross_amount);
+
+                tc_transaction_gross_amount.Text = String.Format("{0:n2}", n_transaction_gross_amount);
+
+                // DutyPaymentAmount
+
+                double n_duty_payment_amount = 0;
+                double.TryParse(tc_duty_payment_amount.Text, out n_duty_payment_amount);
+
+                tc_duty_payment_amount.Text = String.Format("{0:n2}", n_duty_payment_amount);
+
+                // RemainingPaymentsAmount
+
+                double n_remaining_payments_amount = 0;
+                double.TryParse(tc_remaining_payments_amount.Text, out n_remaining_payments_amount);
+
+                tc_remaining_payments_amount.Text = String.Format("{0:n2}", n_remaining_payments_amount);
+
+                // TransactionDate
+
+                try
+                {
+                    DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
+
+                    tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                }
+                catch (Exception ex) { }
+
+                // TransmissionDate
+
+                try
+                {
+                    DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
+
+                    tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                }
+                catch (Exception ex) { }
+
+                // PaymentDate
+
+                try
+                {
+                    DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
+
+                    tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                }
+                catch (Exception ex) { }
+
+                int i_net_payment_amount = lst_field_priority.IndexOf("NetPaymentAmount");
+                int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
+                int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
+                int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
+
+                TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
+                TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
+                TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
+                TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
+
+                // NetPaymentAmount
+
+                double n_net_payment_amount = 0;
+                double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
+
+                tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
+
+                // AbsorptionDate
+
+                try
+                {
+                    DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
+
+                    tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
+                }
+                catch (Exception ex) { }
+
+                // PaymentDateActual
+
+                try
+                {
+                    DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
+
+                    tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
+                }
+                catch (Exception ex) { }
+
+                // InvoiceDate
+
+                try
+                {
+                    DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
+
+                    tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
+                }
+                catch (Exception ex) { }
             }
-
-            HtmlInputCheckBox chk_select = Get_CheckBox_Select(s_checkbox_value, s_table, false, b_checked, b_disabled);
-            tc_select.Controls.Add(chk_select);
-            ///// IsAbroad
-            HtmlInputCheckBox chk_IsAbroad = Get_CheckBox_Select("", s_table, false, b_IsAbroad, true);
-            tc_IsAbroad.Controls.Add(chk_IsAbroad);
-            ////
-            // DataFileID
-
-            int n_data_file_id = 0;
-            int.TryParse(tc_data_file_id.Text, out n_data_file_id);
-
-            tc_data_file_id.Text = (n_data_file_id > 0) ? String.Format("#{0}", n_data_file_id) : "";
-
-            // TransactionGrossAmount
-
-            double n_transaction_gross_amount = 0;
-            double.TryParse(tc_transaction_gross_amount.Text, out n_transaction_gross_amount);
-
-            tc_transaction_gross_amount.Text = String.Format("{0:n2}", n_transaction_gross_amount);
-
-            // DutyPaymentAmount
-
-            double n_duty_payment_amount = 0;
-            double.TryParse(tc_duty_payment_amount.Text, out n_duty_payment_amount);
-
-            tc_duty_payment_amount.Text = String.Format("{0:n2}", n_duty_payment_amount);
-
-            // RemainingPaymentsAmount
-
-            double n_remaining_payments_amount = 0;
-            double.TryParse(tc_remaining_payments_amount.Text, out n_remaining_payments_amount);
-
-            tc_remaining_payments_amount.Text = String.Format("{0:n2}", n_remaining_payments_amount);
-
-            // TransactionDate
-
-            try
+            else
             {
-                DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
+                List<string> lst_select_outside = new List<string>();
 
-                tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                if (s_select_outside != "")
+                {
+                    lst_select_outside = s_select_outside.Split(',').ToList();
+                }
+
+                // bool b_inside = (s_table == "Inside");
+
+                // == COMMON TableCell VARIABLES ==
+
+                int i_select = lst_field_priority.IndexOf("IsSelected");
+
+                int i_id = lst_field_priority.IndexOf("ID");
+                int i_unique_id = lst_field_priority.IndexOf("UniqueID");
+                int i_query_id = lst_field_priority.IndexOf("QueryID");
+                int i_matching_id = lst_field_priority.IndexOf("MatchingID");
+                int i_matching_action = lst_field_priority.IndexOf("MatchingActionName");
+                int i_data_file_id = lst_field_priority.IndexOf("DataFileID");
+                int i_duty_payment_number = lst_field_priority.IndexOf("DutyPaymentNumber");
+                int i_transaction_gross_amount = lst_field_priority.IndexOf("TransactionGrossAmount");
+                int i_duty_payment_amount = lst_field_priority.IndexOf("DutyPaymentAmount");
+                int i_remaining_payments_amount = lst_field_priority.IndexOf("RemainingPaymentsAmount");
+                int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
+                int i_transmission_date = lst_field_priority.IndexOf("TransmissionDate");
+                int i_paymen_date = lst_field_priority.IndexOf("PaymentDate");
+                ///
+                int i_IsAbroad = lst_field_priority.IndexOf("IsAbroad");
+                ///
+                bool b_select = false;
+                TableCell tc_select = null;
+                if (i_select != -1)
+                {
+                    tc_select = gv_row.Cells[i_select];
+                    tc_select.CssClass = "bg-gray";
+
+                    bool.TryParse(tc_select.Text, out b_select);
+                }
+
+                decimal n_id = 0;
+                if (i_id != -1)
+                {
+                    TableCell tc_id = gv_row.Cells[i_id];
+                    decimal.TryParse(tc_id.Text, out n_id);
+                    if (n_id <= 0)
+                    {
+                        tc_id.Controls.Add(Get_Anchor_Error("ID not exists."));
+                    }
+                }
+
+                if (i_unique_id != -1)
+                {
+                    TableCell tc_unique_id = gv_row.Cells[i_unique_id];
+                    string s_unique_id = Get_Cell_Text(ref tc_unique_id);
+
+                    if (Is_Guid(s_unique_id) == false) { s_unique_id = ""; }
+
+                    if (s_unique_id != "")
+                    {
+                        HtmlAnchor lnk_unique_id = new HtmlAnchor();
+
+                        lnk_unique_id.InnerHtml = "Source";
+                        lnk_unique_id.HRef = "javascript: void(0);";
+                        lnk_unique_id.Attributes.Add("onclick", "javascript: payment_click('" + s_unique_id + "', '" + s_table + "');");
+
+                        tc_unique_id.Controls.Add(lnk_unique_id);
+                    }
+                }
+
+                string s_query_id = string.Empty;
+                if (i_query_id != -1)
+                {
+                    TableCell tc_query_id = gv_row.Cells[i_query_id];
+                    s_query_id = Get_Cell_Text(ref tc_query_id);
+
+                    if (Is_Guid(s_query_id) == false) { s_query_id = ""; }
+
+                    if (s_query_id != "")
+                    {
+                        HtmlAnchor lnk_query_id = new HtmlAnchor();
+
+                        lnk_query_id.InnerHtml = "Match";
+
+                        if (s_query_id_href != "")
+                        {
+                            lnk_query_id.HRef = String.Format("{0}&qid={1}", s_query_id_href, s_query_id);
+                        }
+                        else
+                        {
+                            lnk_query_id.HRef = "javascript: void(0);";
+                            lnk_query_id.Attributes.Add("onclick", "javascript: match_click('" + s_query_id + "');");
+                        }
+
+                        tc_query_id.Controls.Add(lnk_query_id);
+                    }
+                    else if (b_select == true)
+                    {
+                        tc_query_id.Controls.Add(Get_Anchor_Error("QueryID not exists."));
+                    }
+                }
+
+
+                if (i_matching_id != -1)
+                {
+                    TableCell tc_matching_id = gv_row.Cells[i_matching_id];
+                    int n_matching_id = 0;
+                    int.TryParse(tc_matching_id.Text, out n_matching_id);
+
+                    tc_matching_id.Text = (n_matching_id > 0) ? String.Format("#{0}", n_matching_id) : "";
+                }
+
+                if (i_matching_action != -1)
+                {
+                    TableCell tc_matching_action = gv_row.Cells[i_matching_action];
+                    if (tc_matching_action.Text.Trim() == "Resplit")
+                    {
+                        gv_row.CssClass = "bg-gray";
+                        gv_row.Attributes.Add("data-class", gv_row.CssClass);
+                    }
+                }
+
+                if (i_data_file_id != -1)
+                {
+                    TableCell tc_data_file_id = gv_row.Cells[i_data_file_id];
+                    if (tc_data_file_id != null)
+                    {
+                        int n_data_file_id = 0;
+                        int.TryParse(tc_data_file_id.Text, out n_data_file_id);
+
+                        tc_data_file_id.Text = (n_data_file_id > 0) ? String.Format("#{0}", n_data_file_id) : "";
+                    }
+                }
+
+                int n_duty_payment_number = 0;
+                if (i_duty_payment_number != -1)
+                {
+                    TableCell tr_duty_payment_number = gv_row.Cells[i_duty_payment_number];
+                    int.TryParse(tr_duty_payment_number.Text, out n_duty_payment_number);
+
+                    if (n_duty_payment_number <= 0)
+                    {
+                        tr_duty_payment_number.Controls.Add(Get_Anchor_Error("DutyPaymentNumber not exists."));
+                    }
+                }
+               
+                
+                
+                ///
+
+                TableCell tc_IsAbroad = null;
+                bool b_IsAbroad = false;
+                if (i_IsAbroad != -1)
+                {
+                    tc_IsAbroad = gv_row.Cells[i_IsAbroad];
+                    bool.TryParse(tc_IsAbroad.Text, out b_IsAbroad);
+                }
+               
+
+               
+
+                // DutyPaymentNumber
+
+                
+
+                // CHECK-BOX 
+
+                string s_checkbox_value = "";
+
+                switch (s_mode)
+                {
+                    case "payment":
+                        s_checkbox_value = n_duty_payment_number.ToString();
+                        break;
+                    case "matching":
+                        s_checkbox_value = s_query_id;
+                        break;
+                    default:
+                        s_checkbox_value = n_id.ToString();
+                        break;
+                }
+
+                bool b_checked = false, b_disabled = false;
+
+                switch (s_mode)
+                {
+                    case "all":
+                        b_checked = b_select;
+                        b_disabled = true;
+                        break;
+                    case "payment":
+                        b_checked = false;
+                        b_disabled = false;
+                        //b_disabled = (b_inside == false || lst_select_inside.Count > 0);
+                        break;
+                    case "match":
+                        b_checked = (lst_select_outside.Contains(s_checkbox_value) == false);
+                        b_disabled = lst_select_outside.Count > 0;
+                        break;
+                    case "matching":
+                        List<string> lst_query_id = lst_select_outside.ToList();   // GET DISTINCT VALUES OF lst_inside_query_id & lst_outside_query_id
+                        b_checked = (lst_query_id.Contains(s_checkbox_value) == false);
+                        b_disabled = (lst_query_id.Count > 0);
+                        if (IsChkAllCheckBox == true)
+                        {
+                            b_disabled = true;
+                            b_checked = false;
+                        }
+                        break;
+                    case "not-matching":
+                        b_checked = (lst_select_outside.Contains(s_checkbox_value) == true);
+                        b_disabled = (lst_select_outside.Count > 0);
+                        if (IsChkAllCheckBox == true)
+                            b_disabled = true;
+                        break;
+                }
+
+                if (tc_select != null)
+                {
+                    HtmlInputCheckBox chk_select = Get_CheckBox_Select(s_checkbox_value, s_table, false, b_checked, b_disabled);
+                    tc_select.Controls.Add(chk_select);
+                }
+                ///// IsAbroad
+                if (tc_IsAbroad != null)
+                {
+                    HtmlInputCheckBox chk_IsAbroad = Get_CheckBox_Select("", s_table, false, b_IsAbroad, true);
+                    tc_IsAbroad.Controls.Add(chk_IsAbroad);
+                }
+                ////
+                // DataFileID
+
+               
+                // TransactionGrossAmount
+
+                if (i_transaction_gross_amount != -1)
+                {
+                    TableCell tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
+                    double n_transaction_gross_amount = 0;
+                    double.TryParse(tc_transaction_gross_amount.Text, out n_transaction_gross_amount);
+
+                    tc_transaction_gross_amount.Text = String.Format("{0:n2}", n_transaction_gross_amount);
+                }
+                // DutyPaymentAmount
+
+                if (i_duty_payment_amount != -1)
+                {
+                    TableCell tc_duty_payment_amount = gv_row.Cells[i_duty_payment_amount];
+                    double n_duty_payment_amount = 0;
+                    double.TryParse(tc_duty_payment_amount.Text, out n_duty_payment_amount);
+
+                    tc_duty_payment_amount.Text = String.Format("{0:n2}", n_duty_payment_amount);
+                }
+                // RemainingPaymentsAmount
+
+
+
+                if (i_remaining_payments_amount != -1)
+                {
+                    TableCell tc_remaining_payments_amount = gv_row.Cells[i_remaining_payments_amount];
+                    double n_remaining_payments_amount = 0;
+                    double.TryParse(tc_remaining_payments_amount.Text, out n_remaining_payments_amount);
+
+                    tc_remaining_payments_amount.Text = String.Format("{0:n2}", n_remaining_payments_amount);
+                }
+                // TransactionDate
+
+                if (i_transaction_date != -1)
+                {
+                    try
+                    {
+                        TableCell tc_transaction_date = gv_row.Cells[i_transaction_date];
+
+                        DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
+
+                        tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                    }
+                    catch (Exception ex) { }
+                }
+
+                // TransmissionDate
+
+                if (i_transmission_date != -1)
+                {
+                    try
+                    {
+                        TableCell tc_transmission_date = gv_row.Cells[i_transmission_date];
+                        DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
+
+                        tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                    }
+                    catch (Exception ex) { }
+                }
+                // PaymentDate
+
+                if (i_paymen_date != -1)
+                {
+                    try
+                    {
+                        TableCell tc_paymen_date = gv_row.Cells[i_paymen_date];
+                        DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
+
+                        tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                    }
+                    catch (Exception ex) { }
+                }
+
+                int i_net_payment_amount = lst_field_priority.IndexOf("NetPaymentAmount");
+                int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
+                int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
+                int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
+
+
+                if (i_net_payment_amount != -1)
+                {
+                    TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
+                    double n_net_payment_amount = 0;
+                    double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
+                    tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
+                }
+
+
+                // NetPaymentAmount
+
+
+
+                // AbsorptionDate
+                if (i_absorption_date != -1)
+                {
+                    try
+                    {
+                        TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
+
+                        DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
+
+                        tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
+                    }
+                    catch (Exception ex) { }
+                }
+
+                // PaymentDateActual
+                if (i_paymen_date_actual != -1)
+                {
+                    try
+                    {
+                        TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
+                        DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
+
+                        tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
+                    }
+                    catch (Exception ex) { }
+                }
+
+                // InvoiceDate
+
+                if (i_invoice_date != -1)
+                {
+                    try
+                    {
+                        TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
+                        DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
+
+                        tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
+                    }
+                    catch (Exception ex) { }
+                }
             }
-            catch (Exception ex) { }
-
-            // TransmissionDate
-
-            try
-            {
-                DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
-
-                tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
-            }
-            catch (Exception ex) { }
-
-            // PaymentDate
-
-            try
-            {
-                DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
-
-                tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
-            }
-            catch (Exception ex) { }
-
-            int i_net_payment_amount = lst_field_priority.IndexOf("NetPaymentAmount");
-            int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
-            int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
-            int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
-
-            TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
-            TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
-            TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
-            TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
-
-            // NetPaymentAmount
-
-            double n_net_payment_amount = 0;
-            double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
-
-            tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
-
-            // AbsorptionDate
-
-            try
-            {
-                DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
-
-                tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
-            }
-            catch (Exception ex) { }
-
-            // PaymentDateActual
-
-            try
-            {
-                DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
-
-                tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
-            }
-            catch (Exception ex) { }
-
-            // InvoiceDate
-
-            try
-            {
-                DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
-
-                tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
-            }
-            catch (Exception ex) { }
         }
 
         // BIND ROW - SOURCE ( ARCHIVE ) TABLE

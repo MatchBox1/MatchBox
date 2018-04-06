@@ -715,6 +715,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBox chkExcludeMatchingDate;
         
         /// <summary>
+        /// txtGroupByMatchDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByMatchDate;
+        
+        /// <summary>
+        /// lblGroupByMatchDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByMatchDate;
+        
+        /// <summary>
         /// txtMatchingDate control.
         /// </summary>
         /// <remarks>
@@ -2954,6 +2972,51 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOutsidePage;
+        
+        /// <summary>
+        /// divCalculationFooter_Outside_GroupBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculationFooter_Outside_GroupBy;
+        
+        /// <summary>
+        /// lblOutsideGrossAmountCountSum_GroupBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideGrossAmountCountSum_GroupBy;
+        
+        /// <summary>
+        /// lblOutsideTransactionGrossAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideTransactionGrossAmountSum;
+        
+        /// <summary>
+        /// lblOutsideDutyPaymentAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideDutyPaymentAmountSum;
+        
+        /// <summary>
+        /// lblOutsideRemainingPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideRemainingPaymentsAmountSum;
         
         /// <summary>
         /// divSourceSeparator control.
