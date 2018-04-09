@@ -1207,21 +1207,54 @@
             <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Outside_GroupBy" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
-                        <td>&nbsp; &nbsp;</td>
-                        <td>&nbsp; &nbsp;</td>
-                        <td>GrossCountSum</td>
-                        <td>&nbsp; &nbsp;</td>
-                        <td>GrossSum</td>
-                        <%--<td>&nbsp; &nbsp;</td>
-                        <td>NetPaymentSum</td>--%>
-                        <td>&nbsp; &nbsp;</td>
-                        <td>DutyPaymentSum</td>
-                        <td>&nbsp; &nbsp;</td>
-                        <td>RemainPaymentSum</td>
-                        <td style="width: 100%;">&nbsp; &nbsp;</td>
+                        <td>GrossCountSum</td>                       
+                        <td>GrossSum</td>                        
+                        <td>DutyPaymentSum</td>                        
+                        <td>RemainPaymentSum</td>                         
+                        <td>NetPaymentSum</td>
+                        
+                        </tr>
+                      <tr>
+                        <td><asp:Label ID="lblOutsideGrossAmountCountSum_GroupBy" runat="server" /></td>                        
+                        <td><asp:Label ID="lblOutsideTransactionGrossAmountSum" runat="server" /></td>                        
+                        <td><asp:Label ID="lblOutsideDutyPaymentAmountSum" runat="server" /></td>                      
+                        <td><asp:Label ID="lblOutsideRemainingPaymentsAmountSum" runat="server" /></td>                      
+                        <td><asp:Label ID="lblOutsideNetPaymentsAmountSum" runat="server" /></td>
+                         
+                        </tr>
+
+                    <tr><td colspan="5" height="15"></td></tr>
+                    <tr class="bold">
+                        <td>ClearingPaymentSum</td>                         
+                        <td>NotElectronicPaymentSum</td>                        
+                        <td>ManualPaymentSum</td>                         
+                        <td>CancelPaymentSum</td>                         
+                        <td>TelephonePaymentSum</td>
+                        </tr>
+                     <tr>
+                        <td><asp:Label ID="lblOutsideClearingPaymentsAmountSum" runat="server" /></td>                        
+                        <td><asp:Label ID="lblOutsideNotElectronicPaymentsAmountSum" runat="server" /></td>
+                        <td><asp:Label ID="lblOutsideManualPaymentsAmountSum" runat="server" /></td>                       
+                        <td><asp:Label ID="lblOutsideCancelPaymentsAmountSum" runat="server" /></td>                        
+                        <td><asp:Label ID="lblOutsideTelephonePaymentsAmountSum" runat="server" /></td>
+                       </tr>
+                    <tr><td colspan="5" height="15"></td></tr>
+                    <tr class="bold">                         
+                        <td>DiscountPaymentSum</td>                         
+                        <td>ClubMngPaymentSum</td>                         
+                        <td>ClubSavingPaymentSum</td>                        
+                        <td>VatSum</td>                        
                         <td></td>
-                        <%--Page--%>
+                        </tr>
+                     <tr>                        
+                        <td><asp:Label ID="lblOutsideDiscountPaymentsAmountSum" runat="server" /></td>
+                        <td><asp:Label ID="lblOutsideClubMgtPaymentsAmountSum" runat="server" /></td>                        
+                        <td><asp:Label ID="lblOutsideClubSavingPaymentsAmountSum" runat="server" /></td>
+                        <td><asp:Label ID="lblOutsidevatPaymentsAmountSum" runat="server" /></td>
+                         <td></td>
                     </tr>
+                        <%--Page--%>
+                    
                     <%--                    <tr id="trInsideSelected_GroupBy" runat="server" visible="false" style="height: 25px;">
                         <td class="bold">Selected</td><td>&nbsp; &nbsp;</td><td>
                             <asp:Label ID="lblInsideRowsSelected_GroupBy" runat="server" /></td>
@@ -1234,27 +1267,7 @@
                         <td>&nbsp; &nbsp;</td><td>
                             <asp:Label ID="lblInsideAmountRemaining_GroupBy" runat="server" /></td>
                         <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr>--%>
-                    <tr>
-                        <td class="bold">Total</td>
-                        <td>&nbsp; &nbsp;</td>
-                        <%--<td><asp:Label ID="lblInsideRows_GroupBy" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td>--%>
-                        <td>
-                            <asp:Label ID="lblOutsideGrossAmountCountSum_GroupBy" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td>
-                        <td>
-                            <asp:Label ID="lblOutsideTransactionGrossAmountSum" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td>
-                        <%--<td>
-                            <asp:Label ID="lblOutsideFirstPaymentAmountSum" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td>--%>
-                        <td>
-                            <asp:Label ID="lblOutsideDutyPaymentAmountSum" runat="server" /></td>
-                        <td>&nbsp; &nbsp;</td>
-                        <td>
-                            <asp:Label ID="lblOutsideRemainingPaymentsAmountSum" runat="server" /></td>
-
-                    </tr>
+                
                 </table>
             </div>
 

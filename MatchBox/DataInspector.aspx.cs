@@ -1874,6 +1874,13 @@ namespace MatchBox
                         s_group_by = "";
                     }
                 }
+                else
+                {
+                    divCalculationFooter_Inside_GroupBy.Attributes.Add("style", "display:none");
+                    divCalculationFooter_Inside.Visible = true;
+                    divCalculationFooter_Outside_GroupBy.Attributes.Add("style", "display:none");
+                    divCalculationFooter_Outside.Visible = true;
+                }
 
                 string strChkFilters = string.Empty;
                 if (s_operation_type != "")
@@ -4702,7 +4709,10 @@ namespace MatchBox
                         n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
 
                         int n_rows_GrossAmountCountSum_outside = 0;
-                        double n_TransactionGrossAmountSum_outside = 0, n_FirstPaymentAmountSum_outside = 0, n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
+                        double n_TransactionGrossAmountSum_outside = 0,  n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
+                        double n_NetAmountSum_outside = 0, n_ClearingAmountSum_outside = 0, n_NotElectronicAmountSum_outside = 0, n_ManualAmountSum_outside = 0;
+                        double n_CancelAmountSum_outside = 0, n_TelephoneAmountSum_outside = 0, n_DiscountAmountSum_outside = 0, n_ClubMgtAmountSum_outside = 0;
+                        double n_ClubSavingAmountSum_outside = 0, n_VatAmountSum_outside = 0;
 
                         n_rows_GrossAmountCountSum_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["GrossAmountCountSum"]);
                         n_TransactionGrossAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["TransactionGrossAmountSum"]);
@@ -4710,12 +4720,35 @@ namespace MatchBox
                         n_DutyPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DutyPaymentAmountSum"]);
                         n_RemainingPaymentsAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["RemainingPaymentsAmountSum"]);
 
+
+                        n_NetAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["netPaymentAmount"]);
+                        n_ClearingAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["clearingcommission"]);
+                        n_NotElectronicAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["notelectroniccommission"]);
+                        n_ManualAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["manualcommission"]);
+                        n_CancelAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["cancellationcommission"]);
+                        n_TelephoneAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["telephonecommission"]);
+                        n_DiscountAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["discountcommission"]);
+                        n_ClubMgtAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["clubmanagementcommission"]);
+                        n_ClubSavingAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["clubsaving"]);
+                        n_VatAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["vat"]);
+
                         lblOutsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n0}", n_rows_GrossAmountCountSum_outside);
                         lblOutsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_outside, 2));
                         //lblOutsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_outside, 2));
                         lblOutsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_outside, 2));
                         lblOutsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_outside, 2));
-                    }
+
+                        lblOutsideNetPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_NetAmountSum_outside, 2));
+                        lblOutsideClearingPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ClearingAmountSum_outside, 2));
+                        lblOutsideNotElectronicPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_NotElectronicAmountSum_outside, 2));
+                        lblOutsideManualPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ManualAmountSum_outside, 2));
+                        lblOutsideCancelPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_CancelAmountSum_outside, 2));
+                        lblOutsideTelephonePaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_TelephoneAmountSum_outside, 2));
+                        lblOutsideDiscountPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_DiscountAmountSum_outside, 2));
+                        lblOutsideClubMgtPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ClubMgtAmountSum_outside, 2));
+                        lblOutsideClubSavingPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ClubSavingAmountSum_outside, 2));
+                        lblOutsidevatPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_VatAmountSum_outside, 2));
+                    }                                     
                 }
             }
             else

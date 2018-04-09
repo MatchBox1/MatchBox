@@ -3019,6 +3019,96 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Label lblOutsideRemainingPaymentsAmountSum;
         
         /// <summary>
+        /// lblOutsideNetPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideNetPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideClearingPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideClearingPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideNotElectronicPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideNotElectronicPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideManualPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideManualPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideCancelPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideCancelPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideTelephonePaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideTelephonePaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideDiscountPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideDiscountPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideClubMgtPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideClubMgtPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsideClubSavingPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsideClubSavingPaymentsAmountSum;
+        
+        /// <summary>
+        /// lblOutsidevatPaymentsAmountSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOutsidevatPaymentsAmountSum;
+        
+        /// <summary>
         /// divSourceSeparator control.
         /// </summary>
         /// <remarks>
