@@ -106,6 +106,19 @@ namespace MatchBox
             ObjDic.Add("Comment", "Comment");
             ObjDic.Add("DataFileStrategyID", "DataFileStrategyID");
 
+
+            //ObjDic.Add("עמלת ביטול", "Cancellationcommission");
+            //ObjDic.Add("הנחת מועדון", "clubsaving");
+            //ObjDic.Add("עמלת ניהול מועדון","clubmanagementcommission");
+            //ObjDic.Add("עמלת נכיון", "discountcommission");
+            //ObjDic.Add("עמלה טלפונית", "telephonecommission");
+            //ObjDic.Add("עמלה ידנית", "manualcommission");
+            //ObjDic.Add("עמלה ידנית", "manualcommission");
+            //ObjDic.Add("עמלה שאינה אלקטרונית", "notelectroniccommission");
+            //ObjDic.Add("עמלת סליקה", "clearingcommission");
+            //ObjDic.Add("נטו לתשלום", "netpaymentamount");
+            //ObjDic.Add("מע\"מ","vat");
+
             string statusValue = "";
             try
             {
