@@ -117,6 +117,7 @@ namespace MatchBox
             ObjDic.Add("עמלת סליקה", "clearingcommission");
             ObjDic.Add("נטו לתשלום", "netpaymentamount");
             ObjDic.Add("מע\"מ", "vat");
+            ObjDic.Add("עסקת חו\"ל","IsAbroad");
 
             string statusValue = "";
             try
