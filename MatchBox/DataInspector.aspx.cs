@@ -1851,6 +1851,14 @@ namespace MatchBox
                 {
                     try
                     {
+                        pnlMatchingBalance.Visible = false;
+                        btnRecalculate.Visible = false;
+                        btnMatchingAuto.Visible = false;
+                        ddlStatusChange.Visible = false;
+                        btnStatusChange.Visible = false;
+                        txtCommentChange.Visible = false;
+                        btnCommentChange.Visible = false;
+                        tdComment.Visible = false;
                         listGroupBy = listGroupBy.OrderBy(x => x.Key).ToList();
                         s_group_by = String.Join(",", listGroupBy.Select(l => l.Value));
                         sortColumnName = listGroupBy.FirstOrDefault().Value;
@@ -1905,7 +1913,15 @@ namespace MatchBox
                     else
                     { strChkFilters += "IsSplitted"; }
                 }
-
+                if (chkIsAbroad.Checked == true)
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "IsAbroad";
+                    }
+                    else
+                    { strChkFilters += "IsAbroad"; }
+                }
                 if (s_transaction_currency != "")
                 {
                     if (!string.IsNullOrEmpty(strChkFilters))
@@ -4777,30 +4793,34 @@ namespace MatchBox
             }
             // KEEP FIELD PRIORITY INTO LIST
 
-            if (ViewState["ListInsideFieldPriority"] == null || ViewState["ListOutsideFieldPriority"] == null || ViewState["ListPaymentFieldPriority"] == null)
-            {
-                List<string> lst_inside_field_priority = new List<string>();
-                List<string> lst_outside_field_priority = new List<string>();
-                List<string> lst_payment_field_priority = new List<string>();
-
-                for (int i = 0; i < dt_inside.Columns.Count; i++)
+            //if (Convert.ToInt32(ViewState["tableInsideColumnsCount"]) != dt_inside.Columns.Count)
+            //{
+                if ((Convert.ToInt32(ViewState["tableInsideColumnsCount"]) != dt_inside.Columns.Count) || ViewState["ListInsideFieldPriority"] == null || ViewState["ListOutsideFieldPriority"] == null || ViewState["ListPaymentFieldPriority"] == null)
                 {
-                    string s_column = dt_inside.Columns[i].ColumnName;
+                    List<string> lst_inside_field_priority = new List<string>();
+                    List<string> lst_outside_field_priority = new List<string>();
+                    List<string> lst_payment_field_priority = new List<string>();
 
-                    lst_inside_field_priority.Add(s_column);
+                    for (int i = 0; i < dt_inside.Columns.Count; i++)
+                    {
+                        string s_column = dt_inside.Columns[i].ColumnName;
 
-                    if (arr_payment_exclude_columns.Contains(s_column) == false) { lst_payment_field_priority.Add(s_column); }
+                        lst_inside_field_priority.Add(s_column);
+
+                        if (arr_payment_exclude_columns.Contains(s_column) == false) { lst_payment_field_priority.Add(s_column); }
+                    }
+
+                    for (int i = 0; i < dt_outside.Columns.Count; i++)
+                    {
+                        lst_outside_field_priority.Add(dt_outside.Columns[i].ColumnName);
+                    }
+
+                    ViewState["ListInsideFieldPriority"] = lst_inside_field_priority;
+                    ViewState["ListOutsideFieldPriority"] = lst_outside_field_priority;
+                    ViewState["ListPaymentFieldPriority"] = lst_payment_field_priority;
+                    ViewState["tableInsideColumnsCount"] = dt_inside.Columns.Count;
                 }
-
-                for (int i = 0; i < dt_outside.Columns.Count; i++)
-                {
-                    lst_outside_field_priority.Add(dt_outside.Columns[i].ColumnName);
-                }
-
-                ViewState["ListInsideFieldPriority"] = lst_inside_field_priority;
-                ViewState["ListOutsideFieldPriority"] = lst_outside_field_priority;
-                ViewState["ListPaymentFieldPriority"] = lst_payment_field_priority;
-            }
+            //}
 
             // BIND GridView
             gvInside.DataSource = dt_inside;

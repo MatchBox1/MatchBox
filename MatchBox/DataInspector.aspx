@@ -1080,15 +1080,15 @@
                     <tr class="bold">
                         <td>&nbsp; &nbsp;</td>
                         <td>&nbsp; &nbsp;</td>
-                        <td>GrossCountSum</td>
+                        <td>סה"כ כמות</td>
                         <td>&nbsp; &nbsp;</td>
-                        <td>GrossSum</td>
+                        <td>תשלום תורן</td>
                         <td>&nbsp; &nbsp;</td>
-                        <td>FirstPaymentSum</td>
+                        <td>תשלום ראשון</td>
                         <td>&nbsp; &nbsp;</td>
-                        <td>DutyPaymentSum</td>
+                        <td>תשלום תורן</td>
                         <td>&nbsp; &nbsp;</td>
-                        <td>RemainPaymentSum</td>
+                        <td>יתר התשלומים</td>
                         <td style="width: 100%;">&nbsp; &nbsp;</td>
                         <td></td>
                         <%--Page--%>
@@ -1207,11 +1207,11 @@
             <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Outside_GroupBy" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
-                        <td>GrossCountSum</td>                       
-                        <td>GrossSum</td>                        
-                        <td>DutyPaymentSum</td>                        
-                        <td>RemainPaymentSum</td>                         
-                        <td>NetPaymentSum</td>
+                        <td>סהכ כמות</td>                       
+                        <td>תשלום תורן</td>                        
+                        <td>תשלום תורן</td>                        
+                        <td>יתר התשלומים</td>                         
+                        <td>נטו לתשלום</td>
                         
                         </tr>
                       <tr>
@@ -1225,11 +1225,11 @@
 
                     <tr><td colspan="5" height="15"></td></tr>
                     <tr class="bold">
-                        <td>ClearingPaymentSum</td>                         
-                        <td>NotElectronicPaymentSum</td>                        
-                        <td>ManualPaymentSum</td>                         
-                        <td>CancelPaymentSum</td>                         
-                        <td>TelephonePaymentSum</td>
+                        <td>עמלת סליקה</td>                         
+                        <td>עמלה שאינה אלק</td>                        
+                        <td>עמלה ידנית</td>                         
+                        <td>עמלת ביטול</td>                         
+                        <td>עמלה טלפונית</td>
                         </tr>
                      <tr>
                         <td><asp:Label ID="lblOutsideClearingPaymentsAmountSum" runat="server" /></td>                        
@@ -1240,10 +1240,10 @@
                        </tr>
                     <tr><td colspan="5" height="15"></td></tr>
                     <tr class="bold">                         
-                        <td>DiscountPaymentSum</td>                         
-                        <td>ClubMngPaymentSum</td>                         
-                        <td>ClubSavingPaymentSum</td>                        
-                        <td>VatSum</td>                        
+                        <td>עמלת נכיון</td>                         
+                        <td>דמי ניהול מועדון</td>                         
+                        <td>הנחת מועדון</td>                        
+                        <td>מעמ</td>                        
                         <td></td>
                         </tr>
                      <tr>                        
