@@ -1904,6 +1904,24 @@ namespace MatchBox
                     else
                     { strChkFilters += "Isbalance"; }
                 }
+                if (s_data_file != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "DataFileID";
+                    }
+                    else
+                    { strChkFilters += "DataFileID"; }
+                }
+                if (s_template != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "TemplateID";
+                    }
+                    else
+                    { strChkFilters += "TemplateID"; }
+                }
                 if (chkIsSplitted.Checked == true)
                 {
                     if (!string.IsNullOrEmpty(strChkFilters))
@@ -1913,15 +1931,7 @@ namespace MatchBox
                     else
                     { strChkFilters += "IsSplitted"; }
                 }
-                if (chkIsAbroad.Checked == true)
-                {
-                    if (!string.IsNullOrEmpty(strChkFilters))
-                    {
-                        strChkFilters += "," + "IsAbroad";
-                    }
-                    else
-                    { strChkFilters += "IsAbroad"; }
-                }
+                
                 if (s_transaction_currency != "")
                 {
                     if (!string.IsNullOrEmpty(strChkFilters))
@@ -1993,6 +2003,15 @@ namespace MatchBox
                     }
                     else
                     { strChkFilters += "CreditName"; }
+                }
+                if (chkIsAbroad.Checked == true)
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "IsAbroad";
+                    }
+                    else
+                    { strChkFilters += "IsAbroad"; }
                 }
                 Session["ChkFilters"] = strChkFilters;
 
