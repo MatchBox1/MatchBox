@@ -175,7 +175,11 @@ namespace MatchBox
             try
             {
                 o_command.Connection.Open();
-                o_command.ExecuteNonQuery();
+                int val = o_command.ExecuteNonQuery();
+                if (val == -1)
+                {
+                    s_error = "Error on delete item.";
+                }
             }
             catch (Exception ex)
             {

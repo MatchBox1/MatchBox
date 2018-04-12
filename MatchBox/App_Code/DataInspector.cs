@@ -132,7 +132,7 @@ namespace MatchBox
                     strDBColumnName_Out = sortColumnName_Out.Trim();
             }
 
-            SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy1", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+            SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy2", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
             o_command.Parameters.Add(new SqlParameter("@PageNumberInside", SqlDbType.Int) { Value = n_page_inside });
