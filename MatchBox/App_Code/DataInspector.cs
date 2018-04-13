@@ -294,6 +294,38 @@ namespace MatchBox
             return dt_data;
         }
 
+        public static DataTable Select_SideGroupBy(int n_user_id, string s_where_inside, string s_where_outside,string strGroupBy, string strChkFilters, ref string s_error)
+        {
+            DataTable dt_data = new DataTable();
+
+            SqlCommand o_command = new SqlCommand("sprDataSelectGroupBy", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+
+            o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
+            o_command.Parameters.Add(new SqlParameter("@WhereInside", SqlDbType.NVarChar, -1) { Value = s_where_inside });
+            o_command.Parameters.Add(new SqlParameter("@WhereOutside", SqlDbType.NVarChar, -1) { Value = s_where_outside });
+            o_command.Parameters.Add(new SqlParameter("@strGroupBy", SqlDbType.NVarChar, -1) { Value = strGroupBy });
+            o_command.Parameters.Add(new SqlParameter("@strChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
+
+            SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
+
+            try
+            {
+                o_data_adapter.Fill(dt_data);
+            }
+            catch (Exception ex)
+            {
+                s_error = ex.Message;
+                s_error = "Error on select data (side).";
+            }
+            finally
+            {
+                o_data_adapter.Dispose();
+                o_command.Dispose();
+            }
+
+            return dt_data;
+        }
+
         public static void Select_Query(int n_user_id, int n_matching_id, string s_query_number_array, ref DataTable dt_inside, ref DataTable dt_outside, ref string s_error)
         {
             if (n_user_id <= 0 || n_matching_id <= 0 || s_query_number_array == "") { return; }

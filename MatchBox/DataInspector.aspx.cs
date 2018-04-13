@@ -3215,34 +3215,55 @@ namespace MatchBox
             string s_sheet = (s_button_id == "btnDownloadInside") ? "Inside" : "Outside";
 
             DataTable dt_download = null;
-
-            switch (s_mode)
+            string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : "";
+            if (s_group_by == "")
             {
-                case "payment":
-                    dt_download = (DataTable)ViewState["TablePaymentData"];
-                    break;
-                case "match":
-                    dt_download = (s_sheet == "Inside") ? ((DataTable)Cache[s_cache_inside_match]).Copy() : ((DataTable)Cache[s_cache_outside_match]).Copy();
-                    break;
-                case "all":
-                case "matching":
-                case "not-matching":
-                    string s_error = "";
-                    string s_where_inside = (s_sheet == "Inside") ? ViewState["WhereInside"].ToString() : "NONE";
-                    string s_where_outside = (s_sheet == "Outside") ? ViewState["WhereOutside"].ToString() : "NONE";
+                switch (s_mode)
+                {
+                    case "payment":
+                        dt_download = (DataTable)ViewState["TablePaymentData"];
+                        break;
+                    case "match":
+                        dt_download = (s_sheet == "Inside") ? ((DataTable)Cache[s_cache_inside_match]).Copy() : ((DataTable)Cache[s_cache_outside_match]).Copy();
+                        break;
+                    case "all":
+                    case "matching":
+                    case "not-matching":
+                        string s_error = "";
+                        string s_where_inside = (s_sheet == "Inside") ? ViewState["WhereInside"].ToString() : "NONE";
+                        string s_where_outside = (s_sheet == "Outside") ? ViewState["WhereOutside"].ToString() : "NONE";
 
-                    dt_download = DataAction.Select_Side(n_user_id, s_where_inside, s_where_outside, ref s_error);
+                        dt_download = DataAction.Select_Side(n_user_id, s_where_inside, s_where_outside, ref s_error);
 
-                    if (s_error != "")
-                    {
-                        lblError.Text = s_error;
-                        return;
-                    }
+                        if (s_error != "")
+                        {
+                            lblError.Text = s_error;
+                            return;
+                        }
 
-                    break;
+                        break;
+                }
             }
+            else
+            {
+                string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
+                string s_error = "";
+                string s_where_inside = (s_sheet == "Inside") ? ViewState["WhereInside"].ToString() : "NONE";
+                string s_where_outside = (s_sheet == "Outside") ? ViewState["WhereOutside"].ToString() : "NONE";
+                dt_download = DataAction.Select_SideGroupBy(n_user_id, s_where_inside, s_where_outside, s_group_by, strChkFilters, ref s_error);
+                if (s_error != "")
+                {
+                    lblError.Text = s_error;
+                    return;
+                }
 
-            dt_download.Columns.RemoveAt(0);
+            }
+            if (s_group_by == "")
+            {
+                dt_download.Columns.RemoveAt(0);
+            }
+            else {
+            }
 
             using (XLWorkbook xl_workbook = new XLWorkbook())
             {
@@ -3260,8 +3281,8 @@ namespace MatchBox
 
                     o_memory_stream.WriteTo(Response.OutputStream);
 
-                    Response.Flush();
-                    Response.End();
+                    //Response.Flush();
+                    //Response.End();
                 }
             }
         }

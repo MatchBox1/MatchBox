@@ -211,8 +211,8 @@ namespace MatchBox
 
             if (s_error != "") { goto Finish; }
 
-            string[] arr_date_start_item = lblDateStart.Text.Split('/');
-            string[] arr_date_end_item = lblDateEnd.Text.Split('/');
+            string[] arr_date_start_item = lblDateStart.Text.Split('-');
+            string[] arr_date_end_item = lblDateEnd.Text.Split('-');
 
             DateTime d_date_start_item = new DateTime(Convert.ToInt32(arr_date_start_item[2]), Convert.ToInt32(arr_date_start_item[1]), Convert.ToInt32(arr_date_start_item[0]));
             DateTime d_date_end_item = new DateTime(Convert.ToInt32(arr_date_end_item[2]), Convert.ToInt32(arr_date_end_item[1]), Convert.ToInt32(arr_date_end_item[0]));
