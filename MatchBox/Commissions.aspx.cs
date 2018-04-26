@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop;
+using System.Web.UI.HtmlControls;
 
 namespace MatchBox
 {
-    public partial class MatchingView : BasePage
+    public partial class Commissions : BasePage
     {
+
         public string s_lnk_open_id = "";
 
         private int n_user_id = 0;
@@ -54,42 +57,42 @@ namespace MatchBox
 
         protected void repTable_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DataRowView o_data_row = (DataRowView)e.Item.DataItem;
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    DataRowView o_data_row = (DataRowView)e.Item.DataItem;
 
-                int n_id = 0;
-                int.TryParse(o_data_row["ID"].ToString(), out n_id);
+            //    int n_id = 0;
+            //    int.TryParse(o_data_row["ID"].ToString(), out n_id);
 
-                int n_matching_action_id = 0;
-                int.TryParse(o_data_row["MatchingActionID"].ToString(), out n_matching_action_id);
+            //    int n_matching_action_id = 0;
+            //    int.TryParse(o_data_row["MatchingActionID"].ToString(), out n_matching_action_id);
 
-                // btnDelete
+            //    // btnDelete
 
-                LinkButton btn_delete = (LinkButton)e.Item.FindControl("btnDelete");
+            //    LinkButton btn_delete = (LinkButton)e.Item.FindControl("btnDelete");
 
-                if (n_matching_action_id == 3)
-                {
-                    // CAN'T DELETE MATCHING WITH 'RESPLIT' ACTION. THIS MATCHING WILL DELETED ON 'PAYMENT GROUP' RESTORATION. ( MatchingActionID # 3 : Resplit )
-                    btn_delete.CommandArgument = "0";
-                    btn_delete.Visible = false;
-                }
+            //    if (n_matching_action_id == 3)
+            //    {
+            //        // CAN'T DELETE MATCHING WITH 'RESPLIT' ACTION. THIS MATCHING WILL DELETED ON 'PAYMENT GROUP' RESTORATION. ( MatchingActionID # 3 : Resplit )
+            //        btn_delete.CommandArgument = "0";
+            //        btn_delete.Visible = false;
+            //    }
 
-                // lnkOpen
+            //    // lnkOpen
 
-                HtmlAnchor lnk_open = (HtmlAnchor)e.Item.FindControl("lnkOpen");
+            //    HtmlAnchor lnk_open = (HtmlAnchor)e.Item.FindControl("lnkOpen");
 
-                string s_guid = Guid.NewGuid().ToString();
-                string s_container_id = ((HtmlTableRow)e.Item.FindControl("trForm")).ClientID;
-                string s_frame_id = ((HtmlIframe)e.Item.FindControl("fraForm")).ClientID;
-                string s_frame_url = "FrameForm.aspx?i=" + MatchingModel.InterfaceName + "&q=" + s_guid;
+            //    string s_guid = Guid.NewGuid().ToString();
+            //    string s_container_id = ((HtmlTableRow)e.Item.FindControl("trForm")).ClientID;
+            //    string s_frame_id = ((HtmlIframe)e.Item.FindControl("fraForm")).ClientID;
+            //    string s_frame_url = "FrameForm.aspx?i=" + MatchingModel.InterfaceName + "&q=" + s_guid;
 
-                ((Dictionary<string, int>)Session["MatchingLookupTable"]).Add(s_guid, n_id);
+            //    ((Dictionary<string, int>)Session["MatchingLookupTable"]).Add(s_guid, n_id);
 
-                lnk_open.Attributes["onclick"] += String.Format("display_frame_form('{0}', '{1}', '{2}');", s_container_id, s_frame_id, s_frame_url);
+            //    lnk_open.Attributes["onclick"] += String.Format("display_frame_form('{0}', '{1}', '{2}');", s_container_id, s_frame_id, s_frame_url);
 
-                if (b_inserted == true && e.Item.ItemIndex == 0) { s_lnk_open_id = lnk_open.ClientID; }
-            }
+            //    if (b_inserted == true && e.Item.ItemIndex == 0) { s_lnk_open_id = lnk_open.ClientID; }
+            //}
         }
 
         protected void txtCurrentPage_TextChanged(object sender, EventArgs e)
@@ -176,16 +179,16 @@ namespace MatchBox
 
             try
             {
-                Excel.Application o_excel = new Excel.Application();
-                Excel.Workbook o_workbook = o_excel.Workbooks.Add();
-                Excel.Worksheet o_worksheet = o_excel.ActiveSheet;
+                Microsoft.Office.Interop.Excel.Application o_excel = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook o_workbook = o_excel.Workbooks.Add();
+                Microsoft.Office.Interop.Excel.Worksheet o_worksheet = o_excel.ActiveSheet;
 
                 for (int i = 0; i < o_data_table.Columns.Count; i++)
                 {
                     o_worksheet.Cells[1, (i + 1)] = o_data_table.Columns[i].ColumnName;
                 }
 
-                Excel.Range o_range = o_worksheet.get_Range((Excel.Range)o_worksheet.Cells[1, 1], (Excel.Range)o_worksheet.Cells[1, o_data_table.Columns.Count]);
+                Microsoft.Office.Interop.Excel.Range o_range = o_worksheet.get_Range((Microsoft.Office.Interop.Excel.Range)o_worksheet.Cells[1, 1], (Microsoft.Office.Interop.Excel.Range)o_worksheet.Cells[1, o_data_table.Columns.Count]);
 
                 o_range.Font.Bold = true;
 
@@ -194,7 +197,7 @@ namespace MatchBox
                     // to do: format datetime values before printing
                     for (int j = 0; j < o_data_table.Columns.Count; j++)
                     {
-                        o_worksheet.Cells[(i + 2), (j + 1)] = o_data_table.Rows[i][j].ToString();
+                        o_worksheet.Cells[(i + 2), (j + 1)] = o_data_table.Rows[i][j];
                     }
                 }
 
@@ -268,7 +271,7 @@ namespace MatchBox
             foreach (RepeaterItem item in repTable.Items)
             {
                 var tdStatus = item.FindControl("tdStatus");
-                if (((System.Web.UI.HtmlControls.HtmlContainerControl)tdStatus).InnerText.ToLower().Trim() == "in process" )
+                if (((System.Web.UI.HtmlControls.HtmlContainerControl)tdStatus).InnerText.ToLower().Trim() == "in process")
                 {
                     var tdDelete = item.FindControl("tdDelete");
                     tdDelete.Visible = false;

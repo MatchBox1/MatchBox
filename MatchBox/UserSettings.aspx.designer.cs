@@ -166,6 +166,51 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Repeater repDiscount;
         
         /// <summary>
+        /// divCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCommission;
+        
+        /// <summary>
+        /// lblMiniDiffSumCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMiniDiffSumCommission;
+        
+        /// <summary>
+        /// txtMiniDiffSumCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMiniDiffSumCommission;
+        
+        /// <summary>
+        /// lblMiniDiffPerCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMiniDiffPerCommission;
+        
+        /// <summary>
+        /// txtMiniDiffPerCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMiniDiffPerCommission;
+        
+        /// <summary>
         /// btnSaveBottom control.
         /// </summary>
         /// <remarks>

@@ -238,6 +238,9 @@
             &nbsp;
             <asp:TextBox ID="txtGroupByTransactionDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByTransactionDate" runat="server" Text="Group By" />
+            &nbsp;
+          <asp:CheckBox ID="chkEmptyTransactionDateMonth" runat="server" Text="By Month" />
+            <asp:Label ID="lblEmptyTransactionDateMonth" runat="server" />
             <br />
             <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
             <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -258,6 +261,9 @@
             &nbsp;
             <asp:TextBox ID="txtGroupByTransmissionDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByTransmissionDate" runat="server" Text="Group By" />
+            &nbsp;
+            <asp:CheckBox ID="chkEmptyTransmissionDateMonth" runat="server" Text="By Month" />
+            <asp:Label ID="lblchkEmptyTransmissionDateMonthl1" runat="server" />
             <br />
             <asp:TextBox ID="txtTransmissionDate" runat="server" Width="98%" />
             <asp:TextBox ID="txtTransmissionDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -276,6 +282,9 @@
             &nbsp;
             <asp:TextBox ID="txtGroupByPaymentDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
             <asp:Label ID="lblGroupByPaymentDate" runat="server" Text="Group By" />
+            &nbsp;
+            <asp:CheckBox ID="chkEmptyPaymentDateMonth" runat="server" Text="By Month" />
+            <asp:Label ID="lblEmptyPaymentDateMonth" runat="server" />
             <br />
             <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
             <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -294,6 +303,9 @@
                     &nbsp;
                     <asp:TextBox ID="txtGroupByMatchDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
                     <asp:Label ID="lblGroupByMatchDate" runat="server" Text="Group By" />
+                    &nbsp;
+            <asp:CheckBox ID="chkExcludeMatchingDateMonth" runat="server" Text="By Month" />
+                    <asp:Label ID="lblExcludeMatchingDateMonth" runat="server" />
                     <br />
                     <asp:TextBox ID="txtMatchingDate" runat="server" Width="98%" />
                     <asp:TextBox ID="txtMatchingDateOutside" runat="server" Width="98%" CssClass="no-display" />
@@ -1020,7 +1032,7 @@
                     <asp:GridView ID="gvInside" runat="server" AutoGenerateColumns="true" OnRowDataBound="Inside_RowDataBound" CssClass="table-data" />
                 </div>
             </div>
-
+           
             <%--<div style="overflow: hidden;">
                 <table id="tblInsideHead" class="table-data"></table>
             </div>
@@ -1207,54 +1219,72 @@
             <div class="div-form-message" style="margin: 5px 0px;" id="divCalculationFooter_Outside_GroupBy" runat="server">
                 <table class="nowrap" style="width: 100%; font-size: 11pt;">
                     <tr class="bold">
-                        <td>סהכ כמות</td>                       
-                        <td>תשלום תורן</td>                        
-                        <td>תשלום תורן</td>                        
-                        <td>יתר התשלומים</td>                         
+                        <td>סהכ כמות</td>
+                        <td>תשלום תורן</td>
+                        <td>תשלום תורן</td>
+                        <td>יתר התשלומים</td>
                         <td>נטו לתשלום</td>
-                        
-                        </tr>
-                      <tr>
-                        <td><asp:Label ID="lblOutsideGrossAmountCountSum_GroupBy" runat="server" /></td>                        
-                        <td><asp:Label ID="lblOutsideTransactionGrossAmountSum" runat="server" /></td>                        
-                        <td><asp:Label ID="lblOutsideDutyPaymentAmountSum" runat="server" /></td>                      
-                        <td><asp:Label ID="lblOutsideRemainingPaymentsAmountSum" runat="server" /></td>                      
-                        <td><asp:Label ID="lblOutsideNetPaymentsAmountSum" runat="server" /></td>
-                         
-                        </tr>
 
-                    <tr><td colspan="5" height="15"></td></tr>
-                    <tr class="bold">
-                        <td>עמלת סליקה</td>                         
-                        <td>עמלה שאינה אלק</td>                        
-                        <td>עמלה ידנית</td>                         
-                        <td>עמלת ביטול</td>                         
-                        <td>עמלה טלפונית</td>
-                        </tr>
-                     <tr>
-                        <td><asp:Label ID="lblOutsideClearingPaymentsAmountSum" runat="server" /></td>                        
-                        <td><asp:Label ID="lblOutsideNotElectronicPaymentsAmountSum" runat="server" /></td>
-                        <td><asp:Label ID="lblOutsideManualPaymentsAmountSum" runat="server" /></td>                       
-                        <td><asp:Label ID="lblOutsideCancelPaymentsAmountSum" runat="server" /></td>                        
-                        <td><asp:Label ID="lblOutsideTelephonePaymentsAmountSum" runat="server" /></td>
-                       </tr>
-                    <tr><td colspan="5" height="15"></td></tr>
-                    <tr class="bold">                         
-                        <td>עמלת נכיון</td>                         
-                        <td>דמי ניהול מועדון</td>                         
-                        <td>הנחת מועדון</td>                        
-                        <td>מעמ</td>                        
-                        <td></td>
-                        </tr>
-                     <tr>                        
-                        <td><asp:Label ID="lblOutsideDiscountPaymentsAmountSum" runat="server" /></td>
-                        <td><asp:Label ID="lblOutsideClubMgtPaymentsAmountSum" runat="server" /></td>                        
-                        <td><asp:Label ID="lblOutsideClubSavingPaymentsAmountSum" runat="server" /></td>
-                        <td><asp:Label ID="lblOutsidevatPaymentsAmountSum" runat="server" /></td>
-                         <td></td>
                     </tr>
-                        <%--Page--%>
-                    
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideGrossAmountCountSum_GroupBy" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideTransactionGrossAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideDutyPaymentAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideRemainingPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideNetPaymentsAmountSum" runat="server" /></td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="5" height="15"></td>
+                    </tr>
+                    <tr class="bold">
+                        <td>עמלת סליקה</td>
+                        <td>עמלה שאינה אלק</td>
+                        <td>עמלה ידנית</td>
+                        <td>עמלת ביטול</td>
+                        <td>עמלה טלפונית</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideClearingPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideNotElectronicPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideManualPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideCancelPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideTelephonePaymentsAmountSum" runat="server" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" height="15"></td>
+                    </tr>
+                    <tr class="bold">
+                        <td>עמלת נכיון</td>
+                        <td>דמי ניהול מועדון</td>
+                        <td>הנחת מועדון</td>
+                        <td>מעמ</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideDiscountPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideClubMgtPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideClubSavingPaymentsAmountSum" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsidevatPaymentsAmountSum" runat="server" /></td>
+                        <td></td>
+                    </tr>
+                    <%--Page--%>
+
                     <%--                    <tr id="trInsideSelected_GroupBy" runat="server" visible="false" style="height: 25px;">
                         <td class="bold">Selected</td><td>&nbsp; &nbsp;</td><td>
                             <asp:Label ID="lblInsideRowsSelected_GroupBy" runat="server" /></td>
@@ -1267,7 +1297,6 @@
                         <td>&nbsp; &nbsp;</td><td>
                             <asp:Label ID="lblInsideAmountRemaining_GroupBy" runat="server" /></td>
                         <td>&nbsp; &nbsp;</td><td>&nbsp; &nbsp;</td></tr>--%>
-                
                 </table>
             </div>
 
@@ -1407,6 +1436,15 @@
             }
     </style>
     <script src="/App_JS/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (('#ctl00_cphMain_chkEmptyTransactionDateMonth').checked) {
+
+                //if ('#ctl00$cphMain$txtGroupByTransactionDate').val() == ''
+            }
+        })
+        //$('td').attr('style', 'text-align:right');
+    </script>
     <script type="text/javascript">
 
         var pageIndex = 1;
@@ -1847,22 +1885,22 @@
         // SEARCH
 
         if (document.getElementById("<%= chk_txtTransactionDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionDateOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtTransmissionDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionDateOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtPaymentDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentDateOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtTransmissionDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionDateOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtPaymentDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentDateOutside.ClientID %>").className = ""; }
 
         try {
             if (document.getElementById("<%= chk_txtMatchingDateOutside.ClientID %>").checked == false) { document.getElementById("<%= txtMatchingDateOutside.ClientID %>").className = ""; }
         } catch (ex) { }
 
         if (document.getElementById("<%= chk_txtCardPrefixOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardPrefixOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtCardNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardNumberOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtTransmissionNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtVoucherNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtVoucherNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtConfirmationNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtConfirmationNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtCardNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtTransmissionNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtVoucherNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtVoucherNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtConfirmationNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtConfirmationNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtPaymentsCountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentsCountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtDutyPaymentNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtTransactionGrossAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionGrossAmountOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtDutyPaymentAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentAmountOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtTransactionGrossAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionGrossAmountOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtDutyPaymentAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentAmountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtRemainingPaymentsAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtRemainingPaymentsAmountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCompanyNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCompanyNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtNetworkNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtNetworkNumberOutside.ClientID %>").className = ""; }
@@ -1990,17 +2028,17 @@
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
             var s_source = document.getElementById("<%= hidSelectSource.ClientID %>").value;
 
-              var b_valid = (s_inside != "" || s_outside != "" || s_source != "");
+            var b_valid = (s_inside != "" || s_outside != "" || s_source != "");
 
-              if (b_valid == false) {
-                  var s_mode = get_mode();
-                  var s_action = (s_mode == "match" || s_mode == "matching") ? "Unselect" : "Select";
-                  var s_alert = s_action + " item/s to recalculate.";
+            if (b_valid == false) {
+                var s_mode = get_mode();
+                var s_action = (s_mode == "match" || s_mode == "matching") ? "Unselect" : "Select";
+                var s_alert = s_action + " item/s to recalculate.";
 
-                  alert(s_alert);
-              }
+                alert(s_alert);
+            }
 
-              return b_valid;
+            return b_valid;
         }
 
         function payment_click(s_unique_id, s_table) {
@@ -2011,7 +2049,7 @@
 
         function match_click(s_query_id) {
             document.getElementById("<%= hidQueryID.ClientID %>").value = s_query_id;
-              document.getElementById("<%= btnMatch.ClientID %>").click();
+            document.getElementById("<%= btnMatch.ClientID %>").click();
         }
 
         function matching_change() {
@@ -2024,56 +2062,56 @@
 
         function payment_recalculate() {
             var txt_payments_count = document.getElementById("<%= txtPaymentsCount_Split.ClientID %>");
-              var txt_first_payment_amount = document.getElementById("<%= txtFirstPaymentAmount_Split.ClientID %>");
+            var txt_first_payment_amount = document.getElementById("<%= txtFirstPaymentAmount_Split.ClientID %>");
 
-              var s_payments_count = trim_string(txt_payments_count.value);
-              var s_first_payment_amount = trim_string(txt_first_payment_amount.value);
+            var s_payments_count = trim_string(txt_payments_count.value);
+            var s_first_payment_amount = trim_string(txt_first_payment_amount.value);
 
-              var s_payments_count_error = "";
+            var s_payments_count_error = "";
 
-              if (s_payments_count == "") {
-                  s_payments_count_error = "Enter 'New Payments Count'.";
-              }
-              else {
-                  var n_payments_count = parseInt(s_payments_count);
+            if (s_payments_count == "") {
+                s_payments_count_error = "Enter 'New Payments Count'.";
+            }
+            else {
+                var n_payments_count = parseInt(s_payments_count);
 
-                  if (isNaN(n_payments_count) || n_payments_count <= 0) {
-                      s_payments_count_error = "'New Payments Count' must be a whole number greater than zero.";
-                  }
-              }
+                if (isNaN(n_payments_count) || n_payments_count <= 0) {
+                    s_payments_count_error = "'New Payments Count' must be a whole number greater than zero.";
+                }
+            }
 
-              if (s_payments_count_error != "") {
-                  alert(s_payments_count_error);
-                  txt_payments_count.focus();
-                  txt_payments_count.select();
-                  return false;
-              }
+            if (s_payments_count_error != "") {
+                alert(s_payments_count_error);
+                txt_payments_count.focus();
+                txt_payments_count.select();
+                return false;
+            }
 
-              var s_first_payment_amount_error = "";
+            var s_first_payment_amount_error = "";
 
-              if (s_first_payment_amount == "") {
-                  s_first_payment_amount_error = "Enter 'First Payment Amount'.";
-              }
-              else {
-                  var n_first_payment_amount = parseFloat(s_first_payment_amount);
+            if (s_first_payment_amount == "") {
+                s_first_payment_amount_error = "Enter 'First Payment Amount'.";
+            }
+            else {
+                var n_first_payment_amount = parseFloat(s_first_payment_amount);
 
-                  if (isNaN(n_first_payment_amount) || n_first_payment_amount == 0) {
-                      s_first_payment_amount_error = "'First Payment Amount' must be a number not equal to zero.";
-                  }
-              }
+                if (isNaN(n_first_payment_amount) || n_first_payment_amount == 0) {
+                    s_first_payment_amount_error = "'First Payment Amount' must be a number not equal to zero.";
+                }
+            }
 
-              if (s_first_payment_amount_error != "") {
-                  alert(s_first_payment_amount_error);
-                  txt_first_payment_amount.focus();
-                  txt_first_payment_amount.select();
-                  return false;
-              }
+            if (s_first_payment_amount_error != "") {
+                alert(s_first_payment_amount_error);
+                txt_first_payment_amount.focus();
+                txt_first_payment_amount.select();
+                return false;
+            }
 
-              return true;
-          }
+            return true;
+        }
 
-          function status_change() {
-              var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
+        function status_change() {
+            var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
 
             if (s_inside == "" && s_outside == "") {
@@ -2090,10 +2128,10 @@
             }
 
             return confirm("Change selected item/s status?");
-          }
+        }
 
-          function comment_change() {
-              var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
+        function comment_change() {
+            var s_inside = document.getElementById("<%= hidSelectInside.ClientID %>").value;
             var s_outside = document.getElementById("<%= hidSelectOutside.ClientID %>").value;
 
             if (s_inside == "" && s_outside == "") {
@@ -2115,7 +2153,7 @@
             document.getElementById("spnSearchBottom").style.display = "";
 
             document.getElementById("<%= btnSearchTop.ClientID %>").style.visibility = "hidden";
-            document.getElementById("<%= btnSearchBottom.ClientID %>").style.visibility = "hidden";
+              document.getElementById("<%= btnSearchBottom.ClientID %>").style.visibility = "hidden";
         }
 
         function select_data_item_all(s_class, b_checked) {
@@ -2238,30 +2276,30 @@
         function disable_buttons(s_mode) {
             if (s_mode == "payment") {
                 var btnPaymentRecalculate = document.getElementById("<%= btnPaymentRecalculate.ClientID %>");
-                var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
+                  var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
 
-                if (btnPaymentRecalculate != null) { btnPaymentRecalculate.disabled = true; }
-                if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
-            }
-            else if (s_mode == "match" || s_mode == "matching" || s_mode == "not-matching") {
-                var btnMatchingBalanceChange = document.getElementById("<%= btnMatchingBalanceChange.ClientID %>");
+                  if (btnPaymentRecalculate != null) { btnPaymentRecalculate.disabled = true; }
+                  if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
+              }
+              else if (s_mode == "match" || s_mode == "matching" || s_mode == "not-matching") {
+                  var btnMatchingBalanceChange = document.getElementById("<%= btnMatchingBalanceChange.ClientID %>");
 
-                if (btnMatchingBalanceChange != null) { btnMatchingBalanceChange.disabled = true; }
-            }
-        }
+                  if (btnMatchingBalanceChange != null) { btnMatchingBalanceChange.disabled = true; }
+              }
+          }
 
-        function disable_payment_change() {
-            var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
+          function disable_payment_change() {
+              var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
 
-            if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
-        }
+              if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
+          }
 
-        function update_hidden_field(o_checkbox, s_class, b_return_checked) {
-            var s_id = "";
+          function update_hidden_field(o_checkbox, s_class, b_return_checked) {
+              var s_id = "";
 
-            switch (s_class) {
-                case "checkbox-inside":
-                    s_id = "<%= hidSelectInside.ClientID %>";
+              switch (s_class) {
+                  case "checkbox-inside":
+                      s_id = "<%= hidSelectInside.ClientID %>";
                     break;
                 case "checkbox-outside":
                     s_id = "<%= hidSelectOutside.ClientID %>";
@@ -2412,6 +2450,8 @@
                 }
             }
         }
+
+
     </script>
 
 

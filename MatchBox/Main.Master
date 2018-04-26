@@ -62,6 +62,7 @@
                             <div id="divMenuDataFile" runat="server" class="div-navigation-item"><a href="DataFileView.aspx">Data Files</a></div>
                             <div id="divMenuStrategy" runat="server" class="div-navigation-item"><a href="StrategyView.aspx">Strategies</a></div>
                             <div id="divMenuMatching" runat="server" class="div-navigation-item"><a href="MatchingView.aspx">Matchings</a></div>
+                            <div id="divMenuCommissions" runat="server" class="div-navigation-item"><a href="Commissions.aspx">Commissions</a></div>
                             <div id="divMenuDataInspector" runat="server" class="div-navigation-item"><a href="DataInspector.aspx">Data Inspector</a></div>
                         </div>
                     </asp:Panel>

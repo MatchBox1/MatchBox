@@ -14,6 +14,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Globalization;
 
 namespace MatchBox
 {
@@ -72,6 +73,7 @@ namespace MatchBox
                 Session["hdnOrderSort_Outside"] = "";
                 //Session["hdnTableType_Outside"] = "";
                 Session["GroupBy"] = "";
+                Session["SelectColumns"] = "";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "localStorage", "<script type=\"text/javascript\"  language=\"javascript\">localStorage.isLoading=\"false\";</script>");
             }
             Bind_Search();
@@ -1749,47 +1751,86 @@ namespace MatchBox
             else
             {
                 // Group By 
-                string s_group_by = string.Empty, sortColumnName = string.Empty, sortType = string.Empty, sortColumnName_Out = string.Empty, sortType_Out = string.Empty;
+                string s_group_by = string.Empty, s_selectColumns_by = string.Empty, sortColumnName = string.Empty, sortType = string.Empty, sortColumnName_Out = string.Empty, sortType_Out = string.Empty;
                 var listGroupBy = new List<KeyValuePair<int, string>>();
+                var listSelectColumnsBy = new List<KeyValuePair<int, string>>();
                 if (txtGroupByTransactionDate.Text != "")
                 {
-                    listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
+                    //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
+                    if (chkEmptyTransactionDateMonth.Checked)
+                    {
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + CONVERT(VARCHAR(10), MONTH(TransactionDate)))"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + CONVERT(VARCHAR(10), MONTH(TransactionDate))) TransactionDate"));
+
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransactionDate)), 2))"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransactionDate)), 2)) TransactionDate"));
+                    }
+                    else
+                    {
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
+                    }
                 }
                 if (txtGroupByTransmissionDate.Text != "")
                 {
-                    listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
+                    if (chkEmptyTransmissionDateMonth.Checked)
+                    {
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransmissionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransmissionDate)), 2))"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransmissionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransmissionDate)), 2)) TransmissionDate"));
+                    }
+                    else
+                    {
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
+                    }
                 }
                 if (txtGroupByPaymentDate.Text != "")
                 {
-                    listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
+                    if (chkEmptyPaymentDateMonth.Checked)
+                    {
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "(CONVERT(VARCHAR(10), YEAR(PaymentDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(PaymentDate)), 2))"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "(CONVERT(VARCHAR(10), YEAR(PaymentDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(PaymentDate)), 2)) PaymentDate"));
+                    }
+                    else
+                    {
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
+                    }
                 }
                 if (txtGroupByCardPrefix.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardPrefix.Text), "CardPrefix"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardPrefix.Text), "CardPrefix"));
                 }
                 if (txtGroupByCardNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardNumber.Text), "CardNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardNumber.Text), "CardNumber"));
                 }
                 if (txtGroupByTransmissionNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionNumber.Text), "TransmissionNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionNumber.Text), "TransmissionNumber"));
                 }
                 if (txtGroupByVoucherNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByVoucherNumber.Text), "VoucherNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByVoucherNumber.Text), "VoucherNumber"));
                 }
                 if (txtGroupByConfirmationNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByConfirmationNumber.Text), "ConfirmationNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByConfirmationNumber.Text), "ConfirmationNumber"));
                 }
                 if (txtGroupByPaymentsCount.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentsCount.Text), "PaymentsCount"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentsCount.Text), "PaymentsCount"));
                 }
                 if (txtGroupByDutyPaymentNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDutyPaymentNumber.Text), "DutyPaymentNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDutyPaymentNumber.Text), "DutyPaymentNumber"));
                 }
                 //if (txtGroupByTransactionGrossAmount.Text != "")
                 //{
@@ -1806,44 +1847,62 @@ namespace MatchBox
                 if (txtGroupByCompanyNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCompanyNumber.Text), "CompanyNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCompanyNumber.Text), "CompanyNumber"));
                 }
                 if (txtGroupByNetworkNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByNetworkNumber.Text), "NetworkNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByNetworkNumber.Text), "NetworkNumber"));
                 }
                 if (txtGroupByBranchNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByBranchNumber.Text), "BranchNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByBranchNumber.Text), "BranchNumber"));
                 }
                 if (txtGroupByCashBoxNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCashBoxNumber.Text), "CashBoxNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCashBoxNumber.Text), "CashBoxNumber"));
                 }
                 if (txtGroupBySupplierGroupNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierGroupNumber.Text), "SupplierGroupNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierGroupNumber.Text), "SupplierGroupNumber"));
                 }
                 if (txtGroupBySupplierNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierNumber.Text), "SupplierNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierNumber.Text), "SupplierNumber"));
                 }
                 if (txtGroupByTerminalNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTerminalNumber.Text), "TerminalNumber"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTerminalNumber.Text), "TerminalNumber"));
                 }
                 if (txtGroupByComment.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByComment.Text), "Comment"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByComment.Text), "Comment"));
                 }
                 if (txtGroupByID.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
+                    listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
                 }
                 try
                 {
                     if (txtGroupByMatchDate.Text != "")
                     {
-                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
+                        if (chkExcludeMatchingDateMonth.Checked)
+                        {
+                            listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "(CONVERT(VARCHAR(10), YEAR(MatchingDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(MatchingDate)), 2))"));
+                            listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "(CONVERT(VARCHAR(10), YEAR(MatchingDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(MatchingDate)), 2)) MatchingDate"));
+                        }
+                        else
+                        {
+                            listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
+                            listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
+                        }
                     }
                 }
                 catch (Exception ex) { }
@@ -1861,15 +1920,32 @@ namespace MatchBox
                         tdComment.Visible = false;
                         listGroupBy = listGroupBy.OrderBy(x => x.Key).ToList();
                         s_group_by = String.Join(",", listGroupBy.Select(l => l.Value));
+
+                        listSelectColumnsBy = listSelectColumnsBy.OrderBy(x => x.Key).ToList();
+                         s_selectColumns_by = String.Join(",", listSelectColumnsBy.Select(l => l.Value));
+
                         sortColumnName = listGroupBy.FirstOrDefault().Value;
+                        sortColumnName_Out = listGroupBy.FirstOrDefault().Value;
+                        if (listGroupBy.FirstOrDefault().Value.ToUpper().Contains("YEAR"))
+                        {
+                            var splitData = listSelectColumnsBy.FirstOrDefault().Value.Split(new string[] { "2))" }, StringSplitOptions.None);
+                            //var splitData = listGroupBy.FirstOrDefault().Value.Split(')))');
+                            sortColumnName = splitData[1]; //.Replace("YEAR(", "").Replace(")","");
+                            sortColumnName_Out = sortColumnName;
+                        }
+
+                        //sortColumnName = listGroupBy.FirstOrDefault().Value;
                         sortType = "asc";
                         Session["sortColumnName_Inside"] = sortColumnName;
                         Session["hdnOrderSort_Inside"] = "asc";
-                        sortColumnName_Out = listGroupBy.FirstOrDefault().Value;
+
+                        //sortColumnName_Out = listGroupBy.FirstOrDefault().Value;
                         sortType_Out = "asc";
                         Session["sortColumnName_Outside"] = sortColumnName_Out;
                         Session["hdnOrderSort_Outside"] = "asc";
+
                         hdnGroupBy.Value = "GroupBy";
+
                         //divCalculationFooter_Inside.Visible = false;
                         //divCalculationFooter_Outside.Visible = false;
                         divCalculationFooter_Inside.Attributes.Add("style", "display:none");
@@ -1931,7 +2007,7 @@ namespace MatchBox
                     else
                     { strChkFilters += "IsSplitted"; }
                 }
-                
+
                 if (s_transaction_currency != "")
                 {
                     if (!string.IsNullOrEmpty(strChkFilters))
@@ -2029,6 +2105,7 @@ namespace MatchBox
 
                 //ViewState["GroupBy"] = s_group_by;
                 Session["GroupBy"] = s_group_by;
+                Session["SelectColumns"] = s_selectColumns_by;
                 // GET INSIDE & OUTSIDE TABLES
 
                 DataTable dt_inside = new DataTable();
@@ -2037,7 +2114,7 @@ namespace MatchBox
                 DataTable dt_inside_sum = new DataTable();
                 DataTable dt_outside_sum = new DataTable();
 
-                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters);
+                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by);
                 //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
                 ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
 
@@ -2095,7 +2172,7 @@ namespace MatchBox
             DataTable dt_outside_sum = new DataTable();
 
             string s_error = string.Empty;
-            string s_group_by = string.Empty;
+            string s_group_by = string.Empty, s_selectColumns_by = string.Empty;
             string strChkFilters = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
             ///////
@@ -2109,9 +2186,10 @@ namespace MatchBox
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
 
             s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             ///////
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -2166,7 +2244,7 @@ namespace MatchBox
             DataTable dt_outside_sum = new DataTable();
 
             string s_error = string.Empty;
-            string s_group_by = string.Empty;
+            string s_group_by = string.Empty, s_selectColumns_by = string.Empty;
             string strChkFilters = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
 
@@ -2180,10 +2258,11 @@ namespace MatchBox
             s_order_inside = Session["OrderInside"] != null ? Session["OrderInside"].ToString() : "";
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
             s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             ///////
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -2336,7 +2415,7 @@ namespace MatchBox
             btnPaymentRecalculate.Enabled = (s_error == "");
             btnMatchingBalanceChange.Enabled = (s_error == "");
 
-            Finish:
+        Finish:
 
             lblError.Text = s_error;
 
@@ -2466,7 +2545,7 @@ namespace MatchBox
             btnPaymentRecalculate.Enabled = (s_error == "");
             btnMatchingBalanceChange.Enabled = (s_error == "");
 
-            Finish:
+        Finish:
 
             lblError.Text = s_error;
 
@@ -2685,7 +2764,7 @@ namespace MatchBox
                     break;
             }
 
-            Finish:
+        Finish:
 
             divMatchingAuto.Visible = b_show_form;
 
@@ -2892,7 +2971,7 @@ namespace MatchBox
 
             btnPaymentChange.Visible = (dt_balance.Rows.Count > 0 && dt_split.Rows.Count > 0);
 
-            Finish:
+        Finish:
 
             if (s_error != "")
             {
@@ -2995,7 +3074,7 @@ namespace MatchBox
 
             return;
 
-            Finish:
+        Finish:
 
             lblError.Text = s_error;
 
@@ -3056,8 +3135,9 @@ namespace MatchBox
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
 
             if (s_error != "") { goto Error; }
 
@@ -3080,7 +3160,7 @@ namespace MatchBox
 
             return;
 
-            Error:
+        Error:
 
             lblError.Text = s_error;
 
@@ -3124,8 +3204,9 @@ namespace MatchBox
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
 
             if (s_error != "")
             {
@@ -3143,7 +3224,7 @@ namespace MatchBox
 
             lblMessage.Text = (n_rows_affected > 0) ? "Item/s successfully updated." : "No item was updated.";
 
-            Finish:
+        Finish:
 
             Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
         }
@@ -3184,8 +3265,9 @@ namespace MatchBox
             int n_page_inside = Convert.ToInt32(ddlInsidePage.SelectedValue);
             int n_page_outside = Convert.ToInt32(ddlOutsidePage.SelectedValue);
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["strChkFilters"] != null ? Session["strChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
 
             if (s_error != "")
             {
@@ -3203,7 +3285,7 @@ namespace MatchBox
 
             lblMessage.Text = (n_rows_affected > 0) ? "Item/s successfully updated." : "No item was updated.";
 
-            Finish:
+        Finish:
 
             Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
         }
@@ -3262,8 +3344,7 @@ namespace MatchBox
             {
                 dt_download.Columns.RemoveAt(0);
             }
-            else {
-            }
+            else { }
 
             using (XLWorkbook xl_workbook = new XLWorkbook())
             {
@@ -3381,8 +3462,9 @@ namespace MatchBox
             DataTable dt_inside = null, dt_outside = null, dt_inside_sum = null, dt_outside_sum = null;
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
 
             if (s_error != "") { goto Error; }
 
@@ -3460,7 +3542,7 @@ namespace MatchBox
 
             return;
 
-            Error:
+        Error:
 
             lblError.Text = s_error;
         }
@@ -3524,8 +3606,9 @@ namespace MatchBox
             DataTable dt_outside_sum = new DataTable();
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
 
             if (s_error != "")
             {
@@ -3763,7 +3846,7 @@ namespace MatchBox
 
             if ((lst_value.Count > 0)) { s_value = String.Join(",", lst_value.ToArray()); }
 
-            Finish:
+        Finish:
 
             return s_value;
         }
@@ -3931,7 +4014,7 @@ namespace MatchBox
                 s_value = String.Format("{0}{1}{2}", s_min, c_range_separator.ToString(), s_max);
             }
 
-            Finish:
+        Finish:
 
             return b_valid;
         }
@@ -4765,7 +4848,7 @@ namespace MatchBox
                         n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
 
                         int n_rows_GrossAmountCountSum_outside = 0;
-                        double n_TransactionGrossAmountSum_outside = 0,  n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
+                        double n_TransactionGrossAmountSum_outside = 0, n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
                         double n_NetAmountSum_outside = 0, n_ClearingAmountSum_outside = 0, n_NotElectronicAmountSum_outside = 0, n_ManualAmountSum_outside = 0;
                         double n_CancelAmountSum_outside = 0, n_TelephoneAmountSum_outside = 0, n_DiscountAmountSum_outside = 0, n_ClubMgtAmountSum_outside = 0;
                         double n_ClubSavingAmountSum_outside = 0, n_VatAmountSum_outside = 0;
@@ -4794,17 +4877,17 @@ namespace MatchBox
                         lblOutsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_outside, 2));
                         lblOutsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_outside, 2));
 
-                        lblOutsideNetPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_NetAmountSum_outside, 2));
-                        lblOutsideClearingPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ClearingAmountSum_outside, 2));
-                        lblOutsideNotElectronicPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_NotElectronicAmountSum_outside, 2));
-                        lblOutsideManualPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ManualAmountSum_outside, 2));
-                        lblOutsideCancelPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_CancelAmountSum_outside, 2));
-                        lblOutsideTelephonePaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_TelephoneAmountSum_outside, 2));
-                        lblOutsideDiscountPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_DiscountAmountSum_outside, 2));
-                        lblOutsideClubMgtPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ClubMgtAmountSum_outside, 2));
-                        lblOutsideClubSavingPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_ClubSavingAmountSum_outside, 2));
-                        lblOutsidevatPaymentsAmountSum.Text =  String.Format("{0:n2}", Math.Round(n_VatAmountSum_outside, 2));
-                    }                                     
+                        lblOutsideNetPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_NetAmountSum_outside, 2));
+                        lblOutsideClearingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_ClearingAmountSum_outside, 2));
+                        lblOutsideNotElectronicPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_NotElectronicAmountSum_outside, 2));
+                        lblOutsideManualPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_ManualAmountSum_outside, 2));
+                        lblOutsideCancelPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_CancelAmountSum_outside, 2));
+                        lblOutsideTelephonePaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TelephoneAmountSum_outside, 2));
+                        lblOutsideDiscountPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DiscountAmountSum_outside, 2));
+                        lblOutsideClubMgtPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_ClubMgtAmountSum_outside, 2));
+                        lblOutsideClubSavingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_ClubSavingAmountSum_outside, 2));
+                        lblOutsidevatPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_VatAmountSum_outside, 2));
+                    }
                 }
             }
             else
@@ -4835,31 +4918,31 @@ namespace MatchBox
 
             //if (Convert.ToInt32(ViewState["tableInsideColumnsCount"]) != dt_inside.Columns.Count)
             //{
-                if ((Convert.ToInt32(ViewState["tableInsideColumnsCount"]) != dt_inside.Columns.Count) || ViewState["ListInsideFieldPriority"] == null || ViewState["ListOutsideFieldPriority"] == null || ViewState["ListPaymentFieldPriority"] == null)
+            if ((Convert.ToInt32(ViewState["tableInsideColumnsCount"]) != dt_inside.Columns.Count) || ViewState["ListInsideFieldPriority"] == null || ViewState["ListOutsideFieldPriority"] == null || ViewState["ListPaymentFieldPriority"] == null)
+            {
+                List<string> lst_inside_field_priority = new List<string>();
+                List<string> lst_outside_field_priority = new List<string>();
+                List<string> lst_payment_field_priority = new List<string>();
+
+                for (int i = 0; i < dt_inside.Columns.Count; i++)
                 {
-                    List<string> lst_inside_field_priority = new List<string>();
-                    List<string> lst_outside_field_priority = new List<string>();
-                    List<string> lst_payment_field_priority = new List<string>();
+                    string s_column = dt_inside.Columns[i].ColumnName;
 
-                    for (int i = 0; i < dt_inside.Columns.Count; i++)
-                    {
-                        string s_column = dt_inside.Columns[i].ColumnName;
+                    lst_inside_field_priority.Add(s_column);
 
-                        lst_inside_field_priority.Add(s_column);
-
-                        if (arr_payment_exclude_columns.Contains(s_column) == false) { lst_payment_field_priority.Add(s_column); }
-                    }
-
-                    for (int i = 0; i < dt_outside.Columns.Count; i++)
-                    {
-                        lst_outside_field_priority.Add(dt_outside.Columns[i].ColumnName);
-                    }
-
-                    ViewState["ListInsideFieldPriority"] = lst_inside_field_priority;
-                    ViewState["ListOutsideFieldPriority"] = lst_outside_field_priority;
-                    ViewState["ListPaymentFieldPriority"] = lst_payment_field_priority;
-                    ViewState["tableInsideColumnsCount"] = dt_inside.Columns.Count;
+                    if (arr_payment_exclude_columns.Contains(s_column) == false) { lst_payment_field_priority.Add(s_column); }
                 }
+
+                for (int i = 0; i < dt_outside.Columns.Count; i++)
+                {
+                    lst_outside_field_priority.Add(dt_outside.Columns[i].ColumnName);
+                }
+
+                ViewState["ListInsideFieldPriority"] = lst_inside_field_priority;
+                ViewState["ListOutsideFieldPriority"] = lst_outside_field_priority;
+                ViewState["ListPaymentFieldPriority"] = lst_payment_field_priority;
+                ViewState["tableInsideColumnsCount"] = dt_inside.Columns.Count;
+            }
             //}
 
             // BIND GridView
@@ -4898,6 +4981,33 @@ namespace MatchBox
                     //    }
                     //}
                     //else if (s_mode == "matching")
+
+                    // For alignment ////
+                    row.Cells[1].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
+
+                    row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[15].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[16].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[17].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[18].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[19].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[20].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[24].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[25].HorizontalAlign = HorizontalAlign.Right;
+                    //row.Cells[26].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[27].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[31].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[34].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[41].HorizontalAlign = HorizontalAlign.Right;
+                    // End alignment ////
+
                     if (s_mode == "matching")
                     {
                         Color lightBlueColor = Color.FromArgb(221, 235, 247);
@@ -4922,17 +5032,22 @@ namespace MatchBox
                     }
                     else
                     {
-                        var MatchingID = row.Cells[7].Text;
-                        if (!string.IsNullOrEmpty(MatchingID))
+                        try
                         {
-                            //row.BackColor = System.Drawing.Color.LightBlue;
-                            Color lightBlueColor = Color.FromArgb(221, 235, 247);
-                            row.BackColor = lightBlueColor;
+                            var MatchingID = row.Cells[36].Text;
+
+                            if (!string.IsNullOrEmpty(MatchingID))
+                            {
+                                //row.BackColor = System.Drawing.Color.LightBlue;
+                                Color lightBlueColor = Color.FromArgb(221, 235, 247);
+                                row.BackColor = lightBlueColor;
+                            }
+                            else
+                            {
+                                row.BackColor = System.Drawing.Color.White;
+                            }
                         }
-                        else
-                        {
-                            row.BackColor = System.Drawing.Color.White;
-                        }
+                        catch (Exception ex) { }
                     }
                 }
             }
@@ -4960,6 +5075,49 @@ namespace MatchBox
                     //    }
                     //}
                     //else if (s_mode == "matching")
+
+                    // For alignment ////
+                    row.Cells[1].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[12].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[15].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[16].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[17].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[18].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[24].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[25].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[26].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[27].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[28].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[29].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[30].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[31].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[32].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[33].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[34].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[35].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[36].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[37].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[38].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[39].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[40].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[41].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[42].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[43].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[44].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[45].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[46].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[47].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[54].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[55].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[58].HorizontalAlign = HorizontalAlign.Right;
+
+                    // End alignment ////
+
                     if (s_mode == "matching")
                     {
                         //row.BackColor = System.Drawing.Color.LightBlue;
@@ -5023,7 +5181,8 @@ namespace MatchBox
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, pageIndex, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters);
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
+            DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters, s_selectColumns_by);
 
             DataSet ds = new DataSet();
 
@@ -5071,7 +5230,8 @@ namespace MatchBox
             //string s_order_outside = Convert.ToString(Session["OrderOutside"]);
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters);
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
+            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters,s_selectColumns_by);
             DataSet ds = new DataSet();
             var dt_inside_Copy = dt_inside.Copy();
             var dt_inside_sum_Copy = dt_inside_sum.Copy();
@@ -5112,7 +5272,8 @@ namespace MatchBox
             string s_order_outside = Convert.ToString(Session["OrderOutside"]);
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
-            DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters);
+            string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
+            DataAction.SelectOutside(UserId, s_where_outside, s_order_outside, pageIndex, pageSize, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters, s_selectColumns_by);
             DataSet ds = new DataSet();
             var dt_outside_Copy = dt_outside.Copy();
             var dt_outside_sum_Copy = dt_outside_sum.Copy();
@@ -5258,6 +5419,14 @@ namespace MatchBox
                             //  Modified the code for color change.
                             row.BackColor = System.Drawing.Color.White;
 
+                            // alignment /////
+                            decimal value;
+                            if (decimal.TryParse(cell.Text, out value))
+                            {
+                                //row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                                cell.HorizontalAlign = HorizontalAlign.Right;
+                            }
+
                             //if (dtLockedRecords.Rows.Count > 0)
                             //{
                             //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
@@ -5361,18 +5530,47 @@ namespace MatchBox
                             //  Modified the code for color change.
                             row.BackColor = System.Drawing.Color.White;
 
-                            //if (dtLockedRecords.Rows.Count > 0)
-                            //{
-                            //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
-                            //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
-                            //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
-                            //    {
-                            //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                            //        row.BackColor = lightGrayColor;
-                            //    }
-                            //}
-                            //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
-                            if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                            decimal value;
+                            if (decimal.TryParse(cell.Text, out value))
+                            {
+                                //row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                                cell.HorizontalAlign = HorizontalAlign.Right;
+                            }
+
+                                //row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
+
+                                //row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[15].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[16].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[17].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[18].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[19].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[20].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[24].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[25].HorizontalAlign = HorizontalAlign.Right;
+                                ////row.Cells[26].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[27].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[31].HorizontalAlign = HorizontalAlign.Right;
+                                //row.Cells[41].HorizontalAlign = HorizontalAlign.Right;
+
+                                //if (dtLockedRecords.Rows.Count > 0)
+                                //{
+                                //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                                //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                                //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                                //    {
+                                //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                                //        row.BackColor = lightGrayColor;
+                                //    }
+                                //}
+                                //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                                if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                             {
                                 Color lightBlueColor = Color.FromArgb(221, 235, 247);
                                 row.BackColor = lightBlueColor;

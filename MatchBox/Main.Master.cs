@@ -6,7 +6,7 @@ namespace MatchBox
     public partial class Main : MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
+         {
             UserModel o_user = new UserModel();
 
             if (Session["User"] != null) { o_user = (UserModel)Session["User"]; }

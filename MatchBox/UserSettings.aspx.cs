@@ -48,13 +48,14 @@ namespace MatchBox
                 lblMessage.Text = s_message;
             }
 
-            if (!Page.IsPostBack)
+             if (!Page.IsPostBack)
             {
                 Bind_Bank();
                 Bind_Currency();
                 Bind_Credit();
                 Bind_Discount();
                 Bind_DataSource();
+                Bind_CommissionDiff();
             }
         }
 
@@ -131,6 +132,12 @@ namespace MatchBox
 
             o_command.Parameters.AddWithValue("@TableCurrencyID", dt_currency);
             o_command.Parameters["@TableCurrencyID"].SqlDbType = SqlDbType.Structured;
+
+            o_command.Parameters.Add("@MinimumDiffAmount", SqlDbType.NVarChar);
+            o_command.Parameters["@MinimumDiffAmount"].Value = txtMiniDiffSumCommission.Text;
+
+            o_command.Parameters.Add("@MinimumDiffPer", SqlDbType.NVarChar);
+            o_command.Parameters["@MinimumDiffPer"].Value = txtMiniDiffPerCommission.Text;
 
             try
             {
@@ -444,6 +451,26 @@ namespace MatchBox
 
             repDataSource.DataSource = o_data_table;
             repDataSource.DataBind();
+        }
+
+        private void Bind_CommissionDiff()
+        {
+            DataTable o_data_table = new DataTable();
+
+            string s_error = "";
+
+            DB.Bind_Data_Table("sprCommissionDiff", ref o_data_table, ref s_error, "@UserID", o_user.ID.ToString());
+
+            if (s_error != "")
+            {
+                lblError.Text = s_error;
+                return;
+            }
+
+            if (o_data_table.Rows.Count == 0) { return; }
+
+            txtMiniDiffSumCommission.Text = o_data_table.Rows[0][1].ToString();
+            txtMiniDiffPerCommission.Text = o_data_table.Rows[0][2].ToString();
         }
 
         private void Bind_Item_Supplier_Group(string s_item_name, int n_user_item_id, HtmlGenericControl ul_supplier_group, DropDownList ddl_group)

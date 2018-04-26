@@ -10,222 +10,186 @@
 namespace MatchBox {
     
     
-    public partial class Main {
+    public partial class Commissions {
         
         /// <summary>
-        /// cphHead control.
+        /// hedMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphHead;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl hedMain;
         
         /// <summary>
-        /// frmMain control.
+        /// btnDownloadExcel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmMain;
+        protected global::System.Web.UI.WebControls.LinkButton btnDownloadExcel;
         
         /// <summary>
-        /// smGlobal control.
+        /// btnReload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager smGlobal;
+        protected global::System.Web.UI.WebControls.LinkButton btnReload;
         
         /// <summary>
-        /// pnlNavOutside control.
+        /// fraForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlNavOutside;
+        protected global::System.Web.UI.HtmlControls.HtmlIframe fraForm;
         
         /// <summary>
-        /// pnlNavInside control.
+        /// secSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlNavInside;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl secSearch;
         
         /// <summary>
-        /// lnkUserForm control.
+        /// divStrategy_Search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUserForm;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStrategy_Search;
         
         /// <summary>
-        /// divPendingMessage control.
+        /// ddlStrategySearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPendingMessage;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStrategySearch;
         
         /// <summary>
-        /// divMenuAdmin control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuAdmin;
+        protected global::System.Web.UI.WebControls.LinkButton btnSearch;
         
         /// <summary>
-        /// divMenuUser control.
+        /// btnReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuUser;
+        protected global::System.Web.UI.WebControls.LinkButton btnReset;
         
         /// <summary>
-        /// divMenuAdminTemplate control.
+        /// divMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuAdminTemplate;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMessage;
         
         /// <summary>
-        /// divMenuCustomer control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuCustomer;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
         
         /// <summary>
-        /// divMenuUserSettings control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuUserSettings;
+        protected global::System.Web.UI.WebControls.Label lblError;
         
         /// <summary>
-        /// divMenuCompany control.
+        /// hidOrderBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuCompany;
+        protected global::System.Web.UI.WebControls.HiddenField hidOrderBy;
         
         /// <summary>
-        /// divMenuNetwork control.
+        /// repTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuNetwork;
+        protected global::System.Web.UI.WebControls.Repeater repTable;
         
         /// <summary>
-        /// divMenuBranch control.
+        /// pPaging control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuBranch;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pPaging;
         
         /// <summary>
-        /// divMenuCashBox control.
+        /// btnPreviousPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuCashBox;
+        protected global::System.Web.UI.WebControls.LinkButton btnPreviousPage;
         
         /// <summary>
-        /// divMenuAgreement control.
+        /// txtCurrentPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuAgreement;
+        protected global::System.Web.UI.WebControls.TextBox txtCurrentPage;
         
         /// <summary>
-        /// divMenuUserTemplate control.
+        /// btnNextPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuUserTemplate;
+        protected global::System.Web.UI.WebControls.LinkButton btnNextPage;
         
         /// <summary>
-        /// divMenuDataFile control.
+        /// ddlPageSize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuDataFile;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPageSize;
         
         /// <summary>
-        /// divMenuStrategy control.
+        /// lblPagesCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuStrategy;
-        
-        /// <summary>
-        /// divMenuMatching control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuMatching;
-        
-        /// <summary>
-        /// divMenuCommissions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuCommissions;
-        
-        /// <summary>
-        /// divMenuDataInspector control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenuDataInspector;
-        
-        /// <summary>
-        /// cphMain control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder cphMain;
+        protected global::System.Web.UI.WebControls.Label lblPagesCount;
     }
 }

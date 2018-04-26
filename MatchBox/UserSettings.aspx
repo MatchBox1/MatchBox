@@ -11,7 +11,7 @@
     </p>
 
     <div class="div-form-command">
-        <asp:Button ID="btnSaveTop" runat="server" Text="Save" OnClick="btnSave_Click" />
+        <asp:Button ID="btnSaveTop" runat="server" Text="Save" OnClientClick="return checkValidations();" OnClick="btnSave_Click" />
     </div>
 
     <div id="divBank" runat="server" class="float-left" style="padding: 10px; margin: 10px; border: 1px solid black; width: 275px;">
@@ -118,9 +118,93 @@
         </asp:Repeater>
     </div>
 
+    <div id="divCommission" runat="server" class="float-left" style="padding: 10px; margin: 10px; border: 1px solid black; width: 275px;">
+        <h3>Commission</h3>
+        <asp:Label ID="lblMiniDiffSumCommission" runat="server" EnableViewState="false" Text="Minimum diff sum" CssClass="block" />
+        <asp:TextBox ID="txtMiniDiffSumCommission" runat="server" MaxLength="50" />
+        <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator1"
+  ControlToValidate="txtMiniDiffSumCommission" runat="server"
+  ErrorMessage= "Only decimal upto 2 decimal places allowed" 
+  ValidationExpression="\d+.\d{2}"></asp:RegularExpressionValidator>--%>
+
+        <asp:Label ID="lblMiniDiffPerCommission" runat="server" EnableViewState="false" Text="Minimum diff %" CssClass="block" />
+        <asp:TextBox ID="txtMiniDiffPerCommission" runat="server" MaxLength="50" />
+       <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator2"
+  ControlToValidate="txtMiniDiffPerCommission" runat="server"
+  ErrorMessage="error"
+  ValidationExpression="\d+.\d{2}"></asp:RegularExpressionValidator>--%>
+    </div>
+
     <div class="clear-both"></div>
 
     <div class="div-form-command">
-        <asp:Button ID="btnSaveBottom" runat="server" Text="Save" OnClick="btnSave_Click" />
+        <asp:Button ID="btnSaveBottom" runat="server" Text="Save" OnClientClick="return checkValidations();" OnClick="btnSave_Click" />
     </div>
+
+
+    <script src="/App_JS/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/caret/1.0.0/jquery.caret.min.js"></script>
+    <script type="text/javascript">
+
+        $('#ctl00_cphMain_txtMiniDiffSumCommission').keypress(function (eve) {
+            if ((eve.which != 46 || $(this).val().indexOf('.') != -1) && (eve.which < 48 || eve.which > 57) || (eve.which == 46 && $(this).caret().start == 0)) {
+                eve.preventDefault();
+            }
+            //// this part is when left part of number is deleted and leaves a . in the leftmost position. For example, 33.25, then 33 is deleted
+            //$('#ctl00_cphMain_txtMiniDiffSumCommission').keyup(function (eve) {
+            //    if ($(this).val().indexOf('.') == 0) {
+            //        $(this).val($(this).val().substring(1));
+            //    }
+            //});
+        });
+
+        $('#ctl00_cphMain_txtMiniDiffPerCommission').keypress(function (eve) {
+            if ((eve.which != 46 || $(this).val().indexOf('.') != -1) && (eve.which < 48 || eve.which > 57) || (eve.which == 46 && $(this).caret().start == 0)) {
+                eve.preventDefault();
+            }
+            //// this part is when left part of number is deleted and leaves a . in the leftmost position. For example, 33.25, then 33 is deleted
+            //$('#ctl00_cphMain_txtMiniDiffSumCommission').keyup(function (eve) {
+            //    if ($(this).val().indexOf('.') == 0) {
+            //        $(this).val($(this).val().substring(1));
+            //    }
+            //});
+        });
+
+
+        function validateDecimalWithTwoDigitOnly(value) {
+            var RE = /^\d*(\.\d{1})?\d{0,1}$/;
+            if (RE.test(value)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function checkValidations()
+        {
+            var txtMiniDiffSumCommission = $('#ctl00_cphMain_txtMiniDiffSumCommission').val();
+            var valid = validateDecimalWithTwoDigitOnly(txtMiniDiffSumCommission);
+            if (!valid)
+            {
+                $('#ctl00_cphMain_lblError').html('Minimum diff sum should be Upto 2 decimals.');
+                $('#ctl00_cphMain_lblMessage').html('');
+                return false;
+            }
+
+            var txtMiniDiffPerCommission = $('#ctl00_cphMain_txtMiniDiffPerCommission').val();
+            valid = validateDecimalWithTwoDigitOnly(txtMiniDiffPerCommission);
+            if (!valid) {
+                $('#ctl00_cphMain_lblError').html('Minimum diff percentage should be Upto 2 decimals.');
+                $('#ctl00_cphMain_lblMessage').html('');
+                return false;
+            }
+
+        }
+
+    </script>
+
+
 </asp:Content>
+
+
+

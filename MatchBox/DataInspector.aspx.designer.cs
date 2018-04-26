@@ -490,6 +490,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Label lblGroupByTransactionDate;
         
         /// <summary>
+        /// chkEmptyTransactionDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEmptyTransactionDateMonth;
+        
+        /// <summary>
+        /// lblEmptyTransactionDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmptyTransactionDateMonth;
+        
+        /// <summary>
         /// txtTransactionDate control.
         /// </summary>
         /// <remarks>
@@ -569,6 +587,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGroupByTransmissionDate;
+        
+        /// <summary>
+        /// chkEmptyTransmissionDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEmptyTransmissionDateMonth;
+        
+        /// <summary>
+        /// lblchkEmptyTransmissionDateMonthl1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblchkEmptyTransmissionDateMonthl1;
         
         /// <summary>
         /// txtTransmissionDate control.
@@ -652,6 +688,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Label lblGroupByPaymentDate;
         
         /// <summary>
+        /// chkEmptyPaymentDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEmptyPaymentDateMonth;
+        
+        /// <summary>
+        /// lblEmptyPaymentDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmptyPaymentDateMonth;
+        
+        /// <summary>
         /// txtPaymentDate control.
         /// </summary>
         /// <remarks>
@@ -731,6 +785,24 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGroupByMatchDate;
+        
+        /// <summary>
+        /// chkExcludeMatchingDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeMatchingDateMonth;
+        
+        /// <summary>
+        /// lblExcludeMatchingDateMonth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExcludeMatchingDateMonth;
         
         /// <summary>
         /// txtMatchingDate control.

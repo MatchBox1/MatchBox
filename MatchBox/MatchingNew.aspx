@@ -3,88 +3,89 @@
 <asp:Content ID="cntHead" ContentPlaceHolderID="cphHead" runat="server"></asp:Content>
 
 <asp:Content ID="cntMain" ContentPlaceHolderID="cphMain" runat="server">
-    <div>
-        <h1 id="hedMain" runat="server" class="float-left">New Matching</h1>
-        <div id="divMenu" class="float-right">
-            <a href="MatchingView.aspx">Matchings</a>
+    <div style="background-color: #eeeeee">
+        <div>
+            <h1 id="hedMain" runat="server" class="float-left">New Matching</h1>
+            <div id="divMenu" class="float-right">
+                <a href="MatchingView.aspx">Matchings</a>
+            </div>
+            <div class="clear-both"></div>
         </div>
+
+        <div id="divMessage" runat="server" enableviewstate="false" visible="false" class="div-message">
+            <asp:Label ID="lblMessage" runat="server" EnableViewState="false" CssClass="message block" />
+            <asp:Label ID="lblError" runat="server" EnableViewState="false" CssClass="error block" />
+        </div>
+
+        <hr />
+
         <div class="clear-both"></div>
-    </div>
 
-    <div id="divMessage" runat="server" enableviewstate="false" visible="false" class="div-message">
-        <asp:Label ID="lblMessage" runat="server" EnableViewState="false" CssClass="message block" />
-        <asp:Label ID="lblError" runat="server" EnableViewState="false" CssClass="error block" />
-    </div>
+        <%--TransactionDateFrom Inside--%>
+        <div id="divTransactionDateFrom" runat="server" class="float-left div-form-field">
+            <b>Transaction Date</b>
+            <br />
+            <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
+            <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
+        </div>
 
-    <hr />
+        <div class="float-left div-form-field">
+            <br />
+            <asp:CheckBox ID="chkEmptyTransactionDate" runat="server" Text="Include Empty Transaction Date" />
+        </div>
 
-    <div class="clear-both"></div>
+        <%--TransactionDateFrom Outside--%>
+        <div id="divTransactionDateFromOutside" runat="server" class="float-right div-form-field">
+            <b>Transaction Date Outside</b>
+            <br />
+            <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" />
+            <asp:Label ID="lblTransactionDateErrorOutside" runat="server" EnableViewState="false" CssClass="error block" />
+        </div>
 
-    <%--TransactionDateFrom Inside--%>
-    <div id="divTransactionDateFrom" runat="server" class="float-left div-form-field">
-        <b>Transaction Date</b>
-        <br />
-        <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
-        <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
-    </div>
+        <div class="float-left div-form-field">
+            <br />
+            <asp:CheckBox ID="chkEmptyTransactionDateOutside" runat="server" Text="Include Empty Transaction Date Outside" />
+        </div>
 
-    <div class="float-left div-form-field">
-        <br />
-        <asp:CheckBox ID="chkEmptyTransactionDate" runat="server" Text="Include Empty Transaction Date" />
-    </div>
+        <div class="clear-both"></div>
 
-    <%--TransactionDateFrom Outside--%>
-    <div id="divTransactionDateFromOutside" runat="server" class="float-right div-form-field">
-        <b>Transaction Date Outside</b>
-        <br />
-        <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" />
-        <asp:Label ID="lblTransactionDateErrorOutside" runat="server" EnableViewState="false" CssClass="error block" />
-    </div>
+        <%--PaymentDateFrom Inside--%>
+        <div id="divPaymentDateFrom" runat="server" class="float-left div-form-field">
+            <b>Payment Date</b>
+            <br />
+            <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
+            <asp:Label ID="lblPaymentDateError" runat="server" EnableViewState="false" CssClass="error block" />
+        </div>
 
-    <div class="float-left div-form-field">
-        <br />
-        <asp:CheckBox ID="chkEmptyTransactionDateOutside" runat="server" Text="Include Empty Transaction Date Outside" />
-    </div>
+        <div class="float-left div-form-field">
+            <br />
+            <asp:CheckBox ID="chkEmptyPaymentDate" runat="server" Text="Include Empty Payment Date" />
+        </div>
 
-    <div class="clear-both"></div>
+        <%--PaymentDateFrom Outside--%>
+        <div id="divPaymentDateFromOutside" runat="server" class="float-right div-form-field">
+            <b>Payment Date Outside</b>
+            <br />
+            <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" />
+            <asp:Label ID="lblPaymentDateErrorOutside" runat="server" EnableViewState="false" CssClass="error block" />
+        </div>
 
-    <%--PaymentDateFrom Inside--%>
-    <div id="divPaymentDateFrom" runat="server" class="float-left div-form-field">
-        <b>Payment Date</b>
-        <br />
-        <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
-        <asp:Label ID="lblPaymentDateError" runat="server" EnableViewState="false" CssClass="error block" />
-    </div>
-
-    <div class="float-left div-form-field">
-        <br />
-        <asp:CheckBox ID="chkEmptyPaymentDate" runat="server" Text="Include Empty Payment Date" />
-    </div>
-    
-    <%--PaymentDateFrom Outside--%>
-    <div id="divPaymentDateFromOutside" runat="server" class="float-right div-form-field">
-        <b>Payment Date Outside</b>
-        <br />
-        <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" />
-        <asp:Label ID="lblPaymentDateErrorOutside" runat="server" EnableViewState="false" CssClass="error block" />
-    </div>
-
-    <div class="float-right div-form-field">
-        <br />
-        <asp:CheckBox ID="chkEmptyPaymentDateOutside" runat="server" Text="Include Empty Payment Date Outside" />
-    </div>
+        <div class="float-right div-form-field">
+            <br />
+            <asp:CheckBox ID="chkEmptyPaymentDateOutside" runat="server" Text="Include Empty Payment Date Outside" />
+        </div>
 
 
-    <div class="clear-both"></div>
+        <div class="clear-both"></div>
 
-    <div class="div-form-command">
-        <asp:Button ID="Button1" runat="server" OnClick="btnSearch_Click_New" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" Visible="false" />
-        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click_New" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" />
-        <span id="spnSearch" class="message" style="display: none;">Please wait..</span>
-        &nbsp;
+        <div class="div-form-command">
+            <asp:Button ID="Button1" runat="server" OnClick="btnSearch_Click_New" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" Visible="false" />
+            <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click_New" OnClientClick="javascript: show_wait(this.id, 'spnSearch', false);" Text="Search" />
+            <span id="spnSearch" class="message" style="display: none;">Please wait..</span>
+            &nbsp;
         <a href="MatchingNew.aspx">Reset</a>
+        </div>
     </div>
-
     <asp:Panel ID="pnlSearchResult" runat="server" Visible="false">
         <hr />
 

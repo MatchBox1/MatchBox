@@ -82,8 +82,6 @@ namespace MatchBox
     }
 
 
-
-
     public class DataAction
     {
 
@@ -114,7 +112,7 @@ namespace MatchBox
             }
         }
 
-        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out, string s_group_by, string strChkFilters)
+        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out, string s_group_by, string strChkFilters, string s_selectColumns_by)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
@@ -150,6 +148,8 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@sortType_Out", SqlDbType.NVarChar, -1) { Value = sortType_Out });
             o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
             o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
+            o_command.Parameters.Add(new SqlParameter("@SelectColumns", SqlDbType.NVarChar, -1) { Value = s_selectColumns_by });
+
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
             try
@@ -177,7 +177,7 @@ namespace MatchBox
             }
         }
 
-        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside, int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by, string strChkFilters)
+        public static void SelectInside(int n_user_id, string s_where_inside, string s_order_inside, int n_page_inside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by, string strChkFilters, string s_selectColumns_by)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
@@ -199,6 +199,7 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
             o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
             o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
+            o_command.Parameters.Add(new SqlParameter("@SelectColumns", SqlDbType.NVarChar, -1) { Value = s_selectColumns_by });
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
             try
@@ -221,7 +222,7 @@ namespace MatchBox
             }
         }
 
-        public static void SelectOutside(int n_user_id, string s_where_outside, string s_order_outside, int n_page_outside, int n_page_size, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by, string strChkFilters)
+        public static void SelectOutside(int n_user_id, string s_where_outside, string s_order_outside, int n_page_outside, int n_page_size, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string s_group_by, string strChkFilters, string s_selectColumns_by)
         {
             string strDBColumnName = string.Empty;
             if (!string.IsNullOrEmpty(sortColumnName.Trim()))
@@ -241,6 +242,7 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@sortType", SqlDbType.NVarChar, -1) { Value = sortType });
             o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
             o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
+            o_command.Parameters.Add(new SqlParameter("@SelectColumns", SqlDbType.NVarChar, -1) { Value = s_selectColumns_by });
 
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
@@ -1975,8 +1977,11 @@ namespace MatchBox
                 {
                     if (tc_transaction_date != null)
                     {
-                        DateTime d_transaction_date = Convert.ToDateTime(Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date)).ToShortDateString());
-                        tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                        if (tc_transaction_date.Text.Length > 7)
+                        {
+                            DateTime d_transaction_date = Convert.ToDateTime(Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date)).ToShortDateString());
+                            tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                        }
                     }
                 }
                 catch (Exception ex) { }
@@ -1987,8 +1992,11 @@ namespace MatchBox
                 {
                     if (tc_transmission_date != null)
                     {
-                        DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
-                        tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                        if (tc_transmission_date.Text.Length > 7)
+                        {
+                            DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
+                            tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                        }
                     }
                 }
                 catch (Exception ex) { if (tc_transmission_date != null) tc_transmission_date.Text = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; }
@@ -1999,8 +2007,11 @@ namespace MatchBox
                 {
                     if (tc_paymen_date != null)
                     {
-                        DateTime d_paymen_date = Convert.ToDateTime(Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date)).ToShortDateString());
-                        tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                        if (tc_paymen_date.Text.Length > 7)
+                        {
+                            DateTime d_paymen_date = Convert.ToDateTime(Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date)).ToShortDateString());
+                            tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                        }
                     }
                 }
                 catch (Exception ex) { }
@@ -2678,9 +2689,11 @@ namespace MatchBox
 
                 try
                 {
-                    DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
-
-                    tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                    if (tc_transaction_date.Text.Length > 7)
+                    {
+                        DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
+                        tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                    }
                 }
                 catch (Exception ex) { }
 
@@ -2688,9 +2701,11 @@ namespace MatchBox
 
                 try
                 {
-                    DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
-
-                    tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                    if (tc_transmission_date.Text.Length > 7)
+                    {
+                        DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
+                        tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                    }
                 }
                 catch (Exception ex) { if (tc_transmission_date != null) tc_transmission_date.Text = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; }
 
@@ -2698,9 +2713,11 @@ namespace MatchBox
 
                 try
                 {
-                    DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
-
-                    tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                    if (tc_paymen_date.Text.Length > 7)
+                    {
+                        DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
+                        tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                    }
                 }
                 catch (Exception ex) { }
 
@@ -3183,7 +3200,6 @@ namespace MatchBox
                     }
                 }
 
-
                 if (i_matching_id != -1)
                 {
                     TableCell tc_matching_id = gv_row.Cells[i_matching_id];
@@ -3226,8 +3242,6 @@ namespace MatchBox
                         tr_duty_payment_number.Controls.Add(Get_Anchor_Error("DutyPaymentNumber not exists."));
                     }
                 }
-               
-                
                 
                 ///
 
@@ -3238,13 +3252,8 @@ namespace MatchBox
                     tc_IsAbroad = gv_row.Cells[i_IsAbroad];
                     bool.TryParse(tc_IsAbroad.Text, out b_IsAbroad);
                 }
-               
-
-               
-
+            
                 // DutyPaymentNumber
-
-                
 
                 // CHECK-BOX 
 
@@ -3311,8 +3320,7 @@ namespace MatchBox
                 }
                 ////
                 // DataFileID
-
-               
+              
                 // TransactionGrossAmount
 
                 if (i_transaction_gross_amount != -1)
@@ -3335,8 +3343,6 @@ namespace MatchBox
                 }
                 // RemainingPaymentsAmount
 
-
-
                 if (i_remaining_payments_amount != -1)
                 {
                     TableCell tc_remaining_payments_amount = gv_row.Cells[i_remaining_payments_amount];
@@ -3352,10 +3358,11 @@ namespace MatchBox
                     try
                     {
                         TableCell tc_transaction_date = gv_row.Cells[i_transaction_date];
-
-                        DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
-
-                        tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                        if (tc_transaction_date.Text.Length > 7)
+                        {
+                            DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
+                            tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
+                        }
                     }
                     catch (Exception ex) { }
                 }
@@ -3367,9 +3374,11 @@ namespace MatchBox
                     try
                     {
                         TableCell tc_transmission_date = gv_row.Cells[i_transmission_date];
-                        DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
-
-                        tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                        if (tc_transmission_date.Text.Length > 7)
+                        {
+                            DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
+                            tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
+                        }
                     }
                     catch (Exception ex) { }
                 }
@@ -3380,9 +3389,11 @@ namespace MatchBox
                     try
                     {
                         TableCell tc_paymen_date = gv_row.Cells[i_paymen_date];
-                        DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
-
-                        tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                        if (tc_paymen_date.Text.Length > 7)
+                        {
+                            DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
+                            tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
+                        }
                     }
                     catch (Exception ex) { }
                 }
@@ -3401,10 +3412,7 @@ namespace MatchBox
                     tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
                 }
 
-
                 // NetPaymentAmount
-
-
 
                 // AbsorptionDate
                 if (i_absorption_date != -1)
