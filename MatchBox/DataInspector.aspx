@@ -965,7 +965,8 @@
         <div id="divInside" runat="server" class="float-left" style="width: 49%; position: relative;">
             <b>Inside</b> &nbsp; - &nbsp;
             <asp:LinkButton ID="btnDownloadInside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
-            <asp:TextBox ID="txtSearchInside" runat="server" Visible="false"></asp:TextBox><style>
+            <asp:TextBox ID="txtSearchInside" runat="server" Visible="false"></asp:TextBox>
+            <style>
                                                                                                .table-data td, .table-data th {
                                                                                                    padding: 5px 0 5px 15px;
                                                                                                }
@@ -982,7 +983,7 @@
                                                                                                    background-size: 10px 10px;
                                                                                                    float: left;
                                                                                                    position: absolute;
-                                                                                                   left: 0;
+                                                                                                   /*left: 0;*/
                                                                                                    top: 20px;
                                                                                                    z-index: 9999;
                                                                                                }
@@ -995,7 +996,7 @@
                                                                                                    background-size: 10px 10px;
                                                                                                    float: left;
                                                                                                    position: absolute;
-                                                                                                   left: 0;
+                                                                                                   /*left: 0;*/
                                                                                                    top: 20px;
                                                                                                    z-index: 9999;
                                                                                                }
@@ -1387,7 +1388,7 @@
         <asp:HiddenField ID="hdnOrderSort" runat="server" />
         <%--<asp:HiddenField ID="hdnTableType" runat="server" />--%>
 
-        <asp:Button ID="btnCheckSort1" runat="server" OnClick="btnCheckSort_Click1" Style="display: none" />
+        <asp:Button ID="btnCheckSortOutside" runat="server" OnClick="btnCheckSortOutside_Click" Style="display: none" />
         <asp:HiddenField ID="hdnColumnName1" runat="server" />
         <asp:HiddenField ID="hdnOrderSort1" runat="server" />
         <asp:HiddenField ID="hdnGroupBy" runat="server" />
@@ -1459,8 +1460,6 @@
         $(document).ready(function () {
 
             if ($('#ctl00_cphMain_hdnGroupBy').val() == '') {
-                //$('.bg-gray td:first-child span').attr('display', 'none');
-                //$('.bg-gray td:first-child span').prop('display', 'none');
                 $('.bg-gray td:first-child span').attr('style', 'display: none');
             }
 
@@ -1596,7 +1595,9 @@
                     GetOutsideRecords();
                 }
             });
-            $("#tblInsideHead").on("click", 'td', function (event) {
+
+            //$("#tblInsideHead").on("click", 'td', function (event) {
+            $("#tblInsideHead").on("click", 'span', function (event) {
                 //alert('sort');
                 var htmldata = '';
                 var index = getIndex(this);
@@ -1611,7 +1612,8 @@
 
                 //////
 
-                $('#ctl00_cphMain_hdnColumnName').val(this.textContent);
+                //$('#ctl00_cphMain_hdnColumnName').val(this.textContent);
+                $('#ctl00_cphMain_hdnColumnName').val($(this).parent('td')[0].textContent);
                 $('#ctl00_cphMain_hdnOrderSort').val(IsSorted);
                 //$('#ctl00_cphMain_hdnTableType').val("inside");
                 document.getElementById('<%= btnCheckSort.ClientID %>').click();
@@ -1648,8 +1650,8 @@
                 //IsSorted = IsSorted ? false : true;
             });
 
-            $("#tblOutsideHead").on("click", 'td', function (event) {
-
+            //$("#tblOutsideHead").on("click", 'td', function (event) {
+            $("#tblOutsideHead").on("click", 'span', function (event) {
                 var htmldata = '';
                 var index = getIndex(this);
                 //$(this).parent().find('span').css('background-color', '');
@@ -1661,10 +1663,11 @@
                 //else
                 //    $(this).find('span').addClass('arrowup');
 
-                $('#ctl00_cphMain_hdnColumnName1').val(this.textContent);
+                //$('#ctl00_cphMain_hdnColumnName1').val(this.textContent);
+                $('#ctl00_cphMain_hdnColumnName1').val($(this).parent('td')[0].textContent);
                 $('#ctl00_cphMain_hdnOrderSort1').val(ISOutSorted);
                 //$('#ctl00_cphMain_hdnTableType1').val("outside");
-                document.getElementById('<%= btnCheckSort1.ClientID %>').click();
+                document.getElementById('<%= btnCheckSortOutside.ClientID %>').click();
 
                 ////$("[id$=gvOutside] tbody>tr:not(:first-child)").sortElements(function (a, b) {
                 ////    try {
@@ -1914,6 +1917,7 @@
         // FUNCTIONS
 
         function copy_table_head(s_source_id, s_destination_id) {
+            
             var tbl_source = document.getElementById(s_source_id);
             var tbl_destination = document.getElementById(s_destination_id);
 

@@ -1574,21 +1574,17 @@ namespace MatchBox
                 tc_remaining_payments_amount.Text = String.Format("{0:n2}", n_remaining_payments_amount);
 
                 // TransactionDate
-
                 try
                 {
                     DateTime d_transaction_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transaction_date));
-
                     tc_transaction_date.Text = String.Format("{0:dd/MM/yyyy}", d_transaction_date);
                 }
                 catch (Exception ex) { }
 
                 // TransmissionDate
-
                 try
                 {
                     DateTime d_transmission_date = Convert.ToDateTime(Get_Cell_Text(ref tc_transmission_date));
-
                     tc_transmission_date.Text = String.Format("{0:dd/MM/yyyy}", d_transmission_date);
                 }
                 catch (Exception ex) { }
@@ -1598,7 +1594,6 @@ namespace MatchBox
                 try
                 {
                     DateTime d_paymen_date = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date));
-
                     tc_paymen_date.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date);
                 }
                 catch (Exception ex) { }
@@ -1608,11 +1603,9 @@ namespace MatchBox
                 if (b_inside == true)
                 {
                     int i_first_payment_amount = lst_field_priority.IndexOf("FirstPaymentAmount");
-
                     TableCell tc_first_payment_amount = gv_row.Cells[i_first_payment_amount];
 
                     // FirstPaymentAmount
-
                     double n_first_payment_amount = 0;
                     double.TryParse(tc_first_payment_amount.Text, out n_first_payment_amount);
 
@@ -1624,46 +1617,82 @@ namespace MatchBox
                     int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
                     int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
                     int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
+                    ////// date format for outside ////
+                    int i_clearinfCalculation_date = lst_field_priority.IndexOf("ClearinfCalculationDate");
+                    int i_discountCalculationDate_date = lst_field_priority.IndexOf("DiscountCalculationDate");
+                    int i_clubManagementFeeCalculation_date = lst_field_priority.IndexOf("ClubManagementFeeCalculationDate");
+                    int i_clubDiscountFeeCalculation_date = lst_field_priority.IndexOf("ClubDiscountFeeCalculationDate");
 
                     TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
                     TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
                     TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
                     TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
+                    ////// date format for outside ////
+                    TableCell tc_clearinfCalculation_date = gv_row.Cells[i_clearinfCalculation_date];
+                    TableCell tc_discountCalculationDate_date = gv_row.Cells[i_discountCalculationDate_date];
+                    TableCell tc_clubManagementFeeCalculation_date = gv_row.Cells[i_clubManagementFeeCalculation_date];
+                    TableCell tc_clubDiscountFeeCalculation_date = gv_row.Cells[i_clubDiscountFeeCalculation_date];
 
                     // NetPaymentAmount
-
                     double n_net_payment_amount = 0;
                     double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
 
                     tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
 
                     // AbsorptionDate
-
                     try
                     {
                         DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
-
                         tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
                     }
                     catch (Exception ex) { }
 
                     // PaymentDateActual
-
                     try
                     {
                         DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
-
                         tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
                     }
                     catch (Exception ex) { }
 
                     // InvoiceDate
-
                     try
                     {
                         DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
-
                         tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
+                    }
+                    catch (Exception ex) { }
+
+                    /// outside date format new columns ///////////////////////////
+                    // ClearinfCalculation_date
+                    try
+                    {
+                        DateTime d_clearinfCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clearinfCalculation_date));
+                        tc_clearinfCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clearinfCalculation_date);
+                    }
+                    catch (Exception ex) { }
+
+                    // DiscountCalculationDate
+                    try
+                    {
+                        DateTime d_discountCalculationDate_date = Convert.ToDateTime(Get_Cell_Text(ref tc_discountCalculationDate_date));
+                        tc_discountCalculationDate_date.Text = String.Format("{0:dd/MM/yyyy}", d_discountCalculationDate_date);
+                    }
+                    catch (Exception ex) { }
+
+                    // ClubManagementFeeCalculation
+                    try
+                    {
+                        DateTime d_clubManagementFeeCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clubManagementFeeCalculation_date));
+                        tc_clubManagementFeeCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clubManagementFeeCalculation_date);
+                    }
+                    catch (Exception ex) { }
+
+                    // ClubDiscountFeeCalculation
+                    try
+                    {
+                        DateTime d_clubDiscountFeeCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clubDiscountFeeCalculation_date));
+                        tc_clubDiscountFeeCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clubDiscountFeeCalculation_date);
                     }
                     catch (Exception ex) { }
                 }
@@ -1953,6 +1982,8 @@ namespace MatchBox
                     tc_transaction_gross_amount.Text = String.Format("{0:n2}", n_transaction_gross_amount);
                 }
 
+                
+
                 // DutyPaymentAmount
 
                 if (tc_duty_payment_amount != null)
@@ -2021,11 +2052,20 @@ namespace MatchBox
                 if (b_inside == true)
                 {
                     int i_first_payment_amount = lst_field_priority.IndexOf("FirstPaymentAmount");
+                    //////// date format for outside ////
+                    //int i_clearinfCalculation_date = lst_field_priority.IndexOf("ClearinfCalculationDate");
+                    //int i_discountCalculationDate_date = lst_field_priority.IndexOf("DiscountCalculationDate");
+                    //int i_clubManagementFeeCalculation_date = lst_field_priority.IndexOf("ClubManagementFeeCalculationDate");
+                    //int i_clubDiscountFeeCalculation_date = lst_field_priority.IndexOf("ClubDiscountFeeCalculationDate");
 
                     TableCell tc_first_payment_amount = gv_row.Cells[i_first_payment_amount];
+                    //////// date format for outside ////
+                    //TableCell tc_clearinfCalculation_date = gv_row.Cells[i_clearinfCalculation_date];
+                    //TableCell tc_discountCalculationDate_date = gv_row.Cells[i_discountCalculationDate_date];
+                    //TableCell tc_clubManagementFeeCalculation_date = gv_row.Cells[i_clubManagementFeeCalculation_date];
+                    //TableCell tc_clubDiscountFeeCalculation_date = gv_row.Cells[i_clubDiscountFeeCalculation_date];
 
                     // FirstPaymentAmount
-
                     double n_first_payment_amount = 0;
                     double.TryParse(tc_first_payment_amount.Text, out n_first_payment_amount);
 
@@ -2033,7 +2073,7 @@ namespace MatchBox
                 }
                 else
                 {
-                    int i_net_payment_amount = lst_field_priority.IndexOf("NetPaymentAmount");
+                    int i_net_payment_amount = lst_field_priority.IndexOf("netPaymentAmount");
                     int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
                     int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
                     int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
@@ -2048,11 +2088,9 @@ namespace MatchBox
                     if (i_absorption_date != -1)
                     {
                         TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
-
                         try
                         {
                             DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
-
                             tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
                         }
                         catch (Exception ex) { }
@@ -2063,7 +2101,6 @@ namespace MatchBox
                         try
                         {
                             DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
-
                             tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
                         }
                         catch (Exception ex) { }
@@ -2074,27 +2111,48 @@ namespace MatchBox
                         try
                         {
                             DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
-
                             tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
                         }
                         catch (Exception ex) { }
                     }
 
                     // NetPaymentAmount
-
-
-
-
                     // AbsorptionDate
-
-
-
-                    // PaymentDateActual
-
-
-
+                    // PaymentDateActua
                     // InvoiceDate
 
+                    ///// outside date format new columns ///////////////////////////
+                    //// ClearinfCalculation_date
+                    //try
+                    //{
+                    //    DateTime d_clearinfCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clearinfCalculation_date));
+                    //    tc_clearinfCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clearinfCalculation_date);
+                    //}
+                    //catch (Exception ex) { }
+
+                    //// DiscountCalculationDate
+                    //try
+                    //{
+                    //    DateTime d_discountCalculationDate_date = Convert.ToDateTime(Get_Cell_Text(ref tc_discountCalculationDate_date));
+                    //    tc_discountCalculationDate_date.Text = String.Format("{0:dd/MM/yyyy}", d_discountCalculationDate_date);
+                    //}
+                    //catch (Exception ex) { }
+
+                    //// ClubManagementFeeCalculation
+                    //try
+                    //{
+                    //    DateTime d_clubManagementFeeCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clubManagementFeeCalculation_date));
+                    //    tc_clubManagementFeeCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clubManagementFeeCalculation_date);
+                    //}
+                    //catch (Exception ex) { }
+
+                    //// ClubDiscountFeeCalculation
+                    //try
+                    //{
+                    //    DateTime d_clubDiscountFeeCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clubDiscountFeeCalculation_date));
+                    //    tc_clubDiscountFeeCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clubDiscountFeeCalculation_date);
+                    //}
+                    //catch (Exception ex) { }
 
                 }
 
@@ -2738,7 +2796,7 @@ namespace MatchBox
                 }
                 else
                 {
-                    int i_net_payment_amount = lst_field_priority.IndexOf("NetPaymentAmount");
+                    int i_net_payment_amount = lst_field_priority.IndexOf("netPaymentAmount");
                     int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
                     int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
                     int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
@@ -3054,48 +3112,85 @@ namespace MatchBox
                 int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
                 int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
                 int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
+                ////// date format for outside ////
+                int i_clearinfCalculation_date = lst_field_priority.IndexOf("ClearinfCalculationDate");
+                int i_discountCalculationDate_date = lst_field_priority.IndexOf("DiscountCalculationDate");
+                int i_clubManagementFeeCalculation_date = lst_field_priority.IndexOf("ClubManagementFeeCalculationDate");
+                int i_clubDiscountFeeCalculation_date = lst_field_priority.IndexOf("ClubDiscountFeeCalculationDate");
 
                 TableCell tc_net_payment_amount = gv_row.Cells[i_net_payment_amount];
                 TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
                 TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
                 TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
+                ////// date format for outside ////
+                TableCell tc_clearinfCalculation_date = gv_row.Cells[i_clearinfCalculation_date];
+                TableCell tc_discountCalculationDate_date = gv_row.Cells[i_discountCalculationDate_date];
+                TableCell tc_clubManagementFeeCalculation_date = gv_row.Cells[i_clubManagementFeeCalculation_date];
+                TableCell tc_clubDiscountFeeCalculation_date = gv_row.Cells[i_clubDiscountFeeCalculation_date];
 
                 // NetPaymentAmount
-
                 double n_net_payment_amount = 0;
                 double.TryParse(tc_net_payment_amount.Text, out n_net_payment_amount);
 
                 tc_net_payment_amount.Text = String.Format("{0:n2}", n_net_payment_amount);
 
                 // AbsorptionDate
-
                 try
                 {
                     DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
-
                     tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
                 }
                 catch (Exception ex) { }
 
                 // PaymentDateActual
-
                 try
                 {
                     DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
-
                     tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
                 }
                 catch (Exception ex) { }
 
                 // InvoiceDate
-
                 try
                 {
                     DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
-
                     tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
                 }
                 catch (Exception ex) { }
+
+                /// outside date format new columns ///////////////////////////
+                // ClearinfCalculation_date
+                try
+                {
+                    DateTime d_clearinfCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clearinfCalculation_date));
+                    tc_clearinfCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clearinfCalculation_date);
+                }
+                catch (Exception ex) { }
+
+                // DiscountCalculationDate
+                try
+                {
+                    DateTime d_discountCalculationDate_date = Convert.ToDateTime(Get_Cell_Text(ref tc_discountCalculationDate_date));
+                    tc_discountCalculationDate_date.Text = String.Format("{0:dd/MM/yyyy}", d_discountCalculationDate_date);
+                }
+                catch (Exception ex) { }
+
+                // ClubManagementFeeCalculation
+                try
+                {
+                    DateTime d_clubManagementFeeCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clubManagementFeeCalculation_date));
+                    tc_clubManagementFeeCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clubManagementFeeCalculation_date);
+                }
+                catch (Exception ex) { }
+
+                // ClubDiscountFeeCalculation
+                try
+                {
+                    DateTime d_clubDiscountFeeCalculation_date = Convert.ToDateTime(Get_Cell_Text(ref tc_clubDiscountFeeCalculation_date));
+                    tc_clubDiscountFeeCalculation_date.Text = String.Format("{0:dd/MM/yyyy}", d_clubDiscountFeeCalculation_date);
+                }
+                catch (Exception ex) { }
+
             }
             else
             {
@@ -3398,11 +3493,10 @@ namespace MatchBox
                     catch (Exception ex) { }
                 }
 
-                int i_net_payment_amount = lst_field_priority.IndexOf("NetPaymentAmount");
+                int i_net_payment_amount = lst_field_priority.IndexOf("netPaymentAmount");
                 int i_absorption_date = lst_field_priority.IndexOf("AbsorptionDate");
                 int i_paymen_date_actual = lst_field_priority.IndexOf("PaymentDateActual");
                 int i_invoice_date = lst_field_priority.IndexOf("InvoiceDate");
-
 
                 if (i_net_payment_amount != -1)
                 {
@@ -3420,9 +3514,7 @@ namespace MatchBox
                     try
                     {
                         TableCell tc_absorption_date = gv_row.Cells[i_absorption_date];
-
                         DateTime d_absorption_date = Convert.ToDateTime(Get_Cell_Text(ref tc_absorption_date));
-
                         tc_absorption_date.Text = String.Format("{0:dd/MM/yyyy}", d_absorption_date);
                     }
                     catch (Exception ex) { }
@@ -3435,7 +3527,6 @@ namespace MatchBox
                     {
                         TableCell tc_paymen_date_actual = gv_row.Cells[i_paymen_date_actual];
                         DateTime d_paymen_date_actual = Convert.ToDateTime(Get_Cell_Text(ref tc_paymen_date_actual));
-
                         tc_paymen_date_actual.Text = String.Format("{0:dd/MM/yyyy}", d_paymen_date_actual);
                     }
                     catch (Exception ex) { }
@@ -3449,7 +3540,6 @@ namespace MatchBox
                     {
                         TableCell tc_invoice_date = gv_row.Cells[i_invoice_date];
                         DateTime d_invoice_date = Convert.ToDateTime(Get_Cell_Text(ref tc_invoice_date));
-
                         tc_invoice_date.Text = String.Format("{0:dd/MM/yyyy}", d_invoice_date);
                     }
                     catch (Exception ex) { }

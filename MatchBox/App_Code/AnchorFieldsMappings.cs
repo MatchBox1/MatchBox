@@ -12,16 +12,26 @@ namespace MatchBox
         {
             IDictionary<string, string> ObjDic = new Dictionary<string, string>();
             ObjDic.Add("ID", "ID");
-            ObjDic.Add("Status", "StatusName");
-            ObjDic.Add("Source", "UniqueID");
-            ObjDic.Add("Template", "TemplateName");
-            ObjDic.Add("File", "DataFileID");
-            ObjDic.Add("Strategy", "StrategyName");
-            ObjDic.Add("Matching", "MatchingID");
-            ObjDic.Add("Action", "MatchingActionName");
-            ObjDic.Add("Query", "QueryNumber");
-            ObjDic.Add("Type", "MatchingTypeName");
-            ObjDic.Add("Match", "QueryID");
+            //ObjDic.Add("Status", "StatusName");
+            ObjDic.Add("סטטוס", "StatusName");
+            //ObjDic.Add("Source", "UniqueID");
+            ObjDic.Add("מקור", "UniqueID");
+            //ObjDic.Add("Template", "TemplateName");
+            ObjDic.Add("תבנית", "TemplateName");
+            //ObjDic.Add("File", "DataFileID");
+            ObjDic.Add("קובץ", "DataFileID");
+            //ObjDic.Add("Strategy", "StrategyName");
+            ObjDic.Add("אסטרטגיה", "StrategyName");
+            //ObjDic.Add("Matching", "MatchingID");
+            ObjDic.Add("מס התאמה", "MatchingID");
+            //ObjDic.Add("Action", "MatchingActionName");
+            ObjDic.Add("פעולה", "MatchingActionName");
+            //ObjDic.Add("Query", "QueryNumber");
+            ObjDic.Add("שאילתא", "QueryNumber");
+            //ObjDic.Add("Type", "MatchingTypeName");
+            ObjDic.Add("סוג", "MatchingTypeName");
+            //ObjDic.Add("Match", "QueryID");
+            ObjDic.Add("התאמה", "QueryID");
 
             ObjDic.Add("HP of the company", "CompanyNumber");
             ObjDic.Add("ח.פ. של החברה", "CompanyNumber");
@@ -68,6 +78,9 @@ namespace MatchBox
             ObjDic.Add("Fixed payment number", "DutyPaymentNumber");
             ObjDic.Add("מספר תשלום תורן", "DutyPaymentNumber");
 
+
+            ObjDic.Add("סהכ כמות", "GrossAmountCount");
+
             ObjDic.Add("Gross amount", "TransactionGrossAmount");
             ObjDic.Add("סכום ברוטו", "TransactionGrossAmount");
 
@@ -103,7 +116,8 @@ namespace MatchBox
 
             ObjDic.Add("Splitted", "IsSplitted");
             ObjDic.Add("Balance", "IsBalance");
-            ObjDic.Add("Comment", "Comment");
+            //ObjDic.Add("Comment", "Comment");
+            ObjDic.Add("הערות", "Comment");
             ObjDic.Add("DataFileStrategyID", "DataFileStrategyID");
 
 
@@ -118,6 +132,33 @@ namespace MatchBox
             ObjDic.Add("נטו לתשלום", "netpaymentamount");
             ObjDic.Add("מע\"מ", "vat");
             ObjDic.Add("עסקת חו\"ל","IsAbroad");
+            // New columns ///
+            ObjDic.Add("אחוז עמלת סליקה הסכם", "AgPerClearingCommission");
+             ObjDic.Add("עמלת סליקה הסכם", "CalculatedIclearingCommission");
+             ObjDic.Add("תאריך עיבוד עמלת סליקה", "ClearinfCalculationDate");
+            ObjDic.Add("אחוז עמלת סליקה בפועל", "AcPerClearingCommission");
+            ObjDic.Add("הפרש עמלת סליקה", "DiffClearingCommission");
+            ObjDic.Add("עמלת סליקה תקין?", "correctincorrectcommissions");
+            ObjDic.Add("אחוז עמלת נכיון הסכם", "AgPerDiscountCommission");
+            ObjDic.Add("עמלת נכיון הסכם", "CalculatedIDiscountCommission");
+            ObjDic.Add("תאריך עיבוד עמלת נכיון", "DiscountCalculationDate");
+            ObjDic.Add("אחוז עמלת נכיון בפועל", "AcPerDiscountCommission");
+            ObjDic.Add("הפרש עמלת נכיון", "DiffDiscountCommission");
+            ObjDic.Add("עמלת נכיון תקין?", "CorrectIncorrectCommissionsDiscount");
+            ObjDic.Add("חברת נכיון", "DiscountName");
+            ObjDic.Add("אחוז עמלת ד.נ מועדון הסכם", "AgPerClubManagementFeeCommission");
+            ObjDic.Add("עמלת ד.נ מועדון הסכם", "CalculatedIclubManagementFeeCommission");
+            ObjDic.Add("תאריך עיבוד עמלת ד.נ מועדון", "ClubManagementFeeCalculationDate");
+            ObjDic.Add("אחוז עמלת ד.נ מועדון בפועל", "AcPerClubManagementFeeCommission");
+            ObjDic.Add("הפרש עמלת ד.נ מועדון", "DiffClubManagementFeeCommission");
+            ObjDic.Add("עמלת ד.נ מועדון תקין?", "CorrectIncorrectCommissionsClubManagementFee");
+            ObjDic.Add("אחוז עמלת הנחת מועדון הסכם", "AgPerClubDiscountFeeCommission");
+            ObjDic.Add("עמלת הנחת מועדון הסכם", "CalculatedIclubDiscountFeeCommission");
+            ObjDic.Add("תאריך עיבוד עמלת הנחת מועדון", "ClubDiscountFeeCalculationDate");
+            ObjDic.Add("אחוז עמלת הנחת מועדון בפועל", "AcPerClubDiscountFeeCommission");
+            ObjDic.Add("הפרש עמלת הנחת מועדון", "DiffClubDiscountFeeCommission");
+            ObjDic.Add("עמלת הנחת מועדון תקין?", "CorrectIncorrectCommissionsClubDiscountFee");
+            ObjDic.Add("עסקת מועדון?", "IsClubCommissionvalid");
 
             string statusValue = "";
             try

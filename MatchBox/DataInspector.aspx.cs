@@ -2219,7 +2219,7 @@ namespace MatchBox
 
         }
 
-        protected void btnCheckSort_Click1(object sender, EventArgs e)
+        protected void btnCheckSortOutside_Click(object sender, EventArgs e)
         {
             //Session["sortColumnName_Inside"] = hdnColumnName.Value;
             //Session["hdnOrderSort_Inside"] = Convert.ToBoolean(hdnOrderSort.Value) == true ? "asc" : "desc";
@@ -5051,6 +5051,21 @@ namespace MatchBox
                     }
                 }
             }
+            else
+            {
+                foreach (GridViewRow row in gvInside.Rows)
+                {
+                    // alignment /////
+                    for (int i = 0; i < row.Cells.Count; i++)
+                    {
+                        decimal value;
+                        if (decimal.TryParse(row.Cells[i].Text, out value))
+                        {
+                            row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
+                        }
+                    }
+                }
+            }
             if (string.IsNullOrEmpty(s_group_by))
             {
                 foreach (GridViewRow row in gvOutside.Rows)
@@ -5116,6 +5131,23 @@ namespace MatchBox
                     row.Cells[55].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[58].HorizontalAlign = HorizontalAlign.Right;
 
+                    row.Cells[59].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[60].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[62].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[63].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[65].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[66].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[68].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[69].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[72].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[73].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[75].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[76].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[78].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[79].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[81].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[82].HorizontalAlign = HorizontalAlign.Right;
+
                     // End alignment ////
 
                     if (s_mode == "matching")
@@ -5152,6 +5184,21 @@ namespace MatchBox
                         else
                         {
                             row.BackColor = System.Drawing.Color.White;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (GridViewRow row in gvOutside.Rows)
+                {
+                    // alignment /////
+                    for (int i = 0; i < row.Cells.Count; i++)
+                    {
+                        decimal value;
+                        if (decimal.TryParse(row.Cells[i].Text, out value))
+                        {
+                            row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
                         }
                     }
                 }
