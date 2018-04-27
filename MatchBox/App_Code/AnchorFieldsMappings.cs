@@ -159,6 +159,10 @@ namespace MatchBox
             ObjDic.Add("הפרש עמלת הנחת מועדון", "DiffClubDiscountFeeCommission");
             ObjDic.Add("עמלת הנחת מועדון תקין?", "CorrectIncorrectCommissionsClubDiscountFee");
             ObjDic.Add("עסקת מועדון?", "IsClubCommissionvalid");
+            ObjDic.Add("מס ריצה עמלות סליקה","ClearingCommissionID");
+            ObjDic.Add("מס ריצה עמלות נכיון","DiscountCommissionID");
+            ObjDic.Add("מס ריצה עמלות ד.נ מועדון", "ClubManagementFeeCommissionID");
+            ObjDic.Add("מס ריצה עמלות הנחת מועדון", "ClubDiscountCommissionID");
 
             string statusValue = "";
             try
