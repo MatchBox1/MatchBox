@@ -662,6 +662,18 @@ namespace MatchBox
 
             if (s_card != "") { s_where += " AND CardID IN ( " + s_card + " ) "; }
 
+            string s_ClubCommission = string.Empty;
+            string s_Discount = string.Empty;
+            if (chkCommissionsReport.Checked)
+            {
+                // s_ClubCommission = Parameter_CheckBoxList(chklIsClubCommissionValid);
+
+                //if (s_ClubCommission != "") { s_where += " AND IsClubCommissionvalid IN ( " + s_ClubCommission + " ) "; }
+
+                //s_Discount = Parameter_CheckBoxList(chklDiscountName);
+
+                //if (s_Discount != "") { s_where += " AND DiscountName IN ( " + s_Discount + " ) "; }
+            }
             // TransactionCurrencyID
 
             string s_transaction_currency = Parameter_CheckBoxList(cblTransactionCurrency);
@@ -1754,6 +1766,548 @@ namespace MatchBox
                 string s_group_by = string.Empty, s_selectColumns_by = string.Empty, sortColumnName = string.Empty, sortType = string.Empty, sortColumnName_Out = string.Empty, sortType_Out = string.Empty;
                 var listGroupBy = new List<KeyValuePair<int, string>>();
                 var listSelectColumnsBy = new List<KeyValuePair<int, string>>();
+                string s_group_byout = string.Empty, s_selectColumns_byout = string.Empty;
+                var listGroupByOut = new List<KeyValuePair<int, string>>();
+                var listSelectColumnsByOut = new List<KeyValuePair<int, string>>();
+                if (chkCommissionsReport.Checked)
+                {
+                    s_where = "";
+                    string s_ClearingId = Parameter_TextBox(txtClearingCommissionID, "uint", ref s_error, false, 6);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblClearingCommissionID.Text = s_error;
+                    }
+                    else if (s_ClearingId != "")
+                    {
+                        s_operator = (chkExcludeClearingCommissionID.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND clearingcommissionid {0} ( {1} ) ", s_operator, s_ClearingId);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_AgPerClearing = Parameter_TextBox(txtAgPerClearingCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAgPerClearingCommission.Text = s_error;
+                    }
+                    else if (s_AgPerClearing != "")
+                    {
+                        s_operator = (chkExcludeAgPerClearingCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AgPerClearingCommission {0} ( {1} ) ", s_operator, s_AgPerClearing);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_CalculatedIclearingCommission = Parameter_TextBox(txtCalculatedIclearingCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblCalculatedIclearingCommission.Text = s_error;
+                    }
+                    else if (s_CalculatedIclearingCommission != "")
+                    {
+                        s_operator = (chkExcludeCalculatedIclearingCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND CalculatedIclearingCommission {0} ( {1} ) ", s_operator, s_CalculatedIclearingCommission);
+                        s_where_outside += s_where;
+                    }
+
+
+                    s_where = "";
+                    string s_ClearinfCalculationDate = Parameter_TextBox(txtClearinfCalculationDate, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblClearinfCalculationDate.Text = s_error;
+                    }
+                    else if (s_ClearinfCalculationDate != "")
+                    {
+                        s_operator = (chkExcludeClearinfCalculationDate.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND ClearinfCalculationDate {0} ( {1} ) ", s_operator, s_ClearinfCalculationDate);
+                        s_where_outside += s_where;
+                    }
+
+
+                    s_where = "";
+                    string s_AcPerClearingCommission = Parameter_TextBox(txtAcPerClearingCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAcPerClearingCommission.Text = s_error;
+                    }
+                    else if (s_AcPerClearingCommission != "")
+                    {
+                        s_operator = (chkExcludeAcPerClearingCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AcPerClearingCommission {0} ( {1} ) ", s_operator, s_AcPerClearingCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_DiffClearingCommission = Parameter_TextBox(txtDiffClearingCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblDiffClearingCommission.Text = s_error;
+                    }
+                    else if (s_DiffClearingCommission != "")
+                    {
+                        s_operator = (chkExcludeDiffClearingCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND DiffClearingCommission {0} ( {1} ) ", s_operator, s_DiffClearingCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_DiscountCommissionID = Parameter_TextBox(txtDiscountCommissionID, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblDiscountCommissionID.Text = s_error;
+                    }
+                    else if (s_DiscountCommissionID != "")
+                    {
+                        s_operator = (chkExcludeDiscountCommissionID.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND DiscountCommissionID {0} ( {1} ) ", s_operator, s_DiscountCommissionID);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_AgPerDiscountCommission = Parameter_TextBox(txtAgPerDiscountCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAgPerDiscountCommission.Text = s_error;
+                    }
+                    else if (s_AgPerDiscountCommission != "")
+                    {
+                        s_operator = (chkExcludeAgPerDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AgPerDiscountCommission {0} ( {1} ) ", s_operator, s_AgPerDiscountCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_CalculatedIDiscountCommission = Parameter_TextBox(txtCalculatedIDiscountCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblCalculatedIDiscountCommission.Text = s_error;
+                    }
+                    else if (s_CalculatedIDiscountCommission != "")
+                    {
+                        s_operator = (chkExcludeCalculatedIDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND CalculatedIDiscountCommission {0} ( {1} ) ", s_operator, s_CalculatedIDiscountCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_DiscountCalculationDate = Parameter_TextBox(txtDiscountCalculationDate, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblDiscountCalculationDate.Text = s_error;
+                    }
+                    else if (s_DiscountCalculationDate != "")
+                    {
+                        s_operator = (chkExcludeDiscountCalculationDate.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND DiscountCalculationDate {0} ( {1} ) ", s_operator, s_DiscountCalculationDate);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_AcPerDiscountCommission = Parameter_TextBox(txtAcPerDiscountCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAcPerDiscountCommission.Text = s_error;
+                    }
+                    else if (s_AcPerDiscountCommission != "")
+                    {
+                        s_operator = (chkExcludeAcPerDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AcPerDiscountCommission {0} ( {1} ) ", s_operator, s_AcPerDiscountCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_DiffDiscountCommission = Parameter_TextBox(txtDiffDiscountCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblDiffDiscountCommission.Text = s_error;
+                    }
+                    else if (s_DiffDiscountCommission != "")
+                    {
+                        s_operator = (chkExcludeDiffDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND DiffDiscountCommission {0} ( {1} ) ", s_operator, s_DiffDiscountCommission);
+                        s_where_outside += s_where;
+                    }
+
+
+                    s_where = "";
+                    string s_ClubManagementFeeCommissionID = Parameter_TextBox(txtClubManagementFeeCommissionID, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblClubManagementFeeCommissionID.Text = s_error;
+                    }
+                    else if (s_ClubManagementFeeCommissionID != "")
+                    {
+                        s_operator = (chkExcludeClubManagementFeeCommissionID.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND ClubManagementFeeCommissionID {0} ( {1} ) ", s_operator, s_ClubManagementFeeCommissionID);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_AgPerClubManagementFeeCommission = Parameter_TextBox(txtAgPerClubManagementFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAgPerClubManagementFeeCommission.Text = s_error;
+                    }
+                    else if (s_AgPerClubManagementFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeAgPerClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AgPerClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_AgPerClubManagementFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_CalculatedClubManagementFeeCommission = Parameter_TextBox(txtCalculatedClubManagementFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAgPerClubManagementFeeCommission.Text = s_error;
+                    }
+                    else if (s_CalculatedClubManagementFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeCalculatedClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND CalculatedIclubManagementFeeCommission {0} ( {1} ) ", s_operator, s_CalculatedClubManagementFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+
+                    s_where = "";
+                    string s_txtClubManagementFeeCalculationDate = Parameter_TextBox(txtClubManagementFeeCalculationDate, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblClubManagementFeeCalculationDate.Text = s_error;
+                    }
+                    else if (s_txtClubManagementFeeCalculationDate != "")
+                    {
+                        s_operator = (chkExcludeClubManagementFeeCalculationDate.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND ClubManagementFeeCalculationDate {0} ( {1} ) ", s_operator, s_txtClubManagementFeeCalculationDate);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_txtAcPerClubManagementFeeCommission = Parameter_TextBox(txtAcPerClubManagementFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAcPerClubManagementFeeCommission.Text = s_error;
+                    }
+                    else if (s_txtAcPerClubManagementFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeAcPerClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AcPerClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_txtAcPerClubManagementFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_txtDiffClubManagementFeeCommission = Parameter_TextBox(txtDiffClubManagementFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAcPerClubManagementFeeCommission.Text = s_error;
+                    }
+                    else if (s_txtDiffClubManagementFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeDiffClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND DiffClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_txtDiffClubManagementFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+
+                    s_where = "";
+                    string s_txtClubDiscountCommissionID = Parameter_TextBox(txtClubDiscountCommissionID, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblClubDiscountCommissionID.Text = s_error;
+                    }
+                    else if (s_txtClubDiscountCommissionID != "")
+                    {
+                        s_operator = (chkExcludeClubDiscountCommissionID.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND ClubDiscountCommissionID {0} ( {1} ) ", s_operator, s_txtClubDiscountCommissionID);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_txtAgPerClubDiscountFeeCommission = Parameter_TextBox(txtAgPerClubDiscountFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAgPerClubDiscountFeeCommission.Text = s_error;
+                    }
+                    else if (s_txtAgPerClubDiscountFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeAgPerClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AgPerClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtAgPerClubDiscountFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_txtCalculatedClubDiscountFeeCommission = Parameter_TextBox(txtCalculatedClubDiscountFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblCalculatedIDiscountCommission.Text = s_error;
+                    }
+                    else if (s_txtCalculatedClubDiscountFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeCalculatedClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND CalculatedIclubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtCalculatedClubDiscountFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+
+                    s_where = "";
+                    string s_txtClubDiscountFeeCalculationDate = Parameter_TextBox(txtClubDiscountFeeCalculationDate, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblClubDiscountFeeCalculationDate.Text = s_error;
+                    }
+                    else if (s_txtClubDiscountFeeCalculationDate != "")
+                    {
+                        s_operator = (chkExcludeClubDiscountFeeCalculationDate.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND ClubDiscountFeeCalculationDate {0} ( {1} ) ", s_operator, s_txtClubDiscountFeeCalculationDate);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_txtAcPerClubDiscountFeeCommission = Parameter_TextBox(txtAcPerClubDiscountFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblAcPerClubDiscountFeeCommission.Text = s_error;
+                    }
+                    else if (s_txtAcPerClubDiscountFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeAcPerClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND AcPerClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtAcPerClubDiscountFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    s_where = "";
+                    string s_txtDiffClubDiscountFeeCommission = Parameter_TextBox(txtDiffClubDiscountFeeCommission, "uint", ref s_error, false, 15);
+                    if (s_error != "")
+                    {
+                        b_error = true;
+                        lblDiffClubDiscountFeeCommission.Text = s_error;
+                    }
+                    else if (s_txtDiffClubDiscountFeeCommission != "")
+                    {
+                        s_operator = (chkExcludeDiffClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                        s_where = String.Format(" AND DiffClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtDiffClubDiscountFeeCommission);
+                        s_where_outside += s_where;
+                    }
+
+                    if (txtGroupByClearingCommissionID.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearingCommissionID.Text), "ClearingCommissionID"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearingCommissionID.Text), "ClearingCommissionID"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearingCommissionID.Text), "ClearingCommissionID"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearingCommissionID.Text), "ClearingCommissionID"));
+                    }
+
+                    if (txtGroupByAgPerClearingCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClearingCommission.Text), "AgPerClearingCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClearingCommission.Text), "AgPerClearingCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClearingCommission.Text), "AgPerClearingCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClearingCommission.Text), "AgPerClearingCommission"));
+                    }
+                    if (txtGroupByClearinfCalculationDate.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearinfCalculationDate.Text), "ClearinfCalculationDate"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearinfCalculationDate.Text), "ClearinfCalculationDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearinfCalculationDate.Text), "ClearinfCalculationDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClearinfCalculationDate.Text), "ClearinfCalculationDate"));
+                    }
+                    if (txtGroupByAcPerClearingCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClearingCommission.Text), "AcPerClearingCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClearingCommission.Text), "AcPerClearingCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClearingCommission.Text), "AcPerClearingCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClearingCommission.Text), "AcPerClearingCommission"));
+                    }
+                    if (txtGroupByDiscountCommissionID.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCommissionID.Text), "DiscountCommissionID"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCommissionID.Text), "DiscountCommissionID"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCommissionID.Text), "DiscountCommissionID"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCommissionID.Text), "DiscountCommissionID"));
+                    }
+                    if (txtGroupByAgPerDiscountCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerDiscountCommission.Text), "AgPerDiscountCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerDiscountCommission.Text), "AgPerDiscountCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerDiscountCommission.Text), "AgPerDiscountCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerDiscountCommission.Text), "AgPerDiscountCommission"));
+                    }
+                    if (txtGroupByDiscountCalculationDate.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCalculationDate.Text), "DiscountCalculationDate"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCalculationDate.Text), "DiscountCalculationDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCalculationDate.Text), "DiscountCalculationDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDiscountCalculationDate.Text), "DiscountCalculationDate"));
+                    }
+                    if (txtGroupByAcPerDiscountCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerDiscountCommission.Text), "AcPerDiscountCommission"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerDiscountCommission.Text), "AcPerDiscountCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerDiscountCommission.Text), "AcPerDiscountCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerDiscountCommission.Text), "AcPerDiscountCommission"));
+                    }
+                    if (txtGroupByClubManagementFeeCommissionID.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCommissionID.Text), "ClubManagementFeeCommissionID"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCommissionID.Text), "ClubManagementFeeCommissionID"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCommissionID.Text), "ClubManagementFeeCommissionID"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCommissionID.Text), "ClubManagementFeeCommissionID"));
+                    }
+                    if (txtGroupByAgPerClubManagementFeeCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubManagementFeeCommission.Text), "AgPerClubManagementFeeCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubManagementFeeCommission.Text), "AgPerClubManagementFeeCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubManagementFeeCommission.Text), "AgPerClubManagementFeeCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubManagementFeeCommission.Text), "AgPerClubManagementFeeCommission"));
+                    }
+                    if (txtGroupByClubManagementFeeCalculationDate.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCalculationDate.Text), "ClubManagementFeeCalculationDate"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCalculationDate.Text), "ClubManagementFeeCalculationDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCalculationDate.Text), "ClubManagementFeeCalculationDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubManagementFeeCalculationDate.Text), "ClubManagementFeeCalculationDate"));
+                    }
+                    if (txtGroupByAcPerClubManagementFeeCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubManagementFeeCommission.Text), "AcPerClubManagementFeeCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubManagementFeeCommission.Text), "AcPerClubManagementFeeCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubManagementFeeCommission.Text), "AcPerClubManagementFeeCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubManagementFeeCommission.Text), "AcPerClubManagementFeeCommission"));
+                    }
+                    if (txtGroupByClubDiscountCommissionID.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountCommissionID.Text), "ClubDiscountCommissionID"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountCommissionID.Text), "ClubDiscountCommissionID"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountCommissionID.Text), "ClubDiscountCommissionID"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountCommissionID.Text), "ClubDiscountCommissionID"));
+                    }
+                    if (txtGroupByAgPerClubDiscountFeeCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubDiscountFeeCommission.Text), "AgPerClubDiscountFeeCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubDiscountFeeCommission.Text), "AgPerClubDiscountFeeCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubDiscountFeeCommission.Text), "AgPerClubDiscountFeeCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAgPerClubDiscountFeeCommission.Text), "AgPerClubDiscountFeeCommission"));
+                    }
+                    if (txtGroupByClubDiscountFeeCalculationDate.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountFeeCalculationDate.Text), "ClubDiscountFeeCalculationDate"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountFeeCalculationDate.Text), "ClubDiscountFeeCalculationDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountFeeCalculationDate.Text), "ClubDiscountFeeCalculationDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByClubDiscountFeeCalculationDate.Text), "ClubDiscountFeeCalculationDate"));
+                    }
+                    if (txtGroupByAcPerClubDiscountFeeCommission.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubDiscountFeeCommission.Text), "AcPerClubDiscountFeeCommission"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubDiscountFeeCommission.Text), "AcPerClubDiscountFeeCommission"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubDiscountFeeCommission.Text), "AcPerClubDiscountFeeCommission"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByAcPerClubDiscountFeeCommission.Text), "AcPerClubDiscountFeeCommission"));
+                    }
+                    if (txtGroupByCorrectIncorrectCommissionsClubDiscountFee.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubDiscountFee.Text), "CorrectIncorrectCommissionsClubDiscountFee"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubDiscountFee.Text), "CorrectIncorrectCommissionsClubDiscountFee"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubDiscountFee.Text), "CorrectIncorrectCommissionsClubDiscountFee"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubDiscountFee.Text), "CorrectIncorrectCommissionsClubDiscountFee"));
+                    }
+                    if (txtGroupByIsClubCommissionValid.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByIsClubCommissionValid.Text), "IsClubCommissionvalid"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByIsClubCommissionValid.Text), "IsClubCommissionvalid"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByIsClubCommissionValid.Text), "IsClubCommissionvalid"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByIsClubCommissionValid.Text), "IsClubCommissionvalid"));
+                    }
+                    if (txtGroupByCorrectIncorrectCommissionsClubManagementFee.Text != "")
+                    {
+                        //ClearingCommissionID
+                        listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubManagementFee.Text), "CorrectIncorrectCommissionsClubManagementFee"));
+                        listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubManagementFee.Text), "CorrectIncorrectCommissionsClubManagementFee"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubManagementFee.Text), "CorrectIncorrectCommissionsClubManagementFee"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsClubManagementFee.Text), "CorrectIncorrectCommissionsClubManagementFee"));
+                    }
+                    if (txtGroupByCorrectIncorrectCommissionsDiscount.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsDiscount.Text), "CorrectIncorrectCommissionsDiscount"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsDiscount.Text), "CorrectIncorrectCommissionsDiscount"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsDiscount.Text), "CorrectIncorrectCommissionsDiscount"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissionsDiscount.Text), "CorrectIncorrectCommissionsDiscount"));
+                    }
+                    if (txtGroupByCorrectIncorrectCommissions.Text != "")
+                    {
+                        //ClearingCommissionID
+                        //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissions.Text), "CorrectIncorrectCommissions"));
+                        //listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissions.Text), "CorrectIncorrectCommissions"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissions.Text), "CorrectIncorrectCommissions"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCorrectIncorrectCommissions.Text), "CorrectIncorrectCommissions"));
+                    }
+                }
+                bool flagCommission = false;
+                if (
+                        !string.IsNullOrEmpty(txtGroupByClearingCommissionID.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAgPerClearingCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByClearinfCalculationDate.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAcPerClearingCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByDiscountCommissionID.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAgPerDiscountCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByDiscountCalculationDate.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAcPerDiscountCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByClubManagementFeeCommissionID.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAgPerClubManagementFeeCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByClubManagementFeeCalculationDate.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAcPerClubManagementFeeCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByClubDiscountCommissionID.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAgPerClubDiscountFeeCommission.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByClubDiscountFeeCalculationDate.Text) ||
+                        !string.IsNullOrEmpty(txtGroupByAcPerClubDiscountFeeCommission.Text)
+                  )
+                {
+                    dvGrid.Visible = false;
+                    divInside.Visible = false;
+                    divCalculationFooter_Inside.Visible = false;
+                    flagCommission = true;
+                }
                 if (txtGroupByTransactionDate.Text != "")
                 {
                     //listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
@@ -1764,11 +2318,15 @@ namespace MatchBox
 
                         listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransactionDate)), 2))"));
                         listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransactionDate)), 2)) TransactionDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransactionDate)), 2))"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransactionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransactionDate)), 2)) TransactionDate"));
                     }
                     else
                     {
                         listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
                         listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransactionDate.Text), "TransactionDate"));
                     }
                 }
                 if (txtGroupByTransmissionDate.Text != "")
@@ -1777,11 +2335,15 @@ namespace MatchBox
                     {
                         listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransmissionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransmissionDate)), 2))"));
                         listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransmissionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransmissionDate)), 2)) TransmissionDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransmissionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransmissionDate)), 2))"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "(CONVERT(VARCHAR(10), YEAR(TransmissionDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(TransmissionDate)), 2)) TransmissionDate"));
                     }
                     else
                     {
                         listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
                         listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionDate.Text), "TransmissionDate"));
                     }
                 }
                 if (txtGroupByPaymentDate.Text != "")
@@ -1790,47 +2352,65 @@ namespace MatchBox
                     {
                         listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "(CONVERT(VARCHAR(10), YEAR(PaymentDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(PaymentDate)), 2))"));
                         listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "(CONVERT(VARCHAR(10), YEAR(PaymentDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(PaymentDate)), 2)) PaymentDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "(CONVERT(VARCHAR(10), YEAR(PaymentDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(PaymentDate)), 2))"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "(CONVERT(VARCHAR(10), YEAR(PaymentDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(PaymentDate)), 2)) PaymentDate"));
                     }
                     else
                     {
                         listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
                         listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
+                        listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
+                        listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentDate.Text), "PaymentDate"));
                     }
                 }
                 if (txtGroupByCardPrefix.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardPrefix.Text), "CardPrefix"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardPrefix.Text), "CardPrefix"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardPrefix.Text), "CardPrefix"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardPrefix.Text), "CardPrefix"));
                 }
                 if (txtGroupByCardNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardNumber.Text), "CardNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardNumber.Text), "CardNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardNumber.Text), "CardNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCardNumber.Text), "CardNumber"));
                 }
                 if (txtGroupByTransmissionNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionNumber.Text), "TransmissionNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionNumber.Text), "TransmissionNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionNumber.Text), "TransmissionNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTransmissionNumber.Text), "TransmissionNumber"));
                 }
                 if (txtGroupByVoucherNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByVoucherNumber.Text), "VoucherNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByVoucherNumber.Text), "VoucherNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByVoucherNumber.Text), "VoucherNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByVoucherNumber.Text), "VoucherNumber"));
                 }
                 if (txtGroupByConfirmationNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByConfirmationNumber.Text), "ConfirmationNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByConfirmationNumber.Text), "ConfirmationNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByConfirmationNumber.Text), "ConfirmationNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByConfirmationNumber.Text), "ConfirmationNumber"));
                 }
                 if (txtGroupByPaymentsCount.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentsCount.Text), "PaymentsCount"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentsCount.Text), "PaymentsCount"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentsCount.Text), "PaymentsCount"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByPaymentsCount.Text), "PaymentsCount"));
                 }
                 if (txtGroupByDutyPaymentNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDutyPaymentNumber.Text), "DutyPaymentNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDutyPaymentNumber.Text), "DutyPaymentNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDutyPaymentNumber.Text), "DutyPaymentNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByDutyPaymentNumber.Text), "DutyPaymentNumber"));
                 }
                 //if (txtGroupByTransactionGrossAmount.Text != "")
                 //{
@@ -1848,46 +2428,64 @@ namespace MatchBox
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCompanyNumber.Text), "CompanyNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCompanyNumber.Text), "CompanyNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCompanyNumber.Text), "CompanyNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCompanyNumber.Text), "CompanyNumber"));
                 }
                 if (txtGroupByNetworkNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByNetworkNumber.Text), "NetworkNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByNetworkNumber.Text), "NetworkNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByNetworkNumber.Text), "NetworkNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByNetworkNumber.Text), "NetworkNumber"));
                 }
                 if (txtGroupByBranchNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByBranchNumber.Text), "BranchNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByBranchNumber.Text), "BranchNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByBranchNumber.Text), "BranchNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByBranchNumber.Text), "BranchNumber"));
                 }
                 if (txtGroupByCashBoxNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCashBoxNumber.Text), "CashBoxNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCashBoxNumber.Text), "CashBoxNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCashBoxNumber.Text), "CashBoxNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByCashBoxNumber.Text), "CashBoxNumber"));
                 }
                 if (txtGroupBySupplierGroupNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierGroupNumber.Text), "SupplierGroupNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierGroupNumber.Text), "SupplierGroupNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierGroupNumber.Text), "SupplierGroupNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierGroupNumber.Text), "SupplierGroupNumber"));
                 }
                 if (txtGroupBySupplierNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierNumber.Text), "SupplierNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierNumber.Text), "SupplierNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierNumber.Text), "SupplierNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupBySupplierNumber.Text), "SupplierNumber"));
                 }
                 if (txtGroupByTerminalNumber.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTerminalNumber.Text), "TerminalNumber"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTerminalNumber.Text), "TerminalNumber"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTerminalNumber.Text), "TerminalNumber"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByTerminalNumber.Text), "TerminalNumber"));
                 }
                 if (txtGroupByComment.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByComment.Text), "Comment"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByComment.Text), "Comment"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByComment.Text), "Comment"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByComment.Text), "Comment"));
                 }
                 if (txtGroupByID.Text != "")
                 {
                     listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
                     listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
+                    listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
+                    listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByID.Text), "ID"));
                 }
                 try
                 {
@@ -1897,19 +2495,46 @@ namespace MatchBox
                         {
                             listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "(CONVERT(VARCHAR(10), YEAR(MatchingDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(MatchingDate)), 2))"));
                             listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "(CONVERT(VARCHAR(10), YEAR(MatchingDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(MatchingDate)), 2)) MatchingDate"));
+                            listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "(CONVERT(VARCHAR(10), YEAR(MatchingDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(MatchingDate)), 2))"));
+                            listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "(CONVERT(VARCHAR(10), YEAR(MatchingDate)) + '.' + RIGHT('00' + CONVERT(NVARCHAR(2),MONTH(MatchingDate)), 2)) MatchingDate"));
                         }
                         else
                         {
                             listGroupBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
                             listSelectColumnsBy.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
+                            listGroupByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
+                            listSelectColumnsByOut.Add(new KeyValuePair<int, string>(Convert.ToInt32(txtGroupByMatchDate.Text), "MatchingDate"));
                         }
                     }
                 }
                 catch (Exception ex) { }
-                if (listGroupBy.Count > 0)
+                if (listGroupBy.Count > 0 || listGroupByOut.Count > 0)
                 {
                     try
                     {
+                        if (listGroupBy.Count > 0)
+                        {
+                            divCalculationFooter_Inside_GroupBy.Visible = true;
+                            divCalculationFooter_Inside.Visible = false;
+                        }
+                        else
+                        {
+                            divCalculationFooter_Inside_GroupBy.Visible = false;
+                            if (flagCommission == false)
+                            {
+                                divCalculationFooter_Inside.Visible = true;
+                            }
+                        }
+                        if (listGroupByOut.Count > 0)
+                        {
+                            divCalculationFooter_Outside_GroupBy.Visible = true;
+                            divCalculationFooter_Outside.Visible = false;
+                        }
+                        else
+                        {
+                            divCalculationFooter_Outside_GroupBy.Visible = false;
+                            divCalculationFooter_Outside.Visible = true;
+                        }
                         pnlMatchingBalance.Visible = false;
                         btnRecalculate.Visible = false;
                         btnMatchingAuto.Visible = false;
@@ -1921,17 +2546,31 @@ namespace MatchBox
                         listGroupBy = listGroupBy.OrderBy(x => x.Key).ToList();
                         s_group_by = String.Join(",", listGroupBy.Select(l => l.Value));
 
+                        listGroupByOut = listGroupByOut.OrderBy(x => x.Key).ToList();
+                        s_group_byout = String.Join(",", listGroupByOut.Select(l => l.Value));
+
                         listSelectColumnsBy = listSelectColumnsBy.OrderBy(x => x.Key).ToList();
-                         s_selectColumns_by = String.Join(",", listSelectColumnsBy.Select(l => l.Value));
+                        s_selectColumns_by = String.Join(",", listSelectColumnsBy.Select(l => l.Value));
+
+                        listSelectColumnsByOut = listSelectColumnsByOut.OrderBy(x => x.Key).ToList();
+                        s_selectColumns_byout = String.Join(",", listSelectColumnsByOut.Select(l => l.Value));
 
                         sortColumnName = listGroupBy.FirstOrDefault().Value;
-                        sortColumnName_Out = listGroupBy.FirstOrDefault().Value;
+                        sortColumnName_Out = listGroupByOut.FirstOrDefault().Value;
                         if (listGroupBy.FirstOrDefault().Value.ToUpper().Contains("YEAR"))
                         {
                             var splitData = listSelectColumnsBy.FirstOrDefault().Value.Split(new string[] { "2))" }, StringSplitOptions.None);
                             //var splitData = listGroupBy.FirstOrDefault().Value.Split(')))');
                             sortColumnName = splitData[1]; //.Replace("YEAR(", "").Replace(")","");
-                            sortColumnName_Out = sortColumnName;
+                            //sortColumnName_Out = sortColumnName;
+                        }
+
+                        if (listGroupByOut.FirstOrDefault().Value.ToUpper().Contains("YEAR"))
+                        {
+                            var splitData = listSelectColumnsByOut.FirstOrDefault().Value.Split(new string[] { "2))" }, StringSplitOptions.None);
+                            //var splitData = listGroupBy.FirstOrDefault().Value.Split(')))');
+                            sortColumnName_Out = splitData[1]; //.Replace("YEAR(", "").Replace(")","");
+                            //sortColumnName_Out = sortColumnName;
                         }
 
                         //sortColumnName = listGroupBy.FirstOrDefault().Value;
@@ -2044,6 +2683,25 @@ namespace MatchBox
                     else
                     { strChkFilters += "cardname"; }
                 }
+                //s_ClubCommission
+                if (s_ClubCommission != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "IsClubCommissionvalid";
+                    }
+                    else
+                    { strChkFilters += "IsClubCommissionvalid"; }
+                }
+                if (s_Discount != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "DiscountName";
+                    }
+                    else
+                    { strChkFilters += "DiscountName"; }
+                }
                 if (s_status != "")
                 {
                     if (!string.IsNullOrEmpty(strChkFilters))
@@ -2106,6 +2764,8 @@ namespace MatchBox
                 //ViewState["GroupBy"] = s_group_by;
                 Session["GroupBy"] = s_group_by;
                 Session["SelectColumns"] = s_selectColumns_by;
+                Session["GroupByOut"] = s_group_byout;
+                Session["SelectColumnsOut"] = s_selectColumns_byout;
                 // GET INSIDE & OUTSIDE TABLES
 
                 DataTable dt_inside = new DataTable();
@@ -2114,7 +2774,7 @@ namespace MatchBox
                 DataTable dt_inside_sum = new DataTable();
                 DataTable dt_outside_sum = new DataTable();
 
-                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by);
+                DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by, s_group_byout, s_selectColumns_byout);
                 //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
                 ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
 
@@ -2173,6 +2833,7 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_group_by = string.Empty, s_selectColumns_by = string.Empty;
+            string s_group_byout = string.Empty, s_selectColumns_byout = string.Empty;
             string strChkFilters = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
             ///////
@@ -2187,9 +2848,14 @@ namespace MatchBox
 
             s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
+
+            s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
+
             strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             ///////
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by, s_group_byout, s_selectColumns_byout);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -2245,6 +2911,7 @@ namespace MatchBox
 
             string s_error = string.Empty;
             string s_group_by = string.Empty, s_selectColumns_by = string.Empty;
+            string s_group_byout = string.Empty, s_selectColumns_byout = string.Empty;
             string strChkFilters = string.Empty;
             string s_where_inside = string.Empty, s_where_outside = string.Empty, s_order_inside = string.Empty, s_order_outside = string.Empty;
 
@@ -2259,10 +2926,14 @@ namespace MatchBox
             s_order_outside = Session["OrderOutside"] != null ? Session["OrderOutside"].ToString() : "";
             s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
+
+            s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
             strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             ///////
 
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, 20, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, sortColumnName, sortType, sortColumnName_Out, sortType_Out, s_group_by, strChkFilters, s_selectColumns_by, s_group_byout, s_selectColumns_byout);
             //DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, 1, 1, Convert.ToInt32(ddlPageSize.SelectedValue), ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error);
 
             ///DataAction.SelectInside(n_user_id, s_where_inside, s_order_inside, 1, 20, ref dt_inside, ref dt_inside_sum, ref s_error);
@@ -2415,7 +3086,7 @@ namespace MatchBox
             btnPaymentRecalculate.Enabled = (s_error == "");
             btnMatchingBalanceChange.Enabled = (s_error == "");
 
-        Finish:
+            Finish:
 
             lblError.Text = s_error;
 
@@ -2545,7 +3216,7 @@ namespace MatchBox
             btnPaymentRecalculate.Enabled = (s_error == "");
             btnMatchingBalanceChange.Enabled = (s_error == "");
 
-        Finish:
+            Finish:
 
             lblError.Text = s_error;
 
@@ -2764,7 +3435,7 @@ namespace MatchBox
                     break;
             }
 
-        Finish:
+            Finish:
 
             divMatchingAuto.Visible = b_show_form;
 
@@ -2971,7 +3642,7 @@ namespace MatchBox
 
             btnPaymentChange.Visible = (dt_balance.Rows.Count > 0 && dt_split.Rows.Count > 0);
 
-        Finish:
+            Finish:
 
             if (s_error != "")
             {
@@ -3074,7 +3745,7 @@ namespace MatchBox
 
             return;
 
-        Finish:
+            Finish:
 
             lblError.Text = s_error;
 
@@ -3136,8 +3807,12 @@ namespace MatchBox
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
+
+            string s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by, s_group_byout, s_selectColumns_byout);
 
             if (s_error != "") { goto Error; }
 
@@ -3160,7 +3835,7 @@ namespace MatchBox
 
             return;
 
-        Error:
+            Error:
 
             lblError.Text = s_error;
 
@@ -3206,7 +3881,11 @@ namespace MatchBox
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
+
+            string s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by, s_group_by, s_selectColumns_byout);
 
             if (s_error != "")
             {
@@ -3224,7 +3903,7 @@ namespace MatchBox
 
             lblMessage.Text = (n_rows_affected > 0) ? "Item/s successfully updated." : "No item was updated.";
 
-        Finish:
+            Finish:
 
             Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
         }
@@ -3267,7 +3946,10 @@ namespace MatchBox
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["strChkFilters"] != null ? Session["strChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
+            string s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by, s_group_by, s_selectColumns_by);
 
             if (s_error != "")
             {
@@ -3285,7 +3967,7 @@ namespace MatchBox
 
             lblMessage.Text = (n_rows_affected > 0) ? "Item/s successfully updated." : "No item was updated.";
 
-        Finish:
+            Finish:
 
             Bind_Table(dt_inside, dt_outside, dt_inside_sum, dt_outside_sum);
         }
@@ -3464,7 +4146,12 @@ namespace MatchBox
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
+
+            string s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
+
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_inside_page, n_outside_page, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by, s_group_by, s_selectColumns_byout);
 
             if (s_error != "") { goto Error; }
 
@@ -3542,7 +4229,7 @@ namespace MatchBox
 
             return;
 
-        Error:
+            Error:
 
             lblError.Text = s_error;
         }
@@ -3608,7 +4295,11 @@ namespace MatchBox
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
-            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by);
+            string s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : ""; //ViewState["GroupBy"].ToString();
+            string s_selectColumns_byout = Session["SelectColumnsOut"] != null ? Session["SelectColumnsOut"].ToString() : "";
+
+
+            DataAction.Select(n_user_id, s_where_inside, s_where_outside, s_order_inside, s_order_outside, n_page_inside, n_page_outside, 100, ref dt_inside, ref dt_inside_sum, ref dt_outside, ref dt_outside_sum, ref s_error, "", "", "", "", s_group_by, strChkFilters, s_selectColumns_by, s_group_by, s_selectColumns_byout);
 
             if (s_error != "")
             {
@@ -3846,7 +4537,7 @@ namespace MatchBox
 
             if ((lst_value.Count > 0)) { s_value = String.Join(",", lst_value.ToArray()); }
 
-        Finish:
+            Finish:
 
             return s_value;
         }
@@ -4014,7 +4705,7 @@ namespace MatchBox
                 s_value = String.Format("{0}{1}{2}", s_min, c_range_separator.ToString(), s_max);
             }
 
-        Finish:
+            Finish:
 
             return b_valid;
         }
@@ -4590,6 +5281,11 @@ namespace MatchBox
             cblTransactionCurrency.DataSource = o_data_search_tables.TableCurrency;
             cblTransactionCurrency.DataBind();
             cblTransactionCurrency.Items.Insert(0, new ListItem("N / A", "0"));
+
+            chklDiscountName.DataValueField = "ID";
+            chklDiscountName.DataTextField = "DiscountName";
+            chklDiscountName.DataSource = o_data_search_tables.TableDiscountName;
+            chklDiscountName.DataBind();
         }
 
         private void Bind_Drop_Down(DropDownList ddlFieldName, DataTable dt_settings, string s_value)
@@ -4812,18 +5508,16 @@ namespace MatchBox
             double n_amount_sum_inside = 0, n_amount_sum_outside = 0;
 
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : "";
+            string s_group_byout = Session["GroupByOut"] != null ? Session["GroupByOut"].ToString() : "";
             if (dt_inside_sum != null && dt_outside_sum != null)
             {
                 if (string.IsNullOrEmpty(s_group_by))
                 {
                     n_rows_count_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
-                    n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
-
                     n_amount_sum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["AmountSum"]);
-                    n_amount_sum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
                 }
                 else
-                { // Group by
+                {
                     if (dt_inside_sum.Rows.Count > 0)
                     {
                         n_rows_count_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
@@ -4843,6 +5537,14 @@ namespace MatchBox
                         lblInsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_inside, 2));
                         lblInsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_inside, 2));
                     }
+                }
+                if (string.IsNullOrEmpty(s_group_byout))
+                {
+                    n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
+                    n_amount_sum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AmountSum"]);
+                }
+                else
+                {
                     if (dt_outside_sum.Rows.Count > 0)
                     {
                         n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
@@ -5066,7 +5768,7 @@ namespace MatchBox
                     }
                 }
             }
-            if (string.IsNullOrEmpty(s_group_by))
+            if (string.IsNullOrEmpty(s_group_byout))
             {
                 foreach (GridViewRow row in gvOutside.Rows)
                 {
@@ -5278,7 +5980,7 @@ namespace MatchBox
             string strChkFilters = Session["ChkFilters"] != null ? Session["ChkFilters"].ToString() : "";
             string s_group_by = Session["GroupBy"] != null ? Session["GroupBy"].ToString() : ""; //ViewState["GroupBy"].ToString();
             string s_selectColumns_by = Session["SelectColumns"] != null ? Session["SelectColumns"].ToString() : "";
-            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters,s_selectColumns_by);
+            DataAction.SelectInside(UserId, s_where_inside, s_order_inside, pageIndex, pageSize, ref dt_inside, ref dt_inside_sum, ref s_error, sortColumnName, sortType, s_group_by, strChkFilters, s_selectColumns_by);
             DataSet ds = new DataSet();
             var dt_inside_Copy = dt_inside.Copy();
             var dt_inside_sum_Copy = dt_inside_sum.Copy();
@@ -5584,40 +6286,40 @@ namespace MatchBox
                                 cell.HorizontalAlign = HorizontalAlign.Right;
                             }
 
-                                //row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
 
-                                //row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[15].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[16].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[17].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[18].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[19].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[20].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[24].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[25].HorizontalAlign = HorizontalAlign.Right;
-                                ////row.Cells[26].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[27].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[31].HorizontalAlign = HorizontalAlign.Right;
-                                //row.Cells[41].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[15].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[16].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[17].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[18].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[19].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[20].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[24].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[25].HorizontalAlign = HorizontalAlign.Right;
+                            ////row.Cells[26].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[27].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[31].HorizontalAlign = HorizontalAlign.Right;
+                            //row.Cells[41].HorizontalAlign = HorizontalAlign.Right;
 
-                                //if (dtLockedRecords.Rows.Count > 0)
-                                //{
-                                //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
-                                //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
-                                //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
-                                //    {
-                                //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
-                                //        row.BackColor = lightGrayColor;
-                                //    }
-                                //}
-                                //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
-                                if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                            //if (dtLockedRecords.Rows.Count > 0)
+                            //{
+                            //    //var DataFileStrategyID = row.Cells[row.Cells.Count - 1].Text.Replace("&nbsp;", "");
+                            //    var DataFileStrategyID = dtRow.ItemArray[dtRow.ItemArray.Count() - 1].ToString().Replace("&nbsp;", "");
+                            //    if (DataFileStrategyID.ToLower().Trim().Equals(dtRow["DataFileID"].ToString().ToLower().Trim()))
+                            //    {
+                            //        Color lightGrayColor = Color.FromArgb(238, 238, 238);
+                            //        row.BackColor = lightGrayColor;
+                            //    }
+                            //}
+                            //else if (s_mode.ToString().ToLower().Trim().Equals("matching"))
+                            if (s_mode.ToString().ToLower().Trim().Equals("matching"))
                             {
                                 Color lightBlueColor = Color.FromArgb(221, 235, 247);
                                 row.BackColor = lightBlueColor;

@@ -49,6 +49,9 @@
             <a href="javascript: void(0);" onclick="javascript: display_section('section-search', 'none');">Close</a>
             &nbsp; &nbsp;
             <span id="spnSearchTop" class="message" style="display: none;">Please wait..</span>
+
+            <asp:CheckBox ID="chkCommissionsReport" runat="server" onclick="ShowHideCommissionFilterDiv(this)" Text="Commissions Report" />
+
         </div>
 
         <hr />
@@ -226,571 +229,943 @@
 
         <div class="clear-both"></div>
 
-        <%--TransactionDate--%>
-        <div id="divTransactionDate" runat="server" class="float-left div-form-field-long">
-            <b>Transaction Date</b>
-            &nbsp;
+        <div id="divAllCommonFilters">
+            <%--TransactionDate--%>
+            <div id="divTransactionDate" runat="server" class="float-left div-form-field-long">
+                <b>Transaction Date</b>
+                &nbsp;
             <asp:CheckBox ID="chk_txtTransactionDateOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            &nbsp;
+                &nbsp;
             <asp:CheckBox ID="chkExcludeTransactionDate" runat="server" Text="Exclude" />
-            &nbsp;
+                &nbsp;
             <asp:CheckBox ID="chkEmptyTransactionDate" runat="server" Text="Include Empty Dates" />
-            &nbsp;
+                &nbsp;
             <asp:TextBox ID="txtGroupByTransactionDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByTransactionDate" runat="server" Text="Group By" />
-            &nbsp;
+                <asp:Label ID="lblGroupByTransactionDate" runat="server" Text="Group By" />
+                &nbsp;
           <asp:CheckBox ID="chkEmptyTransactionDateMonth" runat="server" Text="By Month" />
-            <asp:Label ID="lblEmptyTransactionDateMonth" runat="server" />
-            <br />
-            <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
-            <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" CssClass="no-display" />
-            <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
+                <asp:Label ID="lblEmptyTransactionDateMonth" runat="server" />
+                <br />
+                <asp:TextBox ID="txtTransactionDate" runat="server" Width="98%" />
+                <asp:TextBox ID="txtTransactionDateOutside" runat="server" Width="98%" CssClass="no-display" />
+                <asp:Label ID="lblTransactionDateError" runat="server" EnableViewState="false" CssClass="error block" />
 
-            <%-- For mplementing Group By functionality --%>
-        </div>
+                <%-- For mplementing Group By functionality --%>
+            </div>
 
-        <%--TransmissionDate--%>
-        <div id="divTransmissionDate" runat="server" class="float-left div-form-field-long">
-            <b>Transmission Date</b>
-            &nbsp;
+            <%--TransmissionDate--%>
+            <div id="divTransmissionDate" runat="server" class="float-left div-form-field-long">
+                <b>Transmission Date</b>
+                &nbsp;
             <asp:CheckBox ID="chk_txtTransmissionDateOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            &nbsp;
+                &nbsp;
             <asp:CheckBox ID="chkExcludeTransmissionDate" runat="server" Text="Exclude" />
-            &nbsp;
+                &nbsp;
             <asp:CheckBox ID="chkEmptyTransmissionDate" runat="server" Text="Include Empty Dates" />
-            &nbsp;
+                &nbsp;
             <asp:TextBox ID="txtGroupByTransmissionDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByTransmissionDate" runat="server" Text="Group By" />
-            &nbsp;
+                <asp:Label ID="lblGroupByTransmissionDate" runat="server" Text="Group By" />
+                &nbsp;
             <asp:CheckBox ID="chkEmptyTransmissionDateMonth" runat="server" Text="By Month" />
-            <asp:Label ID="lblchkEmptyTransmissionDateMonthl1" runat="server" />
-            <br />
-            <asp:TextBox ID="txtTransmissionDate" runat="server" Width="98%" />
-            <asp:TextBox ID="txtTransmissionDateOutside" runat="server" Width="98%" CssClass="no-display" />
-            <asp:Label ID="lblTransmissionDateError" runat="server" EnableViewState="false" CssClass="error block" />
-        </div>
+                <asp:Label ID="lblchkEmptyTransmissionDateMonthl1" runat="server" />
+                <br />
+                <asp:TextBox ID="txtTransmissionDate" runat="server" Width="98%" />
+                <asp:TextBox ID="txtTransmissionDateOutside" runat="server" Width="98%" CssClass="no-display" />
+                <asp:Label ID="lblTransmissionDateError" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
 
-        <%--PaymentDate--%>
-        <div id="divPaymentDate" runat="server" class="float-left div-form-field-long">
-            <b>Payment Date</b>
-            &nbsp;
+            <%--PaymentDate--%>
+            <div id="divPaymentDate" runat="server" class="float-left div-form-field-long">
+                <b>Payment Date</b>
+                &nbsp;
             <asp:CheckBox ID="chk_txtPaymentDateOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            &nbsp;
+                &nbsp;
             <asp:CheckBox ID="chkExcludePaymentDate" runat="server" Text="Exclude" />
-            &nbsp;
+                &nbsp;
             <asp:CheckBox ID="chkEmptyPaymentDate" runat="server" Text="Include Empty Dates" />
-            &nbsp;
+                &nbsp;
             <asp:TextBox ID="txtGroupByPaymentDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByPaymentDate" runat="server" Text="Group By" />
-            &nbsp;
+                <asp:Label ID="lblGroupByPaymentDate" runat="server" Text="Group By" />
+                &nbsp;
             <asp:CheckBox ID="chkEmptyPaymentDateMonth" runat="server" Text="By Month" />
-            <asp:Label ID="lblEmptyPaymentDateMonth" runat="server" />
-            <br />
-            <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
-            <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" CssClass="no-display" />
-            <asp:Label ID="lblPaymentDateError" runat="server" EnableViewState="false" CssClass="error block" />
-        </div>
+                <asp:Label ID="lblEmptyPaymentDateMonth" runat="server" />
+                <br />
+                <asp:TextBox ID="txtPaymentDate" runat="server" Width="98%" />
+                <asp:TextBox ID="txtPaymentDateOutside" runat="server" Width="98%" CssClass="no-display" />
+                <asp:Label ID="lblPaymentDateError" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
 
-        <%--MatchingDate--%>
-        <asp:UpdatePanel ID="upMatchingDate" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
-            <ContentTemplate>
-                <div id="divMatchingDate" runat="server" visible="false" class="float-left div-form-field-long">
-                    <b>Matching Date</b>
-                    &nbsp;
+            <%--MatchingDate--%>
+            <asp:UpdatePanel ID="upMatchingDate" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div id="divMatchingDate" runat="server" visible="false" class="float-left div-form-field-long">
+                        <b>Matching Date</b>
+                        &nbsp;
                     <asp:CheckBox ID="chk_txtMatchingDateOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-                    &nbsp;
+                        &nbsp;
                     <asp:CheckBox ID="chkExcludeMatchingDate" runat="server" Text="Exclude" />
-                    &nbsp;
+                        &nbsp;
                     <asp:TextBox ID="txtGroupByMatchDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-                    <asp:Label ID="lblGroupByMatchDate" runat="server" Text="Group By" />
-                    &nbsp;
+                        <asp:Label ID="lblGroupByMatchDate" runat="server" Text="Group By" />
+                        &nbsp;
             <asp:CheckBox ID="chkExcludeMatchingDateMonth" runat="server" Text="By Month" />
-                    <asp:Label ID="lblExcludeMatchingDateMonth" runat="server" />
-                    <br />
-                    <asp:TextBox ID="txtMatchingDate" runat="server" Width="98%" />
-                    <asp:TextBox ID="txtMatchingDateOutside" runat="server" Width="98%" CssClass="no-display" />
-                    <asp:Label ID="lblMatchingDateError" runat="server" EnableViewState="false" CssClass="error block" />
-                </div>
-            </ContentTemplate>
-            <Triggers>
-                <asp:AsyncPostBackTrigger ControlID="ddlTransactions" EventName="SelectedIndexChanged" />
-            </Triggers>
-        </asp:UpdatePanel>
+                        <asp:Label ID="lblExcludeMatchingDateMonth" runat="server" />
+                        <br />
+                        <asp:TextBox ID="txtMatchingDate" runat="server" Width="98%" />
+                        <asp:TextBox ID="txtMatchingDateOutside" runat="server" Width="98%" CssClass="no-display" />
+                        <asp:Label ID="lblMatchingDateError" runat="server" EnableViewState="false" CssClass="error block" />
+                    </div>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="ddlTransactions" EventName="SelectedIndexChanged" />
+                </Triggers>
+            </asp:UpdatePanel>
 
-        <div class="clear-both"></div>
+            <div class="clear-both"></div>
 
-        <%--CardPrefix--%>
-        <div id="divCardPrefix" runat="server" class="float-left div-form-field">
-            <label for="<%= txtCardPrefix.ClientID %>" class="bold">Card Prefix</label>
-            <asp:CheckBox ID="chk_txtCardPrefixOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeCardPrefix" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--CardPrefix--%>
+            <div id="divCardPrefix" runat="server" class="float-left div-form-field">
+                <label for="<%= txtCardPrefix.ClientID %>" class="bold">Card Prefix</label>
+                <asp:CheckBox ID="chk_txtCardPrefixOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeCardPrefix" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByCardPrefix" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByCardPrefix" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtCardPrefix" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtCardPrefixOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblCardPrefixError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByCardPrefix" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtCardPrefix" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtCardPrefixOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblCardPrefixError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--CardNumber--%>
-        <div id="divCardNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtCardNumber.ClientID %>" class="bold">Card Number</label>
-            <asp:CheckBox ID="chk_txtCardNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeCardNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--CardNumber--%>
+            <div id="divCardNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtCardNumber.ClientID %>" class="bold">Card Number</label>
+                <asp:CheckBox ID="chk_txtCardNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeCardNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByCardNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByCardNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtCardNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtCardNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblCardNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByCardNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtCardNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtCardNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblCardNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--TransmissionNumber--%>
-        <div id="divTransmissionNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtTransmissionNumber.ClientID %>" class="bold">Transmission <u>N</u></label>
-            <asp:CheckBox ID="chk_txtTransmissionNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeTransmissionNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--TransmissionNumber--%>
+            <div id="divTransmissionNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtTransmissionNumber.ClientID %>" class="bold">Transmission <u>N</u></label>
+                <asp:CheckBox ID="chk_txtTransmissionNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeTransmissionNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByTransmissionNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByTransmissionNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtTransmissionNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtTransmissionNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblTransmissionNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByTransmissionNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtTransmissionNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtTransmissionNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblTransmissionNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--VoucherNumber--%>
-        <div id="divVoucherNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtVoucherNumber.ClientID %>" class="bold">Voucher <u>N</u></label>
-            <asp:CheckBox ID="chk_txtVoucherNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeVoucherNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--VoucherNumber--%>
+            <div id="divVoucherNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtVoucherNumber.ClientID %>" class="bold">Voucher <u>N</u></label>
+                <asp:CheckBox ID="chk_txtVoucherNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeVoucherNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByVoucherNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByVoucherNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtVoucherNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtVoucherNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblVoucherNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByVoucherNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtVoucherNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtVoucherNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblVoucherNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--ConfirmationNumber--%>
-        <div id="divConfirmationNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtConfirmationNumber.ClientID %>" class="bold">Confirmation <u>N</u></label>
-            <asp:CheckBox ID="chk_txtConfirmationNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeConfirmationNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--ConfirmationNumber--%>
+            <div id="divConfirmationNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtConfirmationNumber.ClientID %>" class="bold">Confirmation <u>N</u></label>
+                <asp:CheckBox ID="chk_txtConfirmationNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeConfirmationNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByConfirmationNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByConfirmationNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtConfirmationNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtConfirmationNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblConfirmationNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByConfirmationNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtConfirmationNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtConfirmationNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblConfirmationNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <div class="clear-both"></div>
+            <div class="clear-both"></div>
 
-        <%--PaymentsCount--%>
-        <div id="divPaymentsCount" runat="server" class="float-left div-form-field">
-            <label for="<%= txtPaymentsCount.ClientID %>" class="bold">Payments Count</label>
-            <asp:CheckBox ID="chk_txtPaymentsCountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludePaymentsCount" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--PaymentsCount--%>
+            <div id="divPaymentsCount" runat="server" class="float-left div-form-field">
+                <label for="<%= txtPaymentsCount.ClientID %>" class="bold">Payments Count</label>
+                <asp:CheckBox ID="chk_txtPaymentsCountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludePaymentsCount" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByPaymentsCount" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByPaymentsCount" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtPaymentsCount" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtPaymentsCountOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblPaymentsCountError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByPaymentsCount" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtPaymentsCount" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtPaymentsCountOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblPaymentsCountError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--DutyPaymentNumber--%>
-        <div id="divDutyPaymentNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtDutyPaymentNumber.ClientID %>" class="bold">Duty Payment <u>N</u></label>
-            <asp:CheckBox ID="chk_txtDutyPaymentNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeDutyPaymentNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--DutyPaymentNumber--%>
+            <div id="divDutyPaymentNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtDutyPaymentNumber.ClientID %>" class="bold">Duty Payment <u>N</u></label>
+                <asp:CheckBox ID="chk_txtDutyPaymentNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeDutyPaymentNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByDutyPaymentNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByDutyPaymentNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtDutyPaymentNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtDutyPaymentNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblDutyPaymentNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByDutyPaymentNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtDutyPaymentNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtDutyPaymentNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblDutyPaymentNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--TransactionGrossAmount--%>
-        <div id="divTransactionGrossAmount" runat="server" class="float-left div-form-field">
-            <label for="<%= txtTransactionGrossAmount.ClientID %>" class="bold" title="Transaction Gross Amount">Gross Amount</label>
-            <asp:CheckBox ID="chk_txtTransactionGrossAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeTransactionGrossAmount" runat="server" Text="Exclude" />
-            <%--            &nbsp;
+            <%--TransactionGrossAmount--%>
+            <div id="divTransactionGrossAmount" runat="server" class="float-left div-form-field">
+                <label for="<%= txtTransactionGrossAmount.ClientID %>" class="bold" title="Transaction Gross Amount">Gross Amount</label>
+                <asp:CheckBox ID="chk_txtTransactionGrossAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeTransactionGrossAmount" runat="server" Text="Exclude" />
+                <%--            &nbsp;
 <asp:TextBox ID="txtGroupByTransactionGrossAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
 <asp:Label ID="lblGroupByTransactionGrossAmount" runat="server" Text="Group By" />--%>
-            <asp:TextBox ID="txtTransactionGrossAmount" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtTransactionGrossAmountOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblTransactionGrossAmountError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:TextBox ID="txtTransactionGrossAmount" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtTransactionGrossAmountOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblTransactionGrossAmountError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--DutyPaymentAmount--%>
-        <div id="divDutyPaymentAmount" runat="server" class="float-left div-form-field">
-            <label for="<%= txtDutyPaymentAmount.ClientID %>" class="bold">Duty Amount</label>
-            <asp:CheckBox ID="chk_txtDutyPaymentAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeDutyPaymentAmount" runat="server" Text="Exclude" />
-            <%--            &nbsp;
+            <%--DutyPaymentAmount--%>
+            <div id="divDutyPaymentAmount" runat="server" class="float-left div-form-field">
+                <label for="<%= txtDutyPaymentAmount.ClientID %>" class="bold">Duty Amount</label>
+                <asp:CheckBox ID="chk_txtDutyPaymentAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeDutyPaymentAmount" runat="server" Text="Exclude" />
+                <%--            &nbsp;
 <asp:TextBox ID="txtGroupByDutyPaymentAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
 <asp:Label ID="lblGroupByDutyPaymentAmount" runat="server" Text="Group By" />--%>
-            <asp:TextBox ID="txtDutyPaymentAmount" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtDutyPaymentAmountOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblDutyPaymentAmountError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:TextBox ID="txtDutyPaymentAmount" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtDutyPaymentAmountOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblDutyPaymentAmountError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--RemainingPaymentsAmount--%>
-        <div id="divRemainingPaymentsAmount" runat="server" class="float-left div-form-field">
-            <label for="<%= txtRemainingPaymentsAmount.ClientID %>" class="bold" title="Remaining Payments Amount">Remaining <u>Am</u></label>
-            <asp:CheckBox ID="chk_txtRemainingPaymentsAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeRemainingPaymentsAmount" runat="server" Text="Exclude" />
-            <%--            &nbsp;
+            <%--RemainingPaymentsAmount--%>
+            <div id="divRemainingPaymentsAmount" runat="server" class="float-left div-form-field">
+                <label for="<%= txtRemainingPaymentsAmount.ClientID %>" class="bold" title="Remaining Payments Amount">Remaining <u>Am</u></label>
+                <asp:CheckBox ID="chk_txtRemainingPaymentsAmountOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeRemainingPaymentsAmount" runat="server" Text="Exclude" />
+                <%--            &nbsp;
 <asp:TextBox ID="txtGroupByRemainingPaymentsAmount" runat="server" MaxLength="2" Width="20px" Height="6px" style="margin-bottom:4px"/>
 <asp:Label ID="lblGroupByRemainingPaymentsAmount" runat="server" Text="Group By" />--%>
-            <asp:TextBox ID="txtRemainingPaymentsAmount" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtRemainingPaymentsAmountOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblRemainingPaymentsAmountError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:TextBox ID="txtRemainingPaymentsAmount" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtRemainingPaymentsAmountOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblRemainingPaymentsAmountError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <div class="clear-both"></div>
+            <div class="clear-both"></div>
 
-        <%--CompanyNumber--%>
-        <div id="divCompanyNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtCompanyNumber.ClientID %>" class="bold">Company <u>N</u></label>
-            <asp:CheckBox ID="chk_txtCompanyNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeCompanyNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--CompanyNumber--%>
+            <div id="divCompanyNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtCompanyNumber.ClientID %>" class="bold">Company <u>N</u></label>
+                <asp:CheckBox ID="chk_txtCompanyNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeCompanyNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByCompanyNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByCompanyNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtCompanyNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtCompanyNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblCompanyNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByCompanyNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtCompanyNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtCompanyNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblCompanyNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--NetworkNumber--%>
-        <div id="divNetworkNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtNetworkNumber.ClientID %>" class="bold">Network <u>N</u></label>
-            <asp:CheckBox ID="chk_txtNetworkNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeNetworkNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--NetworkNumber--%>
+            <div id="divNetworkNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtNetworkNumber.ClientID %>" class="bold">Network <u>N</u></label>
+                <asp:CheckBox ID="chk_txtNetworkNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeNetworkNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByNetworkNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByNetworkNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtNetworkNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtNetworkNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblNetworkNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByNetworkNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtNetworkNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtNetworkNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblNetworkNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--BranchNumber--%>
-        <div id="divBranchNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtBranchNumber.ClientID %>" class="bold">Branch <u>N</u></label>
-            <asp:CheckBox ID="chk_txtBranchNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeBranchNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--BranchNumber--%>
+            <div id="divBranchNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtBranchNumber.ClientID %>" class="bold">Branch <u>N</u></label>
+                <asp:CheckBox ID="chk_txtBranchNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeBranchNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByBranchNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByBranchNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtBranchNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtBranchNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblBranchNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByBranchNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtBranchNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtBranchNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblBranchNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--CashBoxNumber--%>
-        <div id="divCashBoxNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtCashBoxNumber.ClientID %>" class="bold">Cashbox <u>N</u></label>
-            <asp:CheckBox ID="chk_txtCashBoxNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeCashBoxNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--CashBoxNumber--%>
+            <div id="divCashBoxNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtCashBoxNumber.ClientID %>" class="bold">Cashbox <u>N</u></label>
+                <asp:CheckBox ID="chk_txtCashBoxNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeCashBoxNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByCashBoxNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByCashBoxNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtCashBoxNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtCashBoxNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblCashBoxNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByCashBoxNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtCashBoxNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtCashBoxNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblCashBoxNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--SupplierGroupNumber--%>
-        <div id="divSupplierGroupNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtSupplierGroupNumber.ClientID %>" class="bold">Group <u>N</u></label>
-            <asp:CheckBox ID="chk_txtSupplierGroupNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeSupplierGroupNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--SupplierGroupNumber--%>
+            <div id="divSupplierGroupNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtSupplierGroupNumber.ClientID %>" class="bold">Group <u>N</u></label>
+                <asp:CheckBox ID="chk_txtSupplierGroupNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeSupplierGroupNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupBySupplierGroupNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupBySupplierGroupNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtSupplierGroupNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtSupplierGroupNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblSupplierGroupNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupBySupplierGroupNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtSupplierGroupNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtSupplierGroupNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblSupplierGroupNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--SupplierNumber--%>
-        <div id="divSupplierNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtSupplierNumber.ClientID %>" class="bold">Supplier <u>N</u></label>
-            <asp:CheckBox ID="chk_txtSupplierNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeSupplierNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--SupplierNumber--%>
+            <div id="divSupplierNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtSupplierNumber.ClientID %>" class="bold">Supplier <u>N</u></label>
+                <asp:CheckBox ID="chk_txtSupplierNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeSupplierNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupBySupplierNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupBySupplierNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtSupplierNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtSupplierNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblSupplierNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupBySupplierNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtSupplierNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtSupplierNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblSupplierNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--TerminalNumber--%>
-        <div id="divTerminalNumber" runat="server" class="float-left div-form-field">
-            <label for="<%= txtTerminalNumber.ClientID %>" class="bold">Terminal <u>N</u></label>
-            <asp:CheckBox ID="chk_txtTerminalNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeTerminalNumber" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--TerminalNumber--%>
+            <div id="divTerminalNumber" runat="server" class="float-left div-form-field">
+                <label for="<%= txtTerminalNumber.ClientID %>" class="bold">Terminal <u>N</u></label>
+                <asp:CheckBox ID="chk_txtTerminalNumberOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeTerminalNumber" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByTerminalNumber" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByTerminalNumber" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtTerminalNumber" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtTerminalNumberOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblTerminalNumberError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByTerminalNumber" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtTerminalNumber" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtTerminalNumberOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblTerminalNumberError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--Comment--%>
-        <div id="divComment" runat="server" class="float-left div-form-field">
-            <label for="<%= txtComment.ClientID %>" class="bold">Comment</label>
-            <asp:CheckBox ID="chk_txtCommentOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
-            <asp:CheckBox ID="chkExcludeComment" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--Comment--%>
+            <div id="divComment" runat="server" class="float-left div-form-field">
+                <label for="<%= txtComment.ClientID %>" class="bold">Comment</label>
+                <asp:CheckBox ID="chk_txtCommentOutside" runat="server" Checked="true" Text="Common" onclick="javascript: display_outside(this.id, this.checked);" />
+                <asp:CheckBox ID="chkExcludeComment" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByComment" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByComment" runat="server" Text="Group By" />
-            <asp:TextBox ID="txtComment" runat="server" CssClass="block" />
-            <asp:TextBox ID="txtCommentOutside" runat="server" CssClass="no-display" />
-            <asp:Label ID="lblCommentError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByComment" runat="server" Text="Group By" />
+                <asp:TextBox ID="txtComment" runat="server" CssClass="block" />
+                <asp:TextBox ID="txtCommentOutside" runat="server" CssClass="no-display" />
+                <asp:Label ID="lblCommentError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <%--ID--%>
-        <div id="divID" runat="server" class="float-left div-form-field">
-            <label for="<%= txtIDInside.ClientID %>" class="bold">ID</label>
-            <asp:CheckBox ID="chkExcludeID" runat="server" Text="Exclude" />
-            &nbsp;
+            <%--ID--%>
+            <div id="divID" runat="server" class="float-left div-form-field">
+                <label for="<%= txtIDInside.ClientID %>" class="bold">ID</label>
+                <asp:CheckBox ID="chkExcludeID" runat="server" Text="Exclude" />
+                &nbsp;
             <asp:TextBox ID="txtGroupByID" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
-            <asp:Label ID="lblGroupByIDsss" runat="server" Text="Group By" />
-            <br />
-            <asp:TextBox ID="txtIDInside" runat="server" MaxLength="36" Width="45%" placeholder="Inside" />
-            <asp:TextBox ID="txtIDOutside" runat="server" MaxLength="36" Width="45%" placeholder="Outside" />
-            <asp:Label ID="lblIDError" runat="server" EnableViewState="false" CssClass="error" />
-        </div>
+                <asp:Label ID="lblGroupByIDsss" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtIDInside" runat="server" MaxLength="36" Width="45%" placeholder="Inside" />
+                <asp:TextBox ID="txtIDOutside" runat="server" MaxLength="36" Width="45%" placeholder="Outside" />
+                <asp:Label ID="lblIDError" runat="server" EnableViewState="false" CssClass="error" />
+            </div>
 
-        <div class="clear-both"></div>
+            <div class="clear-both"></div>
 
-        <%--Company--%>
-        <div id="divCompany" runat="server" class="float-left div-form-field">
+            <%--Company--%>
+            <div id="divCompany" runat="server" class="float-left div-form-field">
 
-            <asp:UpdatePanel ID="upSelectBy" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                <ContentTemplate>
-                    <b>Company</b> by
+                <asp:UpdatePanel ID="upSelectBy" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                    <ContentTemplate>
+                        <b>Company</b> by
                     <asp:RadioButtonList ID="rblSelectBy" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rblSelectBy_SelectedIndexChanged" RepeatDirection="Horizontal" RepeatLayout="Flow">
                         <asp:ListItem Value="cashbox" Text="cashbox" Selected="True" />
                         <asp:ListItem Value="terminal" Text="terminal" />
                     </asp:RadioButtonList>
 
-                    <asp:Repeater ID="repCompany" runat="server">
-                        <HeaderTemplate>
-                            <table>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <tr>
-                                <td style="vertical-align: top">
-                                    <asp:CheckBox ID="chkCompany" runat="server" AutoPostBack="true" OnCheckedChanged="chkCompany_CheckedChanged" />
-                                    <asp:HiddenField ID="hidCompanyID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                </td>
-                                <td style="vertical-align: top">
-                                    <asp:Label ID="lblCompany" runat="server" AssociatedControlID="chkCompany" Text='<%# DataBinder.Eval(Container.DataItem, "CompanyName") %>' />
+                        <asp:Repeater ID="repCompany" runat="server">
+                            <HeaderTemplate>
+                                <table>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td style="vertical-align: top">
+                                        <asp:CheckBox ID="chkCompany" runat="server" AutoPostBack="true" OnCheckedChanged="chkCompany_CheckedChanged" />
+                                        <asp:HiddenField ID="hidCompanyID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                    </td>
+                                    <td style="vertical-align: top">
+                                        <asp:Label ID="lblCompany" runat="server" AssociatedControlID="chkCompany" Text='<%# DataBinder.Eval(Container.DataItem, "CompanyName") %>' />
 
-                                    <asp:UpdatePanel ID="upNetwork" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                        <ContentTemplate>
-                                            <asp:Repeater ID="repNetwork" runat="server">
-                                                <HeaderTemplate>
-                                                    <table>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <tr>
-                                                        <td style="vertical-align: top">
-                                                            <asp:CheckBox ID="chkNetwork" runat="server" AutoPostBack="true" OnCheckedChanged="chkNetwork_CheckedChanged" />
-                                                            <asp:HiddenField ID="hidNetworkID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                        </td>
-                                                        <td style="vertical-align: top">
-                                                            <asp:Label ID="lblNetwork" runat="server" AssociatedControlID="chkNetwork" Text='<%# DataBinder.Eval(Container.DataItem, "NetworkName") %>' />
+                                        <asp:UpdatePanel ID="upNetwork" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                                            <ContentTemplate>
+                                                <asp:Repeater ID="repNetwork" runat="server">
+                                                    <HeaderTemplate>
+                                                        <table>
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td style="vertical-align: top">
+                                                                <asp:CheckBox ID="chkNetwork" runat="server" AutoPostBack="true" OnCheckedChanged="chkNetwork_CheckedChanged" />
+                                                                <asp:HiddenField ID="hidNetworkID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                                            </td>
+                                                            <td style="vertical-align: top">
+                                                                <asp:Label ID="lblNetwork" runat="server" AssociatedControlID="chkNetwork" Text='<%# DataBinder.Eval(Container.DataItem, "NetworkName") %>' />
 
-                                                            <asp:UpdatePanel ID="upBranch" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                <ContentTemplate>
-                                                                    <asp:Repeater ID="repBranch" runat="server">
-                                                                        <HeaderTemplate>
-                                                                            <table>
-                                                                        </HeaderTemplate>
-                                                                        <ItemTemplate>
-                                                                            <tr>
-                                                                                <td style="vertical-align: top">
-                                                                                    <asp:CheckBox ID="chkBranch" runat="server" AutoPostBack="true" OnCheckedChanged="chkBranch_CheckedChanged" />
-                                                                                    <asp:HiddenField ID="hidBranchID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                </td>
-                                                                                <td style="vertical-align: top">
-                                                                                    <asp:Label ID="lblBranch" runat="server" AssociatedControlID="chkBranch" Text='<%# DataBinder.Eval(Container.DataItem, "BranchName") %>' />
+                                                                <asp:UpdatePanel ID="upBranch" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                                                                    <ContentTemplate>
+                                                                        <asp:Repeater ID="repBranch" runat="server">
+                                                                            <HeaderTemplate>
+                                                                                <table>
+                                                                            </HeaderTemplate>
+                                                                            <ItemTemplate>
+                                                                                <tr>
+                                                                                    <td style="vertical-align: top">
+                                                                                        <asp:CheckBox ID="chkBranch" runat="server" AutoPostBack="true" OnCheckedChanged="chkBranch_CheckedChanged" />
+                                                                                        <asp:HiddenField ID="hidBranchID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                                                                    </td>
+                                                                                    <td style="vertical-align: top">
+                                                                                        <asp:Label ID="lblBranch" runat="server" AssociatedControlID="chkBranch" Text='<%# DataBinder.Eval(Container.DataItem, "BranchName") %>' />
 
-                                                                                    <asp:UpdatePanel ID="upCashBox" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                                        <ContentTemplate>
-                                                                                            <asp:Repeater ID="repCashBox" runat="server">
-                                                                                                <HeaderTemplate>
-                                                                                                    <table>
-                                                                                                </HeaderTemplate>
-                                                                                                <ItemTemplate>
-                                                                                                    <tr>
-                                                                                                        <td style="vertical-align: top">
-                                                                                                            <asp:CheckBox ID="chkCashBox" runat="server" />
-                                                                                                            <asp:HiddenField ID="hidCashBoxID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                                        </td>
-                                                                                                        <td style="vertical-align: top">
-                                                                                                            <asp:Label ID="lblCashBox" runat="server" AssociatedControlID="chkCashBox" Text='<%# DataBinder.Eval(Container.DataItem, "CashBoxName") %>' />
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </ItemTemplate>
-                                                                                                <FooterTemplate>
-                                                                                                    </table>
-                                                                                                </FooterTemplate>
-                                                                                            </asp:Repeater>
-                                                                                        </ContentTemplate>
-                                                                                        <Triggers>
-                                                                                            <asp:AsyncPostBackTrigger ControlID="chkBranch" EventName="CheckedChanged" />
-                                                                                        </Triggers>
-                                                                                    </asp:UpdatePanel>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </ItemTemplate>
-                                                                        <FooterTemplate>
-                                                                            </table>
-                                                                        </FooterTemplate>
-                                                                    </asp:Repeater>
-                                                                </ContentTemplate>
-                                                                <Triggers>
-                                                                    <asp:AsyncPostBackTrigger ControlID="chkNetwork" EventName="CheckedChanged" />
-                                                                </Triggers>
-                                                            </asp:UpdatePanel>
-                                                        </td>
-                                                    </tr>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    </table>
-                                                </FooterTemplate>
-                                            </asp:Repeater>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="chkCompany" EventName="CheckedChanged" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
+                                                                                        <asp:UpdatePanel ID="upCashBox" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                                                                                            <ContentTemplate>
+                                                                                                <asp:Repeater ID="repCashBox" runat="server">
+                                                                                                    <HeaderTemplate>
+                                                                                                        <table>
+                                                                                                    </HeaderTemplate>
+                                                                                                    <ItemTemplate>
+                                                                                                        <tr>
+                                                                                                            <td style="vertical-align: top">
+                                                                                                                <asp:CheckBox ID="chkCashBox" runat="server" />
+                                                                                                                <asp:HiddenField ID="hidCashBoxID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                                                                                            </td>
+                                                                                                            <td style="vertical-align: top">
+                                                                                                                <asp:Label ID="lblCashBox" runat="server" AssociatedControlID="chkCashBox" Text='<%# DataBinder.Eval(Container.DataItem, "CashBoxName") %>' />
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </ItemTemplate>
+                                                                                                    <FooterTemplate>
+                                                                                                        </table>
+                                                                                                    </FooterTemplate>
+                                                                                                </asp:Repeater>
+                                                                                            </ContentTemplate>
+                                                                                            <Triggers>
+                                                                                                <asp:AsyncPostBackTrigger ControlID="chkBranch" EventName="CheckedChanged" />
+                                                                                            </Triggers>
+                                                                                        </asp:UpdatePanel>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ItemTemplate>
+                                                                            <FooterTemplate>
+                                                                                </table>
+                                                                            </FooterTemplate>
+                                                                        </asp:Repeater>
+                                                                    </ContentTemplate>
+                                                                    <Triggers>
+                                                                        <asp:AsyncPostBackTrigger ControlID="chkNetwork" EventName="CheckedChanged" />
+                                                                    </Triggers>
+                                                                </asp:UpdatePanel>
+                                                            </td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        </table>
+                                                    </FooterTemplate>
+                                                </asp:Repeater>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="chkCompany" EventName="CheckedChanged" />
+                                            </Triggers>
+                                        </asp:UpdatePanel>
 
-                                    <asp:UpdatePanel ID="upSupplierGroup" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                        <ContentTemplate>
-                                            <asp:Repeater ID="repSupplierGroup" runat="server" Visible="false">
-                                                <HeaderTemplate>
-                                                    <table>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <tr>
-                                                        <td style="vertical-align: top">
-                                                            <asp:CheckBox ID="chkSupplierGroup" runat="server" AutoPostBack="true" OnCheckedChanged="chkSupplierGroup_CheckedChanged" />
-                                                            <asp:HiddenField ID="hidSupplierGroupID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                        </td>
-                                                        <td style="vertical-align: top">
-                                                            <asp:Label ID="lblSupplierGroup" runat="server" AssociatedControlID="chkSupplierGroup" Text='<%# DataBinder.Eval(Container.DataItem, "SupplierGroup") %>' />
+                                        <asp:UpdatePanel ID="upSupplierGroup" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                                            <ContentTemplate>
+                                                <asp:Repeater ID="repSupplierGroup" runat="server" Visible="false">
+                                                    <HeaderTemplate>
+                                                        <table>
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td style="vertical-align: top">
+                                                                <asp:CheckBox ID="chkSupplierGroup" runat="server" AutoPostBack="true" OnCheckedChanged="chkSupplierGroup_CheckedChanged" />
+                                                                <asp:HiddenField ID="hidSupplierGroupID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                                            </td>
+                                                            <td style="vertical-align: top">
+                                                                <asp:Label ID="lblSupplierGroup" runat="server" AssociatedControlID="chkSupplierGroup" Text='<%# DataBinder.Eval(Container.DataItem, "SupplierGroup") %>' />
 
-                                                            <asp:UpdatePanel ID="upSupplier" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                <ContentTemplate>
-                                                                    <asp:Repeater ID="repSupplier" runat="server">
-                                                                        <HeaderTemplate>
-                                                                            <table>
-                                                                        </HeaderTemplate>
-                                                                        <ItemTemplate>
-                                                                            <tr>
-                                                                                <td style="vertical-align: top">
-                                                                                    <asp:CheckBox ID="chkSupplier" runat="server" AutoPostBack="true" OnCheckedChanged="chkSupplier_CheckedChanged" />
-                                                                                    <asp:HiddenField ID="hidSupplierID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                </td>
-                                                                                <td style="vertical-align: top">
-                                                                                    <asp:Label ID="lblSupplier" runat="server" AssociatedControlID="chkSupplier" Text='<%# DataBinder.Eval(Container.DataItem, "Supplier") %>' />
+                                                                <asp:UpdatePanel ID="upSupplier" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                                                                    <ContentTemplate>
+                                                                        <asp:Repeater ID="repSupplier" runat="server">
+                                                                            <HeaderTemplate>
+                                                                                <table>
+                                                                            </HeaderTemplate>
+                                                                            <ItemTemplate>
+                                                                                <tr>
+                                                                                    <td style="vertical-align: top">
+                                                                                        <asp:CheckBox ID="chkSupplier" runat="server" AutoPostBack="true" OnCheckedChanged="chkSupplier_CheckedChanged" />
+                                                                                        <asp:HiddenField ID="hidSupplierID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                                                                    </td>
+                                                                                    <td style="vertical-align: top">
+                                                                                        <asp:Label ID="lblSupplier" runat="server" AssociatedControlID="chkSupplier" Text='<%# DataBinder.Eval(Container.DataItem, "Supplier") %>' />
 
-                                                                                    <asp:UpdatePanel ID="upTerminal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
-                                                                                        <ContentTemplate>
-                                                                                            <asp:Repeater ID="repTerminal" runat="server">
-                                                                                                <HeaderTemplate>
-                                                                                                    <table>
-                                                                                                </HeaderTemplate>
-                                                                                                <ItemTemplate>
-                                                                                                    <tr>
-                                                                                                        <td style="vertical-align: top">
-                                                                                                            <asp:CheckBox ID="chkTerminal" runat="server" />
-                                                                                                            <asp:HiddenField ID="hidTerminalID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
-                                                                                                        </td>
-                                                                                                        <td style="vertical-align: top">
-                                                                                                            <asp:Label ID="lblTerminal" runat="server" AssociatedControlID="chkTerminal" Text='<%# DataBinder.Eval(Container.DataItem, "Terminal") %>' />
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </ItemTemplate>
-                                                                                                <FooterTemplate>
-                                                                                                    </table>
-                                                                                                </FooterTemplate>
-                                                                                            </asp:Repeater>
-                                                                                        </ContentTemplate>
-                                                                                        <Triggers>
-                                                                                            <asp:AsyncPostBackTrigger ControlID="chkSupplier" EventName="CheckedChanged" />
-                                                                                        </Triggers>
-                                                                                    </asp:UpdatePanel>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </ItemTemplate>
-                                                                        <FooterTemplate>
-                                                                            </table>
-                                                                        </FooterTemplate>
-                                                                    </asp:Repeater>
-                                                                </ContentTemplate>
-                                                                <Triggers>
-                                                                    <asp:AsyncPostBackTrigger ControlID="chkSupplierGroup" EventName="CheckedChanged" />
-                                                                </Triggers>
-                                                            </asp:UpdatePanel>
-                                                        </td>
-                                                    </tr>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    </table>
-                                                </FooterTemplate>
-                                            </asp:Repeater>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="chkCompany" EventName="CheckedChanged" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-                                </td>
-                            </tr>
-                        </ItemTemplate>
-                        <FooterTemplate>
-                            </table>
-                        </FooterTemplate>
-                    </asp:Repeater>
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="rblSelectBy" EventName="SelectedIndexChanged" />
-                </Triggers>
-            </asp:UpdatePanel>
+                                                                                        <asp:UpdatePanel ID="upTerminal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional" RenderMode="Block">
+                                                                                            <ContentTemplate>
+                                                                                                <asp:Repeater ID="repTerminal" runat="server">
+                                                                                                    <HeaderTemplate>
+                                                                                                        <table>
+                                                                                                    </HeaderTemplate>
+                                                                                                    <ItemTemplate>
+                                                                                                        <tr>
+                                                                                                            <td style="vertical-align: top">
+                                                                                                                <asp:CheckBox ID="chkTerminal" runat="server" />
+                                                                                                                <asp:HiddenField ID="hidTerminalID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' />
+                                                                                                            </td>
+                                                                                                            <td style="vertical-align: top">
+                                                                                                                <asp:Label ID="lblTerminal" runat="server" AssociatedControlID="chkTerminal" Text='<%# DataBinder.Eval(Container.DataItem, "Terminal") %>' />
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </ItemTemplate>
+                                                                                                    <FooterTemplate>
+                                                                                                        </table>
+                                                                                                    </FooterTemplate>
+                                                                                                </asp:Repeater>
+                                                                                            </ContentTemplate>
+                                                                                            <Triggers>
+                                                                                                <asp:AsyncPostBackTrigger ControlID="chkSupplier" EventName="CheckedChanged" />
+                                                                                            </Triggers>
+                                                                                        </asp:UpdatePanel>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ItemTemplate>
+                                                                            <FooterTemplate>
+                                                                                </table>
+                                                                            </FooterTemplate>
+                                                                        </asp:Repeater>
+                                                                    </ContentTemplate>
+                                                                    <Triggers>
+                                                                        <asp:AsyncPostBackTrigger ControlID="chkSupplierGroup" EventName="CheckedChanged" />
+                                                                    </Triggers>
+                                                                </asp:UpdatePanel>
+                                                            </td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        </table>
+                                                    </FooterTemplate>
+                                                </asp:Repeater>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="chkCompany" EventName="CheckedChanged" />
+                                            </Triggers>
+                                        </asp:UpdatePanel>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                </table>
+                            </FooterTemplate>
+                        </asp:Repeater>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="rblSelectBy" EventName="SelectedIndexChanged" />
+                    </Triggers>
+                </asp:UpdatePanel>
+            </div>
+
+            <%--Credit--%>
+            <div id="divCredit" runat="server" class="float-left div-form-field">
+                <label for="<%= cblCredit.ClientID %>" class="block bold">Credit</label>
+                <asp:CheckBoxList ID="cblCredit" runat="server" />
+            </div>
+
+            <%--Card--%>
+            <div id="divCard" runat="server" class="float-left div-form-field">
+                <label for="<%= cblCard.ClientID %>" class="block bold">Card</label>
+                <asp:CheckBoxList ID="cblCard" runat="server" />
+            </div>
+
+            <%--TransactionCurrency--%>
+            <div id="divTransactionCurrency" runat="server" class="float-left div-form-field">
+                <label for="<%= cblTransactionCurrency.ClientID %>" class="block bold">Transaction Currency</label>
+                <asp:CheckBoxList ID="cblTransactionCurrency" runat="server" />
+            </div>
+
+            <div class="clear-both"></div>
         </div>
 
-        <%--Credit--%>
-        <div id="divCredit" runat="server" class="float-left div-form-field">
-            <label for="<%= cblCredit.ClientID %>" class="block bold">Credit</label>
-            <asp:CheckBoxList ID="cblCredit" runat="server" />
+        <div id="divCommissionFilters" style="display: none;">
+            <div id="divClearingCommissionID" runat="server" class="float-left div-form-field">
+                <b>Clearing Commission ID</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeClearingCommissionID" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByClearingCommissionID" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByClearingCommissionID" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtClearingCommissionID" runat="server" Width="98%" />
+                <asp:Label ID="lblClearingCommissionID" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAgPerClearingCommission" runat="server" class="float-left div-form-field">
+                <b>AgPer Clearing Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAgPerClearingCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAgPerClearingCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAgPerClearingCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAgPerClearingCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAgPerClearingCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCalculatedIclearingCommission" runat="server" class="float-left div-form-field">
+                <b>Calculated Clearing Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeCalculatedIclearingCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByCalculatedIclearingCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCalculatedIclearingCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtCalculatedIclearingCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblCalculatedIclearingCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divClearinfCalculationDate" runat="server" class="float-left div-form-field">
+                <b>Clearing Calculation Date</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeClearinfCalculationDate" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByClearinfCalculationDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByClearinfCalculationDate" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtClearinfCalculationDate" runat="server" Width="98%" />
+                <asp:Label ID="lblClearinfCalculationDate" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAcPerClearingCommission" runat="server" class="float-left div-form-field">
+                <b>AcPer Clearing Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAcPerClearingCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAcPerClearingCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAcPerClearingCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAcPerClearingCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAcPerClearingCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divDiffClearingCommission" runat="server" class="float-left div-form-field">
+                <b>Diff Clearing Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeDiffClearingCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByDiffClearingCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiffClearingCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtDiffClearingCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblDiffClearingCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCorrectIncorrectCommissions" runat="server" class="float-left div-form-field">
+                <label class="block bold">Correct Incorrect Commissions</label>
+                <asp:TextBox ID="txtGroupByCorrectIncorrectCommissions" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCorrectIncorrectCommissions" runat="server" Text="Group By" />
+                <asp:CheckBoxList ID="chklCorrectIncorrectCommissions" runat="Server">
+                    <asp:ListItem Text="Yes" Value="red"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="blue"></asp:ListItem>
+                </asp:CheckBoxList>
+            </div>
+
+            <div class="clear-both"></div>
+
+            <div id="divDiscountCommissionID" runat="server" class="float-left div-form-field">
+                <b>Discount Commission ID</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeDiscountCommissionID" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByDiscountCommissionID" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiscountCommissionID" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtDiscountCommissionID" runat="server" Width="98%" />
+                <asp:Label ID="lblDiscountCommissionID" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAgPerDiscountCommission" runat="server" class="float-left div-form-field">
+                <b>AgPer Discount Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAgPerDiscountCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAgPerDiscountCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAgPerDiscountCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAgPerDiscountCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAgPerDiscountCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCalculatedIDiscountCommission" runat="server" class="float-left div-form-field">
+                <b>Calculated Discount Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeCalculatedIDiscountCommission" runat="server" Text="Exclude" />
+                <%-- &nbsp;
+            <asp:TextBox ID="txtGroupByCalculatedIDiscountCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCalculatedIDiscountCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtCalculatedIDiscountCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblCalculatedIDiscountCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divDiscountCalculationDate" runat="server" class="float-left div-form-field">
+                <b>Discount Calculation Date</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeDiscountCalculationDate" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByDiscountCalculationDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiscountCalculationDate" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtDiscountCalculationDate" runat="server" Width="98%" />
+                <asp:Label ID="lblDiscountCalculationDate" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAcPerDiscountCommission" runat="server" class="float-left div-form-field">
+                <b>AcPer Discount Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAcPerDiscountCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAcPerDiscountCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAcPerDiscountCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAcPerDiscountCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAcPerDiscountCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divDiffDiscountCommission" runat="server" class="float-left div-form-field">
+                <b>Diff Discount Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeDiffDiscountCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByDiffDiscountCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiffDiscountCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtDiffDiscountCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblDiffDiscountCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+
+            <div id="divCorrectIncorrectCommissionsDiscount" runat="server" class="float-left div-form-field">
+                <label class="block bold">Correct Incorrect Commissions Discount</label>
+                <asp:TextBox ID="txtGroupByCorrectIncorrectCommissionsDiscount" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCorrectIncorrectCommissionsDiscount" runat="server" Text="Group By" />
+                <asp:CheckBoxList ID="chklCorrectIncorrectCommissionsDiscount" runat="Server">
+                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                </asp:CheckBoxList>
+            </div>
+
+            <div class="clear-both"></div>
+
+
+            <div id="divClubManagementFeeCommissionID" runat="server" class="float-left div-form-field">
+                <b>Club Management Fee Commission ID</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeClubManagementFeeCommissionID" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByClubManagementFeeCommissionID" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByClubManagementFeeCommissionID" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtClubManagementFeeCommissionID" runat="server" Width="98%" />
+                <asp:Label ID="lblClubManagementFeeCommissionID" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAgPerClubManagementFeeCommission" runat="server" class="float-left div-form-field">
+                <b>AgPer Club Management Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAgPerClubManagementFeeCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAgPerClubManagementFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAgPerClubManagementFeeCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAgPerClubManagementFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAgPerClubManagementFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCalculatedClubManagementFeeCommission" runat="server" class="float-left div-form-field">
+                <b>Calculated Club Management Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeCalculatedClubManagementFeeCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByCalculatedClubManagementFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCalculatedClubManagementFeeCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtCalculatedClubManagementFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblCalculatedClubManagementFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divClubManagementFeeCalculationDate" runat="server" class="float-left div-form-field">
+                <b>Club Management Fee Calculation Date</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeClubManagementFeeCalculationDate" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByClubManagementFeeCalculationDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByClubManagementFeeCalculationDate" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtClubManagementFeeCalculationDate" runat="server" Width="98%" />
+                <asp:Label ID="lblClubManagementFeeCalculationDate" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAcPerClubManagementFeeCommission" runat="server" class="float-left div-form-field">
+                <b>AcPer Club Management Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAcPerClubManagementFeeCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAcPerClubManagementFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAcPerClubManagementFeeCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAcPerClubManagementFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAcPerClubManagementFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divDiffClubManagementFeeCommission" runat="server" class="float-left div-form-field">
+                <b>Diff Club Management Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeDiffClubManagementFeeCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByDiffClubManagementFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiffClubManagementFeeCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtDiffClubManagementFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblDiffClubManagementFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCorrectIncorrectCommissionsClubManagementFee" runat="server" class="float-left div-form-field">
+                <label class="block bold">Correct Incorrect Commissions Club ManagementFee</label>
+                <asp:TextBox ID="txtGroupByCorrectIncorrectCommissionsClubManagementFee" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCorrectIncorrectCommissionsClubManagementFee" runat="server" Text="Group By" />
+                <asp:CheckBoxList ID="chklCorrectIncorrectCommissionsClubManagementFee" runat="Server">
+                    <asp:ListItem Text="Yes" Value="red"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="blue"></asp:ListItem>
+                </asp:CheckBoxList>
+            </div>
+
+            <div class="clear-both"></div>
+
+
+            <div id="divClubDiscountCommissionID" runat="server" class="float-left div-form-field">
+                <b>Club Discount Commission ID</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeClubDiscountCommissionID" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByClubDiscountCommissionID" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByClubDiscountCommissionID" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtClubDiscountCommissionID" runat="server" Width="98%" />
+                <asp:Label ID="lblClubDiscountCommissionID" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAgPerClubDiscountFeeCommission" runat="server" class="float-left div-form-field">
+                <b>AgPer Club Discount Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAgPerClubDiscountFeeCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAgPerClubDiscountFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAgPerClubDiscountFeeCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAgPerClubDiscountFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAgPerClubDiscountFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCalculatedClubDiscountFeeCommission" runat="server" class="float-left div-form-field">
+                <b>Calculated Club Discount Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeCalculatedClubDiscountFeeCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByCalculatedClubDiscountFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCalculatedClubDiscountFeeCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtCalculatedClubDiscountFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblCalculatedClubDiscountFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divClubDiscountFeeCalculationDate" runat="server" class="float-left div-form-field">
+                <b>Club Discount Fee Calculation Date</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeClubDiscountFeeCalculationDate" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByClubDiscountFeeCalculationDate" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByClubDiscountFeeCalculationDate" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtClubDiscountFeeCalculationDate" runat="server" Width="98%" />
+                <asp:Label ID="lblClubDiscountFeeCalculationDate" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divAcPerClubDiscountFeeCommission" runat="server" class="float-left div-form-field">
+                <b>AcPer Club Discount Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeAcPerClubDiscountFeeCommission" runat="server" Text="Exclude" />
+                &nbsp;
+            <asp:TextBox ID="txtGroupByAcPerClubDiscountFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByAcPerClubDiscountFeeCommission" runat="server" Text="Group By" />
+                <br />
+                <asp:TextBox ID="txtAcPerClubDiscountFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblAcPerClubDiscountFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divDiffClubDiscountFeeCommission" runat="server" class="float-left div-form-field">
+                <b>Diff Club Discount Fee Commission</b>
+                &nbsp;
+            <asp:CheckBox ID="chkExcludeDiffClubDiscountFeeCommission" runat="server" Text="Exclude" />
+                <%--&nbsp;
+            <asp:TextBox ID="txtGroupByDiffClubDiscountFeeCommission" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiffClubDiscountFeeCommission" runat="server" Text="Group By" />--%>
+                <br />
+                <asp:TextBox ID="txtDiffClubDiscountFeeCommission" runat="server" Width="98%" />
+                <asp:Label ID="lblDiffClubDiscountFeeCommission" runat="server" EnableViewState="false" CssClass="error block" />
+            </div>
+
+            <div id="divCorrectIncorrectCommissionsClubDiscountFee" runat="server" class="float-left div-form-field">
+                <b>Correct Incorrec tCommissions Club Discount Fee</b>
+                <%--&nbsp;
+            <asp:CheckBox ID="chkExcludeCorrectIncorrectCommissionsClubDiscountFee" runat="server" Text="Exclude" />--%>
+                &nbsp;
+            <asp:TextBox ID="txtGroupByCorrectIncorrectCommissionsClubDiscountFee" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByCorrectIncorrectCommissionsClubDiscountFee" runat="server" Text="Group By" />
+                <%--<br />
+                <asp:TextBox ID="txtCorrectIncorrectCommissionsClubDiscountFee" runat="server" Width="98%" />
+                <asp:Label ID="lblCorrectIncorrectCommissionsClubDiscountFee" runat="server" EnableViewState="false" CssClass="error block" />--%>
+            </div>
+
+            <div id="divIsClubCommissionValid" runat="server" class="float-left div-form-field">
+                <label class="block bold">Is Club Commission Valid</label>
+                <asp:TextBox ID="txtGroupByIsClubCommissionValid" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByIsClubCommissionValid" runat="server" Text="Group By" />
+                <asp:CheckBoxList ID="chklIsClubCommissionValid" runat="Server">
+                    <asp:ListItem Text="Yes" Value="red"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="blue"></asp:ListItem>
+                </asp:CheckBoxList>
+            </div>
+
+            <div class="clear-both"></div>
+
+            <div id="divDiscountName" runat="server" class="float-left div-form-field">
+                <label class="block bold">Discount Name</label>
+                <asp:CheckBoxList ID="chklDiscountName" runat="server" />
+
+                <%--<asp:TextBox ID="txtGroupByDiscountName" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
+                <asp:Label ID="lblGroupByDiscountName" runat="server" Text="Group By" />
+                <asp:CheckBoxList ID="chklDiscountName" runat="Server">
+                    <asp:ListItem Text="Yes" Value="red"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="blue"></asp:ListItem>
+                </asp:CheckBoxList>--%>
+            </div>
+
+            <div class="clear-both"></div>
+
         </div>
 
-        <%--Card--%>
-        <div id="divCard" runat="server" class="float-left div-form-field">
-            <label for="<%= cblCard.ClientID %>" class="block bold">Card</label>
-            <asp:CheckBoxList ID="cblCard" runat="server" />
-        </div>
-
-        <%--TransactionCurrency--%>
-        <div id="divTransactionCurrency" runat="server" class="float-left div-form-field">
-            <label for="<%= cblTransactionCurrency.ClientID %>" class="block bold">Transaction Currency</label>
-            <asp:CheckBoxList ID="cblTransactionCurrency" runat="server" />
-        </div>
 
         <div class="clear-both"></div>
-
         <hr />
 
         <div class="div-form-command">
@@ -967,65 +1342,65 @@
             <asp:LinkButton ID="btnDownloadInside" runat="server" ValidationGroup="none" Text="Download Excel" OnClick="Download_Excel" />
             <asp:TextBox ID="txtSearchInside" runat="server" Visible="false"></asp:TextBox>
             <style>
-                                                                                               .table-data td, .table-data th {
-                                                                                                   padding: 5px 0 5px 15px;
-                                                                                               }
+                .table-data td, .table-data th {
+                    padding: 5px 0 5px 15px;
+                }
 
-                                                                                               .table-data td {
-                                                                                                   position: relative;
-                                                                                               }
+                .table-data td {
+                    position: relative;
+                }
 
-                                                                                               .arrowdu {
-                                                                                                   background: url(./Images/arrowdu.png) no-repeat center center;
-                                                                                                   width: 12px;
-                                                                                                   height: 12px;
-                                                                                                   display: inline-block;
-                                                                                                   background-size: 10px 10px;
-                                                                                                   float: left;
-                                                                                                   position: absolute;
-                                                                                                   /*left: 0;*/
-                                                                                                   top: 20px;
-                                                                                                   z-index: 9999;
-                                                                                               }
+                .arrowdu {
+                    background: url(./Images/arrowdu.png) no-repeat center center;
+                    width: 12px;
+                    height: 12px;
+                    display: inline-block;
+                    background-size: 10px 10px;
+                    float: left;
+                    position: absolute;
+                    /*left: 0;*/
+                    top: 20px;
+                    z-index: 9999;
+                }
 
-                                                                                               .arrowup {
-                                                                                                   background: url(./Images/arrowup.png) no-repeat center center;
-                                                                                                   width: 12px;
-                                                                                                   height: 12px;
-                                                                                                   display: inline-block;
-                                                                                                   background-size: 10px 10px;
-                                                                                                   float: left;
-                                                                                                   position: absolute;
-                                                                                                   /*left: 0;*/
-                                                                                                   top: 20px;
-                                                                                                   z-index: 9999;
-                                                                                               }
+                .arrowup {
+                    background: url(./Images/arrowup.png) no-repeat center center;
+                    width: 12px;
+                    height: 12px;
+                    display: inline-block;
+                    background-size: 10px 10px;
+                    float: left;
+                    position: absolute;
+                    /*left: 0;*/
+                    top: 20px;
+                    z-index: 9999;
+                }
 
-                                                                                               /*.bg-gray td:first-child span {
+                /*.bg-gray td:first-child span {
                     display: none;
                 }*/
 
-                                                                                               #loader {
-                                                                                                   border: 16px solid #f3f3f3; /* Light grey */
-                                                                                                   border-top: 16px solid #3498db; /* Blue */
-                                                                                                   border-radius: 50%;
-                                                                                                   width: 120px;
-                                                                                                   height: 120px;
-                                                                                                   animation: spin 2s linear infinite;
-                                                                                               }
+                #loader {
+                    border: 16px solid #f3f3f3; /* Light grey */
+                    border-top: 16px solid #3498db; /* Blue */
+                    border-radius: 50%;
+                    width: 120px;
+                    height: 120px;
+                    animation: spin 2s linear infinite;
+                }
 
-                                                                                               @keyframes spin {
-                                                                                                   0% {
-                                                                                                       transform: rotate(0deg);
-                                                                                                   }
+                @keyframes spin {
+                    0% {
+                        transform: rotate(0deg);
+                    }
 
-                                                                                                   100% {
-                                                                                                       transform: rotate(360deg);
-                                                                                                   }
-                                                                                               }
-                                                                                           </style>
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+            </style>
 
-            <div id="dvGrid" style="width: 100%; overflow: scroll; position: relative; height: 500px;">
+            <div id="dvGrid" style="width: 100%; overflow: scroll; position: relative; height: 500px;" runat="server">
                 <div style="position: sticky; top: 0; z-index: 9; height: 57px;">
                     <table id="tblInsideHead" class="table-data"></table>
                 </div>
@@ -1033,7 +1408,7 @@
                     <asp:GridView ID="gvInside" runat="server" AutoGenerateColumns="true" OnRowDataBound="Inside_RowDataBound" CssClass="table-data" />
                 </div>
             </div>
-           
+
             <%--<div style="overflow: hidden;">
                 <table id="tblInsideHead" class="table-data"></table>
             </div>
@@ -1898,26 +2273,26 @@
         if (document.getElementById("<%= chk_txtCardPrefixOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardPrefixOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCardNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCardNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtTransmissionNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransmissionNumberOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtVoucherNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtVoucherNumberOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtConfirmationNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtConfirmationNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtVoucherNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtVoucherNumberOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtConfirmationNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtConfirmationNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtPaymentsCountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtPaymentsCountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtDutyPaymentNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentNumberOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtTransactionGrossAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionGrossAmountOutside.ClientID %>").className = ""; }
-            if (document.getElementById("<%= chk_txtDutyPaymentAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentAmountOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtTransactionGrossAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTransactionGrossAmountOutside.ClientID %>").className = ""; }
+        if (document.getElementById("<%= chk_txtDutyPaymentAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtDutyPaymentAmountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtRemainingPaymentsAmountOutside.ClientID %>").checked == false) { document.getElementById("<%= txtRemainingPaymentsAmountOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCompanyNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCompanyNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtNetworkNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtNetworkNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtBranchNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtBranchNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtNetworkNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtNetworkNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtBranchNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtBranchNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCashBoxNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCashBoxNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtSupplierGroupNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtSupplierGroupNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtSupplierNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtSupplierNumberOutside.ClientID %>").className = ""; }
-        if (document.getElementById("<%= chk_txtTerminalNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTerminalNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtSupplierNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtSupplierNumberOutside.ClientID %>").className = ""; }
+            if (document.getElementById("<%= chk_txtTerminalNumberOutside.ClientID %>").checked == false) { document.getElementById("<%= txtTerminalNumberOutside.ClientID %>").className = ""; }
         if (document.getElementById("<%= chk_txtCommentOutside.ClientID %>").checked == false) { document.getElementById("<%= txtCommentOutside.ClientID %>").className = ""; }
 
         // FUNCTIONS
 
         function copy_table_head(s_source_id, s_destination_id) {
-            
+
             var tbl_source = document.getElementById(s_source_id);
             var tbl_destination = document.getElementById(s_destination_id);
 
@@ -2157,7 +2532,7 @@
             document.getElementById("spnSearchBottom").style.display = "";
 
             document.getElementById("<%= btnSearchTop.ClientID %>").style.visibility = "hidden";
-              document.getElementById("<%= btnSearchBottom.ClientID %>").style.visibility = "hidden";
+            document.getElementById("<%= btnSearchBottom.ClientID %>").style.visibility = "hidden";
         }
 
         function select_data_item_all(s_class, b_checked) {
@@ -2280,30 +2655,30 @@
         function disable_buttons(s_mode) {
             if (s_mode == "payment") {
                 var btnPaymentRecalculate = document.getElementById("<%= btnPaymentRecalculate.ClientID %>");
-                  var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
+                var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
 
-                  if (btnPaymentRecalculate != null) { btnPaymentRecalculate.disabled = true; }
-                  if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
-              }
-              else if (s_mode == "match" || s_mode == "matching" || s_mode == "not-matching") {
-                  var btnMatchingBalanceChange = document.getElementById("<%= btnMatchingBalanceChange.ClientID %>");
+                if (btnPaymentRecalculate != null) { btnPaymentRecalculate.disabled = true; }
+                if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
+            }
+            else if (s_mode == "match" || s_mode == "matching" || s_mode == "not-matching") {
+                var btnMatchingBalanceChange = document.getElementById("<%= btnMatchingBalanceChange.ClientID %>");
 
-                  if (btnMatchingBalanceChange != null) { btnMatchingBalanceChange.disabled = true; }
-              }
-          }
+                if (btnMatchingBalanceChange != null) { btnMatchingBalanceChange.disabled = true; }
+            }
+        }
 
-          function disable_payment_change() {
-              var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
+        function disable_payment_change() {
+            var btnPaymentChange = document.getElementById("<%= btnPaymentChange.ClientID %>");
 
-              if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
-          }
+            if (btnPaymentChange != null) { btnPaymentChange.disabled = true; }
+        }
 
-          function update_hidden_field(o_checkbox, s_class, b_return_checked) {
-              var s_id = "";
+        function update_hidden_field(o_checkbox, s_class, b_return_checked) {
+            var s_id = "";
 
-              switch (s_class) {
-                  case "checkbox-inside":
-                      s_id = "<%= hidSelectInside.ClientID %>";
+            switch (s_class) {
+                case "checkbox-inside":
+                    s_id = "<%= hidSelectInside.ClientID %>";
                     break;
                 case "checkbox-outside":
                     s_id = "<%= hidSelectOutside.ClientID %>";
@@ -2455,6 +2830,14 @@
             }
         }
 
+        function ShowHideCommissionFilterDiv(control) {
+            if (control.checked) {
+                $('#divCommissionFilters').show();
+            }
+            else {
+                $('#divCommissionFilters').hide();
+            }
+        }
 
     </script>
 

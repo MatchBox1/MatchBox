@@ -38,6 +38,7 @@ namespace MatchBox
         public DataTable TableDataPriority { get; set; }
         public DataTable TableDataSort { get; set; }
         public DataTable TableDataField { get; set; }
+        public DataTable TableDiscountName { get; set; }
 
         public string ErrorMessage { get; set; }
 
@@ -112,25 +113,31 @@ namespace MatchBox
             }
         }
 
-        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out, string s_group_by, string strChkFilters, string s_selectColumns_by)
+        public static void Select(int n_user_id, string s_where_inside, string s_where_outside, string s_order_inside, string s_order_outside, int n_page_inside, int n_page_outside, int n_page_size, ref DataTable dt_inside, ref DataTable dt_inside_sum, ref DataTable dt_outside, ref DataTable dt_outside_sum, ref string s_error, string sortColumnName, string sortType, string sortColumnName_Out, string sortType_Out, string s_group_by, string strChkFilters, string s_selectColumns_by, string s_group_byout, string s_selectColumns_byout)
         {
             string strDBColumnName = string.Empty;
-            if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+            if (sortColumnName != null)
             {
-                strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
-                if (strDBColumnName == "")
-                    strDBColumnName = sortColumnName.Trim();
+                if (!string.IsNullOrEmpty(sortColumnName.Trim()))
+                {
+                    strDBColumnName = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName.Trim());
+                    if (strDBColumnName == "")
+                        strDBColumnName = sortColumnName.Trim();
+                }
             }
 
             string strDBColumnName_Out = string.Empty;
-            if (!string.IsNullOrEmpty(sortColumnName_Out.Trim()))
+            if (sortColumnName_Out != null)
             {
-                strDBColumnName_Out = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName_Out.Trim());
-                if (strDBColumnName_Out == "")
-                    strDBColumnName_Out = sortColumnName_Out.Trim();
+                if (!string.IsNullOrEmpty(sortColumnName_Out.Trim()))
+                {
+                    strDBColumnName_Out = AnchorFieldsMappings.AnchorFieldsMapping(sortColumnName_Out.Trim());
+                    if (strDBColumnName_Out == "")
+                        strDBColumnName_Out = sortColumnName_Out.Trim();
+                }
             }
 
-            SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy2", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
+            SqlCommand o_command = new SqlCommand("sprDataSelectPagingLazy3", DB.Get_Connection()) { CommandType = CommandType.StoredProcedure };
 
             o_command.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int) { Value = n_user_id });
             o_command.Parameters.Add(new SqlParameter("@PageNumberInside", SqlDbType.Int) { Value = n_page_inside });
@@ -149,7 +156,8 @@ namespace MatchBox
             o_command.Parameters.Add(new SqlParameter("@Group_By", SqlDbType.NVarChar, -1) { Value = s_group_by });
             o_command.Parameters.Add(new SqlParameter("@ChkFilters", SqlDbType.NVarChar, -1) { Value = strChkFilters });
             o_command.Parameters.Add(new SqlParameter("@SelectColumns", SqlDbType.NVarChar, -1) { Value = s_selectColumns_by });
-
+            o_command.Parameters.Add(new SqlParameter("@Group_ByOut", SqlDbType.NVarChar, -1) { Value = s_group_byout });
+            o_command.Parameters.Add(new SqlParameter("@SelectColumnsOut", SqlDbType.NVarChar, -1) { Value = s_selectColumns_byout });
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
             DataSet o_data_set = new DataSet();
             try
@@ -477,6 +485,7 @@ namespace MatchBox
                 o_data_search_tables.TableDataPriority = o_data_set.Tables[18];
                 o_data_search_tables.TableDataSort = o_data_set.Tables[19];
                 o_data_search_tables.TableDataField = o_data_set.Tables[20];
+                o_data_search_tables.TableDiscountName = o_data_set.Tables[21];
             }
             catch (Exception ex)
             {
@@ -1273,6 +1282,11 @@ namespace MatchBox
                         case "PaymentCurrency":
                         case "BankNumber":
                         case "BankBranchNumber":
+
+                        case "ClearingCommissionID":
+                        case "DiscountCommissionID":
+                        case "ClubManagementFeeCommissionID":
+                        case "ClubDiscountCommissionID":
                             n_width = 50;
                             break;
                         case "UniqueID":
@@ -1294,6 +1308,30 @@ namespace MatchBox
                         case "IsSplitted":
                         case "IsBalance":
                         case "IsAbroad":
+
+                        case "AgPerClearingCommission":
+                        case "AgPerDiscountCommission":
+                        case "AgPerClubManagementFeeCommission":
+                        case "AgPerClubDiscountFeeCommission":
+                        case "CalculatedIclearingCommission":
+                        case "CalculatedIDiscountCommission":
+                        case "CalculatedIclubManagementFeeCommission":
+                        case "CalculatedIclubDiscountFeeCommission":
+                        case "AcPerClearingCommission":
+                        case "AcPerDiscountCommission":
+                        case "AcPerClubManagementFeeCommission":
+                        case "AcPerClubDiscountFeeCommission":
+                        case "DiffClearingCommission":
+                        case "DiffDiscountCommission":
+                        case "DiffClubManagementFeeCommission":
+                        case "DiffClubDiscountFeeCommission":
+                        case "correctincorrectcommissions":
+                        case "CorrectIncorrectCommissionsDiscount":
+                        case "CorrectIncorrectCommissionsClubManagementFee":
+                        case "CorrectIncorrectCommissionsClubDiscountFee":
+                        case "IsClubCommissionvalid":
+
+                        case "GrossAmountCount":
                             n_width = 60;
                             break;
                         case "MatchingID":
@@ -1313,6 +1351,21 @@ namespace MatchBox
                         case "PaymentDateActual":
                         case "InvoiceDate":
                         case "AccountNumber":
+
+                        case "ClearinfCalculationDate":
+                        case "DiscountCalculationDate":
+                        case "ClubManagementFeeCalculationDate":
+                        case "ClubDiscountFeeCalculationDate":
+
+                        case "clearingcommission":
+                        case "notelectroniccommission":
+                        case "manualcommission":
+                        case "cancellationcommission":
+                        case "telephonecommission":
+                        case "discountcommission":
+                        case "clubmanagementcommission":
+                        case "clubsaving":
+                        case "vat":
                             n_width = 80;
                             break;
                         case "CompanyNumber":
@@ -1321,7 +1374,9 @@ namespace MatchBox
                         case "FirstPaymentAmount":
                         case "DutyPaymentAmount":
                         case "RemainingPaymentsAmount":
-                        case "NetPaymentAmount":
+                        case "netPaymentAmount":
+
+                        case "DiscountName":
                             n_width = 90;
                             break;
                         case "ID":
@@ -1358,7 +1413,13 @@ namespace MatchBox
 
         public static void Bind_Grid_Data_Row(GridViewRow gv_row, List<string> lst_field_priority, string s_select_inside, string s_select_outside, string s_table, string s_mode, string S_Group_By, string s_query_id_href = "")
         {
-            if (string.IsNullOrEmpty(S_Group_By))  //// Without Group By ---
+            string s_group_byout = System.Web.HttpContext.Current.Session["GroupByOut"] != null ? System.Web.HttpContext.Current.Session["GroupByOut"].ToString() : "";
+            //string strGroup = string.Empty;
+            //if (s_table.ToLower().Trim().Equals("inside"))
+            //    strGroup = S_Group_By;
+            //else
+            //    strGroup = s_group_byout;
+            if ((string.IsNullOrEmpty(S_Group_By) && s_table.ToLower().Trim().Equals("inside")) || (string.IsNullOrEmpty(s_group_byout) && s_table.ToLower().Trim().Equals("outside")))  //// Without Group By ---
             {
                 // CREATE LISTS FOR SELECTED ITEMS
 

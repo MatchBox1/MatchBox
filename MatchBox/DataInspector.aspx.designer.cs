@@ -85,6 +85,15 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Button btnSearchTop;
         
         /// <summary>
+        /// chkCommissionsReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkCommissionsReport;
+        
+        /// <summary>
         /// ddlInsideSort_1 control.
         /// </summary>
         /// <remarks>
@@ -2227,6 +2236,1347 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.CheckBoxList cblTransactionCurrency;
         
         /// <summary>
+        /// divClearingCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClearingCommissionID;
+        
+        /// <summary>
+        /// chkExcludeClearingCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeClearingCommissionID;
+        
+        /// <summary>
+        /// txtGroupByClearingCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByClearingCommissionID;
+        
+        /// <summary>
+        /// lblGroupByClearingCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByClearingCommissionID;
+        
+        /// <summary>
+        /// txtClearingCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClearingCommissionID;
+        
+        /// <summary>
+        /// lblClearingCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClearingCommissionID;
+        
+        /// <summary>
+        /// divAgPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAgPerClearingCommission;
+        
+        /// <summary>
+        /// chkExcludeAgPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAgPerClearingCommission;
+        
+        /// <summary>
+        /// txtGroupByAgPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAgPerClearingCommission;
+        
+        /// <summary>
+        /// lblGroupByAgPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAgPerClearingCommission;
+        
+        /// <summary>
+        /// txtAgPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAgPerClearingCommission;
+        
+        /// <summary>
+        /// lblAgPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAgPerClearingCommission;
+        
+        /// <summary>
+        /// divCalculatedIclearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculatedIclearingCommission;
+        
+        /// <summary>
+        /// chkExcludeCalculatedIclearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeCalculatedIclearingCommission;
+        
+        /// <summary>
+        /// txtCalculatedIclearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCalculatedIclearingCommission;
+        
+        /// <summary>
+        /// lblCalculatedIclearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCalculatedIclearingCommission;
+        
+        /// <summary>
+        /// divClearinfCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClearinfCalculationDate;
+        
+        /// <summary>
+        /// chkExcludeClearinfCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeClearinfCalculationDate;
+        
+        /// <summary>
+        /// txtGroupByClearinfCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByClearinfCalculationDate;
+        
+        /// <summary>
+        /// lblGroupByClearinfCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByClearinfCalculationDate;
+        
+        /// <summary>
+        /// txtClearinfCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClearinfCalculationDate;
+        
+        /// <summary>
+        /// lblClearinfCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClearinfCalculationDate;
+        
+        /// <summary>
+        /// divAcPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAcPerClearingCommission;
+        
+        /// <summary>
+        /// chkExcludeAcPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAcPerClearingCommission;
+        
+        /// <summary>
+        /// txtGroupByAcPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAcPerClearingCommission;
+        
+        /// <summary>
+        /// lblGroupByAcPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAcPerClearingCommission;
+        
+        /// <summary>
+        /// txtAcPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAcPerClearingCommission;
+        
+        /// <summary>
+        /// lblAcPerClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAcPerClearingCommission;
+        
+        /// <summary>
+        /// divDiffClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiffClearingCommission;
+        
+        /// <summary>
+        /// chkExcludeDiffClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeDiffClearingCommission;
+        
+        /// <summary>
+        /// txtDiffClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDiffClearingCommission;
+        
+        /// <summary>
+        /// lblDiffClearingCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiffClearingCommission;
+        
+        /// <summary>
+        /// divCorrectIncorrectCommissions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCorrectIncorrectCommissions;
+        
+        /// <summary>
+        /// txtGroupByCorrectIncorrectCommissions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCorrectIncorrectCommissions;
+        
+        /// <summary>
+        /// lblGroupByCorrectIncorrectCommissions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCorrectIncorrectCommissions;
+        
+        /// <summary>
+        /// chklCorrectIncorrectCommissions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chklCorrectIncorrectCommissions;
+        
+        /// <summary>
+        /// divDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiscountCommissionID;
+        
+        /// <summary>
+        /// chkExcludeDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeDiscountCommissionID;
+        
+        /// <summary>
+        /// txtGroupByDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByDiscountCommissionID;
+        
+        /// <summary>
+        /// lblGroupByDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByDiscountCommissionID;
+        
+        /// <summary>
+        /// txtDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDiscountCommissionID;
+        
+        /// <summary>
+        /// lblDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiscountCommissionID;
+        
+        /// <summary>
+        /// divAgPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAgPerDiscountCommission;
+        
+        /// <summary>
+        /// chkExcludeAgPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAgPerDiscountCommission;
+        
+        /// <summary>
+        /// txtGroupByAgPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAgPerDiscountCommission;
+        
+        /// <summary>
+        /// lblGroupByAgPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAgPerDiscountCommission;
+        
+        /// <summary>
+        /// txtAgPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAgPerDiscountCommission;
+        
+        /// <summary>
+        /// lblAgPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAgPerDiscountCommission;
+        
+        /// <summary>
+        /// divCalculatedIDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculatedIDiscountCommission;
+        
+        /// <summary>
+        /// chkExcludeCalculatedIDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeCalculatedIDiscountCommission;
+        
+        /// <summary>
+        /// txtCalculatedIDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCalculatedIDiscountCommission;
+        
+        /// <summary>
+        /// lblCalculatedIDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCalculatedIDiscountCommission;
+        
+        /// <summary>
+        /// divDiscountCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiscountCalculationDate;
+        
+        /// <summary>
+        /// chkExcludeDiscountCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeDiscountCalculationDate;
+        
+        /// <summary>
+        /// txtGroupByDiscountCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByDiscountCalculationDate;
+        
+        /// <summary>
+        /// lblGroupByDiscountCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByDiscountCalculationDate;
+        
+        /// <summary>
+        /// txtDiscountCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDiscountCalculationDate;
+        
+        /// <summary>
+        /// lblDiscountCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiscountCalculationDate;
+        
+        /// <summary>
+        /// divAcPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAcPerDiscountCommission;
+        
+        /// <summary>
+        /// chkExcludeAcPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAcPerDiscountCommission;
+        
+        /// <summary>
+        /// txtGroupByAcPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAcPerDiscountCommission;
+        
+        /// <summary>
+        /// lblGroupByAcPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAcPerDiscountCommission;
+        
+        /// <summary>
+        /// txtAcPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAcPerDiscountCommission;
+        
+        /// <summary>
+        /// lblAcPerDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAcPerDiscountCommission;
+        
+        /// <summary>
+        /// divDiffDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiffDiscountCommission;
+        
+        /// <summary>
+        /// chkExcludeDiffDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeDiffDiscountCommission;
+        
+        /// <summary>
+        /// txtDiffDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDiffDiscountCommission;
+        
+        /// <summary>
+        /// lblDiffDiscountCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiffDiscountCommission;
+        
+        /// <summary>
+        /// divCorrectIncorrectCommissionsDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCorrectIncorrectCommissionsDiscount;
+        
+        /// <summary>
+        /// txtGroupByCorrectIncorrectCommissionsDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCorrectIncorrectCommissionsDiscount;
+        
+        /// <summary>
+        /// lblGroupByCorrectIncorrectCommissionsDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCorrectIncorrectCommissionsDiscount;
+        
+        /// <summary>
+        /// chklCorrectIncorrectCommissionsDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chklCorrectIncorrectCommissionsDiscount;
+        
+        /// <summary>
+        /// divClubManagementFeeCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClubManagementFeeCommissionID;
+        
+        /// <summary>
+        /// chkExcludeClubManagementFeeCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeClubManagementFeeCommissionID;
+        
+        /// <summary>
+        /// txtGroupByClubManagementFeeCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByClubManagementFeeCommissionID;
+        
+        /// <summary>
+        /// lblGroupByClubManagementFeeCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByClubManagementFeeCommissionID;
+        
+        /// <summary>
+        /// txtClubManagementFeeCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClubManagementFeeCommissionID;
+        
+        /// <summary>
+        /// lblClubManagementFeeCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClubManagementFeeCommissionID;
+        
+        /// <summary>
+        /// divAgPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAgPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeAgPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAgPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// txtGroupByAgPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAgPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// lblGroupByAgPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAgPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// txtAgPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAgPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// lblAgPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAgPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// divCalculatedClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculatedClubManagementFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeCalculatedClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeCalculatedClubManagementFeeCommission;
+        
+        /// <summary>
+        /// txtCalculatedClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCalculatedClubManagementFeeCommission;
+        
+        /// <summary>
+        /// lblCalculatedClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCalculatedClubManagementFeeCommission;
+        
+        /// <summary>
+        /// divClubManagementFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClubManagementFeeCalculationDate;
+        
+        /// <summary>
+        /// chkExcludeClubManagementFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeClubManagementFeeCalculationDate;
+        
+        /// <summary>
+        /// txtGroupByClubManagementFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByClubManagementFeeCalculationDate;
+        
+        /// <summary>
+        /// lblGroupByClubManagementFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByClubManagementFeeCalculationDate;
+        
+        /// <summary>
+        /// txtClubManagementFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClubManagementFeeCalculationDate;
+        
+        /// <summary>
+        /// lblClubManagementFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClubManagementFeeCalculationDate;
+        
+        /// <summary>
+        /// divAcPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAcPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeAcPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAcPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// txtGroupByAcPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAcPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// lblGroupByAcPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAcPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// txtAcPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAcPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// lblAcPerClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAcPerClubManagementFeeCommission;
+        
+        /// <summary>
+        /// divDiffClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiffClubManagementFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeDiffClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeDiffClubManagementFeeCommission;
+        
+        /// <summary>
+        /// txtDiffClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDiffClubManagementFeeCommission;
+        
+        /// <summary>
+        /// lblDiffClubManagementFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiffClubManagementFeeCommission;
+        
+        /// <summary>
+        /// divCorrectIncorrectCommissionsClubManagementFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCorrectIncorrectCommissionsClubManagementFee;
+        
+        /// <summary>
+        /// txtGroupByCorrectIncorrectCommissionsClubManagementFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCorrectIncorrectCommissionsClubManagementFee;
+        
+        /// <summary>
+        /// lblGroupByCorrectIncorrectCommissionsClubManagementFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCorrectIncorrectCommissionsClubManagementFee;
+        
+        /// <summary>
+        /// chklCorrectIncorrectCommissionsClubManagementFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chklCorrectIncorrectCommissionsClubManagementFee;
+        
+        /// <summary>
+        /// divClubDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClubDiscountCommissionID;
+        
+        /// <summary>
+        /// chkExcludeClubDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeClubDiscountCommissionID;
+        
+        /// <summary>
+        /// txtGroupByClubDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByClubDiscountCommissionID;
+        
+        /// <summary>
+        /// lblGroupByClubDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByClubDiscountCommissionID;
+        
+        /// <summary>
+        /// txtClubDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClubDiscountCommissionID;
+        
+        /// <summary>
+        /// lblClubDiscountCommissionID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClubDiscountCommissionID;
+        
+        /// <summary>
+        /// divAgPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAgPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeAgPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAgPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// txtGroupByAgPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAgPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// lblGroupByAgPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAgPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// txtAgPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAgPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// lblAgPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAgPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// divCalculatedClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCalculatedClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeCalculatedClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeCalculatedClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// txtCalculatedClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCalculatedClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// lblCalculatedClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCalculatedClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// divClubDiscountFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClubDiscountFeeCalculationDate;
+        
+        /// <summary>
+        /// chkExcludeClubDiscountFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeClubDiscountFeeCalculationDate;
+        
+        /// <summary>
+        /// txtGroupByClubDiscountFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByClubDiscountFeeCalculationDate;
+        
+        /// <summary>
+        /// lblGroupByClubDiscountFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByClubDiscountFeeCalculationDate;
+        
+        /// <summary>
+        /// txtClubDiscountFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClubDiscountFeeCalculationDate;
+        
+        /// <summary>
+        /// lblClubDiscountFeeCalculationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClubDiscountFeeCalculationDate;
+        
+        /// <summary>
+        /// divAcPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAcPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeAcPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeAcPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// txtGroupByAcPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByAcPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// lblGroupByAcPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByAcPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// txtAcPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAcPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// lblAcPerClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAcPerClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// divDiffClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiffClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// chkExcludeDiffClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExcludeDiffClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// txtDiffClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDiffClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// lblDiffClubDiscountFeeCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiffClubDiscountFeeCommission;
+        
+        /// <summary>
+        /// divCorrectIncorrectCommissionsClubDiscountFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCorrectIncorrectCommissionsClubDiscountFee;
+        
+        /// <summary>
+        /// txtGroupByCorrectIncorrectCommissionsClubDiscountFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByCorrectIncorrectCommissionsClubDiscountFee;
+        
+        /// <summary>
+        /// lblGroupByCorrectIncorrectCommissionsClubDiscountFee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByCorrectIncorrectCommissionsClubDiscountFee;
+        
+        /// <summary>
+        /// divIsClubCommissionValid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIsClubCommissionValid;
+        
+        /// <summary>
+        /// txtGroupByIsClubCommissionValid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGroupByIsClubCommissionValid;
+        
+        /// <summary>
+        /// lblGroupByIsClubCommissionValid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroupByIsClubCommissionValid;
+        
+        /// <summary>
+        /// chklIsClubCommissionValid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chklIsClubCommissionValid;
+        
+        /// <summary>
+        /// divDiscountName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiscountName;
+        
+        /// <summary>
+        /// chklDiscountName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chklDiscountName;
+        
+        /// <summary>
         /// btnSearchBottom control.
         /// </summary>
         /// <remarks>
@@ -2765,6 +4115,15 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSearchInside;
+        
+        /// <summary>
+        /// dvGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvGrid;
         
         /// <summary>
         /// gvInside control.
