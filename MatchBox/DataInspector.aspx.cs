@@ -664,15 +664,19 @@ namespace MatchBox
 
             string s_ClubCommission = string.Empty;
             string s_Discount = string.Empty;
+            string s_CorrectIncorrectCommissions = string.Empty;
             if (chkCommissionsReport.Checked)
             {
-                // s_ClubCommission = Parameter_CheckBoxList(chklIsClubCommissionValid);
+                //s_ClubCommission = Parameter_CheckBoxList(chklIsClubCommissionValid);
 
                 //if (s_ClubCommission != "") { s_where += " AND IsClubCommissionvalid IN ( " + s_ClubCommission + " ) "; }
 
-                //s_Discount = Parameter_CheckBoxList(chklDiscountName);
+                s_Discount = Parameter_CheckBoxList(chklDiscountName);
 
-                //if (s_Discount != "") { s_where += " AND DiscountName IN ( " + s_Discount + " ) "; }
+                if (s_Discount != "") { s_where += " AND DiscountId IN ( " + s_Discount + " ) "; }
+
+              
+
             }
             // TransactionCurrencyID
 
@@ -2113,6 +2117,31 @@ namespace MatchBox
                         s_where_outside += s_where;
                     }
 
+                    s_where = "";
+                    s_CorrectIncorrectCommissions = Parameter_CheckBoxList(chklCorrectIncorrectCommissions);
+                    string s_CorrectIncorrectCommissions_New = "'" + s_CorrectIncorrectCommissions + "'";
+                    if (s_CorrectIncorrectCommissions != "") { s_where_outside += " AND CorrectIncorrectCommissions IN ( " + s_CorrectIncorrectCommissions_New + " ) "; }
+
+                    s_where = "";
+                    string s_CorrectIncorrectCommissionsDiscount = Parameter_CheckBoxList(chklCorrectIncorrectCommissionsDiscount);
+                    string s_CorrectIncorrectCommissionsDiscount_New = "'" + s_CorrectIncorrectCommissionsDiscount + "'";
+                    if (s_CorrectIncorrectCommissionsDiscount != "") { s_where_outside += " AND CorrectIncorrectCommissionsDiscount IN ( " + s_CorrectIncorrectCommissionsDiscount_New + " ) "; }
+
+                    s_where = "";
+                    string s_CorrectIncorrectCommissionsClubManagementFee = Parameter_CheckBoxList(chklCorrectIncorrectCommissionsClubManagementFee);
+                    string s_CorrectIncorrectCommissionsClubManagementFee_New = "'" + s_CorrectIncorrectCommissionsClubManagementFee + "'";
+                    if (s_CorrectIncorrectCommissionsClubManagementFee != "") { s_where_outside += " AND CorrectIncorrectCommissionsClubManagementFee IN ( " + s_CorrectIncorrectCommissionsDiscount_New + " ) "; }
+
+                    s_where = "";
+                    string s_CorrectIncorrectCommissionsClubDiscountFee = Parameter_CheckBoxList(chklCorrectIncorrectCommissions);
+                    string s_CorrectIncorrectCommissionsClubDiscountFee_New = "'" + s_CorrectIncorrectCommissionsClubDiscountFee + "'";
+                    if (s_CorrectIncorrectCommissionsClubDiscountFee != "") { s_where_outside += " AND CorrectIncorrectCommissionsClubDiscountFee IN ( " + s_CorrectIncorrectCommissionsClubDiscountFee_New + " ) "; }
+
+                    s_where = "";
+                    string s_IsClubCommissionvalid = Parameter_CheckBoxList(chklIsClubCommissionValid);
+                    string s_IsClubCommissionvalid_New = "'" + s_IsClubCommissionvalid + "'";
+                    if (s_IsClubCommissionvalid != "") { s_where_outside += " AND IsClubCommissionvalid IN ( " + s_IsClubCommissionvalid_New + " ) "; }
+
                     if (txtGroupByClearingCommissionID.Text != "")
                     {
                         //ClearingCommissionID
@@ -2305,6 +2334,7 @@ namespace MatchBox
                 {
                     dvGrid.Visible = false;
                     divInside.Visible = false;
+                    divCalculationFooter_Inside_GroupBy.Visible = false;
                     divCalculationFooter_Inside.Visible = false;
                     flagCommission = true;
                 }
@@ -2514,7 +2544,10 @@ namespace MatchBox
                     {
                         if (listGroupBy.Count > 0)
                         {
-                            divCalculationFooter_Inside_GroupBy.Visible = true;
+                            if (flagCommission == false)
+                            {
+                                divCalculationFooter_Inside_GroupBy.Visible = true;
+                            }
                             divCalculationFooter_Inside.Visible = false;
                         }
                         else
@@ -2588,7 +2621,7 @@ namespace MatchBox
                         //divCalculationFooter_Inside.Visible = false;
                         //divCalculationFooter_Outside.Visible = false;
                         divCalculationFooter_Inside.Attributes.Add("style", "display:none");
-                        divCalculationFooter_Inside_GroupBy.Visible = true;
+                        //divCalculationFooter_Inside_GroupBy.Visible = true;
                         divCalculationFooter_Outside.Attributes.Add("style", "display:none");
                         divCalculationFooter_Outside_GroupBy.Visible = true;
                     }
@@ -2697,10 +2730,20 @@ namespace MatchBox
                 {
                     if (!string.IsNullOrEmpty(strChkFilters))
                     {
-                        strChkFilters += "," + "DiscountName";
+                        strChkFilters += "," + "DiscountId";
                     }
                     else
-                    { strChkFilters += "DiscountName"; }
+                    { strChkFilters += "DiscountId"; }
+                }
+                // 
+                if (s_CorrectIncorrectCommissions != "")
+                {
+                    if (!string.IsNullOrEmpty(strChkFilters))
+                    {
+                        strChkFilters += "," + "CorrectIncorrectCommissions";
+                    }
+                    else
+                    { strChkFilters += "CorrectIncorrectCommissions"; }
                 }
                 if (s_status != "")
                 {
@@ -5553,9 +5596,14 @@ namespace MatchBox
                         double n_TransactionGrossAmountSum_outside = 0, n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
                         double n_NetAmountSum_outside = 0, n_ClearingAmountSum_outside = 0, n_NotElectronicAmountSum_outside = 0, n_ManualAmountSum_outside = 0;
                         double n_CancelAmountSum_outside = 0, n_TelephoneAmountSum_outside = 0, n_DiscountAmountSum_outside = 0, n_ClubMgtAmountSum_outside = 0;
-                        double n_ClubSavingAmountSum_outside = 0, n_VatAmountSum_outside = 0;
+                        double n_ClubSavingAmountSum_outside = 0, n_VatAmountSum_outside = 0, n_CalculatedIclearingCommission_outside = 0, n_DiffClearingCommission_outside = 0;
+                        double n_CalculatedIDiscountCommission_outside = 0, n_DiffDiscountCommission_outside = 0, n_CalculatedIclubManagementFeeCommission_outside = 0, n_ClubManagementFeeCommission_outside = 0;
+                        double n_CalculatedIclubDiscountFeeCommission_outside = 0, n_DiffClubDiscountFeeCommission_outside = 0;
+                        double n_AgPerClearingCommission_outside = 0, n_AcPerClearingCommission_outside = 0, n_AgPerDiscountCommission_outside = 0,
+                            n_AcPerDiscountCommission_outside = 0, n_AgPerClubManagementFeeCommission_outside = 0, n_AcPerClubManagementFeeCommission_outside = 0,
+                            n_AgPerClubDiscountFeeCommission_outside = 0, n_AcPerClubDiscountFeeCommission_outside = 0;
 
-                        n_rows_GrossAmountCountSum_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["GrossAmountCountSum"]);
+                         n_rows_GrossAmountCountSum_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["GrossAmountCountSum"]);
                         n_TransactionGrossAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["TransactionGrossAmountSum"]);
                         //n_FirstPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["FirstPaymentAmountSum"]);
                         n_DutyPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DutyPaymentAmountSum"]);
@@ -5573,6 +5621,24 @@ namespace MatchBox
                         n_ClubSavingAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["clubsaving"]);
                         n_VatAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["vat"]);
 
+                        n_CalculatedIclearingCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["CalculatedIclearingCommission"]);
+                        n_DiffClearingCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DiffClearingCommission"]);
+                        n_CalculatedIDiscountCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["CalculatedIDiscountCommission"]);
+                        n_DiffDiscountCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DiffDiscountCommission"]);
+                        n_CalculatedIclubManagementFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["CalculatedIclubManagementFeeCommission"]);
+                        n_ClubManagementFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DiffClubManagementFeeCommission"]);
+                        n_CalculatedIclubDiscountFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["CalculatedIclubDiscountFeeCommission"]);
+                        n_DiffClubDiscountFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DiffClubDiscountFeeCommission"]);
+
+                        n_AgPerClearingCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AgPerClearingCommission"]);
+                        n_AcPerClearingCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AcPerClearingCommission"]);
+                        n_AgPerDiscountCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AgPerDiscountCommission"]);
+                        n_AcPerDiscountCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AcPerDiscountCommission"]);
+                        n_AgPerClubManagementFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AgPerClubManagementFeeCommission"]);
+                        n_AcPerClubManagementFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AcPerClubManagementFeeCommission"]);
+                        n_AgPerClubDiscountFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AgPerClubDiscountFeeCommission"]);
+                        n_AcPerClubDiscountFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AcPerClubDiscountFeeCommission"]);
+
                         lblOutsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n0}", n_rows_GrossAmountCountSum_outside);
                         lblOutsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_outside, 2));
                         //lblOutsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_outside, 2));
@@ -5589,6 +5655,26 @@ namespace MatchBox
                         lblOutsideClubMgtPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_ClubMgtAmountSum_outside, 2));
                         lblOutsideClubSavingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_ClubSavingAmountSum_outside, 2));
                         lblOutsidevatPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_VatAmountSum_outside, 2));
+
+
+                        lblOutsideCalculatedIclearingCommission.Text = String.Format("{0:n2}", Math.Round(n_CalculatedIclearingCommission_outside, 2));
+                        lblOutsideDiffClearingCommission.Text = String.Format("{0:n2}", Math.Round(n_DiffClearingCommission_outside, 2));
+                        lblOutsideCalculatedIDiscountCommission.Text = String.Format("{0:n2}", Math.Round(n_CalculatedIDiscountCommission_outside, 2));
+                        lblOutsideDiffDiscountCommission.Text = String.Format("{0:n2}", Math.Round(n_DiffDiscountCommission_outside, 2));
+                        lblOutsideCalculatedIclubManagementFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_CalculatedIclubManagementFeeCommission_outside, 2));
+                        lblOutsideDiffClubManagementFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_ClubManagementFeeCommission_outside, 2));
+                        lblOutsideCalculatedIclubDiscountFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_CalculatedIclubDiscountFeeCommission_outside, 2));
+                        lblOutsideDiffClubDiscountFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_DiffClubDiscountFeeCommission_outside, 2));
+
+
+                        lblOutsideAgPerClearingCommission.Text = String.Format("{0:n2}", Math.Round(n_AgPerClearingCommission_outside, 2));
+                        lblOutsideAcPerClearingCommission.Text = String.Format("{0:n2}", Math.Round(n_AcPerClearingCommission_outside, 2));
+                        lblOutsideAgPerDiscountCommission.Text = String.Format("{0:n2}", Math.Round(n_AgPerDiscountCommission_outside, 2));
+                        lblOutsideAcPerDiscountCommission.Text = String.Format("{0:n2}", Math.Round(n_AcPerDiscountCommission_outside, 2));
+                        lblOutsideAgPerClubManagementFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AgPerClubManagementFeeCommission_outside, 2));
+                        lblOutsideAcPerClubManagementFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AcPerClubManagementFeeCommission_outside, 2));
+                        lblOutsideAgPerClubDiscountFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AgPerClubDiscountFeeCommission_outside, 2));
+                        lblOutsideAcPerClubDiscountFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AcPerClubDiscountFeeCommission_outside, 2));
                     }
                 }
             }

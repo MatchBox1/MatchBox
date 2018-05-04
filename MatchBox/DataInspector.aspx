@@ -874,8 +874,8 @@
                 <asp:TextBox ID="txtGroupByCorrectIncorrectCommissions" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
                 <asp:Label ID="lblGroupByCorrectIncorrectCommissions" runat="server" Text="Group By" />
                 <asp:CheckBoxList ID="chklCorrectIncorrectCommissions" runat="Server">
-                    <asp:ListItem Text="Yes" Value="red"></asp:ListItem>
-                    <asp:ListItem Text="No" Value="blue"></asp:ListItem>
+                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
                 </asp:CheckBoxList>
             </div>
 
@@ -1125,12 +1125,16 @@
             </div>
 
             <div id="divCorrectIncorrectCommissionsClubDiscountFee" runat="server" class="float-left div-form-field">
-                <b>Correct Incorrec tCommissions Club Discount Fee</b>
+                <b>Correct Incorrect Commissions Club Discount Fee</b>
                 <%--&nbsp;
             <asp:CheckBox ID="chkExcludeCorrectIncorrectCommissionsClubDiscountFee" runat="server" Text="Exclude" />--%>
                 &nbsp;
             <asp:TextBox ID="txtGroupByCorrectIncorrectCommissionsClubDiscountFee" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
                 <asp:Label ID="lblGroupByCorrectIncorrectCommissionsClubDiscountFee" runat="server" Text="Group By" />
+                <asp:CheckBoxList ID="chklCorrectIncorrectCommissionsClubDiscountFee" runat="Server">
+                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                </asp:CheckBoxList>
                 <%--<br />
                 <asp:TextBox ID="txtCorrectIncorrectCommissionsClubDiscountFee" runat="server" Width="98%" />
                 <asp:Label ID="lblCorrectIncorrectCommissionsClubDiscountFee" runat="server" EnableViewState="false" CssClass="error block" />--%>
@@ -1141,8 +1145,8 @@
                 <asp:TextBox ID="txtGroupByIsClubCommissionValid" runat="server" MaxLength="2" Width="20px" Height="6px" Style="margin-bottom: 4px" />
                 <asp:Label ID="lblGroupByIsClubCommissionValid" runat="server" Text="Group By" />
                 <asp:CheckBoxList ID="chklIsClubCommissionValid" runat="Server">
-                    <asp:ListItem Text="Yes" Value="red"></asp:ListItem>
-                    <asp:ListItem Text="No" Value="blue"></asp:ListItem>
+                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
                 </asp:CheckBoxList>
             </div>
 
@@ -1659,6 +1663,98 @@
                             <asp:Label ID="lblOutsidevatPaymentsAmountSum" runat="server" /></td>
                         <td></td>
                     </tr>
+
+                      <tr>
+                        <td colspan="5" height="15"></td>
+                    </tr>
+                    <tr class="bold">
+                        <td>CalIclearingCom</td>
+                        <td>DiffClearingCom</td>
+                        <td>CalDiscountCom</td>
+                        <td>DiffDiscountCom</td>
+                        <td>CalIclubMgmtFeeCom</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideCalculatedIclearingCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideDiffClearingCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideCalculatedIDiscountCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideDiffDiscountCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideCalculatedIclubManagementFeeCommission" runat="server" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="5" height="15"></td>
+                    </tr>
+                    <tr class="bold">
+                        <td>DiffClubMgmttFeeCom</td>
+                        <td>CalIclubDisFeeCom</td>
+                        <td>DiffClubDisFeeCom</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideDiffClubManagementFeeCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideCalculatedIclubDiscountFeeCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideDiffClubDiscountFeeCommission" runat="server" /></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                     <tr>
+                        <td colspan="5" height="15"></td>
+                    </tr>
+                    <tr class="bold">
+                        <td>AgPerClearingCom</td>
+                        <td>AcPerClearingCom</td>
+                        <td>AgPerDiscountCom</td>
+                        <td>AcPerDiscountCom</td>
+                        <td>AgPerClubMgmtCom</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideAgPerClearingCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideAcPerClearingCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideAgPerDiscountCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideAcPerDiscountCommission" runat="server" />
+                        </td>
+                        <td>
+                            <asp:Label ID="lblOutsideAgPerClubManagementFeeCommission" runat="server" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="5" height="15"></td>
+                    </tr>
+                    <tr class="bold">
+                        <td>AcPerClubMgmtFeeCom</td>
+                        <td>AgPerClubDisFeeCom</td>
+                        <td>AcPerClubDisFeeCom</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblOutsideAcPerClubManagementFeeCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideAgPerClubDiscountFeeCommission" runat="server" /></td>
+                        <td>
+                            <asp:Label ID="lblOutsideAcPerClubDiscountFeeCommission" runat="server" /></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
                     <%--Page--%>
 
                     <%--                    <tr id="trInsideSelected_GroupBy" runat="server" visible="false" style="height: 25px;">
