@@ -1801,19 +1801,20 @@ namespace MatchBox
                     {
                         b_error = true;
                         lblAgPerClearingCommission.Text = s_error;
+                        return;
+                    }
+                    else if (s_AgPerClearing != "")
+                    {
+                        string s_sql = Parameter_SQL("AgPerClearingCommission", s_AgPerClearing, chkExcludeAgPerClearingCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
                     //else if (s_AgPerClearing != "")
                     //{
-                    //    string s_sql = Parameter_SQL("AgPerClearingCommission", s_AgPerClearing, chkExcludeAgPerClearingCommission.Checked);
-
-                    //    s_where_outside += " AND ( " + s_sql + " ) ";
+                    //    s_operator = (chkExcludeAgPerClearingCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AgPerClearingCommission {0} ( {1} ) ", s_operator, s_AgPerClearing);
+                    //    s_where_outside += s_where;
                     //}
-                    else if (s_AgPerClearing != "")
-                    {
-                        s_operator = (chkExcludeAgPerClearingCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AgPerClearingCommission {0} ( {1} ) ", s_operator, s_AgPerClearing);
-                        s_where_outside += s_where;
-                    }
 
                     s_where = "";
                     string s_CalculatedIclearingCommission = Parameter_TextBox(txtCalculatedIclearingCommission, "decimal", ref s_error, true, 15);
@@ -1858,7 +1859,7 @@ namespace MatchBox
 
 
                     s_where = "";
-                    string s_AcPerClearingCommission = Parameter_TextBox(txtAcPerClearingCommission, "uint", ref s_error, false, 15);
+                    string s_AcPerClearingCommission = Parameter_TextBox(txtAcPerClearingCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -1866,10 +1867,16 @@ namespace MatchBox
                     }
                     else if (s_AcPerClearingCommission != "")
                     {
-                        s_operator = (chkExcludeAcPerClearingCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AcPerClearingCommission {0} ( {1} ) ", s_operator, s_AcPerClearingCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AcPerClearingCommission", s_AcPerClearingCommission, chkExcludeAcPerClearingCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_AcPerClearingCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAcPerClearingCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AcPerClearingCommission {0} ( {1} ) ", s_operator, s_AcPerClearingCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_DiffClearingCommission = Parameter_TextBox(txtDiffClearingCommission, "uint", ref s_error, false, 15);
@@ -1912,7 +1919,7 @@ namespace MatchBox
                     //}
 
                     s_where = "";
-                    string s_AgPerDiscountCommission = Parameter_TextBox(txtAgPerDiscountCommission, "uint", ref s_error, false, 15);
+                    string s_AgPerDiscountCommission = Parameter_TextBox(txtAgPerDiscountCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -1920,10 +1927,16 @@ namespace MatchBox
                     }
                     else if (s_AgPerDiscountCommission != "")
                     {
-                        s_operator = (chkExcludeAgPerDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AgPerDiscountCommission {0} ( {1} ) ", s_operator, s_AgPerDiscountCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AgPerDiscountCommission", s_AgPerDiscountCommission, chkExcludeAgPerDiscountCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_AgPerDiscountCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAgPerDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AgPerDiscountCommission {0} ( {1} ) ", s_operator, s_AgPerDiscountCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_CalculatedIDiscountCommission = Parameter_TextBox(txtCalculatedIDiscountCommission, "decimal", ref s_error, true, 15);
@@ -1966,7 +1979,7 @@ namespace MatchBox
                     //}
 
                     s_where = "";
-                    string s_AcPerDiscountCommission = Parameter_TextBox(txtAcPerDiscountCommission, "uint", ref s_error, false, 15);
+                    string s_AcPerDiscountCommission = Parameter_TextBox(txtAcPerDiscountCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -1974,10 +1987,16 @@ namespace MatchBox
                     }
                     else if (s_AcPerDiscountCommission != "")
                     {
-                        s_operator = (chkExcludeAcPerDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AcPerDiscountCommission {0} ( {1} ) ", s_operator, s_AcPerDiscountCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AcPerDiscountCommission", s_AcPerDiscountCommission, chkExcludeAcPerDiscountCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_AcPerDiscountCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAcPerDiscountCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AcPerDiscountCommission {0} ( {1} ) ", s_operator, s_AcPerDiscountCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_DiffDiscountCommission = Parameter_TextBox(txtDiffDiscountCommission, "deimal", ref s_error, true, 15);
@@ -2021,7 +2040,7 @@ namespace MatchBox
                     //}
 
                     s_where = "";
-                    string s_AgPerClubManagementFeeCommission = Parameter_TextBox(txtAgPerClubManagementFeeCommission, "uint", ref s_error, false, 15);
+                    string s_AgPerClubManagementFeeCommission = Parameter_TextBox(txtAgPerClubManagementFeeCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -2029,10 +2048,16 @@ namespace MatchBox
                     }
                     else if (s_AgPerClubManagementFeeCommission != "")
                     {
-                        s_operator = (chkExcludeAgPerClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AgPerClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_AgPerClubManagementFeeCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AgPerClubManagementFeeCommission", s_AgPerClubManagementFeeCommission, chkExcludeAgPerClubManagementFeeCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_AgPerClubManagementFeeCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAgPerClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AgPerClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_AgPerClubManagementFeeCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_CalculatedClubManagementFeeCommission = Parameter_TextBox(txtCalculatedClubManagementFeeCommission, "decimal", ref s_error, true, 15);
@@ -2076,7 +2101,7 @@ namespace MatchBox
                     //}
 
                     s_where = "";
-                    string s_txtAcPerClubManagementFeeCommission = Parameter_TextBox(txtAcPerClubManagementFeeCommission, "uint", ref s_error, false, 15);
+                    string s_txtAcPerClubManagementFeeCommission = Parameter_TextBox(txtAcPerClubManagementFeeCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -2084,10 +2109,16 @@ namespace MatchBox
                     }
                     else if (s_txtAcPerClubManagementFeeCommission != "")
                     {
-                        s_operator = (chkExcludeAcPerClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AcPerClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_txtAcPerClubManagementFeeCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AcPerClubManagementFeeCommission", s_txtAcPerClubManagementFeeCommission, chkExcludeAcPerClubManagementFeeCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_txtAcPerClubManagementFeeCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAcPerClubManagementFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AcPerClubManagementFeeCommission {0} ( {1} ) ", s_operator, s_txtAcPerClubManagementFeeCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_txtDiffClubManagementFeeCommission = Parameter_TextBox(txtDiffClubManagementFeeCommission, "decimal", ref s_error, true, 15);
@@ -2131,7 +2162,7 @@ namespace MatchBox
                     //}
 
                     s_where = "";
-                    string s_txtAgPerClubDiscountFeeCommission = Parameter_TextBox(txtAgPerClubDiscountFeeCommission, "uint", ref s_error, false, 15);
+                    string s_txtAgPerClubDiscountFeeCommission = Parameter_TextBox(txtAgPerClubDiscountFeeCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -2139,10 +2170,16 @@ namespace MatchBox
                     }
                     else if (s_txtAgPerClubDiscountFeeCommission != "")
                     {
-                        s_operator = (chkExcludeAgPerClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AgPerClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtAgPerClubDiscountFeeCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AgPerClubDiscountFeeCommission", s_txtAgPerClubDiscountFeeCommission, chkExcludeAgPerClubDiscountFeeCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_txtAgPerClubDiscountFeeCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAgPerClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AgPerClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtAgPerClubDiscountFeeCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_txtCalculatedClubDiscountFeeCommission = Parameter_TextBox(txtCalculatedClubDiscountFeeCommission, "decimal", ref s_error, true, 15);
@@ -2186,7 +2223,7 @@ namespace MatchBox
                     //}
 
                     s_where = "";
-                    string s_txtAcPerClubDiscountFeeCommission = Parameter_TextBox(txtAcPerClubDiscountFeeCommission, "uint", ref s_error, false, 15);
+                    string s_txtAcPerClubDiscountFeeCommission = Parameter_TextBox(txtAcPerClubDiscountFeeCommission, "decimal", ref s_error, true, 15);
                     if (s_error != "")
                     {
                         b_error = true;
@@ -2194,10 +2231,16 @@ namespace MatchBox
                     }
                     else if (s_txtAcPerClubDiscountFeeCommission != "")
                     {
-                        s_operator = (chkExcludeAcPerClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
-                        s_where = String.Format(" AND AcPerClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtAcPerClubDiscountFeeCommission);
-                        s_where_outside += s_where;
+                        string s_sql = Parameter_SQL("AcPerClubDiscountFeeCommission", s_txtAcPerClubDiscountFeeCommission, chkExcludeAcPerClubDiscountFeeCommission.Checked);
+
+                        s_where_outside += " AND ( " + s_sql + " ) ";
                     }
+                    //else if (s_txtAcPerClubDiscountFeeCommission != "")
+                    //{
+                    //    s_operator = (chkExcludeAcPerClubDiscountFeeCommission.Checked == true) ? " NOT IN " : " IN ";
+                    //    s_where = String.Format(" AND AcPerClubDiscountFeeCommission {0} ( {1} ) ", s_operator, s_txtAcPerClubDiscountFeeCommission);
+                    //    s_where_outside += s_where;
+                    //}
 
                     s_where = "";
                     string s_txtDiffClubDiscountFeeCommission = Parameter_TextBox(txtDiffClubDiscountFeeCommission, "uint", ref s_error, false, 15);
