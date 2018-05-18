@@ -16,7 +16,7 @@ namespace MatchBox
 
         private bool b_importable = false;
 
-        private UserModel o_user_authorized = null;
+        private UserModel o_user_authorized = null; 
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -1365,7 +1365,9 @@
                     /*left: 0;*/
                     top: 20px;
                     z-index: 9999;
+                     right:0;
                 }
+
 
                 .arrowup {
                     background: url(./Images/arrowup.png) no-repeat center center;
@@ -1863,6 +1865,8 @@
         <asp:HiddenField ID="hdnColumnName1" runat="server" />
         <asp:HiddenField ID="hdnOrderSort1" runat="server" />
         <asp:HiddenField ID="hdnGroupBy" runat="server" />
+        <asp:HiddenField ID="hdnCommissionGroupBy" runat="server" />
+
         <%--<asp:HiddenField ID="hdnTableType1" runat="server" />--%>
 
         <%--<asp:Button ID="btnChkAllCheckBoxBelow" runat="server" OnClick="btnChkAllCheckBoxBelow_Click" style="display:none" />--%>
@@ -1929,6 +1933,15 @@
 
         //var datatest = '';
         $(document).ready(function () {
+
+            if ($('#ctl00_cphMain_hdnCommissionGroupBy').val() == 'yes') {
+                $('#chkInside').prop('checked', false);
+
+                var div_first = document.getElementById("<%= divInside.ClientID %>");
+                var div_second = document.getElementById("<%= divOutside.ClientID %>");
+                div_second.style.width = "100%";
+                div_first.style.display = "none";
+            }
 
             if ($('#ctl00_cphMain_hdnGroupBy').val() == '') {
                 $('.bg-gray td:first-child span').attr('style', 'display: none');
@@ -2054,7 +2067,7 @@
             }
 
             /////
-            $("#dvGrid").on("scroll", function (e) {
+            $("#ctl00_cphMain_dvGrid").on("scroll", function (e) {
                 var $o = $(e.currentTarget);
                 if ($o[0].scrollHeight - $o.scrollTop() <= $o.outerHeight()) {
                     GetRecords();
@@ -2214,7 +2227,8 @@
             var lblInsideRows = parseInt(rowText);
             pageCount = Math.ceil(lblInsideRows / pageSize);
             pageIndex++;
-            var trs = $('#dvGrid .table-data[rules="all"] tr');
+            //var trs = $('#dvGrid .table-data[rules="all"] tr');
+            var trs = $('#ctl00_cphMain_dvGrid .table-data[rules="all"] tr');
             var trClass = 0;
             trs.each(function (idx, ele) {
                 if (ele.attributes["class"] && ele.attributes["class"].value == '') trClass++;

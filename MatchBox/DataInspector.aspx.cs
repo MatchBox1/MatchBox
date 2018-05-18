@@ -2479,7 +2479,16 @@ namespace MatchBox
                 {
                     dvGrid.Visible = false;
                     divInside.Visible = false;
-                    divCalculationFooter_Inside_GroupBy.Visible = false;
+                    //divCalculationFooter_Inside_GroupBy.Visible = false;
+                    // divCalculationFooter_Inside_GroupBy.Style.Add("display","none");
+                    //divCalculationFooter_Outside_GroupBy.Style.Add("width", "100%");
+                    //chkInside.Checked = false;
+                    //divOutside.Style.Add("width", "100%");
+                    //divInside.Style.Add("display", "none");
+                    //divDataSeparator.Style.Add("display", "none");
+
+                    hdnCommissionGroupBy.Value = "yes";
+
                     divCalculationFooter_Inside.Visible = false;
                     flagCommission = true;
                 }

@@ -67,6 +67,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.DropDownList ddlCompany;
         
         /// <summary>
+        /// rfvCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCompany;
+        
+        /// <summary>
+        /// upNetwork control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upNetwork;
+        
+        /// <summary>
         /// divCreditCompany control.
         /// </summary>
         /// <remarks>
@@ -74,6 +92,15 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCreditCompany;
+        
+        /// <summary>
+        /// rdoCredit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rdoCredit;
         
         /// <summary>
         /// ddlCreditCompany control.
@@ -85,22 +112,40 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.DropDownList ddlCreditCompany;
         
         /// <summary>
-        /// divCommissionType control.
+        /// divDiscount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCommissionType;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDiscount;
         
         /// <summary>
-        /// ddlCommissionType control.
+        /// rdoDiscount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionType;
+        protected global::System.Web.UI.WebControls.RadioButton rdoDiscount;
+        
+        /// <summary>
+        /// ddlDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDiscount;
+        
+        /// <summary>
+        /// cvTemplateFor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvTemplateFor;
         
         /// <summary>
         /// divPaymentDate control.
@@ -121,12 +166,102 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.TextBox txtPaymentDate;
         
         /// <summary>
-        /// btnSaveCommission control.
+        /// rfvPayment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveCommission;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPayment;
+        
+        /// <summary>
+        /// divCommissionType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCommissionType;
+        
+        /// <summary>
+        /// ddlCommissionType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionType;
+        
+        /// <summary>
+        /// rfvCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCommission;
+        
+        /// <summary>
+        /// btnSearchCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearchCommission;
+        
+        /// <summary>
+        /// pnlSearchResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSearchResult;
+        
+        /// <summary>
+        /// repOutsideSum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repOutsideSum;
+        
+        /// <summary>
+        /// pnlAutoCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAutoCommission;
+        
+        /// <summary>
+        /// btnAutoCommission control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAutoCommission;
+        
+        /// <summary>
+        /// lblErrorBelow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorBelow;
+        
+        /// <summary>
+        /// lblQueryInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQueryInfo;
     }
 }

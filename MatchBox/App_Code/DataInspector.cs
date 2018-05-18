@@ -162,7 +162,7 @@ namespace MatchBox
             DataSet o_data_set = new DataSet();
             try
             {
-                o_command.CommandTimeout = 120;
+                o_command.CommandTimeout = 3600;
                 o_data_adapter.Fill(o_data_set);
 
                 dt_inside = o_data_set.Tables[0];
