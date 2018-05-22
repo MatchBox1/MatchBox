@@ -460,11 +460,16 @@ namespace MatchBox
             }
         }
 
+        protected void btnAutoCommissionProcess_Click(object sender, EventArgs e)
+        {
+            btnAutoCommission_Click(sender, e);
+        }
+
         protected void btnAutoCommission_Click(object sender, EventArgs e)
         {
             //lblTransactionCountTotal
             //lblAmountSumTotal
-
+            string input = ((Button)(sender)).CommandArgument;
             CommissionFilter o_commission_search = (CommissionFilter)Cache[s_cache_commission_search];
 
             if (o_commission_search.TableOutsideSumTotal.Rows.Count > 0)
@@ -501,6 +506,7 @@ namespace MatchBox
                 filter_search.PaymentDateTo = Convert.ToDateTime(ViewState["paymentDateTo"]);
                 //filter.Valid = true;
                 filter_search.CreditType = "";
+                filter_search.Reprocess = input;
                 DataActionCommission.FetchCommissionData(ref filter_search, ref s_error);
                 if (s_error != "")
                 {

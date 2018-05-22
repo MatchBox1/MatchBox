@@ -186,7 +186,9 @@
 
         <div class="float-left div-form-field text-center">
             <br />
-            <asp:Button ID="btnAutoCommission" runat="server" ValidationGroup="Matching" OnClick="btnAutoCommission_Click" OnClientClick="javascript: show_wait(this.id, 'spnAutoCommission', true);" Text="Calculate Commission" />
+            <asp:Button ID="btnAutoCommission" runat="server" ValidationGroup="Matching" CommandArgument="" OnClick="btnAutoCommission_Click" OnClientClick="javascript: show_wait(this.id, 'spnAutoCommission', true);" Text="Calculate only unprocessed Commissions" />
+            <br /><p></p>
+            <asp:Button ID="btnAutoCommissionProcess" runat="server" ValidationGroup="Matching"  CommandArgument="Reprocess" OnClick="btnAutoCommissionProcess_Click" Text="Re-Calculate all processed/Unprocessed Commissions" />
             <span id="spnAutoCommission" class="message" style="display: none;">Please wait..</span>
             <asp:Label ID="lblErrorBelow" runat="server" EnableViewState="false" CssClass="error block" />
         </div>

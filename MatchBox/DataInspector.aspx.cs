@@ -6075,21 +6075,26 @@ namespace MatchBox
 
                     row.Cells[59].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[60].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[62].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[61].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[63].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[65].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[64].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[66].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[67].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[68].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[69].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[72].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[73].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[70].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[71].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[74].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[75].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[76].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[78].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[77].HorizontalAlign = HorizontalAlign.Right;
                     row.Cells[79].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[81].HorizontalAlign = HorizontalAlign.Right;
-                    row.Cells[82].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[80].HorizontalAlign = HorizontalAlign.Right;
 
+                    row.Cells[82].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[83].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[84].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[86].HorizontalAlign = HorizontalAlign.Right;
+                    row.Cells[87].HorizontalAlign = HorizontalAlign.Right;
                     // End alignment ////
 
                     if (s_mode == "matching")

@@ -78,7 +78,7 @@ namespace MatchBox.App_Code
 
         public DataTable TableOutsideSum { get; set; }
         public DataTable TableOutsideSumTotal { get; set; }
-
+        public string Reprocess { get; set; }
     }
 
     public class DataActionCommission
@@ -164,8 +164,11 @@ namespace MatchBox.App_Code
             o_command.Parameters.Add("@CreditType", SqlDbType.VarChar);
             o_command.Parameters["@CreditType"].Value = o_matching_search.CreditType;
 
-            o_command.Parameters.Add("@CommissionID", SqlDbType.Int);
-            o_command.Parameters["@CommissionID"].Value = o_matching_search.CommissionTypeId;
+            o_command.Parameters.Add("@CommissionTypeID", SqlDbType.Int);
+            o_command.Parameters["@CommissionTypeID"].Value = o_matching_search.CommissionTypeId;
+
+            o_command.Parameters.Add("@ReprocessValue", SqlDbType.VarChar);
+            o_command.Parameters["@ReprocessValue"].Value = o_matching_search.Reprocess;
 
             ////
             SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
