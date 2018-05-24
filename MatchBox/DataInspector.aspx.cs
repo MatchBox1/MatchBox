@@ -418,7 +418,8 @@ namespace MatchBox
             {
                 case "matching":
                     //s_where = " AND QueryID IS NOT NULL ";
-                    s_where = " AND QueryID IS NOT NULL AND MATCHINGID IS NOT NULL AND STRATEGYID IS NOT NULL ";
+                    //s_where = " AND QueryID IS NOT NULL AND MATCHINGID IS NOT NULL AND STRATEGYID IS NOT NULL ";
+                    s_where = " AND QueryID IS NOT NULL AND MATCHINGID IS NOT NULL ";
                     // MatchingAction
 
                     if (divMatchingAction.Visible == true)
@@ -2702,7 +2703,7 @@ namespace MatchBox
                             {
                                 divCalculationFooter_Inside_GroupBy.Visible = true;
                             }
-                            divCalculationFooter_Inside.Visible = false;
+                            divCalculationFooter_Inside.Visible = true;
                         }
                         else
                         {
@@ -2715,7 +2716,7 @@ namespace MatchBox
                         if (listGroupByOut.Count > 0)
                         {
                             divCalculationFooter_Outside_GroupBy.Visible = true;
-                            divCalculationFooter_Outside.Visible = false;
+                            divCalculationFooter_Outside.Visible = true;
                         }
                         else
                         {
@@ -4225,26 +4226,61 @@ namespace MatchBox
             }
             else { }
 
-            using (XLWorkbook xl_workbook = new XLWorkbook())
+            //using (XLWorkbook xl_workbook = new XLWorkbook())
+            //{
+            //    try
+            //    {
+            //        xl_workbook.Worksheets.Add(dt_download, s_sheet);
+            //    }
+            //    catch (Exception ex)
+            //    { }
+
+            //    Response.Clear();
+            //    Response.Buffer = true;
+            //    Response.Charset = "";
+            //    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            //    Response.AddHeader("content-disposition", "attachment;filename=" + s_sheet + "_" + n_user_id + ".xlsx");
+
+            //    using (MemoryStream o_memory_stream = new MemoryStream())
+            //    {
+            //        try
+            //        {
+            //            GC.Collect();
+            //            xl_workbook.SaveAs(o_memory_stream);
+            //            o_memory_stream.WriteTo(Response.OutputStream);
+            //        }
+            //        catch (Exception ex)
+            //        { }
+            //       Response.Flush();
+            //        Response.End();
+            //        //Response.Close();
+            //    }
+            //}
+
+            string attachment = "attachment; filename=Download.xls";
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", attachment);
+            Response.ContentType = "application/vnd.ms-excel";
+            string tab = "";
+            foreach (DataColumn dc in dt_download.Columns)
             {
-                xl_workbook.Worksheets.Add(dt_download, s_sheet);
-
-                Response.Clear();
-                Response.Buffer = true;
-                Response.Charset = "";
-                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;filename=" + s_sheet + "_" + n_user_id + ".xlsx");
-
-                using (MemoryStream o_memory_stream = new MemoryStream())
-                {
-                    xl_workbook.SaveAs(o_memory_stream);
-
-                    o_memory_stream.WriteTo(Response.OutputStream);
-
-                    //Response.Flush();
-                    //Response.End();
-                }
+                Response.Write(tab + dc.ColumnName);
+                tab = "\t";
             }
+            Response.Write("\n");
+            int i;
+            foreach (DataRow dr in dt_download.Rows)
+            {
+                tab = "";
+                for (i = 0; i < dt_download.Columns.Count; i++)
+                {
+                    Response.Write(tab + dr[i].ToString());
+                    tab = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
+
         }
         //protected void btnChkAllCheckBoxBelow_Click (object sender, EventArgs e)
         //{
@@ -5728,11 +5764,13 @@ namespace MatchBox
                         n_DutyPaymentAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["DutyPaymentAmountSum"]);
                         n_RemainingPaymentsAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["RemainingPaymentsAmountSum"]);
 
-                        lblInsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n0}", n_rows_GrossAmountCountSum_inside);
+                        lblInsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n2}", n_rows_GrossAmountCountSum_inside);
                         lblInsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_inside, 2));
                         lblInsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_inside, 2));
                         lblInsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_inside, 2));
                         lblInsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_inside, 2));
+
+                        n_rows_count_inside = dt_inside.Rows.Count;
                     }
                 }
                 if (string.IsNullOrEmpty(s_group_byout))
@@ -5793,7 +5831,7 @@ namespace MatchBox
                         n_AgPerClubDiscountFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AgPerClubDiscountFeeCommission"]);
                         n_AcPerClubDiscountFeeCommission_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["AcPerClubDiscountFeeCommission"]);
 
-                        lblOutsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n0}", n_rows_GrossAmountCountSum_outside);
+                        lblOutsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n2}", n_rows_GrossAmountCountSum_outside);
                         lblOutsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_outside, 2));
                         //lblOutsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_outside, 2));
                         lblOutsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_outside, 2));
@@ -5829,6 +5867,7 @@ namespace MatchBox
                         lblOutsideAcPerClubManagementFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AcPerClubManagementFeeCommission_outside, 2));
                         lblOutsideAgPerClubDiscountFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AgPerClubDiscountFeeCommission_outside, 2));
                         lblOutsideAcPerClubDiscountFeeCommission.Text = String.Format("{0:n2}", Math.Round(n_AcPerClubDiscountFeeCommission_outside, 2));
+                        //n_rows_count_outside = dt_outside.Rows.Count;
                     }
                 }
             }

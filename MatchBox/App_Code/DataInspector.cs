@@ -288,6 +288,7 @@ namespace MatchBox
 
             try
             {
+                o_command.CommandTimeout = 3600;
                 o_data_adapter.Fill(dt_data);
             }
             catch (Exception ex)
