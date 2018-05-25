@@ -2490,7 +2490,7 @@ namespace MatchBox
 
                     hdnCommissionGroupBy.Value = "yes";
 
-                    divCalculationFooter_Inside.Visible = false;
+                    divCalculationFooter_Inside.Visible = true;
                     flagCommission = true;
                 }
                 if (txtGroupByTransactionDate.Text != "")
@@ -5755,16 +5755,16 @@ namespace MatchBox
                     {
                         n_rows_count_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["RowsCount"]);
 
-                        int n_rows_GrossAmountCountSum_inside = 0;
+                        double n_rows_GrossAmountCountSum_inside = 0;
                         double n_TransactionGrossAmountSum_inside = 0, n_FirstPaymentAmountSum_inside = 0, n_DutyPaymentAmountSum_inside = 0, n_RemainingPaymentsAmountSum_inside = 0;
 
-                        n_rows_GrossAmountCountSum_inside = Convert.ToInt32(dt_inside_sum.Rows[0]["GrossAmountCountSum"]);
+                        n_rows_GrossAmountCountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["GrossAmountCountSum"]);
                         n_TransactionGrossAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["TransactionGrossAmountSum"]);
                         n_FirstPaymentAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["FirstPaymentAmountSum"]);
                         n_DutyPaymentAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["DutyPaymentAmountSum"]);
                         n_RemainingPaymentsAmountSum_inside = Convert.ToDouble(dt_inside_sum.Rows[0]["RemainingPaymentsAmountSum"]);
 
-                        lblInsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:n2}", n_rows_GrossAmountCountSum_inside);
+                        lblInsideGrossAmountCountSum_GroupBy.Text = String.Format("{0:###,###}", n_rows_GrossAmountCountSum_inside);
                         lblInsideTransactionGrossAmountSum.Text = String.Format("{0:n2}", Math.Round(n_TransactionGrossAmountSum_inside, 2));
                         lblInsideFirstPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_FirstPaymentAmountSum_inside, 2));
                         lblInsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_inside, 2));
@@ -5784,7 +5784,7 @@ namespace MatchBox
                     {
                         n_rows_count_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["RowsCount"]);
 
-                        int n_rows_GrossAmountCountSum_outside = 0;
+                        double n_rows_GrossAmountCountSum_outside = 0;
                         double n_TransactionGrossAmountSum_outside = 0, n_DutyPaymentAmountSum_outside = 0, n_RemainingPaymentsAmountSum_outside = 0;
                         double n_NetAmountSum_outside = 0, n_ClearingAmountSum_outside = 0, n_NotElectronicAmountSum_outside = 0, n_ManualAmountSum_outside = 0;
                         double n_CancelAmountSum_outside = 0, n_TelephoneAmountSum_outside = 0, n_DiscountAmountSum_outside = 0, n_ClubMgtAmountSum_outside = 0;
@@ -5795,7 +5795,7 @@ namespace MatchBox
                             n_AcPerDiscountCommission_outside = 0, n_AgPerClubManagementFeeCommission_outside = 0, n_AcPerClubManagementFeeCommission_outside = 0,
                             n_AgPerClubDiscountFeeCommission_outside = 0, n_AcPerClubDiscountFeeCommission_outside = 0;
 
-                         n_rows_GrossAmountCountSum_outside = Convert.ToInt32(dt_outside_sum.Rows[0]["GrossAmountCountSum"]);
+                         n_rows_GrossAmountCountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["GrossAmountCountSum"]);
                         n_TransactionGrossAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["TransactionGrossAmountSum"]);
                         //n_FirstPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["FirstPaymentAmountSum"]);
                         n_DutyPaymentAmountSum_outside = Convert.ToDouble(dt_outside_sum.Rows[0]["DutyPaymentAmountSum"]);
