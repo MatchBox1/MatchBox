@@ -2775,7 +2775,7 @@ namespace MatchBox
 
                         //divCalculationFooter_Inside.Visible = false;
                         //divCalculationFooter_Outside.Visible = false;
-                        divCalculationFooter_Inside.Attributes.Add("style", "display:none");
+                       // divCalculationFooter_Inside.Attributes.Add("style", "display:none");
                         //divCalculationFooter_Inside_GroupBy.Visible = true;
                         divCalculationFooter_Outside.Attributes.Add("style", "display:none");
                         divCalculationFooter_Outside_GroupBy.Visible = true;
@@ -5770,7 +5770,7 @@ namespace MatchBox
                         lblInsideDutyPaymentAmountSum.Text = String.Format("{0:n2}", Math.Round(n_DutyPaymentAmountSum_inside, 2));
                         lblInsideRemainingPaymentsAmountSum.Text = String.Format("{0:n2}", Math.Round(n_RemainingPaymentsAmountSum_inside, 2));
 
-                        n_rows_count_inside = dt_inside.Rows.Count;
+                        //n_rows_count_inside = dt_inside.Rows.Count;
                     }
                 }
                 if (string.IsNullOrEmpty(s_group_byout))
@@ -6447,18 +6447,19 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+                        decimal value;
+                        if (decimal.TryParse(cell.Text, out value) || string.IsNullOrEmpty(cell.Text))
+                        {
+                            //row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                            cell.HorizontalAlign = HorizontalAlign.Right;
+                        }
                         if (string.IsNullOrEmpty(s_group_by))
                         {
                             //  Modified the code for color change.
                             row.BackColor = System.Drawing.Color.White;
 
                             // alignment /////
-                            decimal value;
-                            if (decimal.TryParse(cell.Text, out value))
-                            {
-                                //row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
-                                cell.HorizontalAlign = HorizontalAlign.Right;
-                            }
+                           
 
                             //if (dtLockedRecords.Rows.Count > 0)
                             //{
@@ -6558,17 +6559,20 @@ namespace MatchBox
                         TableCell cell = new TableCell();
                         cell.Text = dtRow[j].ToString();
                         row.Cells.Add(cell);
+
+                        decimal value;
+                        if (decimal.TryParse(cell.Text, out value) || string.IsNullOrEmpty(cell.Text))
+                        {
+                            //row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                            cell.HorizontalAlign = HorizontalAlign.Right;
+                        }
+
                         if (string.IsNullOrEmpty(s_group_by))
                         {
                             //  Modified the code for color change.
                             row.BackColor = System.Drawing.Color.White;
 
-                            decimal value;
-                            if (decimal.TryParse(cell.Text, out value))
-                            {
-                                //row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
-                                cell.HorizontalAlign = HorizontalAlign.Right;
-                            }
+                           
 
                             //row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
                             //row.Cells[4].HorizontalAlign = HorizontalAlign.Right;

@@ -1459,7 +1459,7 @@
                         <td class="bold">Total</td>
                         <td>&nbsp; &nbsp;</td>
                         <td>
-                            <asp:Label ID="lblInsideRows" ClientIDMode="Static" runat="server" /></td>
+                            <asp:Label ID="lblInsideRows" runat="server" /></td>
                         <td>&nbsp; &nbsp;</td>
                         <td>
                             <asp:Label ID="lblInsideAmount" runat="server" /></td>
@@ -2067,6 +2067,7 @@
             }
 
             /////
+            //$("#ctl00_cphMain_dvGrid").on("scroll", function (e) {
             $("#ctl00_cphMain_dvGrid").on("scroll", function (e) {
                 var $o = $(e.currentTarget);
                 if ($o[0].scrollHeight - $o.scrollTop() <= $o.outerHeight()) {

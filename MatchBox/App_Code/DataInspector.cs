@@ -1790,6 +1790,8 @@ namespace MatchBox
                 int i_matching_action = lst_field_priority.IndexOf("MatchingActionName");
                 int i_data_file_id = lst_field_priority.IndexOf("DataFileID");
                 int i_duty_payment_number = lst_field_priority.IndexOf("DutyPaymentNumber");
+
+
                 int i_clearingcommission = lst_field_priority.IndexOf("clearingcommission");
                 int i_gross_amount_count = lst_field_priority.IndexOf("GrossAmountCount");
                 //DiffClubDiscountFeeCommission
@@ -1810,6 +1812,7 @@ namespace MatchBox
                 int i_vat = lst_field_priority.IndexOf("vat");
                 int i_calculated_clearing_commission = lst_field_priority.IndexOf("CalculatedIclearingCommission");
                 int i_transaction_gross_amount = lst_field_priority.IndexOf("TransactionGrossAmount");
+
                 int i_duty_payment_amount = lst_field_priority.IndexOf("DutyPaymentAmount");
                 int i_remaining_payments_amount = lst_field_priority.IndexOf("RemainingPaymentsAmount");
                 int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
@@ -3575,9 +3578,27 @@ namespace MatchBox
                 int i_duty_payment_number = lst_field_priority.IndexOf("DutyPaymentNumber");
                 int i_clearingcommission = lst_field_priority.IndexOf("clearingcommission");
                 int i_gross_amount_count = lst_field_priority.IndexOf("GrossAmountCount");
+
+                //DiffClubDiscountFeeCommission
+                int i_DiffClubDiscountFeeCommission = lst_field_priority.IndexOf("DiffClubDiscountFeeCommission");
+                int i_CalculatedIclubDiscountFeeCommission = lst_field_priority.IndexOf("CalculatedIclubDiscountFeeCommission");
+                int i_DiffClubManagementFeeCommission = lst_field_priority.IndexOf("DiffClubManagementFeeCommission");
+                int i_CalculatedIclubManagementFeeCommission = lst_field_priority.IndexOf("CalculatedIclubManagementFeeCommission");
+                int i_DiffDiscountCommission = lst_field_priority.IndexOf("DiffDiscountCommission");
+                int i_CalculatedIDiscountCommission = lst_field_priority.IndexOf("CalculatedIDiscountCommission");
+                int i_DiffClearingCommission = lst_field_priority.IndexOf("DiffClearingCommission");
+                int i_notelectroniccommission = lst_field_priority.IndexOf("notelectroniccommission");
+                int i_manualcommission = lst_field_priority.IndexOf("manualcommission");
+                int i_cancellationcommission = lst_field_priority.IndexOf("cancellationcommission");
+                int i_telephonecommission = lst_field_priority.IndexOf("telephonecommission");
+                int i_discountcommission = lst_field_priority.IndexOf("discountcommission");
+                int i_clubmanagementcommission = lst_field_priority.IndexOf("clubmanagementcommission");
+                int i_club_saving = lst_field_priority.IndexOf("clubsaving");
                 int i_vat = lst_field_priority.IndexOf("vat");
                 int i_calculated_clearing_commission = lst_field_priority.IndexOf("CalculatedIclearingCommission");
                 int i_transaction_gross_amount = lst_field_priority.IndexOf("TransactionGrossAmount");
+
+
                 int i_duty_payment_amount = lst_field_priority.IndexOf("DutyPaymentAmount");
                 int i_remaining_payments_amount = lst_field_priority.IndexOf("RemainingPaymentsAmount");
                 int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
@@ -3586,6 +3607,103 @@ namespace MatchBox
                 ///
                 int i_IsAbroad = lst_field_priority.IndexOf("IsAbroad");
                 ///
+                TableCell tc_CalculatedIDiscountCommission = null;
+                if (i_CalculatedIDiscountCommission != -1 && i_CalculatedIDiscountCommission < gv_row.Cells.Count)
+                {
+                    tc_CalculatedIDiscountCommission = gv_row.Cells[i_CalculatedIDiscountCommission];
+                }
+
+                TableCell tc_DiffClubManagementFeeCommission = null;
+                if (i_DiffClubManagementFeeCommission != -1 && i_DiffClubManagementFeeCommission < gv_row.Cells.Count)
+                {
+                    tc_DiffClubManagementFeeCommission = gv_row.Cells[i_DiffClubManagementFeeCommission];
+                }
+
+                TableCell tc_manualcommission = null;
+                if (i_manualcommission != -1 && i_manualcommission < gv_row.Cells.Count)
+                {
+                    tc_manualcommission = gv_row.Cells[i_manualcommission];
+                }
+
+                TableCell tc_telephonecommission = null;
+                if (i_telephonecommission != -1 && i_telephonecommission < gv_row.Cells.Count)
+                {
+                    tc_telephonecommission = gv_row.Cells[i_telephonecommission];
+                }
+
+                TableCell tc_discountcommission = null;
+                if (i_discountcommission != -1 && i_discountcommission < gv_row.Cells.Count)
+                {
+                    tc_discountcommission = gv_row.Cells[i_discountcommission];
+                }
+
+                TableCell tc_DiffClearingCommission = null;
+                if (i_DiffClearingCommission != -1 && i_DiffClearingCommission < gv_row.Cells.Count)
+                {
+                    tc_DiffClearingCommission = gv_row.Cells[i_DiffClearingCommission];
+                }
+
+                TableCell tc_DiffClubDiscountFeeCommission = null;
+                if (i_DiffClubDiscountFeeCommission != -1 && i_DiffClubDiscountFeeCommission < gv_row.Cells.Count)
+                {
+                    tc_DiffClubDiscountFeeCommission = gv_row.Cells[i_DiffClubDiscountFeeCommission];
+                }
+
+                TableCell tc_DiffDiscountCommission = null;
+                if (i_DiffDiscountCommission != -1 && i_DiffDiscountCommission < gv_row.Cells.Count)
+                {
+                    tc_DiffDiscountCommission = gv_row.Cells[i_DiffDiscountCommission];
+                }
+
+                TableCell tc_transaction_gross_amount = null;
+                if (i_transaction_gross_amount != -1 && i_transaction_gross_amount < gv_row.Cells.Count)
+                {
+                    tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
+                }
+
+                TableCell tc_CalculatedIclubManagementFeeCommission = null;
+                if (i_CalculatedIclubManagementFeeCommission != -1 && i_CalculatedIclubManagementFeeCommission < gv_row.Cells.Count)
+                {
+                    tc_CalculatedIclubManagementFeeCommission = gv_row.Cells[i_CalculatedIclubManagementFeeCommission];
+                }
+
+                TableCell tc_clubsaving = null;
+                if (i_club_saving != -1 && i_club_saving < gv_row.Cells.Count)
+                {
+                    tc_clubsaving = gv_row.Cells[i_club_saving];
+                }
+
+                TableCell tc_cancellationcommission = null;
+                if (i_cancellationcommission != -1 && i_cancellationcommission < gv_row.Cells.Count)
+                {
+                    tc_cancellationcommission = gv_row.Cells[i_cancellationcommission];
+                }
+
+                TableCell tc_clubmanagementcommission = null;
+                if (i_clubmanagementcommission != -1 && i_clubmanagementcommission < gv_row.Cells.Count)
+                {
+                    tc_clubmanagementcommission = gv_row.Cells[i_clubmanagementcommission];
+                }
+
+                TableCell tc_gross_amount_count = null;
+                if (i_gross_amount_count != -1 && i_gross_amount_count < gv_row.Cells.Count)
+                {
+                    tc_gross_amount_count = gv_row.Cells[i_gross_amount_count];
+                }
+
+                TableCell tc_notelectroniccommission = null;
+                if (i_notelectroniccommission != -1 && i_notelectroniccommission < gv_row.Cells.Count)
+                {
+                    tc_notelectroniccommission = gv_row.Cells[i_notelectroniccommission];
+                }
+
+                TableCell tc_clearingcommission = null;
+                if (i_clearingcommission != -1 && i_clearingcommission < gv_row.Cells.Count)
+                {
+                    tc_clearingcommission = gv_row.Cells[i_clearingcommission];
+                }
+
+
                 bool b_select = false;
                 TableCell tc_select = null;
                 if (i_select != -1)
@@ -3709,18 +3827,18 @@ namespace MatchBox
                     tc_calculated_clearing_commission = gv_row.Cells[i_calculated_clearing_commission];
                 }
 
-                TableCell tc_clearingcommission = null;
-                if (i_clearingcommission != -1 && i_clearingcommission < gv_row.Cells.Count)
-                {
-                    tc_clearingcommission = gv_row.Cells[i_clearingcommission];
-                }
+                //TableCell tc_clearingcommission = null;
+                //if (i_clearingcommission != -1 && i_clearingcommission < gv_row.Cells.Count)
+                //{
+                //    tc_clearingcommission = gv_row.Cells[i_clearingcommission];
+                //}
 
 
-                TableCell tc_gross_amount_count = null;
-                if (i_gross_amount_count != -1 && i_gross_amount_count < gv_row.Cells.Count)
-                {
-                    tc_gross_amount_count = gv_row.Cells[i_gross_amount_count];
-                }
+                //TableCell tc_gross_amount_count = null;
+                //if (i_gross_amount_count != -1 && i_gross_amount_count < gv_row.Cells.Count)
+                //{
+                //    tc_gross_amount_count = gv_row.Cells[i_gross_amount_count];
+                //}
 
                 TableCell tc_vat = null;
                 if (i_vat != -1 && i_vat < gv_row.Cells.Count)
@@ -3806,6 +3924,112 @@ namespace MatchBox
 
                 // TransactionGrossAmount
 
+                TableCell tc_CalculatedIclubDiscountFeeCommission = null;
+                if (i_CalculatedIclubDiscountFeeCommission != -1 && i_CalculatedIclubDiscountFeeCommission < gv_row.Cells.Count)
+                {
+                    tc_CalculatedIclubDiscountFeeCommission = gv_row.Cells[i_CalculatedIclubDiscountFeeCommission];
+                }
+                if (tc_CalculatedIclubDiscountFeeCommission != null)
+                {
+                    double n_CalculatedIclubDiscountFeeCommission = 0;
+                    double.TryParse(tc_CalculatedIclubDiscountFeeCommission.Text, out n_CalculatedIclubDiscountFeeCommission);
+                    tc_CalculatedIclubDiscountFeeCommission.Text = String.Format("{0:n2}", n_CalculatedIclubDiscountFeeCommission);
+                }
+
+                if (tc_clubmanagementcommission != null)
+                {
+                    double n_clubmanagementcommission = 0;
+                    double.TryParse(tc_clubmanagementcommission.Text, out n_clubmanagementcommission);
+                    tc_clubmanagementcommission.Text = String.Format("{0:n2}", n_clubmanagementcommission);
+                }
+
+                if (tc_DiffClearingCommission != null)
+                {
+                    double n_DiffClearingCommission = 0;
+                    double.TryParse(tc_DiffClearingCommission.Text, out n_DiffClearingCommission);
+                    tc_DiffClearingCommission.Text = String.Format("{0:n2}", n_DiffClearingCommission);
+                }
+
+
+                if (tc_DiffClubManagementFeeCommission != null)
+                {
+                    double n_DiffClubManagementFeeCommission = 0;
+                    double.TryParse(tc_gross_amount_count.Text, out n_DiffClubManagementFeeCommission);
+                    tc_DiffClubManagementFeeCommission.Text = String.Format("{0:n2}", n_DiffClubManagementFeeCommission);
+                }
+
+                if (tc_DiffClubDiscountFeeCommission != null)
+                {
+                    double n_DiffClubDiscountFeeCommission = 0;
+                    double.TryParse(tc_DiffClubDiscountFeeCommission.Text, out n_DiffClubDiscountFeeCommission);
+                    tc_DiffClubDiscountFeeCommission.Text = String.Format("{0:n2}", n_DiffClubDiscountFeeCommission);
+                }
+
+                if (tc_manualcommission != null)
+                {
+                    double n_manualcommission = 0;
+                    double.TryParse(tc_manualcommission.Text, out n_manualcommission);
+                    tc_manualcommission.Text = String.Format("{0:n2}", n_manualcommission);
+                }
+
+
+                if (tc_DiffDiscountCommission != null)
+                {
+                    double n_DiffDiscountCommission = 0;
+                    double.TryParse(tc_DiffDiscountCommission.Text, out n_DiffDiscountCommission);
+                    tc_DiffDiscountCommission.Text = String.Format("{0:n2}", n_DiffDiscountCommission);
+                }
+
+                if (tc_cancellationcommission != null)
+                {
+                    double n_cancellationcommission = 0;
+                    double.TryParse(tc_cancellationcommission.Text, out n_cancellationcommission);
+                    tc_cancellationcommission.Text = String.Format("{0:n2}", n_cancellationcommission);
+                }
+
+                if (tc_discountcommission != null)
+                {
+                    double n_discountcommission = 0;
+                    double.TryParse(tc_discountcommission.Text, out n_discountcommission);
+                    tc_discountcommission.Text = String.Format("{0:n2}", n_discountcommission);
+                }
+
+
+                if (tc_notelectroniccommission != null)
+                {
+                    double n_notelectroniccommission = 0;
+                    double.TryParse(tc_notelectroniccommission.Text, out n_notelectroniccommission);
+                    tc_notelectroniccommission.Text = String.Format("{0:n2}", n_notelectroniccommission);
+                }
+
+                if (tc_clubmanagementcommission != null)
+                {
+                    double n_clubmanagementcommission = 0;
+                    double.TryParse(tc_clubmanagementcommission.Text, out n_clubmanagementcommission);
+                    tc_clubmanagementcommission.Text = String.Format("{0:n2}", n_clubmanagementcommission);
+                }
+
+
+                if (tc_CalculatedIDiscountCommission != null)
+                {
+                    double n_CalculatedIDiscountCommission = 0;
+                    double.TryParse(tc_CalculatedIDiscountCommission.Text, out n_CalculatedIDiscountCommission);
+                    tc_CalculatedIDiscountCommission.Text = String.Format("{0:n2}", n_CalculatedIDiscountCommission);
+                }
+
+                if (tc_telephonecommission != null)
+                {
+                    double n_telephonecommission = 0;
+                    double.TryParse(tc_telephonecommission.Text, out n_telephonecommission);
+                    tc_telephonecommission.Text = String.Format("{0:n2}", n_telephonecommission);
+                }
+
+                if (tc_clubsaving != null)
+                {
+                    double n_clubsaving = 0;
+                    double.TryParse(tc_gross_amount_count.Text, out n_clubsaving);
+                    tc_clubsaving.Text = String.Format("{0:n2}", n_clubsaving);
+                }
 
 
                 if (tc_calculated_clearing_commission != null)
@@ -3817,7 +4041,7 @@ namespace MatchBox
 
                 if (i_transaction_gross_amount != -1)
                 {
-                    TableCell tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
+                     tc_transaction_gross_amount = gv_row.Cells[i_transaction_gross_amount];
                     double n_transaction_gross_amount = 0;
                     double.TryParse(tc_transaction_gross_amount.Text, out n_transaction_gross_amount);
 
