@@ -229,6 +229,24 @@ namespace MatchBox {
         protected global::System.Web.UI.WebControls.Repeater repOutsideSum;
         
         /// <summary>
+        /// repOutsideProcessed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repOutsideProcessed;
+        
+        /// <summary>
+        /// repOutsideUnProcessed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repOutsideUnProcessed;
+        
+        /// <summary>
         /// pnlAutoCommission control.
         /// </summary>
         /// <remarks>
@@ -254,6 +272,15 @@ namespace MatchBox {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAutoCommissionProcess;
+        
+        /// <summary>
+        /// btnAutoCommissionDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAutoCommissionDelete;
         
         /// <summary>
         /// lblErrorBelow control.

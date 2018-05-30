@@ -2888,7 +2888,8 @@ namespace MatchBox
                 string s_column = "FIELD_" + (i + 1);
                 string s_column_money = "";
 
-                if ((b_inside == true && dt_excel.Columns[i].ColumnName == dic_field_db_excel["TransactionGrossAmount"]) || (b_outside == true && dt_excel.Columns[i].ColumnName == dic_field_db_excel["DutyPaymentAmount"]))
+                //if ((b_inside == true && dt_excel.Columns[i].ColumnName == dic_field_db_excel["TransactionGrossAmount"]) || (b_outside == true && dt_excel.Columns[i].ColumnName == dic_field_db_excel["DutyPaymentAmount"]))
+                if ((b_inside == true && dt_excel.Columns[i].ColumnName == dic_field_db_excel["TransactionGrossAmount"]))
                 {
                     s_column_money = s_column;
                 }

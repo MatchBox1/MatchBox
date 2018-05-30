@@ -140,7 +140,7 @@
                 <td style="vertical-align: top; width: 49%;">
                     <asp:Repeater ID="repOutsideSum" runat="server" OnItemDataBound="repOutsideSum_ItemDataBound">
                         <HeaderTemplate>
-                            Outside
+                            <span style="background-color:blue;text-decoration-color:white">All Selected Data</span>
                             <table class="table-sub">
                                 <tr>
                                     <th>Company</th>
@@ -166,6 +166,77 @@
                                     <asp:Label ID="lblTransactionCountTotal" runat="server" /></td>
                                 <td>
                                     <asp:Label ID="lblAmountSumTotal" runat="server" /></td>
+                                
+                            </tr>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </td>
+                 <td style="vertical-align: top; width: 49%;">
+                    <asp:Repeater ID="repOutsideProcessed" runat="server" OnItemDataBound="repOutsideProcessed_ItemDataBound">
+                        <HeaderTemplate>
+                            <span style="background-color:green;text-decoration-color:white">Calculated Commissions Data</span>
+                            <table class="table-sub">
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Transaction Date</th>
+                                    <th>Payment Date</th>
+                                    <th>Transaction Count</th>
+                                    <th>Amount Sum</th>
+                                </tr>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# DataBinder.Eval(Container.DataItem, "CompanyID") %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "TransactionYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "TransactionMonth")) %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "PaymentYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "PaymentMonth")) %></td>
+                                <td><%# String.Format("{0:n0}", DataBinder.Eval(Container.DataItem, "TransactionCount")) %></td>
+                                <td><%# String.Format("{0:n2}", DataBinder.Eval(Container.DataItem, "AmountSum")) %></td>
+                            </tr>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <tr class="bold">
+                                <td colspan="3">Total:</td>
+                                <td>
+                                    <asp:Label ID="lblProcessedCountTotal" runat="server" /></td>
+                                <td>
+                                    <asp:Label ID="lblProcessedSumTotal" runat="server" /></td>
+                                
+                            </tr>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </td>
+                <td style="vertical-align: top; width: 49%;">
+                    <asp:Repeater ID="repOutsideUnProcessed" runat="server" OnItemDataBound="repOutsideUnProcessed_ItemDataBound">
+                        <HeaderTemplate>
+                            <span style="background-color:red;text-decoration-color:white">Un Calculated Commissions Data</span>
+                            <table class="table-sub">
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Transaction Date</th>
+                                    <th>Payment Date</th>
+                                    <th>Transaction Count</th>
+                                    <th>Amount Sum</th>
+                                </tr>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# DataBinder.Eval(Container.DataItem, "CompanyID") %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "TransactionYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "TransactionMonth")) %></td>
+                                <td><%# DataBinder.Eval(Container.DataItem, "PaymentYear") %>-<%# String.Format("{0:00}", DataBinder.Eval(Container.DataItem, "PaymentMonth")) %></td>
+                                <td><%# String.Format("{0:n0}", DataBinder.Eval(Container.DataItem, "TransactionCount")) %></td>
+                                <td><%# String.Format("{0:n2}", DataBinder.Eval(Container.DataItem, "AmountSum")) %></td>
+                            </tr>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <tr class="bold">
+                                <td colspan="3">Total:</td>
+                                <td>
+                                    <asp:Label ID="lbUnProcessedCountTotal" runat="server" /></td>
+                                <td>
+                                    <asp:Label ID="lblUnProcessedSumTotal" runat="server" /></td>
+                                
                             </tr>
                             </table>
                         </FooterTemplate>
@@ -189,6 +260,8 @@
             <asp:Button ID="btnAutoCommission" runat="server" ValidationGroup="Matching" CommandArgument="" OnClick="btnAutoCommission_Click" OnClientClick="javascript: show_wait(this.id, 'spnAutoCommission', true);" Text="Calculate only unprocessed Commissions" />
             <br /><p></p>
             <asp:Button ID="btnAutoCommissionProcess" runat="server" ValidationGroup="Matching"  CommandArgument="Reprocess" OnClick="btnAutoCommissionProcess_Click" Text="Re-Calculate all processed/Unprocessed Commissions" />
+            <br /><p></p>
+            <asp:Button ID="btnAutoCommissionDelete" runat="server" ValidationGroup="Matching"  CommandArgument="" OnClick="btnAutoCommissionDelete_Click" Text="Delete all processed/Unprocessed Commissions" />
             <span id="spnAutoCommission" class="message" style="display: none;">Please wait..</span>
             <asp:Label ID="lblErrorBelow" runat="server" EnableViewState="false" CssClass="error block" />
         </div>

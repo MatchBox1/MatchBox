@@ -433,6 +433,90 @@ namespace MatchBox
             pnlAutoCommission.Visible = true;
 
 
+            //Processed
+            DataActionCommission.SearchProcessedCommissionData(ref filter_search, ref s_error);
+            if (s_error != "")
+            {
+                lblError.Text = s_error;
+                return;
+            }
+
+            //if (filter_search.TableOutsideProcessedSum.Rows.Count == 0)
+            //{
+            //    pnlAutoCommission.Visible = false;
+            //    lblError.Text = "Can't create commissions without data in outside.";
+            //    return;
+            //}
+            Cache.Insert(s_cache_commission_search, filter_search, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+
+            // SHOW RESULT
+
+            pnlSearchResult.Visible = true;
+
+            //repInsideSum.DataSource = o_matching_search.TableInsideSum;
+            //repInsideSum.DataBind();
+
+            repOutsideProcessed.DataSource = filter_search.TableOutsideProcessedSum;
+            repOutsideProcessed.DataBind();
+
+            pnlAutoCommission.Visible = true;
+            //Processed end
+
+
+            //UnProcessed
+            DataActionCommission.SearchUnProcessedCommissionData(ref filter_search, ref s_error);
+            if (s_error != "")
+            {
+                lblError.Text = s_error;
+                return;
+            }
+
+            //if (filter_search.TableOutsideUnProcessedSum.Rows.Count == 0)
+            //{
+            //    pnlAutoCommission.Visible = false;
+            //    lblError.Text = "Can't create commissions without data in outside.";
+            //    return;
+            //}
+            Cache.Insert(s_cache_commission_search, filter_search, null, DateTime.Now.AddMinutes(20), Cache.NoSlidingExpiration);
+
+            // SHOW RESULT
+
+            pnlSearchResult.Visible = true;
+
+            //repInsideSum.DataSource = o_matching_search.TableInsideSum;
+            //repInsideSum.DataBind();
+
+            repOutsideUnProcessed.DataSource = filter_search.TableOutsideUnProcessedSum;
+            repOutsideUnProcessed.DataBind();
+
+            pnlAutoCommission.Visible = true;
+            //UnProcessed End
+
+        }
+
+        protected void repOutsideProcessed_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Footer)
+            {
+                CommissionFilter o_commission_search = (CommissionFilter)Cache[s_cache_commission_search];
+
+                if (o_commission_search.TableOutsideProcessedSumTotal.Rows.Count > 0)
+                {
+                    DataRow dr_outside_processed_sum_total = o_commission_search.TableOutsideProcessedSumTotal.Rows[0];
+
+                    int n_transaction_processed_count_total = 0;
+                    int.TryParse(dr_outside_processed_sum_total["TransactionCountTotal"].ToString(), out n_transaction_processed_count_total);
+
+                    double n_amount_processed_sum_total = 0;
+                    double.TryParse(dr_outside_processed_sum_total["AmountSumTotal"].ToString(), out n_amount_processed_sum_total);
+
+                    Label lblProcessedCountTotal = (Label)e.Item.FindControl("lblProcessedCountTotal");
+                    Label lblProcessedSumTotal = (Label)e.Item.FindControl("lblProcessedSumTotal");
+
+                    lblProcessedCountTotal.Text = String.Format("{0:n0}", n_transaction_processed_count_total);
+                    lblProcessedSumTotal.Text = String.Format("{0:n2}", n_amount_processed_sum_total);
+                }
+            }
         }
 
         protected void repOutsideSum_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -456,6 +540,31 @@ namespace MatchBox
 
                     lblTransactionCountTotal.Text = String.Format("{0:n0}", n_transaction_count_total);
                     lblAmountSumTotal.Text = String.Format("{0:n2}", n_amount_sum_total);
+                }
+            }
+        }
+
+        protected void repOutsideUnProcessed_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Footer)
+            {
+                CommissionFilter o_commission_search = (CommissionFilter)Cache[s_cache_commission_search];
+
+                if (o_commission_search.TableOutsideUnProcessedSumTotal.Rows.Count > 0)
+                {
+                    DataRow dr_outside_unprocessed_sum_total = o_commission_search.TableOutsideUnProcessedSumTotal.Rows[0];
+
+                    int n_transaction_unprocessed_count_total = 0;
+                    int.TryParse(dr_outside_unprocessed_sum_total["TransactionCountTotal"].ToString(), out n_transaction_unprocessed_count_total);
+
+                    double n_amount_unprocessed_sum_total = 0;
+                    double.TryParse(dr_outside_unprocessed_sum_total["AmountSumTotal"].ToString(), out n_amount_unprocessed_sum_total);
+
+                    Label lbUnProcessedCountTotal = (Label)e.Item.FindControl("lbUnProcessedCountTotal");
+                    Label lblUnProcessedSumTotal = (Label)e.Item.FindControl("lblUnProcessedSumTotal");
+
+                    lbUnProcessedCountTotal.Text = String.Format("{0:n0}", n_transaction_unprocessed_count_total);
+                    lblUnProcessedSumTotal.Text = String.Format("{0:n2}", n_amount_unprocessed_sum_total);
                 }
             }
         }
@@ -518,6 +627,31 @@ namespace MatchBox
             }
         }
 
-
+        protected void btnAutoCommissionDelete_Click(object sender, EventArgs e)
+        {
+            CommissionFilter o_commission_search = (CommissionFilter)Cache[s_cache_commission_search];
+            if (o_commission_search.TableOutsideSumTotal.Rows.Count > 0)
+            {
+                string s_error = string.Empty;
+                CommissionFilter filter_search = new CommissionFilter();
+                filter_search.Id = 0;
+                filter_search.UserId = n_user_id;
+                filter_search.CompanyId = Convert.ToInt32(ViewState["CompanyId"]);
+                filter_search.CreditId = Convert.ToInt32(ViewState["CreditId"]);
+                filter_search.CommissionTypeId = Convert.ToInt32(ViewState["CommissionTypeId"]);
+                filter_search.PaymentDateFrom = Convert.ToDateTime(ViewState["paymentDateFrom"]);
+                filter_search.PaymentDateTo = Convert.ToDateTime(ViewState["paymentDateTo"]);
+                //filter.Valid = true;
+                filter_search.CreditType = "";
+                DataActionCommission.DeleteCommissionData(ref filter_search, ref s_error);
+                if (s_error != "")
+                {
+                    lblError.Text = s_error;
+                    return;
+                }
+                else
+                    lblMessage.Text = "Successsfully Deleted.";
+            }
+        }
     }
 }

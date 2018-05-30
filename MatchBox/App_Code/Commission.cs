@@ -78,6 +78,14 @@ namespace MatchBox.App_Code
 
         public DataTable TableOutsideSum { get; set; }
         public DataTable TableOutsideSumTotal { get; set; }
+
+        public DataTable TableOutsideUnProcessedSum { get; set; }
+        public DataTable TableOutsideUnProcessedSumTotal { get; set; }
+
+
+        public DataTable TableOutsideProcessedSum { get; set; }
+        public DataTable TableOutsideProcessedSumTotal { get; set; }
+
         public string Reprocess { get; set; }
     }
 
@@ -125,6 +133,70 @@ namespace MatchBox.App_Code
             {
                 //s_error = ex.Message;
                 s_error = "Error on bind list control.";
+            }
+            finally
+            {
+                o_data_set.Dispose();
+                o_data_adapter.Dispose();
+                o_command.Dispose();
+            }
+        }
+        //DeleteCommissionData
+
+        public static void DeleteCommissionData(ref CommissionFilter o_matching_search, ref string s_error)
+        {
+            int n_rows_affected = 0;
+            SqlCommand o_command = new SqlCommand("sprDeleteCommissionData", DB.Get_Connection());
+            //SqlCommand o_command = new SqlCommand("sprCommissionSearchOut_Result", DB.Get_Connection());
+            o_command.CommandType = CommandType.StoredProcedure;
+
+            o_command.Parameters.Add("@UserID", SqlDbType.Int);
+            o_command.Parameters["@UserID"].Value = o_matching_search.UserId;
+
+            // outside
+            if (o_matching_search.PaymentDateFrom != null)
+            {
+                o_command.Parameters.Add("@TransactionDateFrom", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateFrom"].Value = o_matching_search.PaymentDateFrom;
+            }
+            if (o_matching_search.PaymentDateTo != null)
+            {
+                o_command.Parameters.Add("@TransactionDateTo", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateTo"].Value = o_matching_search.PaymentDateTo;
+            }
+
+            o_command.Parameters.Add("@CompanyID", SqlDbType.Int);
+            o_command.Parameters["@CompanyID"].Value = o_matching_search.CompanyId;
+
+            o_command.Parameters.Add("@CreditID", SqlDbType.Int);
+            o_command.Parameters["@CreditID"].Value = o_matching_search.CreditId;
+
+            o_command.Parameters.Add("@CreditType", SqlDbType.VarChar);
+            o_command.Parameters["@CreditType"].Value = o_matching_search.CreditType;
+
+            o_command.Parameters.Add("@CommissionTypeID", SqlDbType.Int);
+            o_command.Parameters["@CommissionTypeID"].Value = o_matching_search.CommissionTypeId;
+
+            //o_command.Parameters.Add("@ReprocessValue", SqlDbType.VarChar);
+            //o_command.Parameters["@ReprocessValue"].Value = o_matching_search.Reprocess;
+
+            ////
+            SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
+            DataSet o_data_set = new DataSet();
+
+            try
+            {
+                o_data_adapter.SelectCommand.CommandTimeout = 200000;
+                //o_data_adapter.Fill(o_data_set);
+                o_command.Connection.Open();
+                n_rows_affected = o_command.ExecuteNonQuery();
+                //o_matching_search.TableOutsideSum = o_data_set.Tables[0];
+                //o_matching_search.TableOutsideSumTotal = o_data_set.Tables[1];
+            }
+            catch (Exception ex)
+            {
+                s_error = "Error on select matching search.";
+                return;
             }
             finally
             {
@@ -195,6 +267,133 @@ namespace MatchBox.App_Code
             }
         }
 
+        public static void SearchUnProcessedCommissionData(ref CommissionFilter o_matching_search, ref string s_error)
+        {
+            SqlCommand o_command = new SqlCommand("sprUnProcessedCommissionSearchOut", DB.Get_Connection());
+            //SqlCommand o_command = new SqlCommand("sprCommissionSearchOut_Result", DB.Get_Connection());
+            o_command.CommandType = CommandType.StoredProcedure;
+
+            o_command.Parameters.Add("@UserID", SqlDbType.Int);
+            o_command.Parameters["@UserID"].Value = o_matching_search.UserId;
+
+            // outside
+            if (o_matching_search.PaymentDateFrom != null)
+            {
+                o_command.Parameters.Add("@TransactionDateFrom", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateFrom"].Value = o_matching_search.PaymentDateFrom;
+            }
+            if (o_matching_search.PaymentDateTo != null)
+            {
+                o_command.Parameters.Add("@TransactionDateTo", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateTo"].Value = o_matching_search.PaymentDateTo;
+            }
+
+            o_command.Parameters.Add("@CompanyID", SqlDbType.Int);
+            o_command.Parameters["@CompanyID"].Value = o_matching_search.CompanyId;
+
+            o_command.Parameters.Add("@CreditID", SqlDbType.Int);
+            o_command.Parameters["@CreditID"].Value = o_matching_search.CreditId;
+
+            o_command.Parameters.Add("@CreditType", SqlDbType.VarChar);
+            o_command.Parameters["@CreditType"].Value = o_matching_search.CreditType;
+
+            o_command.Parameters.Add("@CommissionID", SqlDbType.Int);
+            o_command.Parameters["@CommissionID"].Value = o_matching_search.CommissionTypeId;
+
+            ////
+            SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
+            DataSet o_data_set = new DataSet();
+
+            try
+            {
+                o_data_adapter.SelectCommand.CommandTimeout = 200000;
+                o_data_adapter.Fill(o_data_set);
+
+                //o_matching_search.TableInsideSum = o_data_set.Tables[0];
+                o_matching_search.TableOutsideUnProcessedSum = o_data_set.Tables[0];
+                //o_matching_search.TableInsideSumTotal = o_data_set.Tables[2];
+                o_matching_search.TableOutsideUnProcessedSumTotal = o_data_set.Tables[1];
+                //o_matching_search.TableOutsideUnprocessedTotal = o_data_set.Tables[2];
+            }
+            catch (Exception ex)
+            {
+                //o_matching_search.ErrorMessage = ex.Message;
+                s_error = "Error on select matching search.";
+                return;
+            }
+            finally
+            {
+                o_data_set.Dispose();
+                o_data_adapter.Dispose();
+                o_command.Dispose();
+            }
+        }
+
+        //SearchProcessedCommissionData
+        public static void SearchProcessedCommissionData(ref CommissionFilter o_matching_search, ref string s_error)
+        {
+            SqlCommand o_command = new SqlCommand("sprProcessedCommissionSearchOut", DB.Get_Connection());
+            //SqlCommand o_command = new SqlCommand("sprCommissionSearchOut_Result", DB.Get_Connection());
+            o_command.CommandType = CommandType.StoredProcedure;
+
+            o_command.Parameters.Add("@UserID", SqlDbType.Int);
+            o_command.Parameters["@UserID"].Value = o_matching_search.UserId;
+
+            // outside
+            if (o_matching_search.PaymentDateFrom != null)
+            {
+                o_command.Parameters.Add("@TransactionDateFrom", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateFrom"].Value = o_matching_search.PaymentDateFrom;
+            }
+            if (o_matching_search.PaymentDateTo != null)
+            {
+                o_command.Parameters.Add("@TransactionDateTo", SqlDbType.Date);
+                o_command.Parameters["@TransactionDateTo"].Value = o_matching_search.PaymentDateTo;
+            }
+
+            o_command.Parameters.Add("@CompanyID", SqlDbType.Int);
+            o_command.Parameters["@CompanyID"].Value = o_matching_search.CompanyId;
+
+            o_command.Parameters.Add("@CreditID", SqlDbType.Int);
+            o_command.Parameters["@CreditID"].Value = o_matching_search.CreditId;
+
+            o_command.Parameters.Add("@CreditType", SqlDbType.VarChar);
+            o_command.Parameters["@CreditType"].Value = o_matching_search.CreditType;
+
+            o_command.Parameters.Add("@CommissionID", SqlDbType.Int);
+            o_command.Parameters["@CommissionID"].Value = o_matching_search.CommissionTypeId;
+
+            ////
+            SqlDataAdapter o_data_adapter = new SqlDataAdapter(o_command);
+            DataSet o_data_set = new DataSet();
+
+            try
+            {
+                o_data_adapter.SelectCommand.CommandTimeout = 200000;
+                o_data_adapter.Fill(o_data_set);
+
+                //o_matching_search.TableInsideSum = o_data_set.Tables[0];
+                o_matching_search.TableOutsideProcessedSum = o_data_set.Tables[0];
+                //o_matching_search.TableInsideSumTotal = o_data_set.Tables[2];
+                o_matching_search.TableOutsideProcessedSumTotal = o_data_set.Tables[1];
+                //o_matching_search.TableOutsideUnprocessedTotal = o_data_set.Tables[2];
+            }
+            catch (Exception ex)
+            {
+                //o_matching_search.ErrorMessage = ex.Message;
+                s_error = "Error on select matching search.";
+                return;
+            }
+            finally
+            {
+                o_data_set.Dispose();
+                o_data_adapter.Dispose();
+                o_command.Dispose();
+            }
+        }
+
+
+
         public static void SearchCommissionData(ref CommissionFilter o_matching_search, ref string s_error)
         {
             SqlCommand o_command = new SqlCommand("sprCommissionSearchOut", DB.Get_Connection());
@@ -241,6 +440,7 @@ namespace MatchBox.App_Code
                 o_matching_search.TableOutsideSum = o_data_set.Tables[0];
                 //o_matching_search.TableInsideSumTotal = o_data_set.Tables[2];
                 o_matching_search.TableOutsideSumTotal = o_data_set.Tables[1];
+                //o_matching_search.TableOutsideUnprocessedTotal = o_data_set.Tables[2];
             }
             catch (Exception ex)
             {

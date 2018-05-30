@@ -2288,7 +2288,7 @@ namespace MatchBox
                 {
                     double n_gross_amount_count = 0;
                     double.TryParse(tc_gross_amount_count.Text, out n_gross_amount_count);
-                    tc_gross_amount_count.Text = String.Format("{0:n2}", n_gross_amount_count);
+                    tc_gross_amount_count.Text = String.Format("{0:#,###,###}", n_gross_amount_count);
                 }
 
 
@@ -2809,6 +2809,7 @@ namespace MatchBox
                 int i_transaction_date = lst_field_priority.IndexOf("TransactionDate");
                 int i_transmission_date = lst_field_priority.IndexOf("TransmissionDate");
                 int i_paymen_date = lst_field_priority.IndexOf("PaymentDate");
+                int i_gross_amount_count = lst_field_priority.IndexOf("GrossAmountCount");
 
                 bool b_select = false;
                 TableCell tc_select = null;
@@ -2854,6 +2855,12 @@ namespace MatchBox
                 {
                     tc_matching_action = gv_row.Cells[i_matching_action];
                 }
+                TableCell tc_gross_amount_count = null;
+                if (i_gross_amount_count != -1 && i_gross_amount_count < gv_row.Cells.Count)
+                {
+                    tc_gross_amount_count = gv_row.Cells[i_gross_amount_count];
+                }
+
                 TableCell tc_data_file_id = null;
                 if (i_data_file_id != -1)
                 {
@@ -3057,6 +3064,14 @@ namespace MatchBox
                     tc_transaction_gross_amount.Text = String.Format("{0:n2}", n_transaction_gross_amount);
                 }
 
+
+
+                if (tc_gross_amount_count != null)
+                {
+                    double n_gross_amount_count = 0;
+                    double.TryParse(tc_gross_amount_count.Text, out n_gross_amount_count);
+                    tc_gross_amount_count.Text = String.Format("{0:#,###,###}", n_gross_amount_count);
+                }
                 // DutyPaymentAmount
 
                 if (tc_duty_payment_amount != null)
@@ -3954,7 +3969,7 @@ namespace MatchBox
                 if (tc_DiffClubManagementFeeCommission != null)
                 {
                     double n_DiffClubManagementFeeCommission = 0;
-                    double.TryParse(tc_gross_amount_count.Text, out n_DiffClubManagementFeeCommission);
+                    double.TryParse(tc_DiffClubManagementFeeCommission.Text, out n_DiffClubManagementFeeCommission);
                     tc_DiffClubManagementFeeCommission.Text = String.Format("{0:n2}", n_DiffClubManagementFeeCommission);
                 }
 
@@ -4027,7 +4042,7 @@ namespace MatchBox
                 if (tc_clubsaving != null)
                 {
                     double n_clubsaving = 0;
-                    double.TryParse(tc_gross_amount_count.Text, out n_clubsaving);
+                    double.TryParse(tc_clubsaving.Text, out n_clubsaving);
                     tc_clubsaving.Text = String.Format("{0:n2}", n_clubsaving);
                 }
 
@@ -4077,7 +4092,7 @@ namespace MatchBox
                 {
                     double n_gross_amount_count = 0;
                     double.TryParse(tc_gross_amount_count.Text, out n_gross_amount_count);
-                    tc_gross_amount_count.Text = String.Format("{0:n2}", n_gross_amount_count);
+                    tc_gross_amount_count.Text = String.Format("{0:#,###,###}", n_gross_amount_count);
                 }
                 // RemainingPaymentsAmount
 
